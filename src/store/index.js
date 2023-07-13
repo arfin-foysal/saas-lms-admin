@@ -7,14 +7,16 @@ import { setupListeners } from "@reduxjs/toolkit/dist/query";
 
 // reducers start
 import authReducer from "../features/authSlice";
-
-
+import commonReducer from "../features/commonSlice"
 // reducers end
 
-// slices start
 
+
+// Api slices start
 import { apiSliceAdmin } from "./api/apiSliceAdmin";
-// slices end
+//Api slices end
+
+
 
 // services start
 
@@ -28,16 +30,21 @@ const store = configureStore({
 
     //<---------------- reducers start -------------->
     auth: authReducer,
+    common:commonReducer,
 
     
     //<----------------- reducers end ------------->
-    //<--------------- slices start --------------->
+
+
+    //<---------------Api slices start --------------->
 
     [apiSliceAdmin.reducerPath]: apiSliceAdmin.reducer,
 
-    //<-----------------slices end  --------------->
+    //<----------------- Api slices end  --------------->
+
+
     //<-----------------services start --------------->
-    // [authApi.reducerPath]: authApi.reducer,
+   
 
     //<------------------ services end ------------------>
 
@@ -47,13 +54,14 @@ const store = configureStore({
   // Add the generated middleware to the store
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat([
-      //<---------------- slices start --------------->
+      //<----------------Api slices start --------------->
  
       apiSliceAdmin.middleware,
-      //<---------------- slices end --------------->
+      //<----------------Api slices end --------------->
+
 
       //<------------------- services start ----------------->
-      // authApi.middleware,
+    
   
       //<------------------ services end ------------------>
     ]),

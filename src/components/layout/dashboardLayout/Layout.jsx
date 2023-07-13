@@ -30,7 +30,7 @@ const Layout = () => {
     window.location.reload(false);
   };
 
- 
+
 
 
 
@@ -67,6 +67,7 @@ const Layout = () => {
               height: "100vh",
               overflow: "hidden",
 
+
               transition: {
                 duration: 0.5,
                 type: "spring",
@@ -85,10 +86,10 @@ const Layout = () => {
                     exit="hidden"
                     className="logo pt-2"
                   >
-                
-                   <img src={logo} width={30} alt="" className="me-2" />
+
+                    <img src={logo} width={30} alt="" className="me-2" />
                     <img src={w_logo} width={70} alt="" />
-  
+
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -147,8 +148,8 @@ const Layout = () => {
                 color: "white",
               }}
               autoHide
-           renderTrackHorizontal={props => <div {...props} className="track-horizontal" style={{display: 'none'}}/>}
-              
+              renderTrackHorizontal={props => <div {...props} className="track-horizontal" style={{ display: 'none' }} />}
+
             >
               <section className="routes">
                 {navItem.map((route, index) => {
@@ -196,15 +197,15 @@ const Layout = () => {
                 </div>
                 <div className="mt-1 ms-2  ">
                   {isOpen && (
-                    <span onClick={()=>handelLogout()}>
-                    <motion.h6
-                      variants={showAnimation}
-                      initial="hidden"
-                      animate="show"
-                      exit="hidden"
-                      className="link_text mt-1 ms-2 fw-lighter"
-                    >
-                      <p>Logout</p>
+                    <span onClick={() => handelLogout()}>
+                      <motion.h6
+                        variants={showAnimation}
+                        initial="hidden"
+                        animate="show"
+                        exit="hidden"
+                        className="link_text mt-1 ms-2 fw-lighter"
+                      >
+                        <p>Logout</p>
                       </motion.h6>
                     </span>
                   )}
@@ -214,10 +215,10 @@ const Layout = () => {
           </motion.div>
         </div>
         <div className="contain-wrapper">
-        
+
           <Header />
           <main>
-            <Outlet  />
+            <Outlet />
           </main>
           <Footer />
         </div>

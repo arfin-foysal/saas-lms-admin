@@ -1,11 +1,9 @@
-import "../../../../assets/styles/_variables.scss"
-import { useMemo, useState } from "react";
-import Loader from "../../common/Loader";
-
+import "../../../assets/styles/_variables.scss"
+import { memo, useEffect, useMemo, useState } from "react";
 import MaterialReactTable from "material-react-table";
 
 
-const ItemRentTable = ({column}) => {
+const TableServerSide = ({column}) => {
     const [isError, setIsError] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isRefetching, setIsRefetching] = useState(false);
@@ -25,6 +23,8 @@ const ItemRentTable = ({column}) => {
     );
 
 
+ 
+
     return (
         <>
             <MaterialReactTable
@@ -34,6 +34,8 @@ const ItemRentTable = ({column}) => {
                 getRowId={(row) => row.phoneNumber}
                 // initialState={{ showColumnFilters: true }}
                 manualFiltering
+                enableColumnResizing
+             
                 manualPagination
                 manualSorting
                 onColumnFiltersChange={setColumnFilters}
@@ -75,9 +77,4 @@ const ItemRentTable = ({column}) => {
 
     );
 };
-
-
-
-
-
-export default ItemRentTable
+export default TableServerSide

@@ -2,14 +2,10 @@ import React from "react";
 import TopBox from "./TopBox";
 import { BsBook, BsReverseListColumnsReverse } from "react-icons/bs";
 import { GiSandsOfTime } from "react-icons/gi";
-
-
-
-import ItemRentTable from './ItemRentTable';
-import ItemReturnTable from "./ItemReturnTable";
 import VendorPaymentGraph from "./VendorPaymentGraph";
 import BorrowGraph from "./BorrowGraph";
 import { BiMoney } from "react-icons/bi";
+import TableServerSide from "../../common/TableServerSide";
 
 
 
@@ -30,6 +26,7 @@ const AdminPage = () => {
           accessorKey: 'lastName',
           header: 'Last Name',
       },
+  
       //column definitions...
   
 ]
@@ -90,30 +87,18 @@ const AdminPage = () => {
             </div>
           </div>
         </div>
-        <div className="col-md-6 my-2">
+        <div className="col-md-12 my-2">
           <div className="card shadow border-0">
-            <div className="card-header fw-bolder">Rents List</div>
+            <div className="card-header fw-bolder">Table</div>
             <div className="card-body table-responsive p-0 ">
-              <ItemRentTable 
+              <TableServerSide
             column={columns}
               />
             </div>
           </div>
 
         </div>
-        <div className="col-md-6 my-2">
-          <div className="card shadow border-0">
-            <div className="card-header fw-bolder">Return List</div>
-            <div className="card-body table-responsive p-0">
-              {/* <ItemReturnTable returnItem={ ""}
-                isFetching={isFetching}
-                isSuccess={isSuccess}
-                isError={isError}
-              /> */}
-            </div>
-          </div>
-
-        </div>
+  
       </div>
 
 

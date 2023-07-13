@@ -9,10 +9,6 @@ import { Provider } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import store from "./store/index";
 
-
-
-
-
 ReactDOM.createRoot(document.getElementById("root")
 ).render(
   <React.StrictMode>
