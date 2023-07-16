@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo from "./../../../../assets/logo/logo.png";
-import { useLoginMutation } from "../../../../services/authApi";
+import logo from "../../../assets/logo/logo.png";
+import { useLoginMutation } from "../../../services/authApi";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
-import { loginSchema } from "../../../../validation/loginSchema";
+import { loginSchema } from "../../../validation/loginSchema";
 import { toast } from "react-toastify";
-import { authToken, authUser, userRole } from "../../../../features/authSlice";
+import { authToken, authUser, userRole } from "../../../features/authSlice";
 import { BsArrowRight } from "react-icons/bs";
 
 

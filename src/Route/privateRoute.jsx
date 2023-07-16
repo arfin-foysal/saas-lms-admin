@@ -1,6 +1,8 @@
 import { Navigate } from "react-router-dom";
 import { getPath } from "./utils";
-import DashboardHomePage from "../app/components/dashboardHomePage/DashboardHomePage";
+import DashboardHomePage from "../app/views/dashboardHomePage/DashboardHomePage";
+
+
 
 
 

@@ -1,7 +1,7 @@
-import "../../../assets/styles/_variables.scss"
+import "../../assets/styles/_variables.scss"
 import { memo, useEffect, useMemo, useState } from "react";
 import MaterialReactTable from "material-react-table";
-import { tableColor } from "../../../utils/Themes";
+import { tableColor } from "../../utils/Themes";
 
 
 const TableServerSide = ({column}) => {

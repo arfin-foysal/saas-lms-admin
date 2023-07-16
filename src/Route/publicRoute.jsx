@@ -1,14 +1,15 @@
 
-import Error from "../app/pages/commonViews/Error";
-import NotAccess from "../app/pages/commonViews/NotAccess";
-import Test from "../app/pages/commonViews/Test";
-import Login from "../app/pages/commonViews/login/Login";
+
 import {
   authUser,
   authUserToken,
 
 } from "../utils/Auth";
 import { Navigate } from "react-router-dom";
+import Login from './../app/publicPages/login/Login';
+import Test from './../app/publicPages/commonViews/Test';
+import NotAccess from './../app/publicPages/commonViews/NotAccess';
+import Error from './../app/publicPages/commonViews/Error';
 
 
 

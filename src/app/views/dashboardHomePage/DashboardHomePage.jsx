@@ -2,11 +2,10 @@ import React from "react";
 
 import { BsBook, BsReverseListColumnsReverse } from "react-icons/bs";
 import { GiSandsOfTime } from "react-icons/gi";
-
-
 import { BiMoney } from "react-icons/bi";
-import TableServerSide from "../common/TableServerSide";
+
 import TopBox from "./TopBox";
+import TableServerSide from "../../components/TableServerSide";
 const DashboardHomePage = () => {
 
 
