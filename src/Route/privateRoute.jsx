@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { getPath } from "./utils";
-import DashboardHomePage from "../components/dashboard/views/dashboardHomePage/DashboardHomePage";
+import DashboardHomePage from "../app/components/dashboardHomePage/DashboardHomePage";
 
 
 
@@ -22,7 +22,7 @@ export const privateRoute = [
 
   {
     path: "globaladmin",
-    element: <DashboardHomePage />,
+    element: <DashboardHomePage/>,
     role: "GlobalAdmin",
   },
 

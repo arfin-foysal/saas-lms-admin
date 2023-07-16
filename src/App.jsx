@@ -3,9 +3,13 @@ import { useState, useEffect } from 'react'
 import { getRoute } from './Route';
 import { publicRoute } from './Route/publicRoute'
 import Router from './Route/Router'
+import colorHandler from './utils/Themes';
+
 
 
 const App = () => {
+
+  colorHandler("#0675F8")
 
   const [allRoute, setAllRoute] = useState([...publicRoute])
   useEffect(() => {

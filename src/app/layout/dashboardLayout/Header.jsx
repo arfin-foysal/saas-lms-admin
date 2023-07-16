@@ -37,7 +37,7 @@ const Header = () => {
         <div className="ms-auto d-flex">
           <div>
             <p className="p-0 m-0 " style={{ fontSize: "14px" }}>
-              <strong className="text-capitalize">{ authUser?.name}</strong>
+              <strong className="text-capitalize">{ authUser?.name?.slice(0, 7)}</strong>
             </p>
             <p className="text-muted p-0 m-0 text-capitalize" style={{ fontSize: "12px" }}>
               {authUser?.user_type}

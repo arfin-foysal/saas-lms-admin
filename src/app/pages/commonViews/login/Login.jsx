@@ -1,13 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo from "./../../../assets/logo/logo.png";
-import { useLoginMutation } from "../../../services/authApi";
+import logo from "./../../../../assets/logo/logo.png";
+import { useLoginMutation } from "../../../../services/authApi";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
-import { loginSchema } from "./../../../validation/loginSchema";
+import { loginSchema } from "../../../../validation/loginSchema";
 import { toast } from "react-toastify";
-import { authToken, authUser, userRole } from "../../../features/authSlice";
+import { authToken, authUser, userRole } from "../../../../features/authSlice";
 import { BsArrowRight } from "react-icons/bs";
+
 
 const Login = () => {
   const [login, { data, isLoading, isSuccess }] = useLoginMutation();
@@ -33,8 +34,9 @@ const Login = () => {
     dispatch(authUser(data?.data));
     dispatch(authToken(data?.data?.token));
     dispatch(userRole(data?.data?.user_type));
-    //   // navigate("/dashboard");
+    // navigate("/dashboard");
     window.location.reload(false);
+
   }
 
   return (
@@ -50,13 +52,13 @@ const Login = () => {
                   <div className="col">
                     <div className="p-5">
                       <div>
-                        {isLoading && (
+                        {/* {isLoading && (
                           <div className="text-center">
                             <div className="spinner-border" role="status">
                               <span className="visually-hidden">Loading...</span>
                             </div>
                           </div>
-                        )}
+                        )} */}
                       </div>
                       <div className="text-center pb-3">
                         <img src={logo} alt="" width={150} />
@@ -66,9 +68,7 @@ const Login = () => {
                           <input
                             type="text"
                             name="username"
-                            id="exampleInputEmail"
-                            aria-describedby="emailHelp"
-                            placeholder="Enter Email Address..."
+                            placeholder="Username"
                             onChange={formik.handleChange}
                             value={formik.values.username}
                             onBlur={formik.handleBlur}
@@ -88,7 +88,6 @@ const Login = () => {
                           <input
                             type="password"
                             name="password"
-                            id="exampleInputPassword"
                             placeholder="Password"
                             onChange={formik.handleChange}
                             value={formik.values.password}
@@ -106,13 +105,29 @@ const Login = () => {
                           ) : null}
                         </div>
                         <div className="form-group pt-3 text-center">
-                          <button
-                            type="submit"
-                            className="btn btn-primary btn-user btn-block btn-sm"
-                          >
-                            Login <BsArrowRight />
-                          </button>
+
+                          {
+                            isLoading ? (
+                              <div
+                                className="btn btn-primary btn-sm rounded-5 border-dark "
+                              >
+                                <div className="spinner-border spinner-border-sm mt-1" role="status">
+                                  <span className="visually-hidden">Loading...</span>
+                                </div>
+
+                              </div>
+
+
+                            ) : (<button
+                              type="submit"
+                              className="btn btn-primary btn-user btn-block btn-sm"
+                            >
+                              Login <BsArrowRight />
+                            </button>)
+                          }
+
                         </div>
+
                       </form>
                       <hr />
                       <div className="text-center ">

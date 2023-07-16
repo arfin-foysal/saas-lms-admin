@@ -1,8 +1,10 @@
 :root{
-    --theme-bg-color: #4B49Ac;;
-    --theme-text-color: #000000;
+    // --theme-bg-color: #0275d8;
+    --theme-bg-color: radial-gradient(circle, #0675F8 100%, #5D11FF 100%);
+    --theme-text-color: #fff;  ;
 }
 
 
 $bb_color1: #f5f5f5;
 $bb_color2: var(--theme-bg-color);
+

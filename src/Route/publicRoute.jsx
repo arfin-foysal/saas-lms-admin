@@ -1,5 +1,8 @@
-import Login from "../components/pages/login/Login";
-// import Signup from "../components/client/views/signup/ClientSignup";
+
+import Error from "../app/pages/commonViews/Error";
+import NotAccess from "../app/pages/commonViews/NotAccess";
+import Test from "../app/pages/commonViews/Test";
+import Login from "../app/pages/commonViews/login/Login";
 import {
   authUser,
   authUserToken,
@@ -7,9 +10,7 @@ import {
 } from "../utils/Auth";
 import { Navigate } from "react-router-dom";
 
-import NotAccess from "../components/pages/commonViews/NotAccess";
-import Error from "../components/pages/commonViews/Error";
-import Test from "../components/pages/commonViews/Test";
+
 
 
 

@@ -1,20 +1,16 @@
 import React from "react";
-import TopBox from "./TopBox";
+
 import { BsBook, BsReverseListColumnsReverse } from "react-icons/bs";
 import { GiSandsOfTime } from "react-icons/gi";
-import VendorPaymentGraph from "./VendorPaymentGraph";
-import BorrowGraph from "./BorrowGraph";
+
+
 import { BiMoney } from "react-icons/bi";
-import TableServerSide from "../../common/TableServerSide";
+import TableServerSide from "../common/TableServerSide";
+import TopBox from "./TopBox";
+const DashboardHomePage = () => {
 
 
-
-const AdminPage = () => {
-
-  const colorFunc = (color) => {
-    document.documentElement.style.setProperty('--theme-bg-color', color);
   
-  }
 
   const columns =  [
     
@@ -34,6 +30,7 @@ const AdminPage = () => {
 
   return (
     <>
+     
      
       <div className="row">
         <TopBox
@@ -96,17 +93,10 @@ const AdminPage = () => {
               />
             </div>
           </div>
-
         </div>
-  
       </div>
-
-
-
-
-
     </>
   );
 };
 
-export default  AdminPage;
+export default  DashboardHomePage;

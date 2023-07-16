@@ -1,6 +1,7 @@
 import "../../../assets/styles/_variables.scss"
 import { memo, useEffect, useMemo, useState } from "react";
 import MaterialReactTable from "material-react-table";
+import { tableColor } from "../../../utils/Themes";
 
 
 const TableServerSide = ({column}) => {
@@ -23,7 +24,7 @@ const TableServerSide = ({column}) => {
     );
 
 
- 
+
 
     return (
         <>
@@ -45,7 +46,7 @@ const TableServerSide = ({column}) => {
                 rowCount={rowCount}
                 muiTopToolbarProps={{
                     style: {
-                        backgroundColor: "#3f4d67",
+                        backgroundColor: tableColor?tableColor:"#0675F8",
                     },
                 }}
                 muiToolbarAlertBannerProps={

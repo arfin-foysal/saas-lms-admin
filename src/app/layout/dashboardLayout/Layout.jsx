@@ -61,19 +61,25 @@ const Layout = () => {
       <div className="main-container">
         <div className="sidebar-wrapper">
           <motion.div
-            animate={{
-              width: isOpen ? "230px" : "55px",
-              padding: isOpen ? "17px 17px" : "17px 7px",
-              height: "100vh",
-              overflow: "hidden",
 
 
-              transition: {
-                duration: 0.5,
-                type: "spring",
-                damping: 10,
-              },
-            }}
+            animate={
+
+
+              {
+
+                width: isOpen ? "230px" : "55px",
+                padding: isOpen ? "17px 17px" : "17px 7px",
+                height: "100vh",
+                overflow: "hidden",
+
+
+                transition: {
+                  duration: 0.5,
+                  type: "spring",
+                  damping: 10,
+                },
+              }}
             className={`sidebar `}
           >
             <div className="top_section ">
@@ -117,7 +123,7 @@ const Layout = () => {
                     exit="hidden"
                     className="link_text mt-1 ms-2 fw-lighter"
                   >
-                    <p className="m-0 p-0 text-capitalize">{authUser?.name}</p>
+                    <p className="m-0 p-0 text-capitalize">{authUser?.name?.slice(0, 7)}</p>
                   </motion.h6>
                 )}
               </div>
