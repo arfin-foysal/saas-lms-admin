@@ -7,9 +7,9 @@ import {
 } from "../utils/Auth";
 import { Navigate } from "react-router-dom";
 import Login from './../app/publicPages/login/Login';
-import Test from './../app/publicPages/commonViews/Test';
-import NotAccess from './../app/publicPages/commonViews/NotAccess';
-import Error from './../app/publicPages/commonViews/Error';
+import Test from './../app/publicPages/common/Test';
+import NotAccess from './../app/publicPages/common/NotAccess';
+import Error from './../app/publicPages/common/Error';
 
 
 
@@ -29,7 +29,7 @@ export const publicRoute = [
       ),
   },
   // {
-  //   path: "/dashboard-signup",
+  //   path: "/signup",
   //   element:
   //     authUser !== "" && authUserToken !== "" ? (
   //       <Navigate to={"/dashboard"} replace />
