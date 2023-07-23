@@ -9,7 +9,6 @@ import { toast } from "react-toastify";
 import { authToken, authUser, userRole } from "../../../features/authSlice";
 import { BsArrowRight } from "react-icons/bs";
 
-
 const Login = () => {
   const [login, { data, isLoading, isSuccess }] = useLoginMutation();
   const dispatch = useDispatch();
@@ -36,17 +35,14 @@ const Login = () => {
     dispatch(userRole(data?.data?.user_type));
     // navigate("/dashboard");
     window.location.reload(false);
-
   }
-
   return (
     <>
-
       <div className="container">
         {/* <!-- Outer Row --> */}
         <div className="row justify-content-center my-5  ">
           <div className="col-12 col-md-4 pt-5">
-            <div className="card o-hidden  shadow-lg my-5  rounded-4">
+            <div className="card o-hidden  shadow-lg my-5  rounded-4 border border-1 border-primary">
               <div className="card-body p-0 ">
                 <div className="row">
                   <div className="col">

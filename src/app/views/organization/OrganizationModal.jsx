@@ -1,10 +1,9 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
-
 import { modalColor } from "../../../utils/Themes";
 import CreateOrganization from "./CreateOrganization";
 import UpdateOrganization from "./UpdateOrganization";
-
+import UpdateSettings from "./UpdateSettings";
 
 const OrganizationModal = ({ handleClose, show, clickValue, paramValue }) => {
     return (
@@ -13,7 +12,7 @@ const OrganizationModal = ({ handleClose, show, clickValue, paramValue }) => {
                 <Modal.Header
                     closeButton
                     className="text-white"
-                    style={{ backgroundColor: modalColor?modalColor:"#0675F8" }}
+                    style={{ backgroundColor: modalColor ? modalColor : "#0675F8" }}
                 >
                     <Modal.Title>{clickValue}</Modal.Title>
                 </Modal.Header>
@@ -24,6 +23,10 @@ const OrganizationModal = ({ handleClose, show, clickValue, paramValue }) => {
                     }
                     {clickValue === "Update Organization" && (
                         <UpdateOrganization handleClose={handleClose} paramValue={paramValue} />
+                    )
+                    }
+                    {clickValue === "Update Settings" && (
+                        <UpdateSettings handleClose={handleClose} paramValue={paramValue} />
                     )
                     }
                 </Modal.Body>

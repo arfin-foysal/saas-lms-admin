@@ -2,44 +2,43 @@ import { useFormik } from "formik";
 import React, { useRef, useState } from "react";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { BsFillCloudArrowUpFill } from "react-icons/bs";
-import { useOrganizationCreateOrUpdateMutation } from "../../../services/masterSettingsApi";
+import { useMenuCreateOrUpdateMutation } from "../../../services/masterSettingsApi";
 import PreviewImage from "../../components/PreviewImage";
-const CreateOrganization = ({ handleClose }) => {
-    const [organizationCreateOrUpdate, res] = useOrganizationCreateOrUpdateMutation();
+import { BsFillCloudArrowUpFill } from "react-icons/bs";
+import { useClassCreateOrUpdateMutation } from "../../../services/contentApi";
+const CreateClass = ({ handleClose }) => {
     const fileRef = useRef(null)
     const [previewImage, setPreviewImage] = useState();
     function handelImage(e) {
         setPreviewImage(URL.createObjectURL(e.target.files[0]));
     }
+    const [classCreateOrUpdate, res] = useClassCreateOrUpdateMutation();
     const formik = useFormik({
         initialValues: {
             name: "",
-            slug: "",
-            details: "",
-            address: "",
-            email: "",
-            contact_no: "",
-            contact_person: "",
-            logo: null,
+            name_bn: "",
+            price: "",
+            icon: "",
+            color_code: "",
+            sequence: "",
+            is_free: false,
             is_active: true,
         },
+
         onSubmit: async (values, { resetForm }) => {
             let formData = new FormData();
             formData.append("name", values.name);
-            formData.append("slug", values.slug);
-            formData.append("details", values.details);
-            formData.append("address", values.address);
-            formData.append("email", values.email);
-            formData.append("contact_no", values.contact_no);
-            formData.append("contact_person", values.contact_person);
-            formData.append("logo", values.logo);
-            formData.append("is_active", values.is_active ? 1 : 0);
+            formData.append("name_bn", values.name_bn);
+            formData.append("price", values.price);
+            formData.append("icon", values.icon);
+            formData.append("color_code", values.color_code);
+            formData.append("sequence", values.sequence);
+            formData.append("is_free", values.is_free? 1 : 0);
+            formData.append("is_active", values.is_active? 1 : 0);
 
             resetForm();
-
             try {
-                const result = await organizationCreateOrUpdate(formData).unwrap();
+                const result = await classCreateOrUpdate(formData).unwrap();
                 toast.success(result.message);
             } catch (error) {
                 toast.warn(error.data.message);
@@ -49,7 +48,6 @@ const CreateOrganization = ({ handleClose }) => {
     if (res.isSuccess) {
         handleClose();
     }
-
 
     return (
         <div>
@@ -73,91 +71,77 @@ const CreateOrganization = ({ handleClose }) => {
                             />
                         </div>
                     </div>
-                    <div className="form-group col-6 my-1">
+                    <div className="form-group col-12 my-1">
+                        <label className="col-12 col-form-label">Bangla Name</label>
                         <div className="col-12">
-                            <label className="col-12 col-form-label">Slug</label>
                             <input
-                                placeholder="Enter Slug"
+                                placeholder="Enter Bangla Name"
                                 type="text"
                                 className="form-control"
-                                name="slug"
+                                name="name_bn"
                                 onChange={formik.handleChange}
-                                value={formik.values.slug}
+                                value={formik.values.name_bn}
                                 required
                             />
                         </div>
                     </div>
-                    <div className="form-group col-6 my-1">
+                    <div className="form-group col-12 my-1">
+                        <label className="col-12 col-form-label">Price <span className=" text-danger">*</span></label>
                         <div className="col-12">
-                            <label className="col-12 col-form-label">Email</label>
                             <input
-                                placeholder="Enter Email"
-                                type="email"
-                                className="form-control"
-                                name="email"
-                                onChange={formik.handleChange}
-                                value={formik.values.email}
-                                required
-                            />
-                        </div>
-                    </div>
-                    <div className="form-group col-6 my-1">
-                        <div className="col-12">
-                            <label className="col-12 col-form-label">Contact No</label>
-                            <input
-                                placeholder="Enter Contact No"
+                                placeholder="Enter Price"
                                 type="number"
                                 className="form-control"
-                                name="contact_no"
+                                name="price"
                                 onChange={formik.handleChange}
-                                value={formik.values.contact_no}
+                                value={formik.values.price}
                                 required
                             />
                         </div>
                     </div>
-                    <div className="form-group col-6 my-1">
-                        <label className="col-12 col-form-label">Contact Person</label>
+                    <div className="form-group col-12 my-1">
+                        <label className="col-12 col-form-label">Color Code</label>
                         <div className="col-12">
                             <input
-                                placeholder="Enter Contact Person"
+                                placeholder="Enter Color Code"
                                 type="text"
                                 className="form-control"
-                                name="contact_person"
+                                name="color_code"
                                 onChange={formik.handleChange}
-                                value={formik.values.contact_person}
-                                required
+                                value={formik.values.color_code}
                             />
                         </div>
                     </div>
                     <div className="form-group col-12 my-1">
-                        <label className="col-12 col-form-label">Details</label>
+                        <label className="col-12 col-form-label">Sequence <span className=" text-danger">*</span></label>
                         <div className="col-12">
-
-                            <textarea
-                                placeholder="Enter Details"
-                                type="text"
+                            <input
+                                placeholder="Enter Sequence"
+                                type="number"
                                 className="form-control"
-                                name="details"
+                                name="sequence"
                                 onChange={formik.handleChange}
-                                value={formik.values.details}
-
+                                value={formik.values.sequence}
                             />
                         </div>
                     </div>
-                    <div className="form-group col-12 my-1">
-                        <label className="col-12 col-form-label">Address</label>
-                        <div className="col-12">
-                            <textarea
-                                placeholder="Enter Address"
-                                type="text"
-                                className="form-control"
-                                name="address"
-                                onChange={formik.handleChange}
-                                value={formik.values.address}
-                            />
+                    <div className="form-group row col-12 my-2 ">
+                        <label className="col-6 col-form-label">Is Free</label>
+                        <div className="col-6">
+                            <div className="form-check form-switch mt-2">
+                                <Form.Check
+                                    type="switch"
+                                    id="custom-switch"
+                                    label="Active"
+                                    name="is_free"
+                                    onChange={formik.handleChange}
+                                    value={formik.values.is_free}
+                                    checked={formik.values.is_free}
+                                />
+                            </div>
                         </div>
                     </div>
-                    <div className="form-group row col-6 my-2  ">
+                    <div className="form-group row col-12 my-2 ">
                         <label className="col-6 col-form-label">Is Active</label>
                         <div className="col-6">
                             <div className="form-check form-switch mt-2">
@@ -173,28 +157,26 @@ const CreateOrganization = ({ handleClose }) => {
                             </div>
                         </div>
                     </div>
-
                     <div className="form-group row col-12 my-1">
-                        {/* <label className="col-12 col-form-label">Logo</label> */}
+                        {/* <label className="col-12 col-form-label">icon</label> */}
                         <div className="col-12">
                             <input
                                 ref={fileRef}
                                 hidden
                                 className="form-control"
-                                name="logo"
+                                name="icon"
                                 type="file"
                                 accept="image/*"
                                 onChange={(e) => {
-                                    formik.setFieldValue("logo", e.currentTarget.files[0]);
+                                    formik.setFieldValue("icon", e.currentTarget.files[0]);
                                     handelImage(e);
                                 }}
                             />
                         </div>
                     </div>
-
                     <div className=" my-2 text-center">
                         <div >
-                            {formik.values.logo ?
+                            {formik.values.icon ?
                                 <PreviewImage previewImage={previewImage} /> : <BsFillCloudArrowUpFill size={40} />
                             }
                         </div>
@@ -206,22 +188,25 @@ const CreateOrganization = ({ handleClose }) => {
                                 fileRef.current.click();
                             }}
                         >
-                            Choose a logo ...
+                            Choose a Icon ...
                         </button>
 
                     </div>
                 </div>
                 <Modal.Footer>
+
                     <button className="btn btn-dark me-2 btn-sm" onClick={handleClose}>
                         Close
                     </button>
+
                     <button type="submit" className="btn btn-success btn-sm">
                         Submit
                     </button>
+
                 </Modal.Footer>
             </form>
         </div>
     );
 };
 
-export default CreateOrganization;
+export default CreateClass;

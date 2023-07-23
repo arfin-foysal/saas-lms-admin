@@ -29,16 +29,8 @@ const Layout = () => {
     toast.success("Logout Successfully");
     window.location.reload(false);
   };
-
-
-
-
-
-
-
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
-
   const showAnimation = {
     hidden: {
       width: 0,
@@ -61,19 +53,13 @@ const Layout = () => {
       <div className="main-container">
         <div className="sidebar-wrapper">
           <motion.div
-
-
             animate={
-
-
               {
 
                 width: isOpen ? "230px" : "55px",
                 padding: isOpen ? "17px 17px" : "17px 7px",
                 height: "100vh",
                 overflow: "hidden",
-
-
                 transition: {
                   duration: 0.5,
                   type: "spring",
@@ -92,10 +78,8 @@ const Layout = () => {
                     exit="hidden"
                     className="logo pt-2"
                   >
-
                     <img src={logo} width={30} alt="" className="me-2" />
                     <img src={w_logo} width={70} alt="" />
-
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -221,7 +205,6 @@ const Layout = () => {
           </motion.div>
         </div>
         <div className="contain-wrapper">
-
           <Header />
           <main>
             <Outlet />

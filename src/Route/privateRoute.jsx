@@ -3,14 +3,11 @@ import { getPath } from "./utils";
 import DashboardHomePage from "../app/views/dashboardHomePage/DashboardHomePage";
 import MenuList from "../app/views/menuSetup/MenuList";
 import OrganizationList from "../app/views/organization/OrganizationList";
-
-
-
-
-
-
-
-
+import ClassList from "../app/views/classList/ClassList";
+import SubjectList from "../app/views/subjectList/SubjectList";
+import ChapterList from "../app/views/chapterList/ChapterList";
+import ClientList from './../app/views/clientList/ClientList';
+import VideoContentList from "../app/views/videoContentList/VideoContentList";
 
 export const privateRoute = [
   {
@@ -38,7 +35,32 @@ export const privateRoute = [
     path: "organization-list",
     element: <OrganizationList />,
     role: "GlobalAdmin",
-  }
+  },
+  {
+    path: "class-list",
+    element: <ClassList />,
+    role: "GlobalAdmin",
+  },
+  {
+    path: "subject-list",
+    element: <SubjectList />,
+    role: "GlobalAdmin",
+  },
+  {
+    path: "chapter-list",
+    element: <ChapterList />,
+    role: "GlobalAdmin",
+  },
+  {
+    path: "video-content-list",
+    element: <VideoContentList />,
+    role: "GlobalAdmin",
+  },
+  {
+    path: "client-list",
+    element: <ClientList/>,
+    role: "GlobalAdmin",
+  },
 
  
 ];

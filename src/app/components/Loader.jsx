@@ -2,7 +2,6 @@ import React from "react";
 const Loader = () => {
   return (
     <>
-
       <div
         className="text-center"
         style={{
@@ -20,17 +19,11 @@ const Loader = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-
-
-
         }}
       >
-
-
         <div className="spinner-border text-secondary" role="status">
           <span className="visually-hidden">Loading...</span>
         </div>
-
       </div>
 
     </>

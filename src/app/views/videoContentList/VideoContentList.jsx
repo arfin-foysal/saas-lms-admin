@@ -5,89 +5,68 @@ import Loader from "../../components/Loader";
 import { FaEdit } from "react-icons/fa";
 import { FiPlusCircle } from "react-icons/fi";
 import { tableColor } from "../../../utils/Themes";
-import MenuModal from "./OrganizationModal";
-import demo from "../../../../src/assets/images/no_image.png";
-import { useGetOrganizationListQuery } from "../../../services/masterSettingsApi";
-import { BsGearFill } from "react-icons/bs";
-const OrganizationList = () => {
-  const res = useGetOrganizationListQuery();
+import MenuModal from "./VideoContentModal";
+import { useGetVideoChapterListQuery } from "../../../services/contentApi";
+import { BsEyeFill } from "react-icons/bs";
+const VideoContentList = () => {
+  const res = useGetVideoChapterListQuery();
   const { data, isSuccess, isFetching, isError } = res;
   const [clickValue, setClickValue] = useState(null);
   const [param, setParam] = useState(null);
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
   const handelClickValue = useCallback((value) => {
     setClickValue(value);
   }, []);
+
   const columns = useMemo(
-    () => [
-      {
-        accessorFn: (row) =>
-          row?.logo ? (
-            <>
-              <img
-                className="img-fluid rounded-circle shadow"
-                style={{ width: "40px", height: "40px" }}
-                src={`${import.meta.env.VITE_ASSET_HOST_URL}${row?.logo}`}
-                alt=""
-              ></img>
-            </>
-          ) : (
-            <img
-              className="img-fluid rounded-circle shadow"
-              style={{ width: "40px", height: "40px" }}
-              src={demo}
-              alt=""
-            ></img>
-          ),
+    () => [{
+      accessorKey: "video_code",
+      header: "Video Code",
+    },
+    {
+      accessorKey: "title",
+      header: "Title",
+    },
 
-        id: "logo",
-        header: "Logo",
-        size: 10,
-      },
-      {
-        accessorKey: "name",
-        header: "Name",
-      },
-      {
-        accessorKey: "slug",
-        header: "Slug",
-      },
-      {
-        accessorKey: "email",
-        header: "Email",
-      },
-      {
-        accessorFn: (row) =>
-          row && (
-            <div className="ms-4">
-              {row.contact_no &&
-                <span className=" mr-1">{row.contact_no}</span>
-              }
+    {
+      accessorKey: "title_bn",
+      header: "Title Bangla",
+    },
 
-              {row.contact_person &&
-                <span className=" ms-1">({row.contact_person})</span>
-              }
+    {
+      accessorKey: "price",
+      header: "Price",
+    },
+    {
+      accessorFn: (row) =>
+        row?.is_free === true ? (
+          <>
+            <span className="badge bg-success">Yes</span>
+          </>
+        ) : (
+          <span className="badge bg-warning">No</span>
+        ),
 
-            </div>
-          ),
-        id: " contact_no & contact_person ",
-        header: "Contact No & Contact Person",
-      },
-      {
-        accessorFn: (row) =>
-          row?.is_active === true ? (
-
+      id: "is_free",
+      header: "Is Free",
+    },
+    {
+      accessorFn: (row) =>
+        row?.is_active === true ? (
+          <>
             <span className="badge bg-success">Active</span>
+          </>
+        ) : (
+          <span className="badge bg-warning">Inactive</span>
+        ),
 
-          ) : (
-            <span className="badge bg-warning">Inactive</span>
-          ),
-        id: "Status",
-        header: "Status",
-      },
+      id: "Status",
+      header: "Status",
+    },
+
     ],
     []
   );
@@ -101,19 +80,19 @@ const OrganizationList = () => {
         clickValue={clickValue}
         paramValue={param}
       />
-      <PageTopHeader title="Organization List" />
+      <PageTopHeader title="Video List" />
       <div className="card border shadow-lg ">
         <div className="card-header d-flex justify-content-between ">
-          <div>Organization List</div>
+          <div>Video List</div>
           <div>
             <button
               className="btn btn-primary btn-sm"
               onClick={() => {
                 handleShow();
-                handelClickValue("Add New Organization");
+                handelClickValue("Add New Video");
               }}
             >
-              <FiPlusCircle size={16} /> Add New Org
+              <FiPlusCircle size={16} /> Add New Video
             </button>
           </div>
         </div>
@@ -134,31 +113,34 @@ const OrganizationList = () => {
             renderRowActions={(row, index) => (
               <>
                 <div className="d-flex">
-
                   <button
                     title=""
-                    className="mx-1 btn btn-dark btn-sm"
+                    className="px-2 mx-1 d-flex align-items-center btn btn-success btn-sm"
                     onClick={() => {
                       handleShow();
-                      handelClickValue("Update Settings");
-                      setParam(row?.row?.original);
-                    }}
-                  >
-                    <BsGearFill size={16} /> Update
-                  </button>
-
-                  <button
-                    title=""
-                    className="mx-2 btn btn-success btn-sm"
-                    onClick={() => {
-                      handleShow();
-                      handelClickValue("Update Organization");
+                      handelClickValue("Update Video");
                       setParam(row?.row?.original);
                     }}
                   >
                     <FaEdit size={16} /> Edit
                   </button>
+
+                  <button
+                    title=""
+                    className="px-2 mx-1 d-flex align-items-center btn btn-info btn-sm"
+                    onClick={() => {
+                      handleShow();
+                      handelClickValue("Video Details");
+                      setParam(row?.row?.original);
+                    }}
+                  >
+                    <BsEyeFill size={16} /> Details
+                  </button>
                 </div>
+                <div>
+
+                </div>
+
               </>
             )}
           />
@@ -167,4 +149,8 @@ const OrganizationList = () => {
     </>
   );
 };
-export default OrganizationList
+
+
+
+
+export default VideoContentList

@@ -1,34 +1,36 @@
 import { useFormik } from "formik";
-import React, { useState } from "react";
-import { Form, Modal } from "react-bootstrap";
+import React, { useRef, useState } from "react";
+import { Button, Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useOrganizationCreateOrUpdateMutation } from "../../../services/masterSettingsApi";
-const UpdateOrganization = ({ handleClose,paramValue }) => {
+import { BsFillCloudArrowUpFill } from "react-icons/bs";
+import PreviewImage from "../../components/PreviewImage";
+const UpdateOrganization = ({ handleClose, paramValue }) => {
     const [organizationCreateOrUpdate, res] = useOrganizationCreateOrUpdateMutation();
-
+    const fileRef = useRef(null)
     const [previewImage, setPreviewImage] = useState();
     function handelImage(e) {
         setPreviewImage(URL.createObjectURL(e.target.files[0]));
     }
 
     const formik = useFormik({
-        enableReinitialize:true,
+        enableReinitialize: true,
         initialValues: {
-            id:paramValue&&paramValue.id,
-            name: paramValue&&paramValue.name,
-            slug: paramValue&&paramValue.slug,
-            details: paramValue&&paramValue.details,
-            address: paramValue&&paramValue.address,
-            email: paramValue&&paramValue.email,
-            contact_no: paramValue&&paramValue.contact_no,
-            contact_person: paramValue&&paramValue.contact_person,
-            logo: paramValue&&paramValue.logo,
-            is_active: paramValue&&paramValue.is_active,
+            id: paramValue && paramValue.id,
+            name: paramValue && paramValue.name,
+            slug: paramValue && paramValue.slug,
+            details: paramValue && paramValue.details,
+            address: paramValue && paramValue.address,
+            email: paramValue && paramValue.email,
+            contact_no: paramValue && paramValue.contact_no,
+            contact_person: paramValue && paramValue.contact_person,
+            logo: paramValue && paramValue.logo,
+            is_active: paramValue && paramValue.is_active,
         },
 
         onSubmit: async (values, { resetForm }) => {
             let formData = new FormData();
-            formData.append("id",values.id)
+            formData.append("id", values.id)
             formData.append("name", values.name);
             formData.append("slug", values.slug);
             formData.append("details", values.details);
@@ -37,13 +39,13 @@ const UpdateOrganization = ({ handleClose,paramValue }) => {
             formData.append("contact_no", values.contact_no);
             formData.append("contact_person", values.contact_person);
             formData.append("logo", values.logo);
-            // formData.append("is_active", values.is_active);
+            formData.append("is_active", values.is_active ? 1 : 0);
             resetForm();
 
             try {
-                const result = await organizationCreateOrUpdate(values).unwrap();
+                const result = await organizationCreateOrUpdate(formData).unwrap();
                 toast.success(result.message);
-             
+
             } catch (error) {
                 toast.warn(error.data.message);
             }
@@ -75,8 +77,6 @@ const UpdateOrganization = ({ handleClose,paramValue }) => {
                             />
                         </div>
                     </div>
-
-
                     <div className="form-group col-6 my-1">
                         <div className="col-12">
                             <label className="col-12 col-form-label">Slug</label>
@@ -162,9 +162,11 @@ const UpdateOrganization = ({ handleClose,paramValue }) => {
                         </div>
                     </div>
                     <div className="form-group row col-6 my-1">
-                        <label className="col-12 col-form-label">Logo</label>
+                        {/* <label className="col-12 col-form-label">Logo</label> */}
                         <div className="col-12">
                             <input
+                                ref={fileRef}
+                                hidden
                                 className="form-control"
                                 name="logo"
                                 type="file"
@@ -176,8 +178,7 @@ const UpdateOrganization = ({ handleClose,paramValue }) => {
                             />
                         </div>
                     </div>
-
-                    <div className="form-group row col-6 my-2 mt-5 ">
+                    <div className="form-group row col-12 my-2 ">
                         <label className="col-6 col-form-label">Is Active</label>
                         <div className="col-6">
                             <div className="form-check form-switch mt-2">
@@ -193,25 +194,25 @@ const UpdateOrganization = ({ handleClose,paramValue }) => {
                             </div>
                         </div>
                     </div>
-
-
-
+                    <div className="text-center my-2">
                     <div className="mx-4">
-                        <img
-                            className="py-2"
-                            src={previewImage}
-                            width="80px"
-                            height="80px"
-                            alt=""
-                        />
-
+                        <PreviewImage previewImage={previewImage} formValue={formik.values.logo} />
                     </div>
-
+                        <Button
+                            type="button"
+                            className="btn btn-dark  btn-sm"
+                            onClick={() => {
+                                fileRef.current.click();
+                            }}
+                        >
+                            Choose a logo ...
+                        </Button>
+                     </div>
                 </div>
                 <Modal.Footer>
-                    <button className="btn btn-dark me-2 btn-sm" onClick={handleClose}>
+                    <Button type="button" className="btn btn-dark me-2 btn-sm" onClick={handleClose}>
                         Close
-                    </button>
+                    </Button>
                     <button type="submit" className="btn btn-success btn-sm">
                         Submit
                     </button>

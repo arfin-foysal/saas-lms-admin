@@ -1,6 +1,4 @@
-import { headers } from "../utils/ApiHeaders";
 import { apiSliceAdmin } from "../store/api/apiSliceAdmin";
-
 export const masterSettingsApi = apiSliceAdmin.injectEndpoints({
   reducerPath: "masterSettingsApi",
   tagTypes: ["Master"],
@@ -10,7 +8,6 @@ export const masterSettingsApi = apiSliceAdmin.injectEndpoints({
       query: () => ({
         url: "admin/menu-list",
         method: "GET",
-        headers,
       }),
       providesTags: ["Master"],
     }),
@@ -19,7 +16,6 @@ export const masterSettingsApi = apiSliceAdmin.injectEndpoints({
       query: () => ({
         url: "organization-list",
         method: "GET",
-        headers,
       }),
       providesTags: ["Master"],
     }),
@@ -44,6 +40,16 @@ export const masterSettingsApi = apiSliceAdmin.injectEndpoints({
       },
       invalidatesTags: ["Master"],
     }),
+    settingUpdate: builder.mutation({
+      query: (body) => {
+        return {
+          url: `admin/settings-update`,
+          method: "POST",
+          body: body,
+        };
+      },
+      invalidatesTags: ["Master"],
+    }),
 
 
 
@@ -55,4 +61,5 @@ export const {
   useGetMenuListQuery,
   useOrganizationCreateOrUpdateMutation,
   useGetOrganizationListQuery,
+  useSettingUpdateMutation,
 } = masterSettingsApi;

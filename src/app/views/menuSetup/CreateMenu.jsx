@@ -5,25 +5,24 @@ import { toast } from "react-toastify";
 import { useMenuCreateOrUpdateMutation } from "../../../services/masterSettingsApi";
 const CreateMenu = ({ handleClose }) => {
     const [menuCreateOrUpdate, res] = useMenuCreateOrUpdateMutation();
-
-
-
     const formik = useFormik({
         initialValues: {
             name: "",
             link: "",
             is_authentication_needed: false,
             has_submenu: true,
-            is_course: false,
+            is_course: true,
             is_content: false,
             icon: "",
-            is_active: "",
-
+            is_active: true,
         },
 
         onSubmit: async (values, { resetForm }) => {
+            if (values.is_content === false && values.is_course === false) {
+                toast.warn("Please select at least one option from Course and Content");
+                return;
+            }
             resetForm();
-
             try {
                 console.log(values);
                 const result = await menuCreateOrUpdate(values).unwrap();
@@ -59,7 +58,6 @@ const CreateMenu = ({ handleClose }) => {
                             />
                         </div>
                     </div>
-
                     <div className="form-group col-12 my-1">
                         <label className="col-12 col-form-label">Link</label>
                         <div className="col-12">
@@ -74,7 +72,6 @@ const CreateMenu = ({ handleClose }) => {
                             />
                         </div>
                     </div>
-
                     <div className="form-group col-12 my-1">
                         <label className="col-12 col-form-label">Icon</label>
                         <div className="col-12">
@@ -85,12 +82,10 @@ const CreateMenu = ({ handleClose }) => {
                                 name="icon"
                                 onChange={formik.handleChange}
                                 value={formik.values.icon}
-
                             />
                         </div>
                     </div>
-
-
+                    
                     <div className="form-group row col-12 my-2">
                         <label className="col-6 col-form-label">Is Authentication Needed</label>
                         <div className="col-6">
@@ -129,6 +124,8 @@ const CreateMenu = ({ handleClose }) => {
                         <div className="col-6">
                             <div className="form-check form-switch mt-2">
                                 <Form.Check
+
+                                    className={formik.values.is_content ? "d-none" : "d-block"}
                                     type="switch"
                                     id="custom-switch"
                                     label="Active"
@@ -137,6 +134,9 @@ const CreateMenu = ({ handleClose }) => {
                                     value={formik.values.is_course}
                                     checked={formik.values.is_course}
                                 />
+                                <small className={formik.values.is_content ? "d-none" : "d-block"}>
+                                    <span className="text-danger">Note:</span> If you select this option then you can't select Is Content option.
+                                </small>
                             </div>
                         </div>
                     </div>
@@ -145,6 +145,7 @@ const CreateMenu = ({ handleClose }) => {
                         <div className="col-6">
                             <div className="form-check form-switch mt-2">
                                 <Form.Check
+                                    className={formik.values.is_course ? "d-none" : "d-block"}
                                     type="switch"
                                     id="custom-switch"
                                     label="Active"
@@ -153,6 +154,11 @@ const CreateMenu = ({ handleClose }) => {
                                     value={formik.values.is_content}
                                     checked={formik.values.is_content}
                                 />
+                                <small className={
+                                    formik.values.is_course ? "d-none" : "d-block"
+                                }>
+                                    <span className="text-danger">Note:</span> If you select this option then you can't select Is Course option.
+                                </small>
                             </div>
                         </div>
                     </div>
@@ -174,15 +180,15 @@ const CreateMenu = ({ handleClose }) => {
                     </div>
                 </div>
                 <Modal.Footer>
-                   
-                        <button className="btn btn-dark me-2 btn-sm" onClick={handleClose}>
-                            Close
-                        </button>
 
-                        <button type="submit" className="btn btn-success btn-sm">
-                            Submit
-                        </button>
-                  
+                    <button className="btn btn-dark me-2 btn-sm" onClick={handleClose}>
+                        Close
+                    </button>
+
+                    <button type="submit" className="btn btn-success btn-sm">
+                        Submit
+                    </button>
+
                 </Modal.Footer>
             </form>
         </div>

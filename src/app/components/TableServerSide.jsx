@@ -23,9 +23,6 @@ const TableServerSide = ({column}) => {
         [],
     );
 
-
-
-
     return (
         <>
             <MaterialReactTable
