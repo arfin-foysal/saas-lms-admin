@@ -10,8 +10,7 @@ import SidebarMenu from "./SidebarMenu";
 import { navItem } from "../../../Nav/NavItem";
 import { user } from "../../../Route/utils";
 import avatar from "../../../../src/assets/images/avatar.png";
-import logo from "../../../../src/assets/logo/sm_logo.png";
-import w_logo from "../../../../src/assets/logo/logo_white.png";
+import logo from "../../../../src/assets/logo/logo.png";
 import Header from "./Header";
 import Footer from "./Footer";
 import { useDispatch, useSelector } from "react-redux";
@@ -78,8 +77,7 @@ const Layout = () => {
                     exit="hidden"
                     className="logo pt-2"
                   >
-                    <img src={logo} width={30} alt="" className="me-2" />
-                    <img src={w_logo} width={70} alt="" />
+                    <img src={logo} width={120} alt="" className="me-2" />
                   </motion.div>
                 )}
               </AnimatePresence>

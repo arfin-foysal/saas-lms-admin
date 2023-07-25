@@ -109,6 +109,16 @@ export const contentApi = apiSliceAdmin.injectEndpoints({
       },
       invalidatesTags: ["Content"],
     }),
+    questionSaveOrUpdate: builder.mutation({
+      query: (body) => {
+        return {
+          url: `admin/chapter-quiz-question-save-or-update`,
+          method: "POST",
+          body: body,
+        };
+      },
+      invalidatesTags: ["Content"],
+    }),
 
     getSubjectListByClassId: builder.query({
       query: (id) => ({
@@ -124,6 +134,24 @@ export const contentApi = apiSliceAdmin.injectEndpoints({
       }),
       invalidatesTags: ["Content"],
     }),
+    getQuestionListByQuiz: builder.query({
+      query: (id) => ({
+        url: `admin/question-list-by-quiz/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["Content"],
+    }),
+
+    deleteQuestion: builder.mutation({
+      query: (id) => ({
+        url: `admin/delete-question/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Content"],
+    }),
+
+
+
   }),
 });
 
@@ -142,5 +170,8 @@ export const {
   useScriptCreateOrUpdateMutation,
   useGetQuizListQuery,
   useQuizCreateOrUpdateMutation,
+  useGetQuestionListByQuizQuery,
+  useQuestionSaveOrUpdateMutation,
+  useDeleteQuestionMutation,
   
 } = contentApi;

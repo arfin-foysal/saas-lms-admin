@@ -10,6 +10,7 @@ import ClientList from './../app/views/clientList/ClientList';
 import VideoContentList from "../app/views/videoContentList/VideoContentList";
 import ScriptContentList from "../app/views/scriptContentList/ScriptContentList";
 import QuizList from "../app/views/quizList/QuizList";
+import QuizQuestionList from './../app/views/quizQuestionList/QuizQuestionList';
 
 export const privateRoute = [
   {
@@ -22,10 +23,9 @@ export const privateRoute = [
     element: <Navigate replace to={getPath()} />,
     role: "all",
   },
-
   {
     path: "globaladmin",
-    element: <DashboardHomePage/>,
+    element: <DashboardHomePage />,
     role: "GlobalAdmin",
   },
   {
@@ -65,14 +65,18 @@ export const privateRoute = [
   },
   {
     path: "quiz-list",
-    element: <QuizList/>,
+    element: <QuizList />,
     role: "GlobalAdmin",
   },
   {
     path: "client-list",
-    element: <ClientList/>,
+    element: <ClientList />,
+    role: "GlobalAdmin",
+  },
+  {
+    path: "globaladmin/quiz-question-list/:id",
+    element: <QuizQuestionList/>,
     role: "GlobalAdmin",
   },
 
- 
 ];

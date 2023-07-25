@@ -1,7 +1,7 @@
 import { authUser, authUserToken } from "../utils/Auth";
 
 export const user = {
-    name: "Arfin Foysal",
+    name: "Arfin Foysal -> Software Engineer (PhP,Laravel,NodeJs,React,ExpressJs)",
     role: authUser ? authUser : "all",
     token: authUserToken ? authUserToken : "",
 }
@@ -28,12 +28,12 @@ const routes = [
         role: 'Student'
     },
   
- // this is default route
+// this is default route
     {
         path: '/login',
         role: 'all'
     }
-    // this is default route
+// this is default route
 ]
 
 export const getPath = () => {

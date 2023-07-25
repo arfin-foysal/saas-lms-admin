@@ -77,11 +77,11 @@ export const navItem = [
       {
         title: "User List",
         link: "user-list",
-        role: "GlobalAdmin",
+        role: "GlobalAdmin",                              
         icon: <AiOutlineUserAdd />,
       },
     ],
-  },
+  },                                                              
   {
     title: "Client List",
     link: "client-list",

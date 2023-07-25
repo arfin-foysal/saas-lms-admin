@@ -2,21 +2,27 @@ import React, { useCallback, useMemo, useState } from "react";
 import PageTopHeader from '../../components/PageTopHeader';
 import MaterialReactTable from "material-react-table";
 import Loader from "../../components/Loader";
-import { FaEdit } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import { FiPlusCircle } from "react-icons/fi";
 import { tableColor } from "../../../utils/Themes";
-import MenuModal from "./QuizModal";
-import { BsEyeFill } from "react-icons/bs";
-import { useGetQuizListQuery } from "../../../services/contentApi";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { quizName } from "../../../features/commonSlice";
+import MenuModal from "./QuizQuestionModal";
+import { useDeleteQuestionMutation, useGetQuestionListByQuizQuery } from "../../../services/contentApi";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { BiUpload } from "react-icons/bi";
+import { confirmHandel } from "../../../utils/Alert";
+import { toast } from "react-toastify";
 
-const QuizList = () => {
-  const dispatch = useDispatch()
-  const res = useGetQuizListQuery();
+
+const QuizQuestionList = () => {
+  const {id}=useParams()
+  const qn = useSelector((state) => state.common.quiz);
+  const res = useGetQuestionListByQuizQuery(id);
   const { data, isSuccess, isFetching, isError } = res;
+  const [deleteQuestion] = useDeleteQuestionMutation()
+  
   const [clickValue, setClickValue] = useState(null);
+  const [size,setSize]=useState("lg")
   const [param, setParam] = useState(null);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -25,7 +31,12 @@ const QuizList = () => {
   const handelClickValue = useCallback((value) => {
     setClickValue(value);
   }, []);
+  
 
+  const handelDelete = async (id) => {
+    const result = await deleteQuestion(id).unwrap();
+    toast.success(result.message);
+  };
   const columns = useMemo(
     () => [
       {
@@ -40,44 +51,30 @@ const QuizList = () => {
         size: "10"
       },
       {
-        accessorFn: (row) => <>
-          <Link className="text-dark" to={`/dashboard/globaladmin/quiz-question-list/${row?.id}`}>
-            <p>EN:
-              <span className="text-success fw-normal"> {row.title}</span>
-            </p>
-            <p>BN:
-              <span className="text-success fw-normal"> {row.title_bn}</span>
-            </p></Link>
-        </>,
-        id: "title",
-        header: "Quiz Name",
-        size: 300,
-      },
-
-      {
-        accessorKey: "duration",
-        header: "Duration",
+        accessorKey: "subject_name",
+        header: "Subject",
       },
       {
-        accessorFn: (row) =>
-          <>
-            <p>Positive : <span className="text-success fw-bold">{row.positive_mark}</span> </p>
-            <p>Negative : <span className="text-danger fw-bold">{row.negative_mark}</span> </p>
-
-          </>,
-
-        id: "marking",
-        header: "Marking",
-      },
-
-      {
-        accessorKey: "total_mark",
-        header: "Total Mark",
-      },
-      {
-        accessorKey: "number_of_question",
+        accessorKey: "question_text",
         header: "Question",
       },
+      {
+        accessorKey: "option1",
+        header: "Option 01",
+      },
+      {
+        accessorKey: "option2",
+        header: "Option 02",
+      },
+      {
+        accessorKey: "option3",
+        header: "Option 03",
+      },
+      {
+        accessorKey: "option4",
+        header: "Option 04",
+      },
+
     ],
     []
   );
@@ -90,20 +87,33 @@ const QuizList = () => {
         handleClose={handleClose}
         clickValue={clickValue}
         paramValue={param}
+        size={size}
       />
-      <PageTopHeader title="Quiz List" />
+      <PageTopHeader title="Quiz Questions" />
       <div className="card border shadow-lg ">
         <div className="card-header d-flex justify-content-between ">
-          <div>Quiz List</div>
+          <p className="fw-bold text-muted">QUESTION LIST ( {qn?.name} )</p>
           <div>
             <button
-              className="btn btn-primary btn-sm"
+              className="btn btn-primary btn-sm mx-1"
               onClick={() => {
                 handleShow();
-                handelClickValue("Add New Quiz");
+                handelClickValue("Add New Question");
+                setParam(id)
+                setSize("lg")
               }}
             >
-              <FiPlusCircle size={16} /> Add New Quiz
+              <FiPlusCircle size={16} /> Add New Questions
+            </button>
+            <button
+              className="btn btn-primary btn-sm mx-1"
+              onClick={() => {
+                handleShow();
+                handelClickValue("Upload Questions using XLSX");
+                setSize("md")
+              }}
+            >
+              <BiUpload size={16} /> Upload Question
             </button>
           </div>
         </div>
@@ -128,32 +138,28 @@ const QuizList = () => {
                     title=""
                     className="px-2 mx-1 d-flex align-items-center btn btn-success btn-sm"
                     onClick={() => {
+                      setSize("lg")
                       handleShow();
-                      handelClickValue("Update Quiz");
+                      handelClickValue("Update Question");
                       setParam(row?.row?.original);
                     }}
                   >
-                    <FaEdit size={16} /> Edit
+                    <FaEdit size={18} />
                   </button>
                   <button
                     title=""
-                    className="px-2 mx-1 d-flex align-items-center btn btn-info btn-sm"
-                    onClick={() => {
-                      dispatch(quizName({
-                        name: row?.row?.original?.title, id: row?.row?.original?.id,
-                        subject_id: row?.row?.original?.subject_id,  
-                        class_level_id: row?.row?.original?.class_level_id,
-                        chapter_id: row?.row?.original?.chapter_id,
-                        chapter_quiz_id: row?.row?.original?.id,
-
- 
-
-
-                      }))
-                    }}
-                  >
-                    <Link to={`/dashboard/globaladmin/quiz-question-list/${row?.row?.original?.id}`}><BsEyeFill size={16} /> QN </Link>
-
+                    className="px-2 mx-1 d-flex align-items-center btn btn-danger btn-sm"
+                    onClick={() => { 
+                      confirmHandel(
+                        "error",
+                        "Delete",
+                        "#FF0000",
+                        row?.row?.original?.id,
+                        handelDelete
+                      )
+                      
+                    }}>
+                    <FaTrash size={14} />
                   </button>
                 </div>
                 <div>
@@ -170,4 +176,4 @@ const QuizList = () => {
 
 
 
-export default QuizList
+export default QuizQuestionList
