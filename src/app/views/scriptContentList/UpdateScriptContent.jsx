@@ -4,61 +4,55 @@ import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import PreviewImage from "../../components/PreviewImage";
 import { BsFillCloudArrowUpFill } from "react-icons/bs";
-import { useGetChapterListBySubjectIdQuery, useGetClassListQuery, useGetSubjectListByClassIdQuery, useVideoCreateOrUpdateMutation } from "../../../services/contentApi";
-const CreateVideoContent = ({ handleClose }) => {
+import { useGetChapterListBySubjectIdQuery, useGetClassListQuery, useGetSubjectListByClassIdQuery, useScriptCreateOrUpdateMutation, } from "../../../services/contentApi";
+import OptionLoader from "../../components/OptionLoader";
+const CreateScriptContent = ({ handleClose, paramValue }) => {
     const classRes = useGetClassListQuery()
     const fileRef = useRef(null)
     const [previewImage, setPreviewImage] = useState();
     function handelImage(e) {
         setPreviewImage(URL.createObjectURL(e.target.files[0]));
     }
-    const [videoCreateOrUpdate, res] = useVideoCreateOrUpdateMutation();
+    const [scriptCreateOrUpdate, res] = useScriptCreateOrUpdateMutation();
     const formik = useFormik({
+        enableReinitialize: true,
         initialValues: {
-            title: "",
-            title_bn: "",
-            class_level_id: null,
-            subject_id: null,
-            chapter_id: "",
-            author_name: "",
-            author_details: "",
-            description: "",
-            raw_url: "",
-            s3_url: "",
-            youtube_url: "",
-            download_url: "",
-            duration: "",
-            price: "",
-            rating: "",
-            is_free: "",
-            sequence: "",
-            thumbnail: "",
-            is_active: "",
+            id: paramValue?.id,
+            title: paramValue?.title,
+            title_bn: paramValue?.title_bn,
+            description: paramValue?.description,
+            script_code: paramValue?.script_code,
+            class_level_id: paramValue?.class_level_id,
+            subject_id: paramValue?.subject_id,
+            chapter_id: paramValue?.chapter_id,
+            raw_url: paramValue?.raw_url,
+            thumbnail: paramValue?.thumbnail,
+            price: paramValue?.price,
+            rating: paramValue?.rating,
+            is_free: paramValue?.is_free,
+            sequence: paramValue?.sequence,
+            is_active: paramValue?.is_active,
         },
         onSubmit: async (values, { resetForm }) => {
             let formData = new FormData();
+            formData.append("id", values.id);
             formData.append("title", values.title);
             formData.append("title_bn", values.title_bn);
+            formData.append("description", values.description);
+            formData.append("script_code", values.script_code);
             formData.append("class_level_id", values.class_level_id);
             formData.append("subject_id", values.subject_id);
             formData.append("chapter_id", values.chapter_id);
-            formData.append("author_name", values.author_name);
-            formData.append("author_details", values.author_details);
-            formData.append("description", values.description);
             formData.append("raw_url", values.raw_url);
-            formData.append("s3_url", values.s3_url);
-            formData.append("youtube_url", values.youtube_url);
-            formData.append("download_url", values.download_url);
-            formData.append("duration", values.duration);
+            formData.append("thumbnail", values.thumbnail);
             formData.append("price", values.price);
             formData.append("rating", values.rating);
-            formData.append("thumbnail", values.thumbnail);
             formData.append("sequence", values.sequence);
-                formData.append("is_free", values.is_free?1:0);
-            formData.append("is_active", values.is_active?1:0);
+            formData.append("is_free", values.is_free ? 1 : 0);
+            formData.append("is_active", values.is_active ? 1 : 0);
             resetForm();
             try {
-                const result = await videoCreateOrUpdate(formData).unwrap();
+                const result = await scriptCreateOrUpdate(formData).unwrap();
                 toast.success(result.message);
             } catch (error) {
                 toast.warn(error.data.message);
@@ -78,7 +72,7 @@ const CreateVideoContent = ({ handleClose }) => {
     if (res.isSuccess) {
         handleClose();
     }
-    
+
     return (
         <div>
             <form
@@ -105,18 +99,18 @@ const CreateVideoContent = ({ handleClose }) => {
                         <label className="col-12 col-form-label">Bangla Title</label>
                         <div className="col-12">
                             <input
-                                placeholder="Enter Bangla Title"
+                                placeholder="Enter Title Bangla"
                                 type="text"
                                 className="form-control"
                                 name="title_bn"
                                 onChange={formik.handleChange}
-                                value={formik.values.title_bn }
+                                value={formik.values.title_bn}
                                 required
                             />
                         </div>
                     </div>
                     <div className="form-group col-4 my-1">
-                        <label className="col-12 col-form-label">Class  <span className=" text-danger">*</span></label>
+                        <label className="col-12 col-form-label">Class <span className=" text-danger">*</span></label>
                         <div className="col-12">
                             <select
                                 className="form-control form-select"
@@ -129,6 +123,12 @@ const CreateVideoContent = ({ handleClose }) => {
                                 required
                             >
                                 <option value="" disabled selected hidden> --Select-- </option>
+                                {
+                                    classRes.isLoading && (
+                                        <OptionLoader />
+                                    )
+                                }
+
                                 {classRes?.data?.data?.map((item) => (
                                     <option key={item.id} value={item.id}>
                                         {item.name}
@@ -148,6 +148,9 @@ const CreateVideoContent = ({ handleClose }) => {
                                 required
                             >
                                 <option value="" disabled selected hidden> --Select-- </option>
+                                {subjectRes.isLoading && (
+                                    <OptionLoader />
+                                )}
                                 {subjectRes?.data?.data?.map((item) => (
                                     <option key={item.id} value={item.id}>
                                         {item.name}
@@ -167,38 +170,15 @@ const CreateVideoContent = ({ handleClose }) => {
                                 required
                             >
                                 <option value="" disabled selected hidden> --Select-- </option>
+                                {chapterRes.isLoading && (
+                                    <OptionLoader />
+                                )}
                                 {chapterRes?.data?.data?.map((item) => (
                                     <option key={item.id} value={item.id}>
                                         {item.name}
                                     </option>
                                 ))}
                             </select>
-                        </div>
-                    </div>
-                    <div className="form-group col-6 my-1">
-                        <label className="col-12 col-form-label">Author Name</label>
-                        <div className="col-12">
-                            <input
-                                placeholder="Enter Author Name"
-                                type="text"
-                                className="form-control"
-                                name="author_name"
-                                onChange={formik.handleChange}
-                                value={formik.values.author_name}
-                            />
-                        </div>
-                    </div>
-                    <div className="form-group col-6 my-1">
-                        <label className="col-12 col-form-label">Author Details</label>
-                        <div className="col-12">
-                            <input
-                                placeholder="Enter Author Details"
-                                type="text"
-                                className="form-control"
-                                name="author_details"
-                                onChange={formik.handleChange}
-                                value={formik.values.author_details}
-                            />
                         </div>
                     </div>
 
@@ -215,60 +195,9 @@ const CreateVideoContent = ({ handleClose }) => {
                             />
                         </div>
                     </div>
-                    <div className="form-group col-6 my-1">
-                        <label className="col-12 col-form-label">S3 Url</label>
-                        <div className="col-12">
-                            <input
-                                placeholder="Enter S3 Url"
-                                type="text"
-                                className="form-control"
-                                name="s3_url"
-                                onChange={formik.handleChange}
-                                value={formik.values.s3_url}
-                            />
-                        </div>
-                    </div>
-                    <div className="form-group col-6 my-1">
-                        <label className="col-12 col-form-label">Youtube Url</label>
-                        <div className="col-12">
-                            <input
-                                placeholder="Enter Youtube Url"
-                                type="text"
-                                className="form-control"
-                                name="youtube_url"
-                                onChange={formik.handleChange}
-                                value={formik.values.youtube_url}
-                            />
-                        </div>
-                    </div>
-                    <div className="form-group col-6 my-1">
-                        <label className="col-12 col-form-label">Download Url</label>
-                        <div className="col-12">
-                            <input
-                                placeholder="Enter Download Url"
-                                type="text"
-                                className="form-control"
-                                name="download_url"
-                                onChange={formik.handleChange}
-                                value={formik.values.download_url}
-                            />
-                        </div>
-                    </div>
-                    <div className="form-group col-6 my-1">
-                        <label className="col-12 col-form-label">Duration</label>
-                        <div className="col-12">
-                            <input
-                                placeholder="Enter duration"
-                                type="number"
-                                className="form-control"
-                                name="duration"
-                                onChange={formik.handleChange}
-                                value={formik.values.duration}
-                                required
-                            />
-                        </div>
-                    </div>
-              
+
+
+
                     <div className="form-group col-6 my-1">
                         <label className="col-12 col-form-label">Price  <span className=" text-danger">*</span></label>
                         <div className="col-12">
@@ -375,10 +304,8 @@ const CreateVideoContent = ({ handleClose }) => {
                         </div>
                     </div>
                     <div className=" my-2 text-center">
-                        <div >
-                            {formik.values.thumbnail ?
-                                <PreviewImage previewImage={previewImage} /> : <BsFillCloudArrowUpFill size={40} />
-                            }
+                        <div className="mx-4">
+                            <PreviewImage previewImage={previewImage} formValue={formik.values.thumbnail} />
                         </div>
 
                         <button
@@ -408,4 +335,4 @@ const CreateVideoContent = ({ handleClose }) => {
     );
 };
 
-export default CreateVideoContent;
+export default CreateScriptContent;

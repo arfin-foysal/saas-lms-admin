@@ -49,6 +49,18 @@ export const navItem = [
         role: "GlobalAdmin",
         icon: <BiBookContent />,
       },
+      {
+        title: "Script Content List",
+        link: "script-content-list",
+        role: "GlobalAdmin",
+        icon: <BiBookContent />,
+      },
+      {
+        title: "Quiz List",
+        link: "quiz-list",
+        role: "GlobalAdmin",
+        icon: <BiBookContent />,
+      },
     ],
   },
   {

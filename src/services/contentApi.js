@@ -32,6 +32,20 @@ export const contentApi = apiSliceAdmin.injectEndpoints({
       }),
       providesTags: ["Content"],
     }),
+    getScriptChapterList: builder.query({
+      query: () => ({
+        url: "admin/chapter-script-list",
+        method: "GET",
+      }),
+      providesTags: ["Content"],
+    }),
+    getQuizList: builder.query({
+      query: () => ({
+        url: "admin/chapter-quiz-list",
+        method: "GET",
+      }),
+      providesTags: ["Content"],
+    }),
 
     classCreateOrUpdate: builder.mutation({
       query: (body) => {
@@ -75,6 +89,26 @@ export const contentApi = apiSliceAdmin.injectEndpoints({
       },
       invalidatesTags: ["Content"],
     }),
+    scriptCreateOrUpdate: builder.mutation({
+      query: (body) => {
+        return {
+          url: `admin/chapter-script-save-or-update`,
+          method: "POST",
+          body: body,
+        };
+      },
+      invalidatesTags: ["Content"],
+    }),
+    quizCreateOrUpdate: builder.mutation({
+      query: (body) => {
+        return {
+          url: `admin/chapter-quiz-save-or-update`,
+          method: "POST",
+          body: body,
+        };
+      },
+      invalidatesTags: ["Content"],
+    }),
 
     getSubjectListByClassId: builder.query({
       query: (id) => ({
@@ -104,5 +138,9 @@ export const {
   useGetVideoChapterListQuery,
   useVideoCreateOrUpdateMutation,
   useGetChapterListBySubjectIdQuery,
+  useGetScriptChapterListQuery,
+  useScriptCreateOrUpdateMutation,
+  useGetQuizListQuery,
+  useQuizCreateOrUpdateMutation,
   
 } = contentApi;

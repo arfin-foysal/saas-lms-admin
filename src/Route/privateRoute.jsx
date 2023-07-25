@@ -8,6 +8,8 @@ import SubjectList from "../app/views/subjectList/SubjectList";
 import ChapterList from "../app/views/chapterList/ChapterList";
 import ClientList from './../app/views/clientList/ClientList';
 import VideoContentList from "../app/views/videoContentList/VideoContentList";
+import ScriptContentList from "../app/views/scriptContentList/ScriptContentList";
+import QuizList from "../app/views/quizList/QuizList";
 
 export const privateRoute = [
   {
@@ -54,6 +56,16 @@ export const privateRoute = [
   {
     path: "video-content-list",
     element: <VideoContentList />,
+    role: "GlobalAdmin",
+  },
+  {
+    path: "script-content-list",
+    element: <ScriptContentList />,
+    role: "GlobalAdmin",
+  },
+  {
+    path: "quiz-list",
+    element: <QuizList/>,
     role: "GlobalAdmin",
   },
   {
