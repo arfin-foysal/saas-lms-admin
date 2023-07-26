@@ -1,12 +1,14 @@
 import { useFormik } from "formik";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { useGetQuizListQuery, useQuestionSaveOrUpdateMutation, useQuizCreateOrUpdateMutation, } from "../../../services/contentApi";
+import { useGetQuizListQuery, useQuestionSaveOrUpdateMutation, useQuestionSetListQuery, useQuizCreateOrUpdateMutation, } from "../../../services/contentApi";
 import { useSelector } from "react-redux";
 import { memo } from 'react';
 import { useMemo } from "react";
+import OptionLoader from "../../components/OptionLoader";
 const CreateQuizQuestion = ({ handleClose ,paramValue}) => {
     const quizRes = useGetQuizListQuery();
+    const setsList = useQuestionSetListQuery();
     const quizResData = useMemo(() =>
         quizRes?.data?.data?.filter((item) => item.id == paramValue), [quizRes, paramValue]);
     const [questionSaveOrUpdate, res] = useQuestionSaveOrUpdateMutation();
@@ -15,6 +17,7 @@ const CreateQuizQuestion = ({ handleClose ,paramValue}) => {
             question_text: "",
             question_text_bn: "",
             question_image: "",
+            question_set_id: "",
             option1: "",
             option2: "",
             option3: "",
@@ -40,6 +43,7 @@ const CreateQuizQuestion = ({ handleClose ,paramValue}) => {
             formData.append("question_text", values.question_text);
             formData.append("question_text_bn", values.question_text_bn);
             formData.append("question_image", values.question_image);
+            formData.append("question_set_id", values.question_set_id);
             formData.append("option1", values.option1);
             formData.append("option2", values.option2);
             formData.append("option3", values.option3);
@@ -105,7 +109,7 @@ const CreateQuizQuestion = ({ handleClose ,paramValue}) => {
                         </div>
                     </div>
 
-                    <div className="form-group col-12 my-1">
+                    <div className="form-group col-6 my-1">
                         <label className="col-12 col-form-label">Question Image</label>
                         <div className="col-12">
                             <input
@@ -117,6 +121,28 @@ const CreateQuizQuestion = ({ handleClose ,paramValue}) => {
                                     formik.setFieldValue("question_image", e.currentTarget.files[0]);
                                 }}
                             />
+                        </div>
+                    </div>
+
+                    <div className="form-group col-6 my-1">
+                        <label className="col-12 col-form-label">Sets <span className=" text-danger">*</span></label>
+                        <div className="col-12">
+                            <select
+                                className="form-control"
+                                name="question_set_id"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.question_set_id}
+                                required
+                            >
+                                {setsList?.isLoading && <OptionLoader />}
+                                <option value="" disabled selected hidden> --Select-- </option>
+                                {setsList?.data?.data?.map((item) => (
+                                    <option key={item.id} value={item.id}>
+                                        {item.name}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
                     </div>
 
@@ -192,7 +218,7 @@ const CreateQuizQuestion = ({ handleClose ,paramValue}) => {
                         </div>
                     </div>
                     <div className="form-group col-6 my-1">
-                        <label className="col-12 col-form-label">Option 03 (Image)e</label>
+                        <label className="col-12 col-form-label">Option 03 (Image)</label>
                         <div className="col-12">
                             <input
                                 className="form-control "

@@ -1,18 +1,20 @@
 import { useFormik } from "formik";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { useGetQuizListQuery, useQuestionSaveOrUpdateMutation, useQuizCreateOrUpdateMutation, } from "../../../services/contentApi";
-import { useSelector } from "react-redux";
+import { useQuestionSaveOrUpdateMutation, useQuestionSetListQuery, } from "../../../services/contentApi";
 import { memo } from 'react';
 import { useMemo } from "react";
+import OptionLoader from "../../components/OptionLoader";
 const UpdateQuizQuestion = ({ handleClose ,paramValue}) => {
     const [questionSaveOrUpdate, res] = useQuestionSaveOrUpdateMutation();
+    const setsList = useQuestionSetListQuery();
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {
             question_text: paramValue?.question_text,
             question_text_bn: paramValue?.question_text_bn,
             question_image: paramValue?.question_image,
+            question_set_id: paramValue?.question_set_id,
             option1: paramValue?.option1,
             option2: paramValue?.option2,
             option3: paramValue?.option3,
@@ -36,6 +38,7 @@ const UpdateQuizQuestion = ({ handleClose ,paramValue}) => {
             formData.append("class_level_id", paramValue?.class_level_id);
             formData.append("subject_id", paramValue?.subject_id);
             formData.append("chapter_id", paramValue?.chapter_id);
+            formData.append("question_set_id", values.question_set_id);
             formData.append("question_text", values.question_text);
             formData.append("question_text_bn", values.question_text_bn);
             formData.append("question_image", values.question_image);
@@ -104,7 +107,7 @@ const UpdateQuizQuestion = ({ handleClose ,paramValue}) => {
                         </div>
                     </div>
 
-                    <div className="form-group col-12 my-1">
+                    <div className="form-group col-6 my-1">
                         <label className="col-12 col-form-label">Question Image</label>
                         <div className="col-12">
                             <input
@@ -118,6 +121,28 @@ const UpdateQuizQuestion = ({ handleClose ,paramValue}) => {
                                 
 
                             />
+                        </div>
+                    </div>
+                    <div className="form-group col-6 my-1">
+                        <label className="col-12 col-form-label">Sets <span className=" text-danger">*</span></label>
+                        <div className="col-12">
+                            <select
+                                className="form-control"
+                                name="question_set_id"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.question_set_id}
+                                required
+                            >
+                               {setsList?.isLoading && <OptionLoader />}
+                                <option value="" disabled selected hidden> --Select-- </option>
+                                
+                                {setsList?.data?.data?.map((item) => (
+                                    <option key={item.id} value={item.id}>
+                                        {item.name}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
                     </div>
 
@@ -193,7 +218,7 @@ const UpdateQuizQuestion = ({ handleClose ,paramValue}) => {
                         </div>
                     </div>
                     <div className="form-group col-6 my-1">
-                        <label className="col-12 col-form-label">Option 03 (Image)e</label>
+                        <label className="col-12 col-form-label">Option 03 (Image)</label>
                         <div className="col-12">
                             <input
                                 className="form-control "

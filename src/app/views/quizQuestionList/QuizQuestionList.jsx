@@ -111,6 +111,7 @@ const QuizQuestionList = () => {
                 handleShow();
                 handelClickValue("Upload Questions using XLSX");
                 setSize("md")
+                setParam(id)
               }}
             >
               <BiUpload size={16} /> Upload Question

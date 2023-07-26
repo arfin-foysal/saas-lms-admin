@@ -7,7 +7,8 @@ import ExcelImport from "./ExcelImport";
 
 
 
-const QuizQuestionModal = ({ handleClose, show, clickValue, paramValue,size }) => {
+const QuizQuestionModal = ({ handleClose, show, clickValue, paramValue, size }) => {
+    
     return (
         <>
             <Modal show={show} onHide={handleClose} size={size}>
@@ -29,7 +30,7 @@ const QuizQuestionModal = ({ handleClose, show, clickValue, paramValue,size }) =
                     }
                     {clickValue === "Upload Questions using XLSX" && (
                         <ExcelImport
-                         handleClose={handleClose} values={paramValue} />
+                         handleClose={handleClose} paramValue={paramValue} />
                     )
                     }
                     {/* {clickValue === "Quiz Details" && (

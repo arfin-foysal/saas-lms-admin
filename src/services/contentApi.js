@@ -39,6 +39,13 @@ export const contentApi = apiSliceAdmin.injectEndpoints({
       }),
       providesTags: ["Content"],
     }),
+    questionSetList: builder.query({
+      query: () => ({
+        url: "admin/question-set-list",
+        method: "GET",
+      }),
+      providesTags: ["Content"],
+    }),
     getQuizList: builder.query({
       query: () => ({
         url: "admin/chapter-quiz-list",
@@ -119,6 +126,16 @@ export const contentApi = apiSliceAdmin.injectEndpoints({
       },
       invalidatesTags: ["Content"],
     }),
+    excelQuestionUpload: builder.mutation({
+      query: (body) => {
+        return {
+          url: `admin/excel-question-upload`,
+          method: "POST",
+          body: body,
+        };
+      },
+      invalidatesTags: ["Content"],
+    }),
 
     getSubjectListByClassId: builder.query({
       query: (id) => ({
@@ -173,5 +190,7 @@ export const {
   useGetQuestionListByQuizQuery,
   useQuestionSaveOrUpdateMutation,
   useDeleteQuestionMutation,
+  useQuestionSetListQuery,
+  useExcelQuestionUploadMutation,
   
 } = contentApi;
