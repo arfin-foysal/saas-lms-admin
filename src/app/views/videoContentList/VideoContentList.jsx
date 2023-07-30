@@ -4,7 +4,7 @@ import MaterialReactTable from "material-react-table";
 import Loader from "../../components/Loader";
 import { FaEdit } from "react-icons/fa";
 import { FiPlusCircle } from "react-icons/fi";
-import { tableColor } from "../../../utils/Themes";
+import { tableColor } from "../../../utils/Theme";
 import MenuModal from "./VideoContentModal";
 import { useGetVideoChapterListQuery } from "../../../services/contentApi";
 import { BsEyeFill } from "react-icons/bs";

@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
 import CreateMenu from "./CreateMenu";
-import { modalColor } from "../../../utils/Themes";
+import { modalColor } from "../../../utils/Theme";
 import UpdateMenu from "./UpdateMenu";
 
 const MenuModal = ({ handleClose, show, clickValue, paramValue }) => {

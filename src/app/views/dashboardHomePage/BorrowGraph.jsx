@@ -35,7 +35,6 @@ const BorrowGraph = ({ itemRentGraph }) => {
                 borderColor: 'orange',
                 responsive: true,
                 fill: true
-
             },
 
         ],
@@ -43,16 +42,20 @@ const BorrowGraph = ({ itemRentGraph }) => {
 
     return (
         <div  >
-
             <Line
-
                 data={data}
-
             />
-
 
         </div>
     )
 }
 
 export default BorrowGraph
+
+export const MyOne = () => {
+    return (
+        <>
+            this im
+        </>
+    )
+}

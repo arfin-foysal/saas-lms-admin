@@ -45,8 +45,6 @@ const VendorPaymentGraph = ({ vendorPaymentGraph }) => {
             <Line
                 data={data}
             />
-           
-            
         </div>
     )
 }

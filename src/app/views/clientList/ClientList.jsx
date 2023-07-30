@@ -3,7 +3,7 @@ import PageTopHeader from '../../components/PageTopHeader';
 import MaterialReactTable from "material-react-table";
 import Loader from "../../components/Loader";
 import { FaEdit} from "react-icons/fa";
-import { tableColor } from "../../../utils/Themes";
+import { tableColor } from "../../../utils/Theme";
 import { useGetClientListQuery } from "../../../services/commonApi";
 const ClientList = () => {
   const res = useGetClientListQuery();

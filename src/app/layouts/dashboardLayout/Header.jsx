@@ -1,12 +1,12 @@
 import React from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import avatar from "../../../../src/assets/images/avatar.png";
-import { BiLogOut } from "react-icons/bi";
 import reset from "../../../../src/assets/images/reset.png";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../features/authSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { MdLogout } from "react-icons/md";
 const Header = () => {
   const authUser = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
@@ -64,7 +64,7 @@ const Header = () => {
                 <RiSettings2Fill /> Setting
               </Dropdown.Item> */}
               <Dropdown.Item onClick={() => handelLogout()}>
-                <BiLogOut /> Logout
+                <MdLogout size={17} className="mb-1" /> Logout
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>

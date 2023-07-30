@@ -1,8 +1,8 @@
+import "./Dashboard.scss";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 import { BiHomeAlt } from "react-icons/bi";
-import { RiLogoutCircleRFill } from "react-icons/ri";
-import "./Dashboard.scss";
+import { MdLogout } from "react-icons/md";
 import { Scrollbars } from "react-custom-scrollbars-2";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -10,7 +10,7 @@ import SidebarMenu from "./SidebarMenu";
 import { navItem } from "../../../Nav/NavItem";
 import { user } from "../../../Route/utils";
 import avatar from "../../../../src/assets/images/avatar.png";
-import logo from "../../../../src/assets/logo/logo.png";
+import logo from "../../../../src/assets/logo/logo-w.png";
 import Header from "./Header";
 import Footer from "./Footer";
 import { useDispatch, useSelector } from "react-redux";
@@ -54,7 +54,6 @@ const Layout = () => {
           <motion.div
             animate={
               {
-
                 width: isOpen ? "230px" : "55px",
                 padding: isOpen ? "17px 17px" : "17px 7px",
                 height: "100vh",
@@ -77,13 +76,14 @@ const Layout = () => {
                     exit="hidden"
                     className="logo pt-2"
                   >
-                    <img src={logo} width={120} alt="" className="me-2" />
+                    <Link to="/dashboard">
+                      <img src={logo} width={130} alt="" className="me-2" />
+                    </Link>
                   </motion.div>
                 )}
               </AnimatePresence>
-
-              <div className="bars pointer ">
-                <FaBars onClick={toggle} />
+              <div className="bars pointer" onClick={toggle}>
+                <FaBars />
               </div>
             </div>
 
@@ -93,7 +93,7 @@ const Layout = () => {
                   className="rounded-circle"
                   width="35"
                   src={avatar}
-                  alt=""
+                  alt="Profile"
                 />
               </div>
               <div className="mt-1 ms-2">
@@ -156,7 +156,7 @@ const Layout = () => {
                         to={route.link}
                         key={index}
                         className="link"
-                        activeClassName="active "
+                        activeclassname="active"
                       >
                         <div className="icon">{route.icon}</div>
                         <AnimatePresence>
@@ -180,8 +180,10 @@ const Layout = () => {
             </Scrollbars>
             <div>
               <div className="d-flex pointer ">
-                <div className="mt-1 ms-2" >
-                  <RiLogoutCircleRFill size={20} />
+                <div className={
+                  isOpen ? "d-none" : "logout_icon mt-1 ms-2"
+                } >
+                  <MdLogout size={20} onClick={toggle} />
                 </div>
                 <div className="mt-1 ms-2  ">
                   {isOpen && (
@@ -193,10 +195,12 @@ const Layout = () => {
                         exit="hidden"
                         className="link_text mt-1 ms-2 fw-lighter"
                       >
-                        <p>Logout</p>
+                        <p> <MdLogout size={20} className="mb-1" /> Logout  </p>
                       </motion.h6>
+
                     </span>
                   )}
+
                 </div>
               </div>
             </div>

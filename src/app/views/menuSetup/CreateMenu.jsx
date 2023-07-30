@@ -22,10 +22,22 @@ const CreateMenu = ({ handleClose }) => {
                 toast.warn("Please select at least one option from Course and Content");
                 return;
             }
+
+            let formData = new FormData();
+            formData.append("name", values.name);
+            formData.append("link", values.link);
+            formData.append("is_authentication_needed", values.is_authentication_needed ? 1 : 0);
+            formData.append("has_submenu", values.has_submenu ? 1 : 0);
+            formData.append("is_course", values.is_course ? 1 : 0);
+            formData.append("is_content", values.is_content ? 1 : 0);
+            formData.append("icon", values.icon);
+            formData.append("is_active", values.is_active ? 1 : 0);
+
+
             resetForm();
             try {
-                console.log(values);
-                const result = await menuCreateOrUpdate(values).unwrap();
+                
+                const result = await menuCreateOrUpdate(formData).unwrap();
                 toast.success(result.message);
             } catch (error) {
                 toast.warn(error.data.message);
@@ -76,12 +88,14 @@ const CreateMenu = ({ handleClose }) => {
                         <label className="col-12 col-form-label">Icon</label>
                         <div className="col-12">
                             <input
-                                placeholder="Enter Icon"
-                                type="text"
                                 className="form-control"
                                 name="icon"
-                                onChange={formik.handleChange}
-                                value={formik.values.icon}
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => {
+                                    formik.setFieldValue("icon", e.currentTarget.files[0]);
+                                  
+                                }}
                             />
                         </div>
                     </div>
@@ -134,8 +148,13 @@ const CreateMenu = ({ handleClose }) => {
                                     value={formik.values.is_course}
                                     checked={formik.values.is_course}
                                 />
+                                  <div
+                                    className={formik.values.is_content ? "d-block" : "d-none"}
+                                >
+                                    <span>N/A</span>
+                                </div>
                                 <small className={formik.values.is_content ? "d-none" : "d-block"}>
-                                    <span className="text-danger">Note:</span> If you select this option then you can't select Is Content option.
+                                    <span className="text-danger">Note:</span> If you select this option then you can't select Content option.
                                 </small>
                             </div>
                         </div>
@@ -154,10 +173,15 @@ const CreateMenu = ({ handleClose }) => {
                                     value={formik.values.is_content}
                                     checked={formik.values.is_content}
                                 />
+                                  <div
+                                    className={formik.values.is_course ? "d-block" : "d-none"}
+                                >
+                                    <span>N/A</span>
+                                </div>
                                 <small className={
                                     formik.values.is_course ? "d-none" : "d-block"
                                 }>
-                                    <span className="text-danger">Note:</span> If you select this option then you can't select Is Course option.
+                                    <span className="text-danger">Note:</span> If you select this option then you can't select Course option.
                                 </small>
                             </div>
                         </div>

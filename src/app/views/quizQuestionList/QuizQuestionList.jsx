@@ -4,7 +4,7 @@ import MaterialReactTable from "material-react-table";
 import Loader from "../../components/Loader";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { FiPlusCircle } from "react-icons/fi";
-import { tableColor } from "../../../utils/Themes";
+import { tableColor } from "../../../utils/Theme";
 import MenuModal from "./QuizQuestionModal";
 import { useDeleteQuestionMutation, useGetQuestionListByQuizQuery } from "../../../services/contentApi";
 import { useSelector } from "react-redux";
@@ -15,14 +15,14 @@ import { toast } from "react-toastify";
 
 
 const QuizQuestionList = () => {
-  const {id}=useParams()
+  const { id } = useParams()
   const qn = useSelector((state) => state.common.quiz);
   const res = useGetQuestionListByQuizQuery(id);
   const { data, isSuccess, isFetching, isError } = res;
   const [deleteQuestion] = useDeleteQuestionMutation()
-  
+
   const [clickValue, setClickValue] = useState(null);
-  const [size,setSize]=useState("lg")
+  const [size, setSize] = useState("lg")
   const [param, setParam] = useState(null);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -31,7 +31,7 @@ const QuizQuestionList = () => {
   const handelClickValue = useCallback((value) => {
     setClickValue(value);
   }, []);
-  
+
 
   const handelDelete = async (id) => {
     const result = await deleteQuestion(id).unwrap();
@@ -48,15 +48,26 @@ const QuizQuestionList = () => {
         </>,
         id: "index",
         header: "SL",
-        size: "10"
+        size: "5"
       },
       {
         accessorKey: "subject_name",
         header: "Subject",
+        size: "5"
       },
       {
+        accessorFn: (row, index) => <>
+          <span className="text-success fw-normal">
+            EN: {row?.question_text}
+            <br />
+            BN: {row?.question_text_bn}
+          </span>
+
+        </>,
+
         accessorKey: "question_text",
         header: "Question",
+        size: "300"
       },
       {
         accessorKey: "option1",
@@ -150,7 +161,7 @@ const QuizQuestionList = () => {
                   <button
                     title=""
                     className="px-2 mx-1 d-flex align-items-center btn btn-danger btn-sm"
-                    onClick={() => { 
+                    onClick={() => {
                       confirmHandel(
                         "error",
                         "Delete",
@@ -158,7 +169,7 @@ const QuizQuestionList = () => {
                         row?.row?.original?.id,
                         handelDelete
                       )
-                      
+
                     }}>
                     <FaTrash size={14} />
                   </button>

@@ -4,7 +4,7 @@ import MaterialReactTable from "material-react-table";
 import Loader from "../../components/Loader";
 import { FaEdit} from "react-icons/fa";
 import { FiPlusCircle } from "react-icons/fi";
-import { tableColor } from "../../../utils/Themes";
+import { tableColor } from "../../../utils/Theme";
 import MenuModal from "./SubjectModal";
 import { useGetSubjectListQuery } from "../../../services/contentApi";
 const SubjectList = () => {

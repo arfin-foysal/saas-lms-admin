@@ -26,9 +26,20 @@ const UpdateMenu = ({ handleClose, paramValue }) => {
                 toast.warn("Please select at least one option from Course and Content");
                 return;
             }
+
+            let formData = new FormData();
+            formData.append("id", values.id);
+            formData.append("name", values.name);
+            formData.append("link", values.link);
+            formData.append("is_authentication_needed", values.is_authentication_needed ? 1 : 0);
+            formData.append("has_submenu", values.has_submenu ? 1 : 0);
+            formData.append("is_course", values.is_course ? 1 : 0);
+            formData.append("is_content", values.is_content ? 1 : 0);
+            formData.append("icon", values.icon);
+            formData.append("is_active", values.is_active ? 1 : 0);
             resetForm();
             try {
-                const result = await menuCreateOrUpdate(values).unwrap();
+                const result = await menuCreateOrUpdate(formData).unwrap();
                 toast.success(result.message);
             } catch (error) {
                 toast.warn(error.data.message);
@@ -80,18 +91,21 @@ const UpdateMenu = ({ handleClose, paramValue }) => {
                         <label className="col-12 col-form-label">Icon</label>
                         <div className="col-12">
                             <input
-                                placeholder="Enter Icon"
-                                type="text"
                                 className="form-control"
                                 name="icon"
-                                onChange={formik.handleChange}
-                                value={formik.values.icon}
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => {
+                                    formik.setFieldValue("icon", e.currentTarget.files[0]);
+
+                                }}
                             />
                         </div>
                     </div>
 
 
-                    <div className="form-group col-12 my-2">
+
+                    <div className="form-group col-12 row my-2">
                         <label className="col-6 col-form-label">Is Authentication Needed</label>
                         <div className="col-6">
                             <div className="form-check form-switch mt-2">
@@ -108,7 +122,7 @@ const UpdateMenu = ({ handleClose, paramValue }) => {
                         </div>
                     </div>
 
-                    <div className="form-group col-12 my-2 ">
+                    <div className="form-group row col-12 my-2 ">
                         <label className="col-6 col-form-label">Has Submenu</label>
                         <div className="col-6">
                             <div className="form-check form-switch mt-2">
@@ -124,7 +138,7 @@ const UpdateMenu = ({ handleClose, paramValue }) => {
                             </div>
                         </div>
                     </div>
-                    <div className="form-group col-12 my-2 ">
+                    <div className="form-group row col-12 my-2 ">
                         <label className="col-6 col-form-label">Is Course</label>
                         <div className="col-6">
                             <div className="form-check form-switch mt-2">
@@ -132,19 +146,24 @@ const UpdateMenu = ({ handleClose, paramValue }) => {
                                     className={formik.values.is_content ? "d-none" : "d-block"}
                                     type="switch"
                                     id="custom-switch"
-                                    label="Active"
+                                    label="✔"
                                     name="is_course"
                                     onChange={formik.handleChange}
                                     value={formik.values.is_course}
                                     checked={formik.values.is_course}
                                 />
+                                   <div
+                                    className={formik.values.is_content ? "d-block" : "d-none"}
+                                >
+                                    <span>N/A</span>
+                                </div>
                                 <small className={formik.values.is_content ? "d-none" : "d-block"}>
-                                    <span className="text-danger">Note:</span> If you select this option then you can't select Is Content option.
+                                    <span className="text-danger">Note:</span> If you select this option then you can't select Content option.
                                 </small>
                             </div>
                         </div>
                     </div>
-                    <div className="form-group col-12 my-2 ">
+                    <div className="form-group row col-12 my-2 ">
                         <label className="col-6 col-form-label">Is Content</label>
                         <div className="col-6">
                             <div className="form-check form-switch mt-2">
@@ -152,23 +171,28 @@ const UpdateMenu = ({ handleClose, paramValue }) => {
                                     className={formik.values.is_course ? "d-none" : "d-block"}
                                     type="switch"
                                     id="custom-switch"
-                                    label="Active"
+                                    label="✔"
                                     name="is_content"
                                     onChange={formik.handleChange}
                                     value={formik.values.is_content}
                                     checked={formik.values.is_content}
                                 />
+                                <div
+                                    className={formik.values.is_course ? "d-block" : "d-none"}
+                                >
+                                    <span>N/A</span>
+                                </div>
 
                                 <small className={
                                     formik.values.is_course ? "d-none" : "d-block"
                                 }>
-                                    <span className="text-danger">Note:</span> If you select this option then you can't select Is Course option.
+                                    <span className="text-danger">Note:</span> If you select this option then you can't select Course option.
                                 </small>
 
                             </div>
                         </div>
                     </div>
-                    <div className="form-group col-12 my-2 ">
+                    <div className="form-group row col-12 my-2 ">
                         <label className="col-6 col-form-label">Is Active</label>
                         <div className="col-6">
                             <div className="form-check form-switch mt-2">

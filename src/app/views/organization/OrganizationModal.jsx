@@ -1,6 +1,6 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
-import { modalColor } from "../../../utils/Themes";
+import { modalColor } from "../../../utils/Theme";
 import CreateOrganization from "./CreateOrganization";
 import UpdateOrganization from "./UpdateOrganization";
 import UpdateSettings from "./UpdateSettings";

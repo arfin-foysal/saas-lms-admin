@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 const OptionLoader = () => {
     return (
         <>
@@ -7,4 +7,4 @@ const OptionLoader = () => {
     )
 }
 
-export default React.memo(OptionLoader)
+export default memo(OptionLoader)

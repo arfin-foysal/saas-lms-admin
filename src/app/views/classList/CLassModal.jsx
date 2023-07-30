@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
 
-import { modalColor } from "../../../utils/Themes";
+import { modalColor } from "../../../utils/Theme";
 import CreateClass from "./CreateClass";
 import UpdateClass from "./UpdateClass";
 

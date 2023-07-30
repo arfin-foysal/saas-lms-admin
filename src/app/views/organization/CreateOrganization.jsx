@@ -50,7 +50,6 @@ const CreateOrganization = ({ handleClose }) => {
         handleClose();
     }
 
-
     return (
         <div>
             <form

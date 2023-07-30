@@ -8,9 +8,6 @@ import TopBox from "./TopBox";
 import TableServerSide from "../../components/TableServerSide";
 const DashboardHomePage = () => {
 
-
-  
-
   const columns =  [
     
       {

@@ -96,14 +96,15 @@ main {
 }
 .link:hover {
   border-right: 4px solid white;
-  background: #465572;
+  background: $bb_color3;
   transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
   border-radius: 5px;
-  color: #007bff;
+  color: white;
 }
 .active {
   border-right: 4px solid white;
-  background: #3f4d67;
+  background: $bb_color3;
+   border-radius: 5px;
 }
 .link_text {
   white-space: nowrap;

@@ -7,11 +7,11 @@ import { memo, useState } from 'react';
 import { useMemo } from "react";
 import OptionLoader from "../../components/OptionLoader";
 const ExcelImport = ({ handleClose, paramValue }) => {
-
     const [excelData, setExcelData] = useState([]);
     const quizRes = useGetQuizListQuery();
     const setsList = useQuestionSetListQuery();
     const [excelQuestionUpload, res] = useExcelQuestionUploadMutation();
+
     const quizResData = useMemo(() =>
         quizRes?.data?.data?.filter((item) => item.id == paramValue), [quizRes, paramValue]);
         const readUploadFile = useMemo(() => (e) => {
@@ -165,5 +165,4 @@ const ExcelImport = ({ handleClose, paramValue }) => {
     );
 };
 
-export default memo(ExcelImport)
-    ;
+export default ExcelImport;

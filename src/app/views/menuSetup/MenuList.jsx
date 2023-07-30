@@ -4,7 +4,7 @@ import MaterialReactTable from "material-react-table";
 import Loader from "../../components/Loader";
 import { FaEdit} from "react-icons/fa";
 import { FiPlusCircle } from "react-icons/fi";
-import { tableColor } from "../../../utils/Themes";
+import { tableColor } from "../../../utils/Theme";
 import MenuModal from "./MenuModal";
 import { useGetMenuListQuery } from "../../../services/masterSettingsApi";
 const MenuList = () => {
@@ -30,11 +30,6 @@ const MenuList = () => {
       {
         accessorKey: "link", 
         header: "Link",
-
-      },
-      {
-        accessorKey: "icon", 
-        header: "Icon",
 
       },
       {
@@ -157,7 +152,6 @@ const MenuList = () => {
                     </button>
                   </div>
                   <div>
-
                   </div>
                 </div>
               </>

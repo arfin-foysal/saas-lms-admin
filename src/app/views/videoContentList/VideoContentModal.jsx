@@ -1,6 +1,6 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
-import { modalColor } from "../../../utils/Themes";
+import { modalColor } from "../../../utils/Theme";
 import CreateVideoContent from "./CreateVideoContent";
 import UpdateVideoContent from "./UpdateVideoContent";
 import DetailsVideoContent from "./DetailsVideoContent";

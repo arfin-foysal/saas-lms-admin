@@ -1,6 +1,6 @@
 import Swal from "sweetalert2";
 
-export  const confirmHandel = async (icon, buttonTxt, ButtonClr, Did, funCtion) => {
+export  const confirmHandel = async (icon, buttonTxt, ButtonClr, Did, func) => {
     Swal.fire({
       title: "Are you sure?",
       // text: "You won't be able to revert this!",
@@ -12,7 +12,7 @@ export  const confirmHandel = async (icon, buttonTxt, ButtonClr, Did, funCtion) 
       showCancelButton: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        funCtion(Did);
+        func(Did);
         Swal.fire("success");
         
       }

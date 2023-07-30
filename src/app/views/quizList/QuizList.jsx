@@ -4,7 +4,7 @@ import MaterialReactTable from "material-react-table";
 import Loader from "../../components/Loader";
 import { FaEdit } from "react-icons/fa";
 import { FiPlusCircle } from "react-icons/fi";
-import { tableColor } from "../../../utils/Themes";
+import { tableColor } from "../../../utils/Theme";
 import MenuModal from "./QuizModal";
 import { BsEyeFill } from "react-icons/bs";
 import { useGetQuizListQuery } from "../../../services/contentApi";
@@ -145,14 +145,10 @@ const QuizList = () => {
                         class_level_id: row?.row?.original?.class_level_id,
                         chapter_id: row?.row?.original?.chapter_id,
                         chapter_quiz_id: row?.row?.original?.id,
-
- 
-
-
                       }))
                     }}
                   >
-                    <Link to={`/dashboard/globaladmin/quiz-question-list/${row?.row?.original?.id}`}><BsEyeFill size={16} /> QN </Link>
+                    <Link to={`/dashboard/globaladmin/quiz-question-list/${row?.row?.original?.id}`}><BsEyeFill size={17} /> QN </Link>
 
                   </button>
                 </div>

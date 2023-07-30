@@ -4,7 +4,7 @@ import MaterialReactTable from "material-react-table";
 import Loader from "../../components/Loader";
 import { FaEdit } from "react-icons/fa";
 import { FiPlusCircle } from "react-icons/fi";
-import { tableColor } from "../../../utils/Themes";
+import { tableColor } from "../../../utils/Theme";
 import MenuModal from "./OrganizationModal";
 import demo from "../../../../src/assets/images/no_image.png";
 import { useGetOrganizationListQuery } from "../../../services/masterSettingsApi";
