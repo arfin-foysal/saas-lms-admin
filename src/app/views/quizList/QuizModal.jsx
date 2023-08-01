@@ -3,7 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import { modalColor } from "../../../utils/Theme";
 import CreateQuiz from "./CreateQuiz";
 import UpdateQuiz from "./UpdateQuiz";
-import DetailsQuiz from "./DetailsQuiz";
+
 
 
 const QuizModal = ({ handleClose, show, clickValue, paramValue }) => {

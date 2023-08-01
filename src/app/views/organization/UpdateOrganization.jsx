@@ -24,6 +24,8 @@ const UpdateOrganization = ({ handleClose, paramValue }) => {
             email: paramValue && paramValue.email,
             contact_no: paramValue && paramValue.contact_no,
             contact_person: paramValue && paramValue.contact_person,
+            hotline_number: paramValue && paramValue.hotline_number,
+            banner: paramValue && paramValue.banner,
             logo: paramValue && paramValue.logo,
             is_active: paramValue && paramValue.is_active,
         },
@@ -38,6 +40,8 @@ const UpdateOrganization = ({ handleClose, paramValue }) => {
             formData.append("email", values.email);
             formData.append("contact_no", values.contact_no);
             formData.append("contact_person", values.contact_person);
+            formData.append("hotline_number", values.hotline_number);
+            formData.append("banner", values.banner);
             formData.append("logo", values.logo);
             formData.append("is_active", values.is_active ? 1 : 0);
             resetForm();
@@ -63,7 +67,7 @@ const UpdateOrganization = ({ handleClose, paramValue }) => {
                 encType="multipart/form-data"
             >
                 <div className="row">
-                    <div className="form-group col-12 my-1">
+                    <div className="form-group col-6 my-1">
                         <label className="col-12 col-form-label">Name <span className=" text-danger">*</span></label>
                         <div className="col-12">
                             <input
@@ -104,6 +108,19 @@ const UpdateOrganization = ({ handleClose, paramValue }) => {
                                 required
                             />
                         </div>
+                    </div>           <div className="form-group col-6 my-1">
+                        <label className="col-12 col-form-label">Contact Person</label>
+                        <div className="col-12">
+                            <input
+                                placeholder="Enter Contact Person"
+                                type="text"
+                                className="form-control"
+                                name="contact_person"
+                                onChange={formik.handleChange}
+                                value={formik.values.contact_person}
+                                required
+                            />
+                        </div>
                     </div>
                     <div className="form-group col-6 my-1">
                         <div className="col-12">
@@ -119,16 +136,17 @@ const UpdateOrganization = ({ handleClose, paramValue }) => {
                             />
                         </div>
                     </div>
+         
                     <div className="form-group col-6 my-1">
-                        <label className="col-12 col-form-label">Contact Person</label>
                         <div className="col-12">
+                            <label className="col-12 col-form-label">Hotline No</label>
                             <input
-                                placeholder="Enter Contact Person"
-                                type="text"
+                                placeholder="Enter hotline No"
+                                type="number"
                                 className="form-control"
-                                name="contact_person"
+                                name="hotline_number"
                                 onChange={formik.handleChange}
-                                value={formik.values.contact_person}
+                                value={formik.values.hotline_number}
                                 required
                             />
                         </div>
@@ -173,6 +191,22 @@ const UpdateOrganization = ({ handleClose, paramValue }) => {
                                 accept="image/*"
                                 onChange={(e) => {
                                     formik.setFieldValue("logo", e.currentTarget.files[0]);
+                                    handelImage(e);
+                                }}
+                            />
+                        </div>
+                    </div>
+                    <div className="form-group  col-12 my-1">
+                        <label className="col-12 col-form-label">Banner</label>
+                        <div className="col-12">
+                            <input
+                             
+                                className="form-control"
+                                name="banner"
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => {
+                                    formik.setFieldValue("banner", e.currentTarget.files[0]);
                                     handelImage(e);
                                 }}
                             />

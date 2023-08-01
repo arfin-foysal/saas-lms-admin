@@ -21,6 +21,8 @@ const CreateOrganization = ({ handleClose }) => {
             email: "",
             contact_no: "",
             contact_person: "",
+            hotline_number: "",
+            banner: null,
             logo: null,
             is_active: true,
         },
@@ -33,6 +35,8 @@ const CreateOrganization = ({ handleClose }) => {
             formData.append("email", values.email);
             formData.append("contact_no", values.contact_no);
             formData.append("contact_person", values.contact_person);
+            formData.append("hotline_number", values.hotline_number);
+            formData.append("banner", values.banner);
             formData.append("logo", values.logo);
             formData.append("is_active", values.is_active ? 1 : 0);
 
@@ -58,7 +62,7 @@ const CreateOrganization = ({ handleClose }) => {
                 encType="multipart/form-data"
             >
                 <div className="row">
-                    <div className="form-group col-12 my-1">
+                    <div className="form-group col-6 my-1">
                         <label className="col-12 col-form-label">Name <span className=" text-danger">*</span></label>
                         <div className="col-12">
                             <input
@@ -100,6 +104,21 @@ const CreateOrganization = ({ handleClose }) => {
                             />
                         </div>
                     </div>
+
+                    <div className="form-group col-6 my-1">
+                        <label className="col-12 col-form-label">Contact Person</label>
+                        <div className="col-12">
+                            <input
+                                placeholder="Enter Contact Person"
+                                type="text"
+                                className="form-control"
+                                name="contact_person"
+                                onChange={formik.handleChange}
+                                value={formik.values.contact_person}
+                                required
+                            />
+                        </div>
+                    </div>
                     <div className="form-group col-6 my-1">
                         <div className="col-12">
                             <label className="col-12 col-form-label">Contact No</label>
@@ -115,15 +134,15 @@ const CreateOrganization = ({ handleClose }) => {
                         </div>
                     </div>
                     <div className="form-group col-6 my-1">
-                        <label className="col-12 col-form-label">Contact Person</label>
                         <div className="col-12">
+                            <label className="col-12 col-form-label">Hotline No</label>
                             <input
-                                placeholder="Enter Contact Person"
-                                type="text"
+                                placeholder="Enter hotline No"
+                                type="number"
                                 className="form-control"
-                                name="contact_person"
+                                name="hotline_number"
                                 onChange={formik.handleChange}
-                                value={formik.values.contact_person}
+                                value={formik.values.hotline_number}
                                 required
                             />
                         </div>
@@ -156,22 +175,7 @@ const CreateOrganization = ({ handleClose }) => {
                             />
                         </div>
                     </div>
-                    <div className="form-group row col-6 my-2  ">
-                        <label className="col-6 col-form-label">Is Active</label>
-                        <div className="col-6">
-                            <div className="form-check form-switch mt-2">
-                                <Form.Check
-                                    type="switch"
-                                    id="custom-switch"
-                                    label="Active"
-                                    name="is_active"
-                                    onChange={formik.handleChange}
-                                    value={formik.values.is_active}
-                                    checked={formik.values.is_active}
-                                />
-                            </div>
-                        </div>
-                    </div>
+            
 
                     <div className="form-group row col-12 my-1">
                         {/* <label className="col-12 col-form-label">Logo</label> */}
@@ -190,7 +194,38 @@ const CreateOrganization = ({ handleClose }) => {
                             />
                         </div>
                     </div>
-
+                    <div className="form-group  col-12 my-1">
+                        <label className="col-12 col-form-label">Banner</label>
+                        <div className="col-12">
+                            <input
+                             
+                                className="form-control"
+                                name="banner"
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => {
+                                    formik.setFieldValue("banner", e.currentTarget.files[0]);
+                                    handelImage(e);
+                                }}
+                            />
+                        </div>
+                    </div>
+        <div className="form-group row col-6 my-2  ">
+                        <label className="col-6 col-form-label">Is Active</label>
+                        <div className="col-6">
+                            <div className="form-check form-switch mt-2">
+                                <Form.Check
+                                    type="switch"
+                                    id="custom-switch"
+                                    label="Active"
+                                    name="is_active"
+                                    onChange={formik.handleChange}
+                                    value={formik.values.is_active}
+                                    checked={formik.values.is_active}
+                                />
+                            </div>
+                        </div>
+                    </div>
                     <div className=" my-2 text-center">
                         <div >
                             {formik.values.logo ?

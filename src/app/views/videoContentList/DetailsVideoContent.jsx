@@ -91,7 +91,8 @@ const DetailsVideoContent = ({ handleClose, values }) => {
                                 <LazyLoadImage
                                     src={`${import.meta.env.VITE_ASSET_HOST_URL}${values?.thumbnail}`}
                                     width={50} height={40}
-                                    alt="Image Alt"
+                                    effect="blur"
+                                    alt={values?.title}
                                 />
                             </td>
                         </tr> 

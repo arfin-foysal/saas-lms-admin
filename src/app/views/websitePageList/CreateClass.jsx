@@ -6,7 +6,7 @@ import { useMenuCreateOrUpdateMutation } from "../../../services/masterSettingsA
 import PreviewImage from "../../components/PreviewImage";
 import { BsFillCloudArrowUpFill } from "react-icons/bs";
 import { useClassCreateOrUpdateMutation } from "../../../services/contentApi";
-const UpdateClass = ({ handleClose, paramValue }) => {
+const CreateClass = ({ handleClose }) => {
     const fileRef = useRef(null)
     const [previewImage, setPreviewImage] = useState();
     function handelImage(e) {
@@ -15,27 +15,26 @@ const UpdateClass = ({ handleClose, paramValue }) => {
     const [classCreateOrUpdate, res] = useClassCreateOrUpdateMutation();
     const formik = useFormik({
         initialValues: {
-            name: paramValue?.name,
-            name_bn: paramValue?.name_bn,
-            price: paramValue?.price,
-            icon: paramValue?.icon,
-            color_code: paramValue?.color_code,
-            sequence: paramValue?.sequence,
-            is_free: paramValue?.is_free,
-            is_active: paramValue?.is_active,
+            name: "",
+            name_bn: "",
+            price: "",
+            icon: "",
+            color_code: "",
+            sequence: "",
+            is_free: false,
+            is_active: true,
         },
 
         onSubmit: async (values, { resetForm }) => {
             let formData = new FormData();
-            formData.append("id", paramValue?.id);
-            formData.append("name", values?.name);
-            formData.append("name_bn", values?.name_bn);
-            formData.append("price", values?.price);
-            formData.append("icon", values?.icon);
-            formData.append("color_code", values?.color_code);
-            formData.append("sequence", values?.sequence);
-            formData.append("is_free", values?.is_free ? 1 : 0);
-            formData.append("is_active", values?.is_active ? 1 : 0);
+            formData.append("name", values.name);
+            formData.append("name_bn", values.name_bn);
+            formData.append("price", values.price);
+            formData.append("icon", values.icon);
+            formData.append("color_code", values.color_code);
+            formData.append("sequence", values.sequence);
+            formData.append("is_free", values.is_free? 1 : 0);
+            formData.append("is_active", values.is_active? 1 : 0);
 
             resetForm();
             try {
@@ -57,7 +56,7 @@ const UpdateClass = ({ handleClose, paramValue }) => {
                 onSubmit={formik.handleSubmit}
                 encType="multipart/form-data"
             >
-                <d  iv className="row">
+                <div className="row">
                     <div className="form-group col-12 my-1">
                         <label className="col-12 col-form-label">Name <span className=" text-danger">*</span></label>
                         <div className="col-12">
@@ -123,7 +122,6 @@ const UpdateClass = ({ handleClose, paramValue }) => {
                                 name="sequence"
                                 onChange={formik.handleChange}
                                 value={formik.values.sequence}
-                                required
                             />
                         </div>
                     </div>
@@ -177,8 +175,10 @@ const UpdateClass = ({ handleClose, paramValue }) => {
                         </div>
                     </div>
                     <div className=" my-2 text-center">
-                        <div className="mx-4">
-                            <PreviewImage previewImage={previewImage} formValue={formik.values.icon} />
+                        <div >
+                            {formik.values.icon ?
+                                <PreviewImage previewImage={previewImage} /> : <BsFillCloudArrowUpFill size={40} />
+                            }
                         </div>
 
                         <button
@@ -192,10 +192,10 @@ const UpdateClass = ({ handleClose, paramValue }) => {
                         </button>
 
                     </div>
-                </d>
+                </div>
                 <Modal.Footer>
 
-                    <button type="button" className="btn btn-dark me-2 btn-sm" onClick={handleClose}>
+                    <button className="btn btn-dark me-2 btn-sm" onClick={handleClose}>
                         Close
                     </button>
 
@@ -209,4 +209,4 @@ const UpdateClass = ({ handleClose, paramValue }) => {
     );
 };
 
-export default UpdateClass;
+export default CreateClass;
