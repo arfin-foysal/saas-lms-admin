@@ -11,6 +11,7 @@ import VideoContentList from "../app/views/videoContentList/VideoContentList";
 import ScriptContentList from "../app/views/scriptContentList/ScriptContentList";
 import QuizList from "../app/views/quizList/QuizList";
 import QuizQuestionList from './../app/views/quizQuestionList/QuizQuestionList';
+import WebsitePageList from "../app/views/websitePageList/WebsitePageList";
 
 export const privateRoute = [
   {
@@ -71,6 +72,11 @@ export const privateRoute = [
   {
     path: "client-list",
     element: <ClientList />,
+    role: "GlobalAdmin",
+  },
+  {
+    path: "globaladmin/website-page-list/:id",
+    element: <WebsitePageList />,
     role: "GlobalAdmin",
   },
   {

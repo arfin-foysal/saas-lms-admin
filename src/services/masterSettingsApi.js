@@ -19,6 +19,13 @@ export const masterSettingsApi = apiSliceAdmin.injectEndpoints({
       }),
       providesTags: ["Master"],
     }),
+    getWebsitePageList: builder.query({
+      query: (id) => ({
+        url:  `admin/website-page-list/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["Master"],
+    }),
 
     menuCreateOrUpdate: builder.mutation({
       query: (body) => {
@@ -34,6 +41,16 @@ export const masterSettingsApi = apiSliceAdmin.injectEndpoints({
       query: (body) => {
         return {
           url: `admin/organization-save-or-update`,
+          method: "POST",
+          body: body,
+        };
+      },
+      invalidatesTags: ["Master"],
+    }),
+    websitePageSaveOrUpdate: builder.mutation({
+      query: (body) => {
+        return {
+          url: `admin/website-page-save-or-update`,
           method: "POST",
           body: body,
         };
@@ -62,4 +79,7 @@ export const {
   useOrganizationCreateOrUpdateMutation,
   useGetOrganizationListQuery,
   useSettingUpdateMutation,
+  useWebsitePageSaveOrUpdateMutation,
+  useGetWebsitePageListQuery,
+ 
 } = masterSettingsApi;

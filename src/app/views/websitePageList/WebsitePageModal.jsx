@@ -1,15 +1,14 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
-
 import { modalColor } from "../../../utils/Theme";
-import CreateClass from "./CreateClass";
-import UpdateClass from "./UpdateClass";
+import CreateWebsitePage from "./CreateWebsitePage";
+import UpdateWebsitePage from "./UpdateWebsitePage";
 
 
-const CLassModal = ({ handleClose, show, clickValue, paramValue }) => {
+const WebsitePageModal = ({ handleClose, show, clickValue, paramValue }) => {
     return (
         <>
-            <Modal show={show} onHide={handleClose} size="md">
+            <Modal show={show} onHide={handleClose} size="lg    z">
                 <Modal.Header
                     closeButton
                     className="text-white"
@@ -18,12 +17,12 @@ const CLassModal = ({ handleClose, show, clickValue, paramValue }) => {
                     <Modal.Title>{clickValue}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {clickValue === "Add New Class" && (
-                        <CreateClass handleClose={handleClose} />
+                    {clickValue === "Add New Page" && (
+                        <CreateWebsitePage handleClose={handleClose} id={paramValue}  />
                     )
                     }
-                    {clickValue === "Update Class" && (
-                        <UpdateClass handleClose={handleClose} paramValue={paramValue} />
+                    {clickValue === "Update Page" && (
+                        <UpdateWebsitePage handleClose={handleClose} paramValue={paramValue} />
                     )
                     }
                 </Modal.Body>
@@ -32,4 +31,4 @@ const CLassModal = ({ handleClose, show, clickValue, paramValue }) => {
     );
 };
 
-export default React.memo(CLassModal);
+export default React.memo(WebsitePageModal);

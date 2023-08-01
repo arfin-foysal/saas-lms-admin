@@ -22,12 +22,7 @@ export const navItem = [
         role: "GlobalAdmin",
         icon: <BiSolidRightArrowAlt />,
       },
-      {
-        title: "Website Page List",
-        link: "website-page-list",
-        role: "GlobalAdmin",
-        icon: <BiSolidRightArrowAlt />,
-      },
+
       {
         title: "User List",
         link: "user-list",

@@ -5,10 +5,12 @@ import Loader from "../../components/Loader";
 import { FaEdit } from "react-icons/fa";
 import { FiPlusCircle } from "react-icons/fi";
 import { tableColor } from "../../../utils/Theme";
+import { LiaPagerSolid } from "react-icons/lia";
 import MenuModal from "./OrganizationModal";
 import demo from "../../../../src/assets/images/no_image.png";
 import { useGetOrganizationListQuery } from "../../../services/masterSettingsApi";
 import { BsGearFill } from "react-icons/bs";
+import { Link } from "react-router-dom";
 const OrganizationList = () => {
   const res = useGetOrganizationListQuery();
   const { data, isSuccess, isFetching, isError } = res;
@@ -158,6 +160,12 @@ const OrganizationList = () => {
                   >
                     <FaEdit size={16} /> Edit
                   </button>
+                  <Link
+                    to={`/dashboard/globaladmin/website-page-list/${row?.row?.original?.id}`}
+                    className="mx-2 btn btn-info btn-sm"
+                  >
+                    <LiaPagerSolid size={18} /> Page
+                  </Link>
                 </div>
               </>
             )}
