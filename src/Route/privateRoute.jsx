@@ -91,10 +91,10 @@ export const privateRoute = [
     element: <CourseList/>,
     role: "GlobalAdmin",
   },
-  // {
-  //   path: "course-outline-list",
-  //   element: <CourseOutlineList/>,
-  //   role: "GlobalAdmin",
-  // }
+  {
+    path: "course-outline-list",
+    element: <CourseOutlineList/>,
+    role: "GlobalAdmin",
+  }
 
 ];

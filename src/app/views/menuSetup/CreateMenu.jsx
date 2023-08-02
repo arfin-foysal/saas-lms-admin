@@ -9,6 +9,7 @@ const CreateMenu = ({ handleClose }) => {
         initialValues: {
             name: "",
             link: "",
+            sequence: "",
             is_authentication_needed: false,
             has_submenu: true,
             is_course: true,
@@ -26,6 +27,7 @@ const CreateMenu = ({ handleClose }) => {
             let formData = new FormData();
             formData.append("name", values.name);
             formData.append("link", values.link);
+            formData.append("sequence", values.sequence);
             formData.append("is_authentication_needed", values.is_authentication_needed ? 1 : 0);
             formData.append("has_submenu", values.has_submenu ? 1 : 0);
             formData.append("is_course", values.is_course ? 1 : 0);
@@ -84,7 +86,8 @@ const CreateMenu = ({ handleClose }) => {
                             />
                         </div>
                     </div>
-                    <div className="form-group col-12 my-1">
+                
+                    <div className="form-group col-6 my-1">
                         <label className="col-12 col-form-label">Icon</label>
                         <div className="col-12">
                             <input
@@ -99,7 +102,20 @@ const CreateMenu = ({ handleClose }) => {
                             />
                         </div>
                     </div>
-                    
+                        <div className="form-group col-6 my-1">
+                        <label className="col-12 col-form-label">Sequence</label>
+                        <div className="col-12">
+                            <input
+                                placeholder="Enter sequence"
+                                type="number"
+                                className="form-control"
+                                name="sequence"
+                                onChange={formik.handleChange}
+                                value={formik.values.sequence}
+                                required
+                            />
+                        </div>
+                    </div>
                     <div className="form-group row col-12 my-2">
                         <label className="col-6 col-form-label">Is Authentication Needed</label>
                         <div className="col-6">

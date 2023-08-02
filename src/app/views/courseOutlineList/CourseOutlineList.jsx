@@ -6,20 +6,22 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import { FiPlusCircle } from "react-icons/fi";
 import { tableColor } from "../../../utils/Theme";
 import MenuModal from "./CourseOutlineModal";
-import { useDeleteQuestionMutation, useGetQuestionListByQuizQuery } from "../../../services/contentApi";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { BiUpload } from "react-icons/bi";
+import { useDeleteQuestionMutation } from "../../../services/contentApi";
+
 import { confirmHandel } from "../../../utils/Alert";
 import { toast } from "react-toastify";
+import Select from 'react-select'
+import { useGetCourseListQuery, useGetCourseOutlineByCourseIdQuery } from "../../../services/courseApi";
 
 
 const CourseOutlineList = () => {
-  const { id } = useParams()
-  const qn = useSelector((state) => state.common.quiz);
-  const res = useGetQuestionListByQuizQuery(id);
+  const [id, setId] = useState(null);
+  const res = useGetCourseOutlineByCourseIdQuery(id);
   const { data, isSuccess, isFetching, isError } = res;
   const [deleteQuestion] = useDeleteQuestionMutation()
+  const courseRes = useGetCourseListQuery()
+
+
 
   const [clickValue, setClickValue] = useState(null);
   const [size, setSize] = useState("lg")
@@ -103,10 +105,11 @@ const CourseOutlineList = () => {
       <PageTopHeader title="Quiz Questions" />
       <div className="card border shadow-lg ">
         <div className="card-header d-flex justify-content-between ">
-          <p className="fw-bold text-muted">QUESTION LIST ( {qn?.name} )</p>
+          <p className="fw-bold text-muted"></p>
           <div>
+
             <button
-              className="btn btn-primary btn-sm mx-1"
+              className="btn btn-primary btn-sm mx-1 my-0"
               onClick={() => {
                 handleShow();
                 handelClickValue("Add New Question");
@@ -116,22 +119,36 @@ const CourseOutlineList = () => {
             >
               <FiPlusCircle size={16} /> Add New Questions
             </button>
-            <button
-              className="btn btn-primary btn-sm mx-1"
-              onClick={() => {
-                handleShow();
-                handelClickValue("Upload Questions using XLSX");
-                setSize("md")
-                setParam(id)
-              }}
-            >
-              <BiUpload size={16} /> Upload Question
-            </button>
+
           </div>
         </div>
 
         <div className="card-body p-0">
           <MaterialReactTable
+            renderTopToolbarCustomActions={() => (
+              <div className="col-md-3 d-flex justify-content-start ">
+                <Select
+                  className="w-100"
+                  menuPortalTarget={document.body}
+                  styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+                  placeholder="Select Course"
+                  isLoading={courseRes?.isFetching}
+                  onChange={(e) => setId(e.id)}
+                  getOptionValue={(option) => `${option["id"]}`}
+                  getOptionLabel={(option) => `${option["title"]}`}
+                  options={courseRes?.data?.data}
+                  key={courseRes?.data?.data?.id}
+                 
+         
+                />
+                {/* <IoSyncCircle
+                    className="cursor mt-2 ms-1"
+                    color="white"
+                    size={25}
+                    onClick={() => refatchClick()}
+                  /> */}
+              </div>
+            )}
             columns={columns}
             data={isSuccess ? data?.data : []}
             enableRowActions

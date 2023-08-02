@@ -12,6 +12,7 @@ const UpdateMenu = ({ handleClose, paramValue }) => {
             id: paramValue && paramValue?.id,
             name: paramValue && paramValue?.name,
             link: paramValue && paramValue?.link,
+            sequence: paramValue && paramValue?.sequence,
             is_authentication_needed: paramValue && paramValue?.is_authentication_needed,
             has_submenu: paramValue && paramValue?.has_submenu,
             is_course: paramValue && paramValue?.is_course,
@@ -31,6 +32,7 @@ const UpdateMenu = ({ handleClose, paramValue }) => {
             formData.append("id", values.id);
             formData.append("name", values.name);
             formData.append("link", values.link);
+            formData.append("sequence", values.sequence);
             formData.append("is_authentication_needed", values.is_authentication_needed ? 1 : 0);
             formData.append("has_submenu", values.has_submenu ? 1 : 0);
             formData.append("is_course", values.is_course ? 1 : 0);
@@ -87,7 +89,7 @@ const UpdateMenu = ({ handleClose, paramValue }) => {
                         </div>
                     </div>
 
-                    <div className="form-group col-12 my-1">
+                    <div className="form-group col-6 my-1">
                         <label className="col-12 col-form-label">Icon</label>
                         <div className="col-12">
                             <input
@@ -103,7 +105,20 @@ const UpdateMenu = ({ handleClose, paramValue }) => {
                         </div>
                     </div>
 
-
+                    <div className="form-group col-6 my-1">
+                        <label className="col-12 col-form-label">Sequence</label>
+                        <div className="col-12">
+                            <input
+                                placeholder="Enter sequence"
+                                type="number"
+                                className="form-control"
+                                name="sequence"
+                                onChange={formik.handleChange}
+                                value={formik.values.sequence}
+                                required
+                            />
+                        </div>
+                    </div>
 
                     <div className="form-group col-12 row my-2">
                         <label className="col-6 col-form-label">Is Authentication Needed</label>

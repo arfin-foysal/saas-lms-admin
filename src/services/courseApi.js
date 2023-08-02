@@ -23,14 +23,24 @@ export const courseApi = apiSliceAdmin.injectEndpoints({
       },
       invalidatesTags: ["Course"],
     }),
+    courseOutlineCreateOrUpdate: builder.mutation({
+      query: (body) => {
+        return {
+          url: `admin/course-outline-save-or-update`,
+          method: "POST",
+          body: body,
+        };
+      },
+      invalidatesTags: ["Course"],
+    }),
 
-    // getQuestionListByQuiz: builder.query({
-    //   query: (id) => ({
-    //     url: `admin/question-list-by-quiz/${id}`,
-    //     method: "GET",
-    //   }),
-    //   providesTags: ["Course"],
-    // }),
+    getCourseOutlineByCourseId: builder.query({
+      query: (id) => ({
+        url: `admin/course-outline-list/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["Course"],
+    }),
 
     // deleteQuestion: builder.mutation({
     //   query: (id) => ({
@@ -48,6 +58,8 @@ export const courseApi = apiSliceAdmin.injectEndpoints({
 export const {
   useGetCourseListQuery,
   useCourseCreateOrUpdateMutation,
+  useGetCourseOutlineByCourseIdQuery,
+  useCourseOutlineCreateOrUpdateMutation,
 
   
 } = courseApi;

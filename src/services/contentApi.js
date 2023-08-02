@@ -151,6 +151,31 @@ export const contentApi = apiSliceAdmin.injectEndpoints({
       }),
       invalidatesTags: ["Content"],
     }),
+
+    getScriptListByChapterId: builder.query({
+      query: (id) => ({
+        url: `admin/script-list-by-chapter-id/${id}`,
+        method: "GET",
+      }),
+      invalidatesTags: ["Content"],
+    }),
+
+    getVideoListByChapterId: builder.query({
+      query: (id) => ({
+        url: `admin/video-list-by-chapter-id/${id}`,
+        method: "GET",
+      }),
+      invalidatesTags: ["Content"],
+    }),
+    getQuizListByChapterId: builder.query({
+      query: (id) => ({
+        url: `admin/quiz-list-by-chapter-id/${id}`,
+        method: "GET",
+      }),
+      invalidatesTags: ["Content"],
+    }),
+
+
     getQuestionListByQuiz: builder.query({
       query: (id) => ({
         url: `admin/question-list-by-quiz/${id}`,
@@ -192,5 +217,9 @@ export const {
   useDeleteQuestionMutation,
   useQuestionSetListQuery,
   useExcelQuestionUploadMutation,
+  
+  useGetScriptListByChapterIdQuery,
+  useGetVideoListByChapterIdQuery,
+  useGetQuizListByChapterIdQuery,
   
 } = contentApi;

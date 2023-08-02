@@ -85,12 +85,12 @@ export const navItem = [
         role: "GlobalAdmin",
         icon: <BiSolidRightArrowAlt />,
       },
-      // {
-      //   title: "Course Outline List",
-      //   link: "course-outline-list",
-      //   role: "GlobalAdmin",
-      //   icon: <BiSolidRightArrowAlt />,
-      // }
+      {
+        title: "Course Outline List",
+        link: "course-outline-list",
+        role: "GlobalAdmin",
+        icon: <BiSolidRightArrowAlt />,
+      }
 
 
     ],

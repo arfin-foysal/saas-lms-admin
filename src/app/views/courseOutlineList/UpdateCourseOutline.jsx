@@ -1,71 +1,62 @@
 import { useFormik } from "formik";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { useQuestionSaveOrUpdateMutation, useQuestionSetListQuery, } from "../../../services/contentApi";
+import { useGetChapterListBySubjectIdQuery, useGetClassListQuery, useGetQuizListByChapterIdQuery, useGetScriptListByChapterIdQuery, useGetSubjectListByClassIdQuery, useGetVideoListByChapterIdQuery, useQuestionSaveOrUpdateMutation } from "../../../services/contentApi";
+
 import { memo } from 'react';
-import { useMemo } from "react";
+
 import OptionLoader from "../../components/OptionLoader";
-const UpdateCourseOutline = ({ handleClose ,paramValue}) => {
-    const [questionSaveOrUpdate, res] = useQuestionSaveOrUpdateMutation();
-    const setsList = useQuestionSetListQuery();
+import { useCourseOutlineCreateOrUpdateMutation, useGetCourseListQuery } from "../../../services/courseApi";
+const UpdateCourseOutline = ({ handleClose, paramValue }) => {
+
+
+    const [courseOutlineCreateOrUpdate, res] = useCourseOutlineCreateOrUpdateMutation();
     const formik = useFormik({
-        enableReinitialize: true,
         initialValues: {
-            question_text: paramValue?.question_text,
-            question_text_bn: paramValue?.question_text_bn,
-            question_image: paramValue?.question_image,
-            question_set_id: paramValue?.question_set_id,
-            option1: paramValue?.option1,
-            option2: paramValue?.option2,
-            option3: paramValue?.option3,
-            option4: paramValue?.option4,
-            option1_image: paramValue?.option1_image,
-            option2_image: paramValue?.option2_image,
-            option3_image: paramValue?.option3_image,
-            option4_image: paramValue?.option4_image,
-            answer1: paramValue?.answer1,
-            answer2: paramValue?.answer2,
-            answer3: paramValue?.answer3,
-            answer4: paramValue?.answer4,
-            explanation_text: paramValue?.explanation_text,
-            explanation_image: paramValue?.explanation_image,
-            is_active: paramValue?.is_active,
+            'title': "",
+            'title_bn': "",
+            'course_id': paramValue,
+            'class_level_id': '',
+            'subject_id': '',
+            'chapter_id': '',
+            'chapter_script_id': '',
+            'chapter_video_id': '',
+            'chapter_quiz_id': '',
+            'sequence': '',
+            is_free: false,
+            is_active: true
         },
         onSubmit: async (values, { resetForm }) => {
-            let formData = new FormData();
-            formData.append("id", paramValue?.id);
-            formData.append("chapter_quiz_id", paramValue?.chapter_quiz_id);
-            formData.append("class_level_id", paramValue?.class_level_id);
-            formData.append("subject_id", paramValue?.subject_id);
-            formData.append("chapter_id", paramValue?.chapter_id);
-            formData.append("question_set_id", values.question_set_id);
-            formData.append("question_text", values.question_text);
-            formData.append("question_text_bn", values.question_text_bn);
-            formData.append("question_image", values.question_image);
-            formData.append("option1", values.option1);
-            formData.append("option2", values.option2);
-            formData.append("option3", values.option3);
-            formData.append("option4", values.option4);
-            formData.append("option1_image", values.option1_image);
-            formData.append("option2_image", values.option2_image);
-            formData.append("option3_image", values.option3_image);
-            formData.append("option4_image", values.option4_image);
-            formData.append("answer1", values.answer1 ? 1 : 0);
-            formData.append("answer2", values.answer2 ? 1 : 0);
-            formData.append("answer3", values.answer3 ? 1 : 0);
-            formData.append("answer4", values.answer4 ? 1 : 0);
-            formData.append("explanation_text", values.explanation_text);
-            formData.append("explanation_image", values.explanation_image);
-            formData.append("is_active", values.is_active ? 1 : 0);
             resetForm();
             try {
-                const result = await questionSaveOrUpdate(formData).unwrap();
+                const result = await courseOutlineCreateOrUpdate(values).unwrap();
                 toast.success(result.message);
             } catch (error) {
                 toast.warn(error.data.message);
             }
         },
     });
+
+    const courseRes = useGetCourseListQuery()
+    const classRes = useGetClassListQuery()
+    const subjectRes = useGetSubjectListByClassIdQuery(
+        formik.values.class_level_id
+    )
+    const ChapterRes = useGetChapterListBySubjectIdQuery(
+        formik.values.subject_id
+    )
+    const scriptRes = useGetScriptListByChapterIdQuery(
+        formik.values.chapter_id
+    )
+
+    const videoRes = useGetVideoListByChapterIdQuery(
+        formik.values.chapter_id
+    )
+
+    const quizRes = useGetQuizListByChapterIdQuery(
+        formik.values.chapter_id
+    )
+
     if (res.isSuccess) {
         handleClose();
     }
@@ -79,65 +70,72 @@ const UpdateCourseOutline = ({ handleClose ,paramValue}) => {
             >
                 <div className="row">
                     <div className="form-group col-6 my-1">
-                        <label className="col-12 col-form-label">Question <span className=" text-danger">*</span></label>
+                        <label className="col-12 col-form-label">Title <span className=" text-danger">*</span></label>
                         <div className="col-12">
                             <input
-                                placeholder="Enter Question"
+                                placeholder="Enter title"
                                 type="text"
                                 className="form-control"
-                                name="question_text"
+                                name="title"
                                 onChange={formik.handleChange}
-                                value={formik.values.question_text}
+                                value={formik.values.title}
                                 required
                             />
                         </div>
                     </div>
                     <div className="form-group col-6 my-1">
-                        <label className="col-12 col-form-label">Bangla Question</label>
+                        <label className="col-12 col-form-label">Bangla Title</label>
                         <div className="col-12">
                             <input
-                                placeholder="Enter Bangla Question"
+                                placeholder="Enter Bangla Title"
                                 type="text"
                                 className="form-control"
-                                name="question_text_bn"
+                                name="title_bn"
                                 onChange={formik.handleChange}
-                                value={formik.values.question_text_bn}
+                                value={formik.values.title_bn}
                                 required
                             />
                         </div>
                     </div>
 
-                    <div className="form-group col-6 my-1">
-                        <label className="col-12 col-form-label">Question Image</label>
-                        <div className="col-12">
-                            <input
-                                className="form-control "
-                                name="question_image"
-                                type="file"
-                                accept="image/*"
-                                onChange={(e) => {
-                                    formik.setFieldValue("question_image", e.currentTarget.files[0]);
-                                }}
-                                
 
-                            />
-                        </div>
-                    </div>
+
                     <div className="form-group col-6 my-1">
-                        <label className="col-12 col-form-label">Sets <span className=" text-danger">*</span></label>
+                        <label className="col-12 col-form-label">Course <span className=" text-danger">*</span></label>
                         <div className="col-12">
                             <select
                                 className="form-control"
-                                name="question_set_id"
+                                name="course_id"
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                value={formik.values.question_set_id}
+                                value={formik.values.course_id}
                                 required
                             >
-                               {setsList?.isLoading && <OptionLoader />}
+                                {courseRes?.isLoading && <OptionLoader />}
                                 <option value="" disabled selected hidden> --Select-- </option>
-                                
-                                {setsList?.data?.data?.map((item) => (
+                                {courseRes?.data?.data?.map((item) => (
+                                    <option key={item.id} value={item.id}>
+                                        {item.title}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div className="form-group col-6 my-1">
+                        <label className="col-12 col-form-label">Class <span className=" text-danger">*</span></label>
+                        <div className="col-12">
+                            <select
+                                className="form-control"
+                                name="class_level_id"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.class_level_id}
+                                required
+                            >
+                                {classRes?.isLoading && <OptionLoader />}
+                                <option value="" disabled selected hidden> --Select-- </option>
+                                {classRes?.data?.data?.map((item) => (
                                     <option key={item.id} value={item.id}>
                                         {item.name}
                                     </option>
@@ -146,217 +144,144 @@ const UpdateCourseOutline = ({ handleClose ,paramValue}) => {
                         </div>
                     </div>
 
-                    <div className="form-group col-6 my-1">
-                        <label className="col-12 col-form-label">Option 01 <span className=" text-danger">*</span></label>
+                    <div className="form-group col-4 my-1">
+                        <label className="col-12 col-form-label">Subject <span className=" text-danger">*</span></label>
+                        <div className="col-12">
+                            <select
+                                className="form-control"
+                                name="subject_id"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.subject_id}
+                                required
+                            >
+                                {subjectRes?.isLoading && <OptionLoader />}
+                                <option value="" disabled selected hidden> --Select-- </option>
+                                {subjectRes?.data?.data?.map((item) => (
+                                    <option key={item.id} value={item.id}>
+                                        {item.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+                    <div className="form-group col-4 my-1">
+                        <label className="col-12 col-form-label">Chapter <span className=" text-danger">*</span></label>
+                        <div className="col-12">
+                            <select
+                                className="form-control"
+                                name="chapter_id"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.chapter_id}
+                                required
+                           
+                            >
+                                {subjectRes?.isLoading && <OptionLoader />}
+                                <option value="" disabled selected hidden> --Select-- </option>
+                                {ChapterRes?.data?.data?.map((item) => (
+                                    <option key={item.id} value={item.id}>
+                                        {item.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+                    <div className="form-group col-4 my-1">
+                        <label className="col-12 col-form-label">Chapter Script <span className=" text-danger">*</span></label>
+                        <div className="col-12">
+                            <select
+                                className="form-control"
+                                name="chapter_script_id"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.chapter_script_id}
+                                required
+                            >
+                                {scriptRes?.isLoading && <OptionLoader />}
+                                <option value="" disabled selected hidden> --Select-- </option>
+                                {scriptRes?.data?.data?.map((item) => (
+                                    <option key={item.id} value={item.id}>
+                                        {item.title}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+                    <div className="form-group col-4 my-1">
+                        <label className="col-12 col-form-label">Chapter Video <span className=" text-danger">*</span></label>
+                        <div className="col-12">
+                            <select
+                                className="form-control"
+                                name="chapter_video_id"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.chapter_video_id}
+                                required
+                            >
+                                {videoRes?.isLoading && <OptionLoader />}
+                                <option value="" disabled selected hidden> --Select-- </option>
+                                {videoRes?.data?.data?.map((item) => (
+                                    <option key={item.id} value={item.id}>
+                                        {item.title}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+                    <div className="form-group col-4 my-1">
+                        <label className="col-12 col-form-label">Chapter Quiz <span className=" text-danger">*</span></label>
+                        <div className="col-12">
+                            <select
+                                className="form-control"
+                                name="chapter_quiz_id"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.chapter_quiz_id}
+                                required
+                            >
+                                {quizRes?.isLoading && <OptionLoader />}
+                                <option value="" disabled selected hidden> --Select-- </option>
+                                {quizRes?.data?.data?.map((item) => (
+                                    <option key={item.id} value={item.id}>
+                                        {item.title}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+                    <div className="form-group col-4 my-1">
+                        <label className="col-12 col-form-label">Sequence  <span className=" text-danger">*</span></label>
                         <div className="col-12">
                             <input
-                                placeholder="Enter option 01"
-                                type="text"
+                                placeholder="Enter Sequence"
+                                type="number"
                                 className="form-control"
-                                name="option1"
+                                name="sequence"
                                 onChange={formik.handleChange}
-                                value={formik.values.option1}
+                                value={formik.values.sequence}
                                 required
                             />
                         </div>
                     </div>
-                    <div className="form-group col-6 my-1">
-                        <label className="col-12 col-form-label">Option 01 (Image)</label>
-                        <div className="col-12">
-                            <input
-                                className="form-control "
-                                name="option1_image"
-                                type="file"
-                                accept="image/*"
-                                onChange={(e) => {
-                                    formik.setFieldValue("option1_image", e.currentTarget.files[0]);
-                                }}
-                            />
-                        </div>
-                    </div>
-
-                    <div className="form-group col-6 my-1">
-                        <label className="col-12 col-form-label">Option 02 <span className=" text-danger">*</span></label>
-                        <div className="col-12">
-                            <input
-                                placeholder="Enter option 02"
-                                type="text"
-                                className="form-control"
-                                name="option2"
-                                onChange={formik.handleChange}
-                                value={formik.values.option2}
-                                required
-                            />
-                        </div>
-                    </div>
-                    <div className="form-group col-6 my-1">
-                        <label className="col-12 col-form-label">Option 02 (Image)</label>
-                        <div className="col-12">
-                            <input
-                                className="form-control "
-                                name="option2_image"
-                                type="file"
-                                accept="image/*"
-                                onChange={(e) => {
-                                    formik.setFieldValue("option2_image", e.currentTarget.files[0]);
-                                }}
-                            />
-                        </div>
-                    </div>
-                    <div className="form-group col-6 my-1">
-                        <label className="col-12 col-form-label">Option 03 <span className=" text-danger">*</span></label>
-                        <div className="col-12">
-                            <input
-                                placeholder="Enter option 03"
-                                type="text"
-                                className="form-control"
-                                name="option3"
-                                onChange={formik.handleChange}
-                                value={formik.values.option3}
-                                required
-                            />
-                        </div>
-                    </div>
-                    <div className="form-group col-6 my-1">
-                        <label className="col-12 col-form-label">Option 03 (Image)</label>
-                        <div className="col-12">
-                            <input
-                                className="form-control "
-                                name="option3_image"
-                                type="file"
-                                accept="image/*"
-                                onChange={(e) => {
-                                    formik.setFieldValue("option3_image", e.currentTarget.files[0]);
-                                }}
-                            />
-                        </div>
-                    </div>
-                    <div className="form-group col-6 my-1">
-                        <label className="col-12 col-form-label">Option 04 <span className=" text-danger">*</span></label>
-                        <div className="col-12">
-                            <input
-                                placeholder="Enter option 04"
-                                type="text"
-                                className="form-control"
-                                name="option4"
-                                onChange={formik.handleChange}
-                                value={formik.values.option4}
-                                required
-                            />
-                        </div>
-                    </div>
-                    <div className="form-group col-6 my-1">
-                        <label className="col-12 col-form-label">Option 04 (Image)</label>
-                        <div className="col-12">
-                            <input
-                                className="form-control "
-                                name="option4_image"
-                                type="file"
-                                accept="image/*"
-                                onChange={(e) => {
-                                    formik.setFieldValue("option4_image", e.currentTarget.files[0]);
-                                }}
-                            />
-                        </div>
-                    </div>
-
-
-
-                    <div className="form-group row col-6 my-3 ">
-                        <label className="col-6 col-form-label">Correct Answer 01</label>
+                    <div className="form-group row col-12 my-2 ">
+                        <label className="col-6 col-form-label">Is Free</label>
                         <div className="col-6">
                             <div className="form-check form-switch mt-2">
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                                    label="✔"
-                                    name="answer1"
+                                    label="Active"
+                                    name="is_free"
                                     onChange={formik.handleChange}
-                                    value={formik.values.answer1}
-                                    checked={formik.values.answer1}
+                                    value={formik.values.is_free}
+                                    checked={formik.values.is_free}
                                 />
                             </div>
-                        </div>
-                    </div>
-                    <div className="form-group row col-6 my-3 ">
-                        <label className="col-6 col-form-label">Correct Answer 02</label>
-                        <div className="col-6">
-                            <div className="form-check form-switch mt-2">
-                                <Form.Check
-                                    type="switch"
-                                    id="custom-switch"
-                                    label="✔"
-                                    name="answer2"
-                                    onChange={formik.handleChange}
-                                    value={formik.values.answer2}
-                                    checked={formik.values.answer2}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="form-group row col-6 my-3 ">
-                        <label className="col-6 col-form-label">Correct Answer 03</label>
-                        <div className="col-6">
-                            <div className="form-check form-switch mt-2">
-                                <Form.Check
-                                    type="switch"
-                                    id="custom-switch"
-                                    label="✔"
-                                    name="answer3"
-                                    onChange={formik.handleChange}
-                                    value={formik.values.answer3}
-                                    checked={formik.values.answer3}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="form-group row col-6 my-3 ">
-                        <label className="col-6 col-form-label">Correct Answer 04</label>
-                        <div className="col-6">
-                            <div className="form-check form-switch mt-2">
-                                <Form.Check
-                                    type="switch"
-                                    id="custom-switch"
-                                    label="✔"
-                                    name="answer4"
-                                    onChange={formik.handleChange}
-                                    value={formik.values.answer4}
-                                    checked={formik.values.answer4}
-                                />
-                            </div>
-                        </div>
-                    </div>
-           
-                    <div className="form-group col-12 my-1">
-                        <label className="col-12 col-form-label">Explanation Text <span className=" text-danger">*</span></label>
-                        <div className="col-12">
-                            <textarea
-                                placeholder="Enter Question"
-                                type="text"
-                                className="form-control"
-                                name="explanation_text"
-                                onChange={formik.handleChange}
-                                value={formik.values.explanation_text}
-                                required
-                            />
                         </div>
                     </div>
 
-                    <div className="form-group col-12 my-1">
-                        <label className="col-12 col-form-label">Explanation (Image)</label>
-                        <div className="col-12">
-                            <input
-                                className="form-control "
-                                name="explanation_image"
-                                type="file"
-                                accept="image/*"
-                                onChange={(e) => {
-                                    formik.setFieldValue("explanation_image", e.currentTarget.files[0]);
-                                }}
-                            />
-                        </div>
-                    </div>
-                    
+
                     <div className="form-group row col-12 my-3 ">
                         <label className="col-6 col-form-label">Is Active</label>
                         <div className="col-6">
@@ -390,4 +315,5 @@ const UpdateCourseOutline = ({ handleClose ,paramValue}) => {
     );
 };
 
-export default memo(UpdateCourseOutline);
+export default memo(UpdateCourseOutline)
+    ;
