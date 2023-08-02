@@ -32,7 +32,7 @@ export const navItem = [
     ],
   },
   {
-    title: "Content",
+    title: "Row Content",
     role: "GlobalAdmin",
     icon: <BiCategory />,
     children: [
@@ -72,6 +72,27 @@ export const navItem = [
         role: "GlobalAdmin",
         icon: <BiSolidRightArrowAlt />,
       },
+    ],
+  },
+  {
+    title: "Course Setup",
+    role: "GlobalAdmin",
+    icon: <BiCategory />,
+    children: [
+      {
+        title: "Course List",
+        link: "course-list",
+        role: "GlobalAdmin",
+        icon: <BiSolidRightArrowAlt />,
+      },
+      // {
+      //   title: "Course Outline List",
+      //   link: "course-outline-list",
+      //   role: "GlobalAdmin",
+      //   icon: <BiSolidRightArrowAlt />,
+      // }
+
+
     ],
   },
 

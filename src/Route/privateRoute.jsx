@@ -12,6 +12,8 @@ import ScriptContentList from "../app/views/scriptContentList/ScriptContentList"
 import QuizList from "../app/views/quizList/QuizList";
 import QuizQuestionList from './../app/views/quizQuestionList/QuizQuestionList';
 import WebsitePageList from "../app/views/websitePageList/WebsitePageList";
+import CourseList from "../app/views/courseList/CourseList";
+import CourseOutlineList from "../app/views/courseOutlineList/CourseOutlineList";
 
 export const privateRoute = [
   {
@@ -84,5 +86,15 @@ export const privateRoute = [
     element: <QuizQuestionList/>,
     role: "GlobalAdmin",
   },
+  {
+    path: "course-list",
+    element: <CourseList/>,
+    role: "GlobalAdmin",
+  },
+  // {
+  //   path: "course-outline-list",
+  //   element: <CourseOutlineList/>,
+  //   role: "GlobalAdmin",
+  // }
 
 ];

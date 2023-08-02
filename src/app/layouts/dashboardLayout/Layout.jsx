@@ -16,6 +16,7 @@ import Footer from "./Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { logout } from "../../../features/authSlice";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const Layout = () => {
   const authUser = useSelector((state) => state.auth.user);
@@ -77,7 +78,11 @@ const Layout = () => {
                     className="logo pt-2"
                   >
                     <Link to="/dashboard">
-                      <img src={logo} width={130} alt="" className="me-2" />
+                      <LazyLoadImage
+                        src={logo}
+                        width={130} alt="BacBon"
+                        effect="blur"
+                      />
                     </Link>
                   </motion.div>
                 )}
