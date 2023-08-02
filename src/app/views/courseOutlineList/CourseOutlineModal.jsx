@@ -20,11 +20,11 @@ const CourseOutlineModal = ({ handleClose, show, clickValue, paramValue, size })
                     <Modal.Title>{clickValue}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {clickValue === "Add New Question" && (
+                    {clickValue === "Add New Course Outline" && (
                         <CreateQuizQuestion handleClose={handleClose} paramValue={paramValue} />
                     )
                     }
-                    {clickValue === "Update Question" && (
+                    {clickValue === "Update Course Outline" && (
                         <UpdateQuizQuestion handleClose={handleClose} paramValue={paramValue} />
                     )
                     }

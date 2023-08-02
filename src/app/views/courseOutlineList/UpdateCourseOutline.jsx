@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { useGetChapterListBySubjectIdQuery, useGetClassListQuery, useGetQuizListByChapterIdQuery, useGetScriptListByChapterIdQuery, useGetSubjectListByClassIdQuery, useGetVideoListByChapterIdQuery, useQuestionSaveOrUpdateMutation } from "../../../services/contentApi";
+import { useGetChapterListBySubjectIdQuery, useGetClassListQuery, useGetQuizListByChapterIdQuery, useGetScriptListByChapterIdQuery, useGetSubjectListByClassIdQuery, useGetVideoListByChapterIdQuery } from "../../../services/contentApi";
 
 import { memo } from 'react';
 
@@ -12,19 +12,20 @@ const UpdateCourseOutline = ({ handleClose, paramValue }) => {
 
     const [courseOutlineCreateOrUpdate, res] = useCourseOutlineCreateOrUpdateMutation();
     const formik = useFormik({
+        enableReinitialize: true,
         initialValues: {
-            'title': "",
-            'title_bn': "",
-            'course_id': paramValue,
-            'class_level_id': '',
-            'subject_id': '',
-            'chapter_id': '',
-            'chapter_script_id': '',
-            'chapter_video_id': '',
-            'chapter_quiz_id': '',
-            'sequence': '',
-            is_free: false,
-            is_active: true
+            'title': paramValue?.title,
+            'title_bn': paramValue?.title_bn,
+            'course_id': paramValue?.course_id,
+            'class_level_id': paramValue?.class_level_id,
+            'subject_id': paramValue?.subject_id,
+            'chapter_id': paramValue?.chapter_id,
+            'chapter_script_id': paramValue?.chapter_script_id,
+            'chapter_video_id': paramValue?.chapter_video_id,
+            'chapter_quiz_id': paramValue?.chapter_quiz_id,
+            'sequence': paramValue?.sequence,
+            is_free: paramValue?.is_free,
+            is_active: paramValue?.is_active,
         },
         onSubmit: async (values, { resetForm }) => {
             resetForm();

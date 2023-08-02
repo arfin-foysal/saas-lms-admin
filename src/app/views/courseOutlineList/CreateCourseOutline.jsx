@@ -40,21 +40,21 @@ const CreateCourseOutline = ({ handleClose, paramValue }) => {
     const courseRes = useGetCourseListQuery()
     const classRes = useGetClassListQuery()
     const subjectRes = useGetSubjectListByClassIdQuery(
-        formik.values.class_level_id
+        formik.values.class_level_id ? formik.values.class_level_id : null
     )
     const ChapterRes = useGetChapterListBySubjectIdQuery(
-        formik.values.subject_id
+        formik.values.subject_id ? formik.values.subject_id : null
     )
     const scriptRes = useGetScriptListByChapterIdQuery(
-        formik.values.chapter_id
+        formik.values.chapter_id ? formik.values.chapter_id : null
     )
 
     const videoRes = useGetVideoListByChapterIdQuery(
-        formik.values.chapter_id
+        formik.values.chapter_id ? formik.values.chapter_id : null
     )
 
     const quizRes = useGetQuizListByChapterIdQuery(
-        formik.values.chapter_id
+        formik.values.chapter_id ? formik.values.chapter_id : null
     )
 
     if (res.isSuccess) {
@@ -175,7 +175,7 @@ const CreateCourseOutline = ({ handleClose, paramValue }) => {
                                 onBlur={formik.handleBlur}
                                 value={formik.values.chapter_id}
                                 required
-                           
+
                             >
                                 {subjectRes?.isLoading && <OptionLoader />}
                                 <option value="" disabled selected hidden> --Select-- </option>

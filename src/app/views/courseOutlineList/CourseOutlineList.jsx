@@ -15,14 +15,11 @@ import { useGetCourseListQuery, useGetCourseOutlineByCourseIdQuery } from "../..
 
 
 const CourseOutlineList = () => {
-  const [id, setId] = useState(null);
+  const [id, setId] = useState(0);
   const res = useGetCourseOutlineByCourseIdQuery(id);
   const { data, isSuccess, isFetching, isError } = res;
   const [deleteQuestion] = useDeleteQuestionMutation()
-  const courseRes = useGetCourseListQuery()
-
-
-
+  const courseRes = useGetCourseListQuery();
   const [clickValue, setClickValue] = useState(null);
   const [size, setSize] = useState("lg")
   const [param, setParam] = useState(null);
@@ -102,7 +99,7 @@ const CourseOutlineList = () => {
         paramValue={param}
         size={size}
       />
-      <PageTopHeader title="Quiz Questions" />
+      <PageTopHeader title="Course Outline List " />
       <div className="card border shadow-lg ">
         <div className="card-header d-flex justify-content-between ">
           <p className="fw-bold text-muted"></p>
@@ -112,12 +109,12 @@ const CourseOutlineList = () => {
               className="btn btn-primary btn-sm mx-1 my-0"
               onClick={() => {
                 handleShow();
-                handelClickValue("Add New Question");
+                handelClickValue("Add New Course Outline");
                 setParam(id)
                 setSize("lg")
               }}
             >
-              <FiPlusCircle size={16} /> Add New Questions
+              <FiPlusCircle size={16} /> Add New Outline
             </button>
 
           </div>
@@ -138,8 +135,6 @@ const CourseOutlineList = () => {
                   getOptionLabel={(option) => `${option["title"]}`}
                   options={courseRes?.data?.data}
                   key={courseRes?.data?.data?.id}
-                 
-         
                 />
                 {/* <IoSyncCircle
                     className="cursor mt-2 ms-1"
@@ -169,7 +164,7 @@ const CourseOutlineList = () => {
                     onClick={() => {
                       setSize("lg")
                       handleShow();
-                      handelClickValue("Update Question");
+                      handelClickValue("Update Course Outline");
                       setParam(row?.row?.original);
                     }}
                   >
