@@ -5,13 +5,13 @@ import Loader from "../../components/Loader";
 import { FaEdit} from "react-icons/fa";
 import { FiPlusCircle } from "react-icons/fi";
 import { tableColor } from "../../../utils/Theme";
-import MenuModal from "./CourseModal";
-import { useGetCourseListQuery } from "../../../services/courseApi";
+import MenuModal from "./ContentModal";
 import moment from "moment";
+import { useGetContentListQuery } from "../../../services/contentApi";
 import { Link } from "react-router-dom";
 import { BsEyeFill } from "react-icons/bs";
-const CourseList = () => {
-  const res = useGetCourseListQuery();
+const ContentList = () => {
+  const res = useGetContentListQuery();
   const { data, isSuccess, isFetching, isError } = res;
   const [clickValue, setClickValue] = useState(null);
   const [param, setParam] = useState(null);
@@ -37,17 +37,14 @@ const CourseList = () => {
           </>
         ,
         id: "course_name",
-        header: "Course Name",
+        header: "Content Name",
         size: "300"
       }
       ,
-      
-    
-        {
-          accessorKey: "category_name", 
-          header: "Menu Or Category",
-        },
-      
+      {
+        accessorKey: "category_name", 
+        header: "Menu Or Category",
+      },
   
       {
         accessorFn: (row) =>
@@ -120,19 +117,19 @@ const CourseList = () => {
         clickValue={clickValue}
         paramValue={param}
       />
-      <PageTopHeader title="Course List" />
+      <PageTopHeader title="Content List" />
       <div className="card border shadow-lg ">
         <div className="card-header d-flex justify-content-between ">
-          <div>Course List</div>
+          <div>Content List</div>
           <div>
             <button
               className="btn btn-primary btn-sm"
               onClick={() => {
                 handleShow();
-                handelClickValue("Add New Course");
+                handelClickValue("Add New Content");
               }}
             >
-              <FiPlusCircle size={16} /> Add New Course
+              <FiPlusCircle size={16} /> Add New Content
             </button>
           </div>
         </div>
@@ -143,7 +140,7 @@ const CourseList = () => {
             data={isSuccess ? data?.data : []}
             enableRowActions
             enableColumnActions
-  
+
             positionActionsColumn="last"
             muiTopToolbarProps={{
               style: {
@@ -154,28 +151,22 @@ const CourseList = () => {
             renderRowActions={(row, index) => (
               <>
                 <div className="d-flex">
-            
+          
                     <button
                       title=""
-                      className="px-2 mx-1 d-flex align-items-center btn btn-success btn-sm"
+                      className="px-2 d-flex align-items-center btn btn-success btn-sm"
                       onClick={() => {
                         handleShow();
-                        handelClickValue("Update Course");
+                        handelClickValue("Update Content");
                         setParam(row?.row?.original);
                       }}
                     >
                       <FaEdit size={16} /> Edit
-                    </button>
-         
+                  </button>
                   <Link
                    className="px-2 d-flex mx-1 align-items-center btn btn-success btn-sm"
-                    to={`/dashboard/globaladmin/course-outline-list/${row?.row?.original?.id}`}><BsEyeFill size={17} /> Outline </Link>
-                  <Link
-                   className="px-2 d-flex mx-1 align-items-center btn btn-success btn-sm"
-                    to={`/dashboard/globaladmin/course-faq-list/${row?.row?.original?.id}`}><BsEyeFill size={17} /> Faq </Link>
-                  <div>
-
-                  </div>
+                    to={`/dashboard/globaladmin/content-outline-list/${row?.row?.original?.id}`}><BsEyeFill size={17} /> Outline </Link>
+            
                 </div>
               </>
             )}
@@ -187,6 +178,4 @@ const CourseList = () => {
 };
 
 
-
-
-export default CourseList
+export default ContentList

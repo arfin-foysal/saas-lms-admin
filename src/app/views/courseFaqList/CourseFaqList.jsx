@@ -5,20 +5,22 @@ import Loader from "../../components/Loader";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { FiPlusCircle } from "react-icons/fi";
 import { tableColor } from "../../../utils/Theme";
-import MenuModal from "./CourseOutlineModal";
+import MenuModal from "./CourseFaqModal";
 
 
 import { confirmHandel } from "../../../utils/Alert";
 import { toast } from "react-toastify";
 import Select from 'react-select'
-import { useDeleteCourseOutlineMutation, useGetCourseListQuery, useGetCourseOutlineByCourseIdQuery } from "../../../services/courseApi";
+import {  useDeleteFaqMutation, useGetFaqListbyCourseIdQuery } from "../../../services/courseApi";
 import { useParams } from "react-router-dom";
-const CourseOutlineList = () => {
-  const {id}=useParams()
-  const res = useGetCourseOutlineByCourseIdQuery(id);
+
+
+const CourseFaqList = () => {
+  const { id } = useParams()
+  const res = useGetFaqListbyCourseIdQuery(id);
   const { data, isSuccess, isFetching, isError } = res;
-  const [deleteCourseOutline] = useDeleteCourseOutlineMutation()
-  const courseRes = useGetCourseListQuery();
+  const [deleteFaq] = useDeleteFaqMutation()
+
   const [clickValue, setClickValue] = useState(null);
   const [size, setSize] = useState("lg")
   const [param, setParam] = useState(null);
@@ -30,9 +32,8 @@ const CourseOutlineList = () => {
     setClickValue(value);
   }, []);
 
-
-  const handelDelete = async (did) => {
-    const result = await deleteCourseOutline(did).unwrap();
+  const handelDelete = async (id) => {
+    const result = await deleteFaq(id).unwrap();
     toast.success(result.message);
   };
   const columns = useMemo(
@@ -54,20 +55,15 @@ const CourseOutlineList = () => {
         size: "5"
       },
       {
-        accessorFn: (row, index) => <>
-          <span className="text-success fw-normal">
-            EN: {row?.title}
-            <br />
-            BN: {row?.title_bn}
-          </span>
-
-        </>,
-
         accessorKey: "title",
-        header: "Name",
-        size: "300"
+        header: "Title",
+        size: "5"
       },
-
+      {
+        accessorKey: "answer",
+        header: "Answer",
+        size: "5"
+      },
 
     ],
     []
@@ -83,7 +79,7 @@ const CourseOutlineList = () => {
         paramValue={param}
         size={size}
       />
-      <PageTopHeader title="Course Outline List " />
+      <PageTopHeader title="Course Faq List " />
       <div className="card border shadow-lg ">
         <div className="card-header d-flex justify-content-between ">
           <p className="fw-bold text-muted"></p>
@@ -93,12 +89,12 @@ const CourseOutlineList = () => {
               className="btn btn-primary btn-sm mx-1 my-0"
               onClick={() => {
                 handleShow();
-                handelClickValue("Add New Course Outline");
+                handelClickValue("Add New Course Faq");
                 setParam(id)
                 setSize("lg")
               }}
             >
-              <FiPlusCircle size={16} /> Add New Outline
+              <FiPlusCircle size={16} /> Add New Faq
             </button>
 
           </div>
@@ -106,23 +102,7 @@ const CourseOutlineList = () => {
 
         <div className="card-body p-0">
           <MaterialReactTable
-            renderTopToolbarCustomActions={() => (
-              <div className="col-md-3 d-flex justify-content-start ">
-                {/* <Select
-                  className="w-100"
-                  menuPortalTarget={document.body}
-                  styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
-                  placeholder="Select Course"
-                  isLoading={courseRes?.isFetching}
-                  onChange={(e) => setId(e.id)}
-                  getOptionValue={(option) => `${option["id"]}`}
-                  getOptionLabel={(option) => `${option["title"]}`}
-                  options={courseRes?.data?.data}
-                  key={courseRes?.data?.data?.id}
-                /> */}
-         
-              </div>
-            )}
+
             columns={columns}
             data={isSuccess ? data?.data : []}
             enableRowActions
@@ -143,7 +123,7 @@ const CourseOutlineList = () => {
                     onClick={() => {
                       setSize("lg")
                       handleShow();
-                      handelClickValue("Update Course Outline");
+                      handelClickValue("Update Course Faq");
                       setParam(row?.row?.original);
                     }}
                   >
@@ -179,4 +159,4 @@ const CourseOutlineList = () => {
 
 
 
-export default CourseOutlineList
+export default CourseFaqList

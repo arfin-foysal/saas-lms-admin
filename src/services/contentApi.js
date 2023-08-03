@@ -53,6 +53,7 @@ export const contentApi = apiSliceAdmin.injectEndpoints({
       }),
       providesTags: ["Content"],
     }),
+  
 
     classCreateOrUpdate: builder.mutation({
       query: (body) => {
@@ -126,6 +127,7 @@ export const contentApi = apiSliceAdmin.injectEndpoints({
       },
       invalidatesTags: ["Content"],
     }),
+ 
     excelQuestionUpload: builder.mutation({
       query: (body) => {
         return {
@@ -192,8 +194,47 @@ export const contentApi = apiSliceAdmin.injectEndpoints({
       invalidatesTags: ["Content"],
     }),
 
-
-
+   contentSaveOrUpdate: builder.mutation({
+      query: (body) => {
+        return {
+          url: `admin/content-save-or-update`,
+          method: "POST",
+          body: body,
+        };
+      },
+      invalidatesTags: ["Content"],
+    }),
+   contentOutlineSaveOrUpdate: builder.mutation({
+      query: (body) => {
+        return {
+          url: `admin/content-outline-save-or-update`,
+          method: "POST",
+          body: body,
+        };
+      },
+      invalidatesTags: ["Content"],
+    }),
+  getContentList: builder.query({
+      query: () => ({
+        url: "admin/content-list",
+        method: "GET",
+      }),
+      providesTags: ["Content"],
+  }),
+  getContentOutlineByContentId: builder.query({
+    query: (id) => ({
+      url: `admin/course-outline-list/${id}`,
+      method: "GET",
+    }),
+    providesTags: ["Content"],
+  }),
+  deleteContentOutline: builder.mutation({
+    query: (id) => ({
+      url: `admin/delete-content-outline/${id}`,
+      method: "DELETE",
+    }),
+    invalidatesTags: ["Content"],
+  }),
   }),
 });
 
@@ -221,5 +262,11 @@ export const {
   useGetScriptListByChapterIdQuery,
   useGetVideoListByChapterIdQuery,
   useGetQuizListByChapterIdQuery,
+
+  useContentSaveOrUpdateMutation,
+  useGetContentListQuery,
+  useGetContentOutlineByContentIdQuery,
+  useContentOutlineSaveOrUpdateMutation,
+  useDeleteContentOutlineMutation,
   
 } = contentApi;

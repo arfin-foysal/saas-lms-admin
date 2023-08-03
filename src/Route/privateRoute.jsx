@@ -14,6 +14,10 @@ import QuizQuestionList from './../app/views/quizQuestionList/QuizQuestionList';
 import WebsitePageList from "../app/views/websitePageList/WebsitePageList";
 import CourseList from "../app/views/courseList/CourseList";
 import CourseOutlineList from "../app/views/courseOutlineList/CourseOutlineList";
+import ContentList from "../app/views/contentList/ContentList";
+import { ContentCutOutlined } from "@mui/icons-material";
+import ContentOutlineList from "../app/views/contentOutlineList/ContentOutlineList";
+import CourseFaqList from "../app/views/courseFaqList/CourseFaqList";
 
 export const privateRoute = [
   {
@@ -92,9 +96,25 @@ export const privateRoute = [
     role: "GlobalAdmin",
   },
   {
-    path: "course-outline-list",
+    path: "content-list",
+    element: <ContentList/>,
+    role: "GlobalAdmin",
+  },
+  {
+    path: "globaladmin/course-outline-list/:id",
     element: <CourseOutlineList/>,
     role: "GlobalAdmin",
-  }
+  },
+  {
+    path: "globaladmin/content-outline-list/:id",
+    element: <ContentOutlineList/>,
+    role: "GlobalAdmin",
+  },
+  {
+    path: "globaladmin/course-faq-list/:id",
+    element: <CourseFaqList/>,
+    role: "GlobalAdmin",
+  },
+
 
 ];

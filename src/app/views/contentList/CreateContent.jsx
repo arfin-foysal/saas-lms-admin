@@ -2,39 +2,38 @@ import { useFormik } from "formik";
 import React, { useRef, useState } from "react";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { useGetMenuListQuery } from "../../../services/masterSettingsApi";
-
+import { useGetMenuListQuery, useMenuCreateOrUpdateMutation } from "../../../services/masterSettingsApi";
+import PreviewImage from "../../components/PreviewImage";
+import { BsFillCloudArrowUpFill } from "react-icons/bs";
+import { useClassCreateOrUpdateMutation, useContentSaveOrUpdateMutation } from "../../../services/contentApi";
 import { useCourseCreateOrUpdateMutation } from "../../../services/courseApi";
-const UpdateCourse = ({ handleClose,paramValue }) => {
-    const [courseCreateOrUpdate, res] = useCourseCreateOrUpdateMutation();
+const CreateContent = ({ handleClose }) => {
+    const [contentSaveOrUpdate, res] = useContentSaveOrUpdateMutation();
     const cateRes = useGetMenuListQuery()
     const formik = useFormik({
-        enableReinitialize: true,
         initialValues: {
-            'title': paramValue?.title,
-            'title_bn': paramValue?.title_bn,
-            'category_id': paramValue?.category_id,
-            'gp_product_id': paramValue?.gp_product_id,
-            'youtube_url': paramValue?.youtube_url,
-            'description': paramValue?.description,
-            'thumbnail': paramValue?.thumbnail,
-            'icon': paramValue?.icon,
-            'number_of_enrolled': paramValue?.number_of_enrolled,
-            'regular_price': paramValue?.regular_price,
-            'sale_price': paramValue?.sale_price,
-            'discount_percentage': paramValue?.discount_percentage ,
-            'rating': paramValue?.rating,
-            'has_life_coach': paramValue?.has_life_coach,
-            'is_active': paramValue?.is_active,
-            'is_free': paramValue?.is_free,
-            'sequence': paramValue?.sequence,
-            'appeared_from': paramValue?.appeared_from,
-            'appeared_to': paramValue?.appeared_to,
+            'title': '',
+            'title_bn': '',
+            'category_id': '',
+            'gp_product_id': '',
+            'youtube_url': '',
+            'description': '',
+            'thumbnail': '',
+            'icon': '',
+            'number_of_enrolled': '',
+            'regular_price': '',
+            'sale_price': '',
+            'discount_percentage': '',
+            'rating': '',
+            'is_active': true,
+            'is_free': false,
+            'sequence': '',
+            'appeared_from': '',
+            'appeared_to': '',
         },
 
         onSubmit: async (values, { resetForm }) => {
             let formData = new FormData();
-            formData.append("id", paramValue?.id);
             formData.append("title", values.title);
             formData.append("title_bn", values.title_bn);
             formData.append("category_id", values.category_id);
@@ -48,15 +47,15 @@ const UpdateCourse = ({ handleClose,paramValue }) => {
             formData.append("sale_price", values.sale_price);
             formData.append("discount_percentage", values.discount_percentage);
             formData.append("rating", values.rating);
-            formData.append("has_life_coach", values.has_life_coach?1:0);
             formData.append("sequence", values.sequence);
             formData.append("appeared_from", values.appeared_from);
             formData.append("appeared_to", values.appeared_to);
             formData.append("is_free", values.is_free ? 1 : 0);
             formData.append("is_active", values.is_active ? 1 : 0);
+
             resetForm();
             try {
-                const result = await courseCreateOrUpdate(formData).unwrap();
+                const result = await contentSaveOrUpdate(formData).unwrap();
                 toast.success(result.message);
             } catch (error) {
                 toast.warn(error.data.message);
@@ -268,22 +267,22 @@ const UpdateCourse = ({ handleClose,paramValue }) => {
                     <div className="form-group  col-6 my-1">
                         <label className="col-12 col-form-label">Appeared from</label>
                         <div className="col-12">
-                            <input type="datetime-local"
+                            <input type="date"
                                 className="form-control"
                                 name="appeared_from"
                                 onChange={formik.handleChange}
-                                defaultValue={paramValue ? formik.values.appeared_from: ''}
+                                value={formik.values.appeared_from}
                                  />
                         </div>
                     </div>
                     <div className="form-group  col-6 my-1">
                         <label className="col-12 col-form-label">Appeared To</label>
                         <div className="col-12">
-                            <input type="datetime-local"
+                            <input type="date"
                                 className="form-control"
                                 name="appeared_to"
                                 onChange={formik.handleChange}
-                                defaultValue={paramValue ? formik.values.appeared_to: ''}
+                                value={formik.values.appeared_to}
                                  />
                         </div>
                     </div>
@@ -300,9 +299,9 @@ const UpdateCourse = ({ handleClose,paramValue }) => {
                         </div>
                     </div>
 
-                    <div className="form-group row col-4 my-2 ">
-                        <label className="col-4 col-form-label">Is Free</label>
-                        <div className="col-8">
+                    <div className="form-group row col-6 my-2 ">
+                        <label className="col-6 col-form-label">Is Free</label>
+                        <div className="col-6">
                             <div className="form-check form-switch mt-2">
                                 <Form.Check
                                     type="switch"
@@ -316,7 +315,7 @@ const UpdateCourse = ({ handleClose,paramValue }) => {
                             </div>
                         </div>
                     </div>
-                    <div className="form-group row col-4 my-2 ">
+                    <div className="form-group row col-6 my-2 ">
                         <label className="col-6 col-form-label">Is Active</label>
                         <div className="col-6">
                             <div className="form-check form-switch mt-2">
@@ -332,22 +331,7 @@ const UpdateCourse = ({ handleClose,paramValue }) => {
                             </div>
                         </div>
                     </div>
-                    <div className="form-group row col-4 my-2 ">
-                        <label className="col-6 col-form-label">Has Life Coach</label>
-                        <div className="col-6">
-                            <div className="form-check form-switch mt-2">
-                                <Form.Check
-                                    type="switch"
-                                    id="custom-switch"
-                                    label="✔"
-                                    name="has_life_coach"
-                                    onChange={formik.handleChange}
-                                    value={formik.values.has_life_coach}
-                                    checked={formik.values.has_life_coach}
-                                />
-                            </div>
-                        </div>
-                    </div>
+           
 
 
                 </div>
@@ -367,4 +351,4 @@ const UpdateCourse = ({ handleClose,paramValue }) => {
     );
 };
 
-export default UpdateCourse;
+export default CreateContent;

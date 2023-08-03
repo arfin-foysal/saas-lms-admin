@@ -85,12 +85,27 @@ export const navItem = [
         role: "GlobalAdmin",
         icon: <BiSolidRightArrowAlt />,
       },
+
+    ],
+  },
+  {
+    title: "Content Setup",
+    role: "GlobalAdmin",
+    icon: <BiCategory />,
+    children: [
       {
-        title: "Course Outline List",
-        link: "course-outline-list",
+        title: "Content List",
+        link: "content-list",
         role: "GlobalAdmin",
         icon: <BiSolidRightArrowAlt />,
-      }
+      },
+      {
+        title: "Content Outline List",
+        link: "content-outline-list",
+        role: "GlobalAdmin",
+        icon: <BiSolidRightArrowAlt />,
+      },
+  
 
 
     ],

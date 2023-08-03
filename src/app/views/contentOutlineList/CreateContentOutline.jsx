@@ -1,37 +1,61 @@
 import { useFormik } from "formik";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { useGetChapterListBySubjectIdQuery, useGetClassListQuery, useGetQuizListByChapterIdQuery, useGetScriptListByChapterIdQuery, useGetSubjectListByClassIdQuery, useGetVideoListByChapterIdQuery } from "../../../services/contentApi";
-
+import { useContentOutlineSaveOrUpdateMutation, useGetChapterListBySubjectIdQuery, useGetClassListQuery, useGetContentListQuery, useGetQuizListByChapterIdQuery, useGetScriptListByChapterIdQuery, useGetSubjectListByClassIdQuery, useGetVideoListByChapterIdQuery,  } from "../../../services/contentApi";
 import { memo } from 'react';
-
 import OptionLoader from "../../components/OptionLoader";
-import { useCourseOutlineCreateOrUpdateMutation, useGetCourseListQuery } from "../../../services/courseApi";
-const UpdateCourseOutline = ({ handleClose, paramValue }) => {
+
+const CreateContentOutline = ({ handleClose, paramValue }) => {
 
 
-    const [courseOutlineCreateOrUpdate, res] = useCourseOutlineCreateOrUpdateMutation();
+    const [contentOutlineSaveOrUpdate, res] = useContentOutlineSaveOrUpdateMutation();
     const formik = useFormik({
-        enableReinitialize: true,
         initialValues: {
-            'id': paramValue?.id ,
-            'title': paramValue?.title,
-            'title_bn': paramValue?.title_bn,
-            'course_id': paramValue?.course_id,
-            'class_level_id': paramValue?.class_level_id,
-            'subject_id': paramValue?.subject_id,
-            'chapter_id': paramValue?.chapter_id,
-            'chapter_script_id': paramValue?.chapter_script_id,
-            'chapter_video_id': paramValue?.chapter_video_id,
-            'chapter_quiz_id': paramValue?.chapter_quiz_id,
-            'sequence': paramValue?.sequence,
-            'is_free': paramValue?.is_free,
-            'is_active': paramValue?.is_active,
+            'title': "",
+            'title_bn': "",
+            'content_id': paramValue,
+            'class_level_id': '',
+            'subject_id': '',
+            'chapter_id': '',
+            'chapter_script_id': '',
+            'chapter_video_id': '',
+            'chapter_quiz_id': '',
+            'sequence': '',
+            'icon': '',
+            'color_code': '',
+            'is_free': false,
+            'is_active': true
         },
         onSubmit: async (values, { resetForm }) => {
+
+
+
+            let formData = new FormData();
+        
+            formData.append('title', values.title);
+            formData.append('title_bn', values.title_bn);
+            formData.append('content_id', values.content_id);
+            formData.append('class_level_id', values.class_level_id);
+            formData.append('subject_id', values.subject_id);
+            formData.append('chapter_id', values.chapter_id);
+            formData.append('chapter_script_id', values.chapter_script_id);
+            formData.append('chapter_video_id', values.chapter_video_id);
+            formData.append('chapter_quiz_id', values.chapter_quiz_id);
+            formData.append('sequence', values.sequence);
+            formData.append('icon', values.icon);
+            formData.append('color_code', values.color_code);
+            formData.append('is_free', values.is_free? 1 : 0);
+            formData.append('is_active', values.is_active? 1 : 0);
             resetForm();
+
+            if (values.content_id == 0) {
+                toast.warn("Please Select Content");
+                return;
+            }
+
+
             try {
-                const result = await courseOutlineCreateOrUpdate(values).unwrap();
+                const result = await contentOutlineSaveOrUpdate(formData).unwrap();
                 toast.success(result.message);
             } catch (error) {
                 toast.warn(error.data.message);
@@ -42,21 +66,21 @@ const UpdateCourseOutline = ({ handleClose, paramValue }) => {
 
     const classRes = useGetClassListQuery()
     const subjectRes = useGetSubjectListByClassIdQuery(
-        formik.values.class_level_id
+        formik.values.class_level_id ? formik.values.class_level_id : null
     )
     const ChapterRes = useGetChapterListBySubjectIdQuery(
-        formik.values.subject_id
+        formik.values.subject_id ? formik.values.subject_id : null
     )
     const scriptRes = useGetScriptListByChapterIdQuery(
-        formik.values.chapter_id
+        formik.values.chapter_id ? formik.values.chapter_id : null
     )
 
     const videoRes = useGetVideoListByChapterIdQuery(
-        formik.values.chapter_id
+        formik.values.chapter_id ? formik.values.chapter_id : null
     )
 
     const quizRes = useGetQuizListByChapterIdQuery(
-        formik.values.chapter_id
+        formik.values.chapter_id ? formik.values.chapter_id : null
     )
 
     if (res.isSuccess) {
@@ -71,7 +95,7 @@ const UpdateCourseOutline = ({ handleClose, paramValue }) => {
                 encType="multipart/form-data"
             >
                 <div className="row">
-                    <div className="form-group col-4 my-1">
+                    <div className="form-group col-6 my-1">
                         <label className="col-12 col-form-label">Title <span className=" text-danger">*</span></label>
                         <div className="col-12">
                             <input
@@ -85,7 +109,7 @@ const UpdateCourseOutline = ({ handleClose, paramValue }) => {
                             />
                         </div>
                     </div>
-                    <div className="form-group col-4 my-1">
+                    <div className="form-group col-6 my-1">
                         <label className="col-12 col-form-label">Bangla Title</label>
                         <div className="col-12">
                             <input
@@ -155,7 +179,7 @@ const UpdateCourseOutline = ({ handleClose, paramValue }) => {
                                 onBlur={formik.handleBlur}
                                 value={formik.values.chapter_id}
                                 required
-                           
+
                             >
                                 {subjectRes?.isLoading && <OptionLoader />}
                                 <option value="" disabled selected hidden> --Select-- </option>
@@ -244,6 +268,42 @@ const UpdateCourseOutline = ({ handleClose, paramValue }) => {
                             />
                         </div>
                     </div>
+                    <div className="form-group  col-4 my-1">
+                        <label className="col-12 col-form-label">Icon</label>
+                        <div className="col-12">
+                            <input
+                                className="form-control"
+                                name="icon"
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => {
+                                    formik.setFieldValue("icon", e.currentTarget.files[0]);
+
+                                }}
+                            />
+                        </div>
+                    </div>
+
+
+                    <div className="form-group col-4 my-1">
+                        <label className="col-12 col-form-label">Color Code</label>
+                        <div className="col-12">
+                            <input
+                                placeholder="Enter Color Code"
+                                type="text"
+                                className="form-control"
+                                name="color_code"
+                                onChange={formik.handleChange}
+                                value={formik.values.color_code}
+                                required
+                            />
+                        </div>
+                    </div>
+
+
+
+
+
                     <div className="form-group row col-12 my-2 ">
                         <label className="col-6 col-form-label">Is Free</label>
                         <div className="col-6">
@@ -295,5 +355,5 @@ const UpdateCourseOutline = ({ handleClose, paramValue }) => {
     );
 };
 
-export default memo(UpdateCourseOutline)
+export default memo(CreateContentOutline)
     ;

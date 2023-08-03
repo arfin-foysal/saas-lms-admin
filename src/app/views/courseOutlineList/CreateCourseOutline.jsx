@@ -23,11 +23,16 @@ const CreateCourseOutline = ({ handleClose, paramValue }) => {
             'chapter_video_id': '',
             'chapter_quiz_id': '',
             'sequence': '',
-            is_free: false,
-            is_active: true
+            'is_free': false,
+            'is_active': true
         },
         onSubmit: async (values, { resetForm }) => {
             resetForm();
+               
+            if (values.course_id == 0) {
+                toast.warn("Please Select Content");
+                return;
+            }
             try {
                 const result = await courseOutlineCreateOrUpdate(values).unwrap();
                 toast.success(result.message);
@@ -37,7 +42,6 @@ const CreateCourseOutline = ({ handleClose, paramValue }) => {
         },
     });
 
-    const courseRes = useGetCourseListQuery()
     const classRes = useGetClassListQuery()
     const subjectRes = useGetSubjectListByClassIdQuery(
         formik.values.class_level_id ? formik.values.class_level_id : null
@@ -69,7 +73,7 @@ const CreateCourseOutline = ({ handleClose, paramValue }) => {
                 encType="multipart/form-data"
             >
                 <div className="row">
-                    <div className="form-group col-6 my-1">
+                    <div className="form-group col-4 my-1">
                         <label className="col-12 col-form-label">Title <span className=" text-danger">*</span></label>
                         <div className="col-12">
                             <input
@@ -83,7 +87,7 @@ const CreateCourseOutline = ({ handleClose, paramValue }) => {
                             />
                         </div>
                     </div>
-                    <div className="form-group col-6 my-1">
+                    <div className="form-group col-4 my-1">
                         <label className="col-12 col-form-label">Bangla Title</label>
                         <div className="col-12">
                             <input
@@ -100,29 +104,9 @@ const CreateCourseOutline = ({ handleClose, paramValue }) => {
 
 
 
-                    <div className="form-group col-6 my-1">
-                        <label className="col-12 col-form-label">Course <span className=" text-danger">*</span></label>
-                        <div className="col-12">
-                            <select
-                                className="form-control"
-                                name="course_id"
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.course_id}
-                                required
-                            >
-                                {courseRes?.isLoading && <OptionLoader />}
-                                <option value="" disabled selected hidden> --Select-- </option>
-                                {courseRes?.data?.data?.map((item) => (
-                                    <option key={item.id} value={item.id}>
-                                        {item.title}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                    </div>
+                
 
-                    <div className="form-group col-6 my-1">
+                    <div className="form-group col-4 my-1">
                         <label className="col-12 col-form-label">Class <span className=" text-danger">*</span></label>
                         <div className="col-12">
                             <select

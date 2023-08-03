@@ -48,13 +48,12 @@ const CreateCourse = ({ handleClose }) => {
             formData.append("sale_price", values.sale_price);
             formData.append("discount_percentage", values.discount_percentage);
             formData.append("rating", values.rating);
-            formData.append("has_life_coach", values.has_life_coach);
+            formData.append("has_life_coach", values.has_life_coach? 1 : 0);
             formData.append("sequence", values.sequence);
             formData.append("appeared_from", values.appeared_from);
             formData.append("appeared_to", values.appeared_to);
             formData.append("is_free", values.is_free ? 1 : 0);
             formData.append("is_active", values.is_active ? 1 : 0);
-
             resetForm();
             try {
                 const result = await courseCreateOrUpdate(formData).unwrap();

@@ -3,10 +3,9 @@ import React, { useRef, useState } from "react";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useGetMenuListQuery } from "../../../services/masterSettingsApi";
-
-import { useCourseCreateOrUpdateMutation } from "../../../services/courseApi";
-const UpdateCourse = ({ handleClose,paramValue }) => {
-    const [courseCreateOrUpdate, res] = useCourseCreateOrUpdateMutation();
+import { useContentSaveOrUpdateMutation } from "../../../services/contentApi";
+const UpdateContent = ({ handleClose,paramValue }) => {
+    const [courseCreateOrUpdate, res] = useContentSaveOrUpdateMutation();
     const cateRes = useGetMenuListQuery()
     const formik = useFormik({
         enableReinitialize: true,
@@ -24,7 +23,6 @@ const UpdateCourse = ({ handleClose,paramValue }) => {
             'sale_price': paramValue?.sale_price,
             'discount_percentage': paramValue?.discount_percentage ,
             'rating': paramValue?.rating,
-            'has_life_coach': paramValue?.has_life_coach,
             'is_active': paramValue?.is_active,
             'is_free': paramValue?.is_free,
             'sequence': paramValue?.sequence,
@@ -48,7 +46,6 @@ const UpdateCourse = ({ handleClose,paramValue }) => {
             formData.append("sale_price", values.sale_price);
             formData.append("discount_percentage", values.discount_percentage);
             formData.append("rating", values.rating);
-            formData.append("has_life_coach", values.has_life_coach?1:0);
             formData.append("sequence", values.sequence);
             formData.append("appeared_from", values.appeared_from);
             formData.append("appeared_to", values.appeared_to);
@@ -316,7 +313,7 @@ const UpdateCourse = ({ handleClose,paramValue }) => {
                             </div>
                         </div>
                     </div>
-                    <div className="form-group row col-4 my-2 ">
+                    <div className="form-group row col-6 my-2 ">
                         <label className="col-6 col-form-label">Is Active</label>
                         <div className="col-6">
                             <div className="form-check form-switch mt-2">
@@ -332,22 +329,7 @@ const UpdateCourse = ({ handleClose,paramValue }) => {
                             </div>
                         </div>
                     </div>
-                    <div className="form-group row col-4 my-2 ">
-                        <label className="col-6 col-form-label">Has Life Coach</label>
-                        <div className="col-6">
-                            <div className="form-check form-switch mt-2">
-                                <Form.Check
-                                    type="switch"
-                                    id="custom-switch"
-                                    label="✔"
-                                    name="has_life_coach"
-                                    onChange={formik.handleChange}
-                                    value={formik.values.has_life_coach}
-                                    checked={formik.values.has_life_coach}
-                                />
-                            </div>
-                        </div>
-                    </div>
+           
 
 
                 </div>
@@ -367,4 +349,4 @@ const UpdateCourse = ({ handleClose,paramValue }) => {
     );
 };
 
-export default UpdateCourse;
+export default UpdateContent;

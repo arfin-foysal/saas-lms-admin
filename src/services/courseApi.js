@@ -33,6 +33,16 @@ export const courseApi = apiSliceAdmin.injectEndpoints({
       },
       invalidatesTags: ["Course"],
     }),
+    faqSaveOrUpdate: builder.mutation({
+      query: (body) => {
+        return {
+          url: `admin/faq-save-or-update`,
+          method: "POST",
+          body: body,
+        };
+      },
+      invalidatesTags: ["Course"],
+    }),
 
     getCourseOutlineByCourseId: builder.query({
       query: (id) => ({
@@ -41,14 +51,28 @@ export const courseApi = apiSliceAdmin.injectEndpoints({
       }),
       providesTags: ["Course"],
     }),
+    getFaqListbyCourseId: builder.query({
+      query: (id) => ({
+        url: `admin/faq-list/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["Course"],
+    }),
 
-    // deleteQuestion: builder.mutation({
-    //   query: (id) => ({
-    //     url: `admin/delete-question/${id}`,
-    //     method: "DELETE",
-    //   }),
-    //   invalidatesTags: ["Course"],
-    // }),
+    deleteCourseOutline: builder.mutation({
+      query: (id) => ({
+        url: `admin/delete-course-outline/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Course"],
+    }),
+    deleteFaq: builder.mutation({
+      query: (id) => ({
+        url: `admin/delete-faq/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Course"],
+    }),
 
 
 
@@ -60,6 +84,11 @@ export const {
   useCourseCreateOrUpdateMutation,
   useGetCourseOutlineByCourseIdQuery,
   useCourseOutlineCreateOrUpdateMutation,
+  useDeleteCourseOutlineMutation,
+  useFaqSaveOrUpdateMutation,
+  useGetFaqListbyCourseIdQuery,
+  useDeleteFaqMutation,
+  
 
   
 } = courseApi;
