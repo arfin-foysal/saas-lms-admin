@@ -15,9 +15,11 @@ import WebsitePageList from "../app/views/websitePageList/WebsitePageList";
 import CourseList from "../app/views/courseList/CourseList";
 import CourseOutlineList from "../app/views/courseOutlineList/CourseOutlineList";
 import ContentList from "../app/views/contentList/ContentList";
-import { ContentCutOutlined } from "@mui/icons-material";
 import ContentOutlineList from "../app/views/contentOutlineList/ContentOutlineList";
 import CourseFaqList from "../app/views/courseFaqList/CourseFaqList";
+import CourseFeatureList from "../app/views/courseFeatureList/CourseFeatureList";
+import CourseRoutineList from "../app/views/courseRoutineList/CourseRoutineList";
+import CourseMentorList from "../app/views/courseMentorList/courseMentorList";
 
 export const privateRoute = [
   {
@@ -115,6 +117,19 @@ export const privateRoute = [
     element: <CourseFaqList/>,
     role: "GlobalAdmin",
   },
-
-
+  {
+    path: "globaladmin/course-feature-list/:id",
+    element: <CourseFeatureList/>,
+    role: "GlobalAdmin",
+  },
+  {
+    path: "globaladmin/course-routine-list/:id",
+    element: <CourseRoutineList/>,
+    role: "GlobalAdmin",
+  },
+  {
+    path: "globaladmin/course-mentor-assign-list/:id",
+    element: <CourseMentorList/>,
+    role: "GlobalAdmin",
+  },
 ];

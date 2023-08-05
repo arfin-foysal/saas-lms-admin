@@ -12,6 +12,14 @@ export const courseApi = apiSliceAdmin.injectEndpoints({
       providesTags: ["Course"],
     }),
 
+    getCourseMentorList: builder.query({
+      query: () => ({
+        url: "admin/course-mentor-list",
+        method: "GET",
+      }),
+      providesTags: ["Course"],
+    }),
+
 
     courseCreateOrUpdate: builder.mutation({
       query: (body) => {
@@ -58,6 +66,8 @@ export const courseApi = apiSliceAdmin.injectEndpoints({
       }),
       providesTags: ["Course"],
     }),
+  
+
 
     deleteCourseOutline: builder.mutation({
       query: (id) => ({
@@ -66,6 +76,7 @@ export const courseApi = apiSliceAdmin.injectEndpoints({
       }),
       invalidatesTags: ["Course"],
     }),
+
     deleteFaq: builder.mutation({
       query: (id) => ({
         url: `admin/delete-faq/${id}`,
@@ -75,7 +86,47 @@ export const courseApi = apiSliceAdmin.injectEndpoints({
     }),
 
 
-
+   featureSaveOrUpdate: builder.mutation({
+      query: (body) => {
+        return {
+          url: `admin/feature-save-or-update`,
+          method: "POST",
+          body: body,
+        };
+      },
+      invalidatesTags: ["Course"],
+    }),
+routineSaveOrUpdate: builder.mutation({
+      query: (body) => {
+        return {
+          url: `admin/routine-save-or-update`,
+          method: "POST",
+          body: body,
+        };
+      },
+      invalidatesTags: ["Course"],
+    }),
+  getFeatureListbyCourseId: builder.query({
+      query: (id) => ({
+        url: `admin/feature-list/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["Course"],
+    }),
+  getRoutineListbyCourseId: builder.query({
+      query: (id) => ({
+        url: `admin/routine-list/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["Course"],
+    }),
+    deleteFeature: builder.mutation({
+      query: (id) => ({
+        url: `admin/delete-feature/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Course"],
+    }),
   }),
 });
 
@@ -88,7 +139,12 @@ export const {
   useFaqSaveOrUpdateMutation,
   useGetFaqListbyCourseIdQuery,
   useDeleteFaqMutation,
-  
+  useFeatureSaveOrUpdateMutation,
+  useGetFeatureListbyCourseIdQuery,
+  useDeleteFeatureMutation,
+  useGetRoutineListbyCourseIdQuery,
+  useRoutineSaveOrUpdateMutation,
+  useGetCourseMentorListQuery
 
   
 } = courseApi;

@@ -15,6 +15,7 @@ const CourseList = () => {
   const { data, isSuccess, isFetching, isError } = res;
   const [clickValue, setClickValue] = useState(null);
   const [param, setParam] = useState(null);
+  const [size,setSize]=useState("lg")
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -119,6 +120,7 @@ const CourseList = () => {
         handleClose={handleClose}
         clickValue={clickValue}
         paramValue={param}
+        size={size}
       />
       <PageTopHeader title="Course List" />
       <div className="card border shadow-lg ">
@@ -130,6 +132,7 @@ const CourseList = () => {
               onClick={() => {
                 handleShow();
                 handelClickValue("Add New Course");
+                setSize("lg")
               }}
             >
               <FiPlusCircle size={16} /> Add New Course
@@ -162,6 +165,7 @@ const CourseList = () => {
                         handleShow();
                         handelClickValue("Update Course");
                         setParam(row?.row?.original);
+                        setSize("lg")
                       }}
                     >
                       <FaEdit size={16} /> Edit
@@ -173,8 +177,16 @@ const CourseList = () => {
                   <Link
                    className="px-2 d-flex mx-1 align-items-center btn btn-success btn-sm"
                     to={`/dashboard/globaladmin/course-faq-list/${row?.row?.original?.id}`}><BsEyeFill size={17} /> Faq </Link>
+                  <Link
+                   className="px-2 d-flex mx-1 align-items-center btn btn-success btn-sm"
+                    to={`/dashboard/globaladmin/course-feature-list/${row?.row?.original?.id}`}><BsEyeFill size={17} /> Feature </Link>
+                  <Link
+                   className="px-2 d-flex mx-1 align-items-center btn btn-success btn-sm"
+                    to={`/dashboard/globaladmin/course-routine-list/${row?.row?.original?.id}`}><BsEyeFill size={17} /> Routine </Link>
+                  <Link
+                   className="px-2 d-flex mx-1 align-items-center btn btn-success btn-sm"
+                    to={`/dashboard/globaladmin/course-mentor-assign-list/${row?.row?.original?.id}`}><BsEyeFill size={17} /> Mentor Assign </Link>
                   <div>
-
                   </div>
                 </div>
               </>
