@@ -8,15 +8,15 @@ import { tableColor } from "../../../utils/Theme";
 import MenuModal from "./CourseMentorModal";
 import { confirmHandel } from "../../../utils/Alert";
 import { toast } from "react-toastify";
-import {  useDeleteFaqMutation, useGetRoutineListbyCourseIdQuery } from "../../../services/courseApi";
+import {  useDeleteFaqMutation, useDeleteMentorAssignMutation, useGetMentorByCourseIdQuery, useGetRoutineListbyCourseIdQuery } from "../../../services/courseApi";
 import { useParams } from "react-router-dom";
 
 
 const CourseMentorList = () => {
   const { id } = useParams()
-  const res = useGetRoutineListbyCourseIdQuery(id);
+  const res = useGetMentorByCourseIdQuery(id);
   const { data, isSuccess, isFetching, isError } = res;
-  const [deleteFaq] = useDeleteFaqMutation()
+  const [deleteMentorAssign] = useDeleteMentorAssignMutation()
 
   const [clickValue, setClickValue] = useState(null);
   const [size, setSize] = useState("lg")
@@ -30,7 +30,7 @@ const CourseMentorList = () => {
   }, []);
 
   const handelDelete = async (id) => {
-    const result = await deleteFaq(id).unwrap();
+    const result = await deleteMentorAssign(id).unwrap();
     toast.success(result.message);
   };
   const columns = useMemo(
@@ -47,13 +47,13 @@ const CourseMentorList = () => {
         size: "5"
       },
       {
-        accessorKey: "day",
-        header: "Day",
+        accessorKey: "course_title",
+        header: "Course",
         size: "5"
       },
       {
-        accessorKey: "class_title",
-        header: "Class Title",
+        accessorKey: "mentor_name",
+        header: "Mentor",
         size: "5"
       },
 
@@ -71,6 +71,7 @@ const CourseMentorList = () => {
         clickValue={clickValue}
         paramValue={param}
         size={size}
+        data={data?.data}
       />
       <PageTopHeader title="Mentor Assign List " />
       <div className="card border shadow-lg ">
@@ -84,7 +85,7 @@ const CourseMentorList = () => {
                 handleShow();
                 handelClickValue("Add New Mentor Assign");
                 setParam(id)
-                setSize("lg")
+                setSize("md")
               }}
             >
               <FiPlusCircle size={16} /> New Mentor Assign

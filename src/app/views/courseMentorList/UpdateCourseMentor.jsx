@@ -3,27 +3,31 @@ import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { memo } from 'react';
 
-import { useRoutineSaveOrUpdateMutation } from "../../../services/courseApi";
+import { useMentorAssignSaveOrUpdateMutation, useRoutineSaveOrUpdateMutation } from "../../../services/courseApi";
 
 const UpdateCourseMentor = ({ handleClose, paramValue }) => {
-    const [routineSaveOrUpdate, res] = useRoutineSaveOrUpdateMutation();
+    const [mentorAssignSaveOrUpdate, res] = useMentorAssignSaveOrUpdateMutation();
     const formik = useFormik({
+        enableReinitialize: true,
         initialValues: {
             'id': paramValue.id,
-            'day': paramValue.day,
             'course_id': paramValue.course_id,
-            'class_title': paramValue.class_title,
-            'is_note': paramValue.is_note
+            'mentor_id': paramValue.mentor_id,
+            'is_active': paramValue.is_active,
+            'mentor_name': paramValue.mentor_name,
+
         },
         onSubmit: async (values, { resetForm }) => {
 
             resetForm();
-            if (values.course_id == 0) {
-                toast.warn("Please Select course");
-                return;
-            }
+  
             try {
-                const result = await routineSaveOrUpdate(values).unwrap();
+                const result = await mentorAssignSaveOrUpdate({
+                    id: values.id,
+                    course_id: values.course_id,
+                    mentor_id: values.mentor_id,
+                    is_active: values.is_active?1:0,
+                }).unwrap();
                 toast.success(result.message);
             } catch (error) {
                 toast.warn(error.data.message);
@@ -43,47 +47,42 @@ const UpdateCourseMentor = ({ handleClose, paramValue }) => {
                 encType="multipart/form-data"
             >
                 <div className="row">
-
                     <div className="form-group col-12 my-1">
-                        <label className="col-12 col-form-label">Day <span className=" text-danger">*</span></label>
+                        <label className="col-12 col-form-label">Mentor</label>
                         <div className="col-12">
                             <input
-                                placeholder="Enter Day"
+                                disabled
+                                placeholder="Enter Mentor Name"
                                 type="text"
                                 className="form-control"
-                                name="day"
+                                name="mentor_name"
                                 onChange={formik.handleChange}
-                                value={formik.values.day}
+                                value={formik.values.mentor_name}
 
                             />
-                        </div>
-                    </div>
-                    <div className="form-group col-12 my-1">
-                        <label className="col-12 col-form-label">Class Title</label>
-                        <div className="col-12">
-                            <input
-                                placeholder="Enter Title"
-                                type="text"
-                                className="form-control"
-                                name="class_title"
-                                value={formik.values.class_title}
-                                onChange={formik.handleChange}
 
-                            />
                         </div>
+                        <small>
+                            <span className="text-danger">
+                                Note </span>
+                            : Mentor is not editable !
+
+
+                        </small>
                     </div>
-                    <div className="form-group row col-12 my-3">
-                        <label className="col-6 col-form-label">Is Note</label>
+
+                    <div className="form-group row col-12 my-2 ">
+                        <label className="col-6 col-form-label">Is Active</label>
                         <div className="col-6">
                             <div className="form-check form-switch mt-2">
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                                    label="Active"
-                                    name="is_note"
+                                    label="Acrtive"
+                                    name="is_active"
                                     onChange={formik.handleChange}
-                                    value={formik.values.is_note}
-                                    checked={formik.values.is_note}
+                                    value={formik.values.is_active}
+                                    checked={formik.values.is_active}
                                 />
                             </div>
                         </div>

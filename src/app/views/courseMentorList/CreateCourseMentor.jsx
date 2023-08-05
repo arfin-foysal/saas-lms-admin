@@ -2,29 +2,39 @@ import { useFormik } from "formik";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { memo } from 'react';
-import {  useRoutineSaveOrUpdateMutation } from "../../../services/courseApi";
+import {  useGetMentorListQuery, useMentorAssignSaveOrUpdateMutation,  } from "../../../services/courseApi";
 import { useState } from 'react';
-const CreateCourseMentor = ({ handleClose, paramValue }) => {
+import Select from "react-select";
+const CreateCourseMentor = ({ handleClose, paramValue,assData }) => {
     const [allRoutine, setAllRoutine] = useState([]);
-
-
-    const [routineSaveOrUpdate, res] = useRoutineSaveOrUpdateMutation();
+    const [mentorAssignSaveOrUpdate, res] = useMentorAssignSaveOrUpdateMutation();
+    const mentorRes=useGetMentorListQuery();
     const formik = useFormik({
         initialValues: {
-            'day': "",
             'course_id': paramValue,
             'mentor_id': '',
             'is_active': true
         },
         onSubmit: async (values, { resetForm }) => {
-            const routine_Arr = JSON.stringify(allRoutine);
-            resetForm();
+            console.log(values);
+            let arr=[];
+            allRoutine.map((item, index) => {
+                arr.push({
+                    "mentor_id": item.mentor_id?.id,
+                    "course_id": item.course_id,
+                    "is_active": item.is_active
+                })
+            })
+
+            const mentor = JSON.stringify(arr);
+
+            // resetForm();
             if (values.course_id == 0) {
                 toast.warn("Please Select course");
                 return;
             }
             try {
-                const result = await routineSaveOrUpdate({routine:routine_Arr}).unwrap();
+                const result = await mentorAssignSaveOrUpdate({mentorArr:mentor}).unwrap();
                 toast.success(result.message);
             } catch (error) {
                 toast.warn(error.data.message);
@@ -33,32 +43,38 @@ const CreateCourseMentor = ({ handleClose, paramValue }) => {
     });
 
 
-
     const handelAdd = () => {
 
-        if (formik.values.day == '') {
-            toast.warn("Please Enter Title");
+
+
+        if (!formik.values.mentor_id) {
+            toast.warn("Please Select Mentor");
             return;
         }
-        if (formik.values.class_title == '') {
 
-            toast.warn("Please Enter Answer");
+        if (allRoutine.find((item) => item.mentor_id?.id === formik.values.mentor_id?.id)) {
+            toast.warn("Already Added");
             return;
+        }
+
+        if (assData.find((item) => item.mentor_id === formik.values.mentor_id?.id)) {
+            toast.warn("This Mentor Already Assign For This Course");
+            return;
+
         }
 
         setAllRoutine([...allRoutine, formik.values])
-        formik.setFieldValue('day', '');
-        formik.setFieldValue('class_title', '');
-
+        formik.setFieldValue("mentor_id", "");
+        formik.setFieldValue("is_active", true);
+        formik.setFieldValue("course_id", paramValue);
+        formik.setFieldValue("mentor_name", "");
+        formik.setFieldValue("");
 
     }
     const handelDelete = (index) => {
         const newFaq = allRoutine.filter((item, i) => i !== index);
         setAllRoutine(newFaq);
     }
-
-
-
 
     if (res.isSuccess) {
         handleClose();
@@ -73,46 +89,41 @@ const CreateCourseMentor = ({ handleClose, paramValue }) => {
             >
                 <div className="row">
           
-                    <div className="form-group col-4 my-1">
-                        <label className="col-12 col-form-label">Day <span className=" text-danger">*</span></label>
+                    <div className="form-group col-6 my-1">
+                        <label className="col-12 col-form-label">Mentor <span className=" text-danger">*</span></label>
                         <div className="col-12">
-                            <input
-                                placeholder="Enter day"
-                                type="text"
-                                className="form-control"
-                                name="day"
-                                onChange={formik.handleChange}
-                                value={formik.values.day}
-                           
+                            <Select
+                                isSearchable={true}
+                                options={mentorRes.data?.data?.map((item) => ({
+                                    value: item,
+                                    label: `${item.name} (${item.email})`,
+                                }))}
+                                onChange={(value) => {
+                                    formik.setFieldValue("mentor_id", value.value);
+                                }}
+                                value={mentorRes.data?.data?.find(
+                                    (option) => option.value === formik.values.mentor_id
+                                )}
+                               
+                                name="mentor_id"
                             />
+                 
+                
                         </div>
                     </div>
-                    <div className="form-group col-4 my-1">
-                        <label className="col-12 col-form-label">Class Title</label>
-                        <div className="col-12">
-                            <input
-                                placeholder="Class Title"
-                                type="text"
-                                className="form-control"
-                                name="class_title"
-                                value={formik.values.class_title}
-                                onChange={formik.handleChange}
-                        
-                            />
-                        </div>
-                    </div>
-                    <div className="form-group  col-2 mt-1">
-                        <label className="col-12 col-form-label">Is Note</label>
-                        <div className="col-12">
-                            <div className="form-check form-switch ps-0 mt-2">
+            
+                    <div className="form-group col-3 mt-1 text-center">
+                        <label className="col-12 col-form-label">Is Active</label>
+                        <div className="col-12 ">
+                            <div className="form-check form-switch ps-3  mt-2">
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
                                     label="Active"
-                                    name="is_note"
+                                    name="is_active"
                                     onChange={formik.handleChange}
-                                    value={formik.values.is_note}
-                                    checked={formik.values.is_note}
+                                    value={formik.values.is_active}
+                                    checked={formik.values.is_active}
                                 />
                             </div>
                         </div>
@@ -121,7 +132,7 @@ const CreateCourseMentor = ({ handleClose, paramValue }) => {
 
 
 
-                    <div className="form-group col-2 my-1">
+                    <div className="form-group col-3 my-1 text-center">
                         <label className="col-12 col-form-label">Action</label>
                         <div className="col-12 mt-1">
                             <button
@@ -142,9 +153,9 @@ const CreateCourseMentor = ({ handleClose, paramValue }) => {
                             <thead>
                                 <tr>
                                     <th>SL</th>
-                                    <th>Day</th>
-                                    <th>Class Title</th>
-                                    <th>Is Note</th>
+                              
+                                    <th>Mentor</th>
+                                    <th>Is Active</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -152,16 +163,13 @@ const CreateCourseMentor = ({ handleClose, paramValue }) => {
                                 {allRoutine?.map((item, index) => (
                                     <tr key={index}>
                                         <td>{index+1}</td>
-                                        <td>{item.day}</td>
-                                        <td>{item.class_title}</td>
-                                        <td>{item.is_note ? 'Active' : 'Inactive'}</td>
+                                        <td>{item?.mentor_id?.name}</td>
+                                        <td>{item.is_active ? 'Active' : 'Inactive'}</td>
                                         <td>
                                             <button
-
                                                 type="button"
                                                 className="btn btn-danger btn-sm"
                                                 onClick={() => handelDelete(index)}
-
                                             >
                                                 Remove
                                             </button>

@@ -7,7 +7,7 @@ import UpdateQuizQuestion from "./UpdateCourseMentor";
 
 
 
-const CourseMentorModal = ({ handleClose, show, clickValue, paramValue, size }) => {
+const CourseMentorModal = ({ handleClose, show, clickValue, paramValue, size,data }) => {
     
     return (
         <>
@@ -21,7 +21,7 @@ const CourseMentorModal = ({ handleClose, show, clickValue, paramValue, size }) 
                 </Modal.Header>
                 <Modal.Body>
                     {clickValue === "Add New Mentor Assign" && (
-                        <CreateQuizQuestion handleClose={handleClose} paramValue={paramValue} />
+                        <CreateQuizQuestion handleClose={handleClose} paramValue={paramValue} assData={data} />
                     )
                     }
                     {clickValue === "Update Mentor Assign" && (

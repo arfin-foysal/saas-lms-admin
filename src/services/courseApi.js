@@ -12,9 +12,9 @@ export const courseApi = apiSliceAdmin.injectEndpoints({
       providesTags: ["Course"],
     }),
 
-    getCourseMentorList: builder.query({
+    getMentorList: builder.query({
       query: () => ({
-        url: "admin/course-mentor-list",
+        url: "admin/mentor-list",
         method: "GET",
       }),
       providesTags: ["Course"],
@@ -59,6 +59,15 @@ export const courseApi = apiSliceAdmin.injectEndpoints({
       }),
       providesTags: ["Course"],
     }),
+
+    getMentorByCourseId: builder.query({
+      query: (id) => ({
+        url: `admin/course-mentor-assign-list/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["Course"],
+    }),
+
     getFaqListbyCourseId: builder.query({
       query: (id) => ({
         url: `admin/faq-list/${id}`,
@@ -106,6 +115,16 @@ routineSaveOrUpdate: builder.mutation({
       },
       invalidatesTags: ["Course"],
     }),
+mentorAssignSaveOrUpdate: builder.mutation({
+      query: (body) => {
+        return {
+          url: `admin/mentor-assign-save-or-update`,
+          method: "POST",
+          body: body,
+        };
+      },
+      invalidatesTags: ["Course"],
+    }),
   getFeatureListbyCourseId: builder.query({
       query: (id) => ({
         url: `admin/feature-list/${id}`,
@@ -127,6 +146,13 @@ routineSaveOrUpdate: builder.mutation({
       }),
       invalidatesTags: ["Course"],
     }),
+    deleteMentorAssign: builder.mutation({
+      query: (id) => ({
+        url: `admin/delete-mentor-assign/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Course"],
+    }),
   }),
 });
 
@@ -144,7 +170,11 @@ export const {
   useDeleteFeatureMutation,
   useGetRoutineListbyCourseIdQuery,
   useRoutineSaveOrUpdateMutation,
-  useGetCourseMentorListQuery
+  useGetMentorListQuery, 
+  useGetMentorByCourseIdQuery,
+  useMentorAssignSaveOrUpdateMutation,
+  useDeleteMentorAssignMutation,
+
 
   
 } = courseApi;
