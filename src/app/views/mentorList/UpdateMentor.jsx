@@ -119,6 +119,20 @@ const UpdateMentor = ({ handleClose, paramValue }) => {
     const upozilaRes = useGetUpazilaListQuery(formik.values.district_id || 0)
     const areaRes = useGetAreaListQuery(formik.values.city_id || 0)
 
+    const handleDivisionChange = (e) => {
+        formik.setFieldValue('division_id', e.target.value)
+        formik.setFieldValue('district_id', '')
+        formik.setFieldValue('city_id', '')
+        formik.setFieldValue('area_id', '')
+    }
+
+    const handleDistrictChange = (e) => {
+        formik.setFieldValue('district_id', e.target.value)
+        formik.setFieldValue('city_id', '')
+        formik.setFieldValue('area_id', '')
+    }
+
+
     if (res.isSuccess) {
         handleClose();
     }
@@ -349,15 +363,22 @@ const UpdateMentor = ({ handleClose, paramValue }) => {
                     <div className="form-group col-4 my-1">
                         <label className="col-12 col-form-label">Marital Status</label>
                         <div className="col-12">
-                            <input
-                                placeholder="Enter Marital Status"
-                                type="text"
-                                className="form-control"
-                                name="marital_status"
-                                onChange={formik.handleChange}
-                                value={formik.values.marital_status}
+                            <div className="col-12">
+                                <select
+                                    placeholder="Enter Marital Status"
+                                    className="form-control"
+                                    name="marital_status"
+                                    onChange={formik.handleChange}
+                                    value={formik.values.marital_status}
+                                >
+                                    <option value="" disabled selected hidden> --Select-- </option>
+                                    <option value="Single">Single</option>
+                                    <option value="Married">Married</option>
+                                    <option value="Divorced">Divorced</option>
+                                </select>
+                            </div>
 
-                            />
+
                         </div>
                     </div>
                     <div className="form-group col-4 my-1">
@@ -528,7 +549,10 @@ const UpdateMentor = ({ handleClose, paramValue }) => {
                             <select
                                 className="form-control"
                                 name="division_id"
-                                onChange={formik.handleChange}
+                                onChange={(e) => {
+                                    formik.handleChange(e)
+                                    handleDivisionChange(e)
+                                }}
                                 value={formik.values.division_id}
 
                             >
@@ -548,7 +572,10 @@ const UpdateMentor = ({ handleClose, paramValue }) => {
                             <select
                                 className="form-control"
                                 name="district_id"
-                                onChange={formik.handleChange}
+                                onChange={(e) => {
+                                    formik.handleChange(e)
+                                    handleDistrictChange(e)
+                                }}
                                 value={formik.values.district_id}
 
                             >
