@@ -14,6 +14,7 @@ const CreateMentor = ({ handleClose }) => {
             'username': '',
             'education': '',
             'institute': '',
+            'blood_group': '',
             'contact_no': '',
             'organization_slug': '',
             'device_id': '',
@@ -61,6 +62,7 @@ const CreateMentor = ({ handleClose }) => {
             formData.append('institute', values.institute);
             formData.append('contact_no', values.contact_no);
             formData.append('mentor_code', values.mentor_code);
+            formData.append('blood_group', values.blood_group);
             formData.append('organization_slug', values.organization_slug);
             formData.append('device_id', values.device_id);
             formData.append('referral_code', values.referral_code);
@@ -320,7 +322,7 @@ const CreateMentor = ({ handleClose }) => {
                         <div className="col-12">
                             <select
                                 className="form-control"
-                                name="	blood_group"
+                                name="blood_group"
                                 onChange={formik.handleChange}
                                 value={formik.values.blood_group}
 

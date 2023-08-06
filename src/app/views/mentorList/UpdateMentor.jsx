@@ -27,6 +27,7 @@ const UpdateMentor = ({ handleClose, paramValue }) => {
             'referred_code': paramValue.referred_code,
             'alternative_contact_no': paramValue.alternative_contact_no,
             'gender': paramValue.gender,
+            'blood_group': paramValue.blood_group,
             'bio': paramValue.bio,
             'father_name': paramValue.father_name,
             'mother_name': paramValue.mother_name,
@@ -73,6 +74,7 @@ const UpdateMentor = ({ handleClose, paramValue }) => {
             formData.append('device_id', values.device_id);
             formData.append('referral_code', values.referral_code);
             formData.append('referred_code', values.referred_code);
+            formData.append('blood_group', values.blood_group);
             formData.append('alternative_contact_no', values.alternative_contact_no);
             formData.append('gender', values.gender);
             formData.append('bio', values.bio);
@@ -284,7 +286,7 @@ const UpdateMentor = ({ handleClose, paramValue }) => {
                         <div className="col-12">
                             <select
                                 className="form-control"
-                                name="	blood_group"
+                                name="blood_group"
                                 onChange={formik.handleChange}
                                 value={formik.values.blood_group}
 
