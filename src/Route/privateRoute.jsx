@@ -20,6 +20,7 @@ import CourseFaqList from "../app/views/courseFaqList/CourseFaqList";
 import CourseFeatureList from "../app/views/courseFeatureList/CourseFeatureList";
 import CourseRoutineList from "../app/views/courseRoutineList/CourseRoutineList";
 import CourseMentorList from "../app/views/courseMentorList/courseMentorList";
+import MentorList from "../app/views/mentorList/MentorList";
 
 export const privateRoute = [
   {
@@ -130,6 +131,11 @@ export const privateRoute = [
   {
     path: "globaladmin/course-mentor-assign-list/:id",
     element: <CourseMentorList/>,
+    role: "GlobalAdmin",
+  },
+  {
+    path: "mentor-list",
+    element: <MentorList/>,
     role: "GlobalAdmin",
   },
 ];

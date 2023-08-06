@@ -1,6 +1,7 @@
 import { BiCategory, BiSolidRightArrowAlt, BiUser } from "react-icons/bi";
 import { BsMenuButtonWide } from "react-icons/bs";
 import { RiUserSettingsLine, } from "react-icons/ri";
+import { LiaUserEditSolid } from "react-icons/lia";
 
 
 export const navItem = [
@@ -10,6 +11,12 @@ export const navItem = [
     link: "menu-list",
     role: "GlobalAdmin",
     icon: <BsMenuButtonWide size={13} />,
+  },
+  {
+    title: "Mentor List",
+    link: "mentor-list",
+    role: "GlobalAdmin",
+    icon: <LiaUserEditSolid size={17} />,
   },
   {
     title: "Master Settings",

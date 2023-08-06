@@ -2,7 +2,8 @@ import { useFormik } from "formik";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { memo } from 'react';
-import {  useGetMentorListQuery, useMentorAssignSaveOrUpdateMutation,  } from "../../../services/courseApi";
+import { useGetMentorListQuery, useMentorAssignSaveOrUpdateMutation, } from "../../../services/courseApi";
+import { MdRemoveCircleOutline } from "react-icons/md";
 import { useState } from 'react';
 import Select from "react-select";
 const CreateCourseMentor = ({ handleClose, paramValue,assData }) => {
@@ -16,7 +17,6 @@ const CreateCourseMentor = ({ handleClose, paramValue,assData }) => {
             'is_active': true
         },
         onSubmit: async (values, { resetForm }) => {
-            console.log(values);
             let arr=[];
             allRoutine.map((item, index) => {
                 arr.push({
@@ -25,10 +25,8 @@ const CreateCourseMentor = ({ handleClose, paramValue,assData }) => {
                     "is_active": item.is_active
                 })
             })
-
             const mentor = JSON.stringify(arr);
-
-            // resetForm();
+            resetForm();
             if (values.course_id == 0) {
                 toast.warn("Please Select course");
                 return;
@@ -42,11 +40,7 @@ const CreateCourseMentor = ({ handleClose, paramValue,assData }) => {
         },
     });
 
-
     const handelAdd = () => {
-
-
-
         if (!formik.values.mentor_id) {
             toast.warn("Please Select Mentor");
             return;
@@ -88,12 +82,12 @@ const CreateCourseMentor = ({ handleClose, paramValue,assData }) => {
                 encType="multipart/form-data"
             >
                 <div className="row">
-          
                     <div className="form-group col-6 my-1">
                         <label className="col-12 col-form-label">Mentor <span className=" text-danger">*</span></label>
                         <div className="col-12">
                             <Select
                                 isSearchable={true}
+                          isLoading={mentorRes.isLoading}
                                 options={mentorRes.data?.data?.map((item) => ({
                                     value: item,
                                     label: `${item.name} (${item.email})`,
@@ -104,11 +98,8 @@ const CreateCourseMentor = ({ handleClose, paramValue,assData }) => {
                                 value={mentorRes.data?.data?.find(
                                     (option) => option.value === formik.values.mentor_id
                                 )}
-                               
                                 name="mentor_id"
                             />
-                 
-                
                         </div>
                     </div>
             
@@ -129,9 +120,6 @@ const CreateCourseMentor = ({ handleClose, paramValue,assData }) => {
                         </div>
                     </div>
 
-
-
-
                     <div className="form-group col-3 my-1 text-center">
                         <label className="col-12 col-form-label">Action</label>
                         <div className="col-12 mt-1">
@@ -147,13 +135,11 @@ const CreateCourseMentor = ({ handleClose, paramValue,assData }) => {
                     </div>
 
                
-
                     <div className="my-4">
                         <table className="table table-bordered">
                             <thead>
                                 <tr>
                                     <th>SL</th>
-                              
                                     <th>Mentor</th>
                                     <th>Is Active</th>
                                     <th>Action</th>
@@ -164,14 +150,22 @@ const CreateCourseMentor = ({ handleClose, paramValue,assData }) => {
                                     <tr key={index}>
                                         <td>{index+1}</td>
                                         <td>{item?.mentor_id?.name}</td>
-                                        <td>{item.is_active ? 'Active' : 'Inactive'}</td>
+                                        <td>{item.is_active ?
+                                            <span className="badge text-bg-success">
+                                                Active
+                                            </span> :
+                                            <span className="badge text-bg-danger">
+                                                Inactive
+                                            </span>
+
+                                        }</td>
                                         <td>
                                             <button
                                                 type="button"
                                                 className="btn btn-danger btn-sm"
                                                 onClick={() => handelDelete(index)}
                                             >
-                                                Remove
+                                               <MdRemoveCircleOutline/> Remove
                                             </button>
                                         </td>
                                     </tr>
