@@ -105,23 +105,7 @@ const CourseOutlineList = () => {
 
         <div className="card-body p-0">
           <MaterialReactTable
-            renderTopToolbarCustomActions={() => (
-              <div className="col-md-3 d-flex justify-content-start ">
-                {/* <Select
-                  className="w-100"
-                  menuPortalTarget={document.body}
-                  styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
-                  placeholder="Select Course"
-                  isLoading={courseRes?.isFetching}
-                  onChange={(e) => setId(e.id)}
-                  getOptionValue={(option) => `${option["id"]}`}
-                  getOptionLabel={(option) => `${option["title"]}`}
-                  options={courseRes?.data?.data}
-                  key={courseRes?.data?.data?.id}
-                /> */}
          
-              </div>
-            )}
             columns={columns}
             data={isSuccess ? data?.data : []}
             enableRowActions

@@ -33,8 +33,8 @@ export const contentApi = apiSliceAdmin.injectEndpoints({
       providesTags: ["Content"],
     }),
     getScriptChapterList: builder.query({
-      query: () => ({
-        url: "admin/chapter-script-list",
+      query: ({ class_id, subject_id, chapter_id }) => ({
+        url: `admin/chapter-script-list?class_id=${class_id}&subject_id=${subject_id}&chapter_id=${chapter_id}`,
         method: "GET",
       }),
       providesTags: ["Content"],
@@ -53,7 +53,6 @@ export const contentApi = apiSliceAdmin.injectEndpoints({
       }),
       providesTags: ["Content"],
     }),
-  
 
     classCreateOrUpdate: builder.mutation({
       query: (body) => {
@@ -127,7 +126,7 @@ export const contentApi = apiSliceAdmin.injectEndpoints({
       },
       invalidatesTags: ["Content"],
     }),
- 
+
     excelQuestionUpload: builder.mutation({
       query: (body) => {
         return {
@@ -177,7 +176,6 @@ export const contentApi = apiSliceAdmin.injectEndpoints({
       invalidatesTags: ["Content"],
     }),
 
-
     getQuestionListByQuiz: builder.query({
       query: (id) => ({
         url: `admin/question-list-by-quiz/${id}`,
@@ -194,7 +192,7 @@ export const contentApi = apiSliceAdmin.injectEndpoints({
       invalidatesTags: ["Content"],
     }),
 
-   contentSaveOrUpdate: builder.mutation({
+    contentSaveOrUpdate: builder.mutation({
       query: (body) => {
         return {
           url: `admin/content-save-or-update`,
@@ -204,7 +202,7 @@ export const contentApi = apiSliceAdmin.injectEndpoints({
       },
       invalidatesTags: ["Content"],
     }),
-   contentOutlineSaveOrUpdate: builder.mutation({
+    contentOutlineSaveOrUpdate: builder.mutation({
       query: (body) => {
         return {
           url: `admin/content-outline-save-or-update`,
@@ -214,27 +212,27 @@ export const contentApi = apiSliceAdmin.injectEndpoints({
       },
       invalidatesTags: ["Content"],
     }),
-  getContentList: builder.query({
+    getContentList: builder.query({
       query: () => ({
         url: "admin/content-list",
         method: "GET",
       }),
       providesTags: ["Content"],
-  }),
-  getContentOutlineByContentId: builder.query({
-    query: (id) => ({
-      url: `admin/course-outline-list/${id}`,
-      method: "GET",
     }),
-    providesTags: ["Content"],
-  }),
-  deleteContentOutline: builder.mutation({
-    query: (id) => ({
-      url: `admin/delete-content-outline/${id}`,
-      method: "DELETE",
+    getContentOutlineByContentId: builder.query({
+      query: (id) => ({
+        url: `admin/course-outline-list/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["Content"],
     }),
-    invalidatesTags: ["Content"],
-  }),
+    deleteContentOutline: builder.mutation({
+      query: (id) => ({
+        url: `admin/delete-content-outline/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Content"],
+    }),
   }),
 });
 
@@ -258,7 +256,7 @@ export const {
   useDeleteQuestionMutation,
   useQuestionSetListQuery,
   useExcelQuestionUploadMutation,
-  
+
   useGetScriptListByChapterIdQuery,
   useGetVideoListByChapterIdQuery,
   useGetQuizListByChapterIdQuery,
@@ -268,5 +266,4 @@ export const {
   useGetContentOutlineByContentIdQuery,
   useContentOutlineSaveOrUpdateMutation,
   useDeleteContentOutlineMutation,
-  
 } = contentApi;

@@ -4,19 +4,28 @@ import MaterialReactTable from "material-react-table";
 import Loader from "../../components/Loader";
 import { FaEdit } from "react-icons/fa";
 import { FiPlusCircle } from "react-icons/fi";
+import { IoSyncCircle } from "react-icons/io5";
 import { tableColor } from "../../../utils/Theme";
 import MenuModal from "./ScriptContentModal";
 import { BsArrowRightShort, BsEyeFill } from "react-icons/bs";
-import { useGetScriptChapterListQuery } from "../../../services/contentApi";
+import { useGetChapterListQuery, useGetClassListQuery, useGetScriptChapterListQuery, useGetSubjectListQuery } from "../../../services/contentApi";
+import Select from "react-select";
+import { BiReset } from "react-icons/bi";
 
 const ScriptContentList = () => {
-  const res = useGetScriptChapterListQuery();
-  const { data, isSuccess, isFetching, isError } = res;
+
+  const classRes = useGetClassListQuery();
+  const subjectRes = useGetSubjectListQuery();
+  const chapterRes = useGetChapterListQuery();
+ 
   const [clickValue, setClickValue] = useState(null);
   const [param, setParam] = useState(null);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [classId, setClassId] = useState(0);
+  const [subjectId, setSubjectId] = useState(0);
+  const [chapterId, setChapterId] = useState(0);
 
   const handelClickValue = useCallback((value) => {
     setClickValue(value);
@@ -87,7 +96,13 @@ const ScriptContentList = () => {
     ],
     []
   );
+  const res = useGetScriptChapterListQuery({
+    class_id: classId,
+    subject_id: subjectId,
+    chapter_id: chapterId,
 
+  });
+  const { data, isSuccess, isFetching, isError } = res;
   return (
     <>
       {isFetching && <Loader />}
@@ -116,6 +131,57 @@ const ScriptContentList = () => {
 
         <div className="card-body p-0">
           <MaterialReactTable
+               renderTopToolbarCustomActions={() => (
+                <div className="col-md-6 gap-1 d-flex justify-content-start ">
+                  <Select
+                    className="w-100"
+                    menuPortalTarget={document.body}
+                    styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+                    placeholder="Select Class"
+                    isLoading={classRes?.isFetching}
+                  
+                  onChange={(e) => setClassId(e.id)}
+                    getOptionValue={(option) => `${option["id"]}`}
+                    getOptionLabel={(option) => `${option["title"]}`}
+                    options={classRes?.data?.data}
+                    // key={courseRes?.data?.data?.id}
+                  />
+                  <Select
+                    className="w-100"
+                    menuPortalTarget={document.body}
+                    styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+                    placeholder="Select Subject"
+                    isLoading={subjectRes?.isFetching}
+                    onChange={(e) => setSubjectId(e.id)}
+                    getOptionValue={(option) => `${option["id"]}`}
+                    getOptionLabel={(option) => `${option["title"]}`}
+                    options={subjectRes?.data?.data}
+                    // key={courseRes?.data?.data?.id}
+                  />
+                  <Select
+                    className="w-100"
+                    menuPortalTarget={document.body}
+                    styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+                    placeholder="Select Chapter"
+                    isLoading={chapterRes?.isFetching}
+                     onChange={(e) => setChapterId(e.id)}
+                    getOptionValue={(option) => `${option["id"]}`}
+                    getOptionLabel={(option) => `${option["title"]}`}
+                    options={chapterRes?.data?.data}
+                    // key={courseRes?.data?.data?.id}
+                />
+                <div>
+                 <BiReset
+                className="pointer  mt-2"
+                color="white"
+                size={25}
+                onClick={res.refetch}
+              />
+              </div> 
+                </div>
+             
+              
+              )}
             columns={columns}
             data={isSuccess ? data?.data : []}
             enableRowActions
