@@ -47,11 +47,6 @@ const CourseFeatureList = () => {
         size: "5"
       },
       {
-        accessorKey: "course_title",
-        header: "Course Name",
-        size: "5"
-      },
-      {
         accessorKey: "title",
         header: "Title",
         size: "5"
@@ -79,7 +74,10 @@ const CourseFeatureList = () => {
       <PageTopHeader title="Course Feature List " />
       <div className="card border shadow-lg ">
         <div className="card-header d-flex justify-content-between ">
-          <p className="fw-bold text-muted"></p>
+          <p className="fw-bold text-muted">
+            Course Feature List  ( {isSuccess &&
+              data?.data[0]?.course_title} )
+          </p>
           <div>
 
             <button

@@ -26,6 +26,7 @@ const CreateScriptContent = ({ handleClose, paramValue }) => {
             subject_id: paramValue?.subject_id,
             chapter_id: paramValue?.chapter_id,
             raw_url: paramValue?.raw_url,
+            s3_url: paramValue?.s3_url,
             thumbnail: paramValue?.thumbnail,
             price: paramValue?.price,
             rating: paramValue?.rating,
@@ -44,6 +45,7 @@ const CreateScriptContent = ({ handleClose, paramValue }) => {
             formData.append("subject_id", values.subject_id);
             formData.append("chapter_id", values.chapter_id);
             formData.append("raw_url", values.raw_url);
+            formData.append("s3_url", values.s3_url);
             formData.append("thumbnail", values.thumbnail);
             formData.append("price", values.price);
             formData.append("rating", values.rating);
@@ -106,6 +108,19 @@ const CreateScriptContent = ({ handleClose, paramValue }) => {
                                 onChange={formik.handleChange}
                                 value={formik.values.title_bn}
                                 required
+                            />
+                        </div>
+                    </div>
+                    <div className="form-group col-12 my-1">
+                        <label className="col-12 col-form-label">Description</label>
+                        <div className="col-12">
+                            <textarea
+                                placeholder="Enter Description"
+                                type="text"
+                                className="form-control"
+                                name="description"
+                                onChange={formik.handleChange}
+                                value={formik.values.description}
                             />
                         </div>
                     </div>
@@ -183,22 +198,35 @@ const CreateScriptContent = ({ handleClose, paramValue }) => {
                     </div>
 
                     <div className="form-group col-6 my-1">
-                        <label className="col-12 col-form-label">Raw Url</label>
+                        <label className="col-12 col-form-label">Raw File</label>
                         <div className="col-12">
                             <input
-                                placeholder="Enter Raw Url"
-                                type="text"
-                                className="form-control"
+                                className="form-control "
                                 name="raw_url"
-                                onChange={formik.handleChange}
-                                value={formik.values.raw_url}
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => {
+                                    formik.setFieldValue("raw_url", e.currentTarget.files[0]);
+                                }}
                             />
                         </div>
                     </div>
 
-
-
                     <div className="form-group col-6 my-1">
+                        <label className="col-12 col-form-label">S3 Url</label>
+                        <div className="col-12">
+                            <input
+                                placeholder="Enter S3 Url"
+                                type="text"
+                                className="form-control"
+                                name="s3_url"
+                                onChange={formik.handleChange}
+                                value={formik.values.s3_url}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="form-group col-4 my-1">
                         <label className="col-12 col-form-label">Price  <span className=" text-danger">*</span></label>
                         <div className="col-12">
                             <input
@@ -211,7 +239,7 @@ const CreateScriptContent = ({ handleClose, paramValue }) => {
                                 required
                             />
                         </div>
-                    </div>      <div className="form-group col-6 my-1">
+                    </div>      <div className="form-group col-4 my-1">
                         <label className="col-12 col-form-label">Sequence  <span className=" text-danger">*</span></label>
                         <div className="col-12">
                             <input
@@ -225,7 +253,7 @@ const CreateScriptContent = ({ handleClose, paramValue }) => {
                             />
                         </div>
                     </div>
-                    <div className="form-group col-6 my-1">
+                    <div className="form-group col-4 my-1">
                         <label className="col-12 col-form-label">Rating  <span className=" text-danger">*</span></label>
                         <div className="col-12">
                             <input
@@ -241,19 +269,7 @@ const CreateScriptContent = ({ handleClose, paramValue }) => {
                     </div>
 
 
-                    <div className="form-group col-12 my-1">
-                        <label className="col-12 col-form-label">Description</label>
-                        <div className="col-12">
-                            <textarea
-                                placeholder="Enter Color Code"
-                                type="text"
-                                className="form-control"
-                                name="description"
-                                onChange={formik.handleChange}
-                                value={formik.values.description}
-                            />
-                        </div>
-                    </div>
+                 
                     <div className="form-group row col-12 my-2 ">
                         <label className="col-6 col-form-label">Is Free</label>
                         <div className="col-6">

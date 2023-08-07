@@ -739,22 +739,7 @@ const CreateMentor = ({ handleClose }) => {
                             </div>
                         </div>
                     </div>
-                    <div className="form-group row col-4 my-2 ">
-                        <label className="col-6 col-form-label">Is Life Couch</label>
-                        <div className="col-6">
-                            <div className="form-check form-switch mt-2">
-                                <Form.Check
-                                    type="switch"
-                                    id="custom-switch"
-                                    label="✔"
-                                    name="is_life_couch"
-                                    onChange={formik.handleChange}
-                                    value={formik.values.is_life_couch}
-                                    checked={formik.values.is_life_couch}
-                                />
-                            </div>
-                        </div>
-                    </div>
+               
                     <div className="form-group row col-4 my-2 ">
                         <label className="col-6 col-form-label">Is Life Couch</label>
                         <div className="col-6">

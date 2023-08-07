@@ -6,7 +6,7 @@ import { FaEdit } from "react-icons/fa";
 import { FiPlusCircle } from "react-icons/fi";
 import { tableColor } from "../../../utils/Theme";
 import MenuModal from "./QuizModal";
-import { BsEyeFill } from "react-icons/bs";
+import { BsArrowRightShort, BsEyeFill } from "react-icons/bs";
 import { useGetQuizListQuery } from "../../../services/contentApi";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -50,8 +50,20 @@ const QuizList = () => {
             </p></Link>
         </>,
         id: "title",
-        header: "Quiz Name",
+        header: "Quiz",
         size: 300,
+      },
+      {
+        accessorFn: (row) => (
+          <>
+            <span>
+              {row?.class_name} <BsArrowRightShort /> {row?.subject_name} <BsArrowRightShort /> {row?.chapter_name}
+            </span>
+          </>
+        ),
+        id: "class",
+        header: "Class - Subject - Chapter",
+        size: 200
       },
 
       {
@@ -126,7 +138,7 @@ const QuizList = () => {
                 <div className="d-flex">
                   <button
                     title=""
-                    className="px-2 mx-1 d-flex align-items-center btn btn-success btn-sm"
+                    className="px-2 d-flex mx-1 align-items-center btn btn-success btn-sm"
                     onClick={() => {
                       handleShow();
                       handelClickValue("Update Quiz");
@@ -135,22 +147,20 @@ const QuizList = () => {
                   >
                     <FaEdit size={16} /> Edit
                   </button>
-                  <button
+
+                  <Link
                     title=""
-                    className="px-2 mx-1 d-flex align-items-center btn btn-info btn-sm"
+                    className="px-2 d-flex mx-1 align-items-center btn btn-success btn-sm"
                     onClick={() => {
                       dispatch(quizName({
                         name: row?.row?.original?.title, id: row?.row?.original?.id,
-                        subject_id: row?.row?.original?.subject_id,  
+                        subject_id: row?.row?.original?.subject_id,
                         class_level_id: row?.row?.original?.class_level_id,
                         chapter_id: row?.row?.original?.chapter_id,
                         chapter_quiz_id: row?.row?.original?.id,
                       }))
                     }}
-                  >
-                    <Link to={`/dashboard/globaladmin/quiz-question-list/${row?.row?.original?.id}`}><BsEyeFill size={17} /> QN </Link>
-
-                  </button>
+                    to={`/dashboard/globaladmin/quiz-question-list/${row?.row?.original?.id}`}><BsEyeFill size={17} /> QN </Link>
                 </div>
                 <div>
                 </div>

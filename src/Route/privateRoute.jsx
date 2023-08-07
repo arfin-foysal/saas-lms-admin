@@ -21,6 +21,7 @@ import CourseFeatureList from "../app/views/courseFeatureList/CourseFeatureList"
 import CourseRoutineList from "../app/views/courseRoutineList/CourseRoutineList";
 import CourseMentorList from "../app/views/courseMentorList/courseMentorList";
 import MentorList from "../app/views/mentorList/MentorList";
+import StudentList from "../app/views/studentList/StudentList";
 
 export const privateRoute = [
   {
@@ -136,6 +137,11 @@ export const privateRoute = [
   {
     path: "mentor-list",
     element: <MentorList/>,
+    role: "GlobalAdmin",
+  },
+  {
+    path: "student-list",
+    element: <StudentList/>,
     role: "GlobalAdmin",
   },
 ];

@@ -4,7 +4,7 @@ import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import PreviewImage from "../../components/PreviewImage";
 import { useChapterCreateOrUpdateMutation, useGetClassListQuery, useGetSubjectListByClassIdQuery,  } from "../../../services/contentApi";
-const UpdateChapter = ({ handleClose, paramValue}) => {
+const UpdateChapter = ({ handleClose, paramValue }) => {
     const classRes = useGetClassListQuery()
     const fileRef = useRef(null)
     const [previewImage, setPreviewImage] = useState();

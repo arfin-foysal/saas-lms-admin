@@ -1,7 +1,7 @@
 import { BiCategory, BiSolidRightArrowAlt, BiUser } from "react-icons/bi";
-import { BsMenuButtonWide } from "react-icons/bs";
+import { BsGear, BsMenuButtonWide } from "react-icons/bs";
 import { RiUserSettingsLine, } from "react-icons/ri";
-import { LiaUserEditSolid } from "react-icons/lia";
+import { LiaUserEditSolid, LiaUserGraduateSolid } from "react-icons/lia";
 
 
 export const navItem = [
@@ -19,9 +19,15 @@ export const navItem = [
     icon: <LiaUserEditSolid size={17} />,
   },
   {
+    title: "Student List",
+    link: "student-list",
+    role: "GlobalAdmin",
+    icon: <LiaUserGraduateSolid size={18} />,
+  },
+  {
     title: "Master Settings",
     role: "GlobalAdmin",
-    icon: <RiUserSettingsLine />,
+    icon: <BsGear size={14} />,
     children: [
       {
         title: "Organization List",
@@ -106,12 +112,7 @@ export const navItem = [
         role: "GlobalAdmin",
         icon: <BiSolidRightArrowAlt />,
       },
-      {
-        title: "Content Outline List",
-        link: "content-outline-list",
-        role: "GlobalAdmin",
-        icon: <BiSolidRightArrowAlt />,
-      },
+
   
 
 

@@ -49,11 +49,7 @@ const CourseFaqList = () => {
         header: "SL",
         size: "5"
       },
-      {
-        accessorKey: "course_title",
-        header: "Course Name",
-        size: "5"
-      },
+   
       {
         accessorKey: "title",
         header: "Title",
@@ -79,22 +75,25 @@ const CourseFaqList = () => {
         paramValue={param}
         size={size}
       />
-      <PageTopHeader title="Course Faq List " />
+      <PageTopHeader title="Course FAQ List " />
       <div className="card border shadow-lg ">
         <div className="card-header d-flex justify-content-between ">
-          <p className="fw-bold text-muted"></p>
+          <p className="fw-bold text-muted">
+            Course FAQ List ( {isSuccess &&
+              data?.data[0]?.course_title} )
+          </p>
           <div>
 
             <button
               className="btn btn-primary btn-sm mx-1 my-0"
               onClick={() => {
                 handleShow();
-                handelClickValue("Add New Course Faq");
+                handelClickValue("Add New Course FAQ");
                 setParam(id)
                 setSize("lg")
               }}
             >
-              <FiPlusCircle size={16} /> Add New Faq
+              <FiPlusCircle size={16} /> Add New FAQ
             </button>
 
           </div>
@@ -121,9 +120,9 @@ const CourseFaqList = () => {
                     title=""
                     className="px-2 mx-1 d-flex align-items-center btn btn-success btn-sm"
                     onClick={() => {
-                      setSize("lg")
+                      setSize("md")
                       handleShow();
-                      handelClickValue("Update Course Faq");
+                      handelClickValue("Update Course FAQ");
                       setParam(row?.row?.original);
                     }}
                   >

@@ -6,6 +6,7 @@ import { useGetMentorListQuery, useMentorAssignSaveOrUpdateMutation, } from "../
 import { MdRemoveCircleOutline } from "react-icons/md";
 import { useState } from 'react';
 import Select from "react-select";
+import { FiPlusCircle } from "react-icons/fi";
 const CreateCourseMentor = ({ handleClose, paramValue,assData }) => {
     const [allRoutine, setAllRoutine] = useState([]);
     const [mentorAssignSaveOrUpdate, res] = useMentorAssignSaveOrUpdateMutation();
@@ -128,7 +129,7 @@ const CreateCourseMentor = ({ handleClose, paramValue,assData }) => {
                                 className="btn btn-success btn-sm"
                                 onClick={handelAdd}
                             >
-                                Add
+                               <FiPlusCircle size={16} /> Add
                             </button>
 
                         </div>

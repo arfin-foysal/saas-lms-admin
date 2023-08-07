@@ -1,17 +1,17 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
+
 import { modalColor } from "../../../utils/Theme";
-import CreateQuizQuestion from "./CreateCourseFaq";
-import UpdateQuizQuestion from "./UpdateCourseFaq";
+import CreateStudent from "./CreateStudent";
+import UpdateStudent from "./UpdateStudent";
 
 
 
 
-const CourseFaqModal = ({ handleClose, show, clickValue, paramValue, size }) => {
-    
+const StudentModal = ({ handleClose, show, clickValue, paramValue,size }) => {
     return (
         <>
-            <Modal show={show} onHide={handleClose} size={ size}>
+            <Modal show={show} onHide={handleClose} size={size}>
                 <Modal.Header
                     closeButton
                     className="text-white"
@@ -20,19 +20,19 @@ const CourseFaqModal = ({ handleClose, show, clickValue, paramValue, size }) => 
                     <Modal.Title>{clickValue}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {clickValue === "Add New Course FAQ" && (
-                        <CreateQuizQuestion handleClose={handleClose} paramValue={paramValue} />
+                    {clickValue === "Add New Student" && (
+                        <CreateStudent handleClose={handleClose} />
                     )
                     }
-                    {clickValue === "Update Course FAQ" && (
-                        <UpdateQuizQuestion handleClose={handleClose} paramValue={paramValue} />
+                    {clickValue === "Update Student" && (
+                        <UpdateStudent handleClose={handleClose} paramValue={paramValue} />
                     )
                     }
-             
+          
                 </Modal.Body>
             </Modal>
         </>
     );
 };
 
-export default React.memo(CourseFaqModal);
+export default React.memo(StudentModal);

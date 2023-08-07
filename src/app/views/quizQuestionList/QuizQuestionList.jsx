@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 import { BiUpload } from "react-icons/bi";
 import { confirmHandel } from "../../../utils/Alert";
 import { toast } from "react-toastify";
+import { BsArrowRightShort } from "react-icons/bs";
 
 
 const QuizQuestionList = () => {
@@ -48,12 +49,7 @@ const QuizQuestionList = () => {
         </>,
         id: "index",
         header: "SL",
-        size: "5"
-      },
-      {
-        accessorKey: "subject_name",
-        header: "Subject",
-        size: "5"
+        size: "10"
       },
       {
         accessorFn: (row, index) => <>
@@ -65,9 +61,22 @@ const QuizQuestionList = () => {
 
         </>,
 
+
         accessorKey: "question_text",
         header: "Question",
         size: "300"
+      },
+      {
+        accessorFn: (row) => (
+          <>
+            <span>
+              {row?.class_name} <BsArrowRightShort/> {row?.subject_name} <BsArrowRightShort/> {row?.chapter_name}
+            </span>
+          </>
+        ),
+        id: "class",
+        header: "Class - Subject - Chapter",
+        size:200
       },
       {
         accessorKey: "option1",

@@ -7,6 +7,7 @@ import {FiPlusCircle} from "react-icons/fi";
 import {tableColor} from "../../../utils/Theme";
 import MenuModal from "./ChapterModal";
 import {useGetChapterListQuery} from "../../../services/contentApi";
+import { BsArrowRightShort } from "react-icons/bs";
 
 const ChapterList = () => {
     const res = useGetChapterListQuery();
@@ -22,20 +23,37 @@ const ChapterList = () => {
     }, []);
 
     const columns = useMemo(
-        () => [{
-            accessorKey: "chapter_code",
-            header: "Chapter Code",
-        },
+        () => [
+            {
+                accessorFn: (row, index) => <>
+                  <span className=" fw-normal">
+                    {index + 1}
+                  </span>
+        
+                </>,
+                id: "index",
+                header: "SL",
+                size: "10"
+              },
             {
                 accessorKey: "name",
                 header: "Name",
             },
-
             {
-                accessorKey: "name_bn",
-                header: "Bangla Name",
-            },
-
+                accessorFn: (row) => (
+                  <>
+                    <span>
+                      {row?.class_name} <BsArrowRightShort/> {row?.subject_name} 
+                    </span>
+                  </>
+                ),
+                id: "class",
+                header: "Class - Subject",
+                size:200
+              },
+        
+        
+    
             {
                 accessorKey: "price",
                 header: "Price",

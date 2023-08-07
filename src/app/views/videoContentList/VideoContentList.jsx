@@ -7,7 +7,7 @@ import { FiPlusCircle } from "react-icons/fi";
 import { tableColor } from "../../../utils/Theme";
 import MenuModal from "./VideoContentModal";
 import { useGetVideoChapterListQuery } from "../../../services/contentApi";
-import { BsEyeFill } from "react-icons/bs";
+import { BsArrowRightShort, BsEyeFill } from "react-icons/bs";
 const VideoContentList = () => {
   const res = useGetVideoChapterListQuery();
   const { data, isSuccess, isFetching, isError } = res;
@@ -22,19 +22,35 @@ const VideoContentList = () => {
   }, []);
 
   const columns = useMemo(
-    () => [{
-      accessorKey: "video_code",
-      header: "Video Code",
-    },
+    () => [
+      {
+        accessorFn: (row, index) => <>
+          <span className=" fw-normal">
+            {index + 1}
+          </span>
+
+        </>,
+        id: "index",
+        header: "SL",
+        size: "10"
+      },
     {
       accessorKey: "title",
       header: "Title",
     },
-
     {
-      accessorKey: "title_bn",
-      header: "Title Bangla",
+      accessorFn: (row) => (
+        <>
+          <span>
+            {row?.class_name} <BsArrowRightShort/> {row?.subject_name} <BsArrowRightShort/> {row?.chapter_name}
+          </span>
+        </>
+      ),
+      id: "class",
+      header: "Class - Subject - Chapter",
+      size:200
     },
+
 
     {
       accessorKey: "price",

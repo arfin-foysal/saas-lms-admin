@@ -5,13 +5,14 @@ import Loader from "../../components/Loader";
 import { FaEdit} from "react-icons/fa";
 import { FiPlusCircle } from "react-icons/fi";
 import { tableColor } from "../../../utils/Theme";
-import MenuModal from "./CLassModal";
-import { useGetClassListQuery } from "../../../services/contentApi";
-const ClassList = () => {
-  const res = useGetClassListQuery();
+import MenuModal from "./StudentModal";
+import { useGetAllStudentQuery } from "../../../services/resourceApi";
+const StudentList = () => {
+  const res = useGetAllStudentQuery();
   const { data, isSuccess, isFetching, isError } = res;
   const [clickValue, setClickValue] = useState(null);
   const [param, setParam] = useState(null);
+  const [size,setSize]=useState("lg")
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -22,62 +23,64 @@ const ClassList = () => {
 
   const columns = useMemo(
     () => [  
+  
+        {
+          accessorKey: "name", 
+          header: "Name",
+        },
+        {
+          accessorKey: "username", 
+          header: "Username",
+        },
+        
+    
+  
       {
-        accessorFn: (row, index) => <>
-          <span className=" fw-normal">
-            {index + 1}
-          </span>
+        accessorFn: (row) =>
+          row && (
+            <>
+              <span className=" fw-bolder">
+              {row?.email}
+              </span>
+              <br/>
+              <span className=" fw-bolder">
+              {row?.contact_no}
+              </span>
+            </>
+          ) ,
 
-        </>,
-        id: "index",
-        header: "SL",
+        id: "email",
+        header: "Email",
         size: "10"
-      },
-    
-      {
-        accessorFn: (row) =>
-          <>
-            <span className="text-success fw-normal">
-            {row?.name}
-            </span>
-          </>
-        ,
-        id: "name",
-        header: "Name",
-        size: "300"
-      }
-      ,
-    
-      {
-        accessorKey: "price", 
-        header: "Price",
+      },{
+          accessorKey: "organization_slug", 
+          header: "Organization",
+        },
 
-      },
-      {
-        accessorFn: (row) =>
-          row?.is_free === true ? (
-            <>
-              <span className="badge bg-success">Yes</span>
-            </>
-          ) : (
-            <span className="badge bg-warning">No</span>
-          ),
 
-        id: "is_free",
-        header: "Is Free",
-      },
       {
         accessorFn: (row) =>
-          row?.is_active === true ? (
+          row?.status && (
             <>
-              <span className="badge bg-success">Active</span>
+                { row?.status === "Active" && (
+                   <span className="badge bg-success">Active</span>
+                )}
+                { row?.status === "Pending" && (
+                <span className="badge bg-warning">Pending</span>
+                )}
+                { row?.status === "Suspended" && (
+                <span className="badge bg-secondary">Suspended</span>
+                )}
+                { row?.status === "On-Hold" && (
+                <span className="badge bg-danger">On-Hold</span>
+                )}
+             
             </>
-          ) : (
-            <span className="badge bg-warning">Inactive</span>
           ),
 
         id: "Status",
         header: "Status",
+        size: "10"
       },
 
     ],
@@ -92,20 +95,22 @@ const ClassList = () => {
         handleClose={handleClose}
         clickValue={clickValue}
         paramValue={param}
+        size={size}
       />
-      <PageTopHeader title="Class List" />
+      <PageTopHeader title="Student List" />
       <div className="card border shadow-lg ">
         <div className="card-header d-flex justify-content-between ">
-          <div>Class List</div>
+          <div>Student List</div>
           <div>
             <button
               className="btn btn-primary btn-sm"
               onClick={() => {
                 handleShow();
-                handelClickValue("Add New Class");
+                handelClickValue("Add New Student");
+                setSize("xl")
               }}
             >
-              <FiPlusCircle size={16} /> Add New Class
+              <FiPlusCircle size={16} /> Add New Student
             </button>
           </div>
         </div>
@@ -116,6 +121,7 @@ const ClassList = () => {
             data={isSuccess ? data?.data : []}
             enableRowActions
             enableColumnActions
+  
             positionActionsColumn="last"
             muiTopToolbarProps={{
               style: {
@@ -126,21 +132,22 @@ const ClassList = () => {
             renderRowActions={(row, index) => (
               <>
                 <div className="d-flex">
-                  <div className="mx-2">
+            
                     <button
                       title=""
-                      className="px-2 d-flex align-items-center btn btn-success btn-sm"
+                      className="px-2 mx-1 d-flex align-items-center btn btn-success btn-sm"
                       onClick={() => {
                         handleShow();
-                        handelClickValue("Update Class");
+                        handelClickValue("Update Student");
                         setParam(row?.row?.original);
+                        setSize("xl")
                       }}
                     >
                       <FaEdit size={16} /> Edit
                     </button>
-                  </div>
+         
+    
                   <div>
-
                   </div>
                 </div>
               </>
@@ -155,4 +162,4 @@ const ClassList = () => {
 
 
 
-export default ClassList
+export default StudentList

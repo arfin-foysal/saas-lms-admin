@@ -6,11 +6,9 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import { FiPlusCircle } from "react-icons/fi";
 import { tableColor } from "../../../utils/Theme";
 import MenuModal from "./CourseOutlineModal";
-
-
 import { confirmHandel } from "../../../utils/Alert";
 import { toast } from "react-toastify";
-import Select from 'react-select'
+
 import { useDeleteCourseOutlineMutation, useGetCourseListQuery, useGetCourseOutlineByCourseIdQuery } from "../../../services/courseApi";
 import { useParams } from "react-router-dom";
 const CourseOutlineList = () => {
@@ -25,6 +23,8 @@ const CourseOutlineList = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+
 
   const handelClickValue = useCallback((value) => {
     setClickValue(value);
@@ -46,11 +46,6 @@ const CourseOutlineList = () => {
         </>,
         id: "index",
         header: "SL",
-        size: "5"
-      },
-      {
-        accessorKey: "course_title",
-        header: "Course Name",
         size: "5"
       },
       {
@@ -86,7 +81,11 @@ const CourseOutlineList = () => {
       <PageTopHeader title="Course Outline List " />
       <div className="card border shadow-lg ">
         <div className="card-header d-flex justify-content-between ">
-          <p className="fw-bold text-muted"></p>
+          <p className="fw-bold text-muted">
+            COURSE OUTLINE LIST ( {isSuccess &&
+              data?.data[0]?.course_title} )
+          
+          </p>
           <div>
 
             <button
@@ -160,6 +159,7 @@ const CourseOutlineList = () => {
                         row?.row?.original?.id,
                         handelDelete
                       )
+                
 
                     }}>
                     <FaTrash size={14} />

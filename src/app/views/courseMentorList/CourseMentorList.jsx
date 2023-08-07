@@ -46,11 +46,7 @@ const CourseMentorList = () => {
         header: "SL",
         size: "5"
       },
-      {
-        accessorKey: "course_title",
-        header: "Course",
-        size: "5"
-      },
+      
       {
         accessorKey: "mentor_name",
         header: "Mentor",
@@ -76,7 +72,10 @@ const CourseMentorList = () => {
       <PageTopHeader title="Mentor Assign List " />
       <div className="card border shadow-lg ">
         <div className="card-header d-flex justify-content-between ">
-          <p className="fw-bold text-muted"></p>
+          <p className="fw-bold text-muted">
+            Mentor Assign List  ( {isSuccess &&
+              data?.data[0]?.course_title} )
+          </p>
           <div>
 
             <button
@@ -85,7 +84,7 @@ const CourseMentorList = () => {
                 handleShow();
                 handelClickValue("Add New Mentor Assign");
                 setParam(id)
-                setSize("md")
+                setSize("lg")
               }}
             >
               <FiPlusCircle size={16} /> New Mentor Assign

@@ -1,74 +1,72 @@
 import { useFormik } from "formik";
-import React, { useRef, useState } from "react";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { useGetMenuListQuery, useMenuCreateOrUpdateMutation } from "../../../services/masterSettingsApi";
-import PreviewImage from "../../components/PreviewImage";
-import { BsFillCloudArrowUpFill } from "react-icons/bs";
-import { useClassCreateOrUpdateMutation } from "../../../services/contentApi";
-import { useCourseCreateOrUpdateMutation } from "../../../services/courseApi";
 import { useGetAreaListQuery, useGetDistrictListQuery, useGetDivisionListQuery, useGetUpazilaListQuery } from "../../../services/commonApi";
-import { useMentorSaveOrUpdateMutation } from "../../../services/resourceApi";
-const UpdateMentor = ({ handleClose, paramValue }) => {
-    const [mentorSaveOrUpdate, res] = useMentorSaveOrUpdateMutation();
-    const divisionRes = useGetDivisionListQuery()
+import { useStudentSaveOrUpdateMutation } from "../../../services/resourceApi";
+const CreateStudent = ({ handleClose }) => {
+    const [studentSaveOrUpdate, res] = useStudentSaveOrUpdateMutation();
+
     const formik = useFormik({
-        enableReinitialize: true,
         initialValues: {
-            'name': paramValue.name,
-            'email': paramValue.email,
-            'education': paramValue.education,
-            'institute': paramValue.institute,
-            'contact_no': paramValue.contact_no,
-            'device_id': paramValue.device_id,
-            'referral_code': paramValue.referral_code,
-            'referred_code': paramValue.referred_code,
-            'alternative_contact_no': paramValue.alternative_contact_no,
-            'gender': paramValue.gender,
-            'blood_group': paramValue.blood_group,
-            'bio': paramValue.bio,
-            'father_name': paramValue.father_name,
-            'mother_name': paramValue.mother_name,
-            'religion': paramValue.religion,
-            'marital_status': paramValue.marital_status,
-            'date_of_birth': paramValue.date_of_birth,
-            'profession': paramValue.profession,
-            'current_address': paramValue.current_address,
-            'permanent_address': paramValue.permanent_address,
-            'division_id': paramValue.division_id,
-            'district_id': paramValue.district_id,
-            'city_id': paramValue.city_id,
-            'area_id': paramValue.area_id,
-            'nid_no': paramValue.nid_no,
-            'birth_certificate_no': paramValue.birth_certificate_no,
-            'passport_no': paramValue.passport_no,
-            'interests': paramValue.interests,
-            'image': paramValue.image,
-            'intro_video': paramValue.intro_video,
-            'status': paramValue.status,
-            'is_foreigner': paramValue.is_foreigner,
-            'is_life_couch': paramValue.is_life_couch,
-            'is_host_staff': paramValue.is_host_staff,
-            'is_host_certified': paramValue.is_host_certified,
-            'is_active': paramValue.is_active,
-            'rating': paramValue.rating,
-            'approval_date': paramValue.approval_date,
-            'host_rank_number': paramValue.host_rank_number,
+            'name': '',
+            'email': '',
+            'password': '',
+            'username': '',
+            'education': '',
+            'institute': '',
+            'blood_group': '',
+            'contact_no': '',
+            'organization_slug': '',
+            'device_id': '',
+            'referral_code': '',
+            'referred_code': '',
+            'alternative_contact_no': '',
+            'gender': '',
+            'bio': '',
+            'father_name': '',
+            'mother_name': '',
+            'religion': '',
+            'marital_status': '',
+            'date_of_birth': '',
+            'profession': '',
+            'current_address': '',
+            'permanent_address': '',
+            'division_id': '',
+            'district_id': '',
+            'city_id': '',
+            'area_id': '',
+            'nid_no': '',
+            'birth_certificate_no': '',
+            'passport_no': '',
+            'interests': '',
+            'image': '',
+            'intro_video': '',
+            'status': 'Pending',
+            'is_foreigner': true,
+            // 'is_life_couch': true,
+            // 'is_host_staff': true,
+            // 'is_host_certified': true,
+            'is_active': true,
+            'rating': '',
+            // 'approval_date': '',
+            // 'host_rank_number': '',
         },
 
         onSubmit: async (values, { resetForm }) => {
             let formData = new FormData();
-            formData.append('id', paramValue.id);
-            formData.append('user_id', paramValue.user_id);
             formData.append('name', values.name);
             formData.append('email', values.email);
+            formData.append('username', values.username);
+            formData.append('password', values.password);
             formData.append('education', values.education);
             formData.append('institute', values.institute);
             formData.append('contact_no', values.contact_no);
+            formData.append('mentor_code', values.mentor_code);
+            formData.append('blood_group', values.blood_group);
+            formData.append('organization_slug', values.organization_slug);
             formData.append('device_id', values.device_id);
             formData.append('referral_code', values.referral_code);
             formData.append('referred_code', values.referred_code);
-            formData.append('blood_group', values.blood_group);
             formData.append('alternative_contact_no', values.alternative_contact_no);
             formData.append('gender', values.gender);
             formData.append('bio', values.bio);
@@ -92,23 +90,25 @@ const UpdateMentor = ({ handleClose, paramValue }) => {
             formData.append('intro_video', values.intro_video);
             formData.append('status', values.status);
             formData.append('is_foreigner', values.is_foreigner ? 1 : 0);
-            formData.append('is_life_couch', values.is_life_couch ? 1 : 0);
-            formData.append('is_host_staff', values.is_host_staff ? 1 : 0);
-            formData.append('is_host_certified', values.is_host_certified ? 1 : 0);
+            // formData.append('is_life_couch', values.is_life_couch ? 1 : 0);
+            // formData.append('is_host_staff', values.is_host_staff ? 1 : 0);
+            // formData.append('is_host_certified', values.is_host_certified ? 1 : 0);
             formData.append('is_active', values.is_active ? 1 : 0);
             formData.append('rating', values.rating);
-            formData.append('approval_date', values.approval_date);
-            formData.append('host_rank_number', values.host_rank_number);
+            // formData.append('approval_date', values.approval_date);
+            // formData.append('host_rank_number', values.host_rank_number);
             resetForm();
             try {
-                const result = await mentorSaveOrUpdate(formData).unwrap();
+                const result = await studentSaveOrUpdate(formData).unwrap();
                 toast.success(result.message);
+
             } catch (error) {
                 toast.warn(error.data.message);
+
             }
         },
     });
-
+    const divisionRes = useGetDivisionListQuery()
     const districtRes = useGetDistrictListQuery(formik.values.division_id || 0)
     const upozilaRes = useGetUpazilaListQuery(formik.values.district_id || 0)
     const areaRes = useGetAreaListQuery(formik.values.city_id || 0)
@@ -153,10 +153,36 @@ const UpdateMentor = ({ handleClose, paramValue }) => {
                             />
                         </div>
                     </div>
-      
-     
                     <div className="form-group col-4 my-1">
-                        <label className="col-12 col-form-label">Email<span className=" text-danger">*</span></label>
+                        <label className="col-12 col-form-label">Username<span className=" text-danger">*</span></label>
+                        <div className="col-12">
+                            <input
+                                placeholder="Enter username"
+                                type="text"
+                                className="form-control"
+                                name="username"
+                                onChange={formik.handleChange}
+                                value={formik.values.username}
+                                required
+                            />
+                        </div>
+                    </div>
+                    <div className="form-group col-4 my-1">
+                        <label className="col-12 col-form-label">Password<span className=" text-danger">*</span></label>
+                        <div className="col-12">
+                            <input
+                                placeholder="Enter password"
+                                type="password"
+                                className="form-control"
+                                name="password"
+                                onChange={formik.handleChange}
+                                value={formik.values.password}
+                                required
+                            />
+                        </div>
+                    </div>
+                    <div className="form-group col-4 my-1">
+                        <label className="col-12 col-form-label">Email</label>
                         <div className="col-12">
                             <input
                                 placeholder="Enter email"
@@ -165,12 +191,12 @@ const UpdateMentor = ({ handleClose, paramValue }) => {
                                 name="email"
                                 onChange={formik.handleChange}
                                 value={formik.values.email}
-                                required
+                            
                             />
                         </div>
                     </div>
                     <div className="form-group col-4 my-1">
-                        <label className="col-12 col-form-label">Contact No<span className=" text-danger">*</span></label>
+                        <label className="col-12 col-form-label">Contact No</label>
                         <div className="col-12">
                             <input
                                 placeholder="Enter Contact no"
@@ -179,7 +205,7 @@ const UpdateMentor = ({ handleClose, paramValue }) => {
                                 name="contact_no"
                                 onChange={formik.handleChange}
                                 value={formik.values.contact_no}
-                                required
+                               
                             />
                         </div>
                     </div>
@@ -225,7 +251,23 @@ const UpdateMentor = ({ handleClose, paramValue }) => {
                             />
                         </div>
                     </div>
-    
+                    <div className="form-group col-4 my-1">
+                        <label className="col-12 col-form-label">Organization Slug
+                            <span className=" text-danger">*</span>
+                        </label>
+                        <div className="col-12">
+                            <input
+                                placeholder="Enter Organization Slug"
+                                type="text"
+                                className="form-control"
+                                name="organization_slug"
+                                onChange={formik.handleChange}
+                                value={formik.values.organization_slug}
+                                required
+
+                            />
+                        </div>
+                    </div>
                     <div className="form-group col-4 my-1">
                         <label className="col-12 col-form-label">Referral Code</label>
                         <div className="col-12">
@@ -371,8 +413,6 @@ const UpdateMentor = ({ handleClose, paramValue }) => {
                                     <option value="Divorced">Divorced</option>
                                 </select>
                             </div>
-
-
                         </div>
                     </div>
                     <div className="form-group col-4 my-1">
@@ -458,7 +498,7 @@ const UpdateMentor = ({ handleClose, paramValue }) => {
                             />
                         </div>
                     </div>
-                    <div className="form-group col-4 my-1">
+                    <div className="form-group col-3 my-1">
                         <label className="col-12 col-form-label">Status</label>
                         <div className="col-12">
                             <select
@@ -476,7 +516,7 @@ const UpdateMentor = ({ handleClose, paramValue }) => {
                             </select>
                         </div>
                     </div>
-                    <div className="form-group col-4 my-1">
+                    <div className="form-group col-3 my-1">
                         <label className="col-12 col-form-label">Rating <span className=" text-danger">*</span></label>
                         <div className="col-12">
                             <input
@@ -491,50 +531,8 @@ const UpdateMentor = ({ handleClose, paramValue }) => {
                             />
                         </div>
                     </div>
-                    <div className="form-group col-4 my-1">
-                        <label className="col-12 col-form-label">Approval Date</label>
-                        <div className="col-12">
-                            <input
-                                placeholder="Approval Date"
-                                type="date"
-                                className="form-control"
-                                name="approval_date"
-                                onChange={formik.handleChange}
-                                value={formik.values.approval_date}
-
-                            />
-                        </div>
-                    </div>
-                    <div className="form-group  col-6 my-1">
-                        <label className="col-12 col-form-label">Image</label>
-                        <div className="col-12">
-                            <input
-                                className="form-control"
-                                name="image"
-                                type="file"
-                                accept="image/*"
-                                onChange={(e) => {
-                                    formik.setFieldValue("image", e.currentTarget.files[0]);
-
-                                }}
-                            />
-                        </div>
-                    </div>
-
-                    <div className="form-group col-6 my-1">
-                        <label className="col-12 col-form-label">Host Rank Number</label>
-                        <div className="col-12">
-                            <input
-                                placeholder="Enter Host Rank Number"
-                                type="number"
-                                className="form-control"
-                                name="host_rank_number"
-                                onChange={formik.handleChange}
-                                value={formik.values.host_rank_number}
-
-                            />
-                        </div>
-                    </div>
+             
+      
 
                     <div className="form-group col-3 my-1">
                         <label className="col-12 col-form-label">Division </label>
@@ -653,7 +651,22 @@ const UpdateMentor = ({ handleClose, paramValue }) => {
                     </div>
 
 
-          
+                    <div className="form-group  col-12 my-1">
+                        <label className="col-12 col-form-label">Image</label>
+                        <div className="col-12">
+                            <input
+                                className="form-control"
+                                name="image"
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => {
+                                    formik.setFieldValue("image", e.currentTarget.files[0]);
+
+                                }}
+                            />
+                        </div>
+                    </div>
+
                     <div className="form-group col-12 my-1">
                         <label className="col-12 col-form-label">Bio </label>
                         <div className="col-12">
@@ -700,70 +713,10 @@ const UpdateMentor = ({ handleClose, paramValue }) => {
                             </div>
                         </div>
                     </div>
-                    <div className="form-group row col-4 my-2 ">
-                        <label className="col-6 col-form-label">Is Life Couch</label>
-                        <div className="col-6">
-                            <div className="form-check form-switch mt-2">
-                                <Form.Check
-                                    type="switch"
-                                    id="custom-switch"
-                                    label="✔"
-                                    name="is_life_couch"
-                                    onChange={formik.handleChange}
-                                    value={formik.values.is_life_couch}
-                                    checked={formik.values.is_life_couch}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="form-group row col-4 my-2 ">
-                        <label className="col-6 col-form-label">Is Life Couch</label>
-                        <div className="col-6">
-                            <div className="form-check form-switch mt-2">
-                                <Form.Check
-                                    type="switch"
-                                    id="custom-switch"
-                                    label="✔"
-                                    name="is_life_couch"
-                                    onChange={formik.handleChange}
-                                    value={formik.values.is_life_couch}
-                                    checked={formik.values.is_life_couch}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="form-group row col-4 my-2 ">
-                        <label className="col-6 col-form-label">Is Host Staff</label>
-                        <div className="col-6">
-                            <div className="form-check form-switch mt-2">
-                                <Form.Check
-                                    type="switch"
-                                    id="custom-switch"
-                                    label="✔"
-                                    name="is_host_staff"
-                                    onChange={formik.handleChange}
-                                    value={formik.values.is_host_staff}
-                                    checked={formik.values.is_host_staff}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="form-group row col-4 my-2 ">
-                        <label className="col-6 col-form-label">Is Host Certified</label>
-                        <div className="col-6">
-                            <div className="form-check form-switch mt-2">
-                                <Form.Check
-                                    type="switch"
-                                    id="custom-switch"
-                                    label="✔"
-                                    name="is_host_certified"
-                                    onChange={formik.handleChange}
-                                    value={formik.values.is_host_certified}
-                                    checked={formik.values.is_host_certified}
-                                />
-                            </div>
-                        </div>
-                    </div>
+               
+            
+              
+        
 
 
 
@@ -784,4 +737,4 @@ const UpdateMentor = ({ handleClose, paramValue }) => {
     );
 };
 
-export default UpdateMentor;
+export default CreateStudent;

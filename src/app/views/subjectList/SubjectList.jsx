@@ -22,18 +22,25 @@ const SubjectList = () => {
     }, []);
 
     const columns = useMemo(
-        () => [{
-            accessorKey: "subject_code",
-            header: "Subject Code",
-        },
+        () => [
+            {
+                accessorFn: (row, index) => <>
+                  <span className=" fw-normal">
+                    {index + 1}
+                  </span>
+        
+                </>,
+                id: "index",
+                header: "SL",
+                size: "10"
+              },
             {
                 accessorKey: "name",
                 header: "Name",
             },
-
             {
-                accessorKey: "name_bn",
-                header: "Bangla Name",
+                accessorKey: "class_name",
+                header: "Class",
             },
 
             {

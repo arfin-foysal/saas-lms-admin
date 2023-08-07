@@ -7,6 +7,8 @@ import { memo } from 'react';
 import OptionLoader from "../../components/OptionLoader";
 import { useFeatureSaveOrUpdateMutation } from "../../../services/courseApi";
 import { useState } from 'react';
+import { FiPlusCircle } from "react-icons/fi";
+import { MdRemoveCircleOutline } from "react-icons/md";
 const CreateCourseFeature = ({ handleClose, paramValue }) => {
     const [allFeature, setAllFeature] = useState([]);
 
@@ -115,7 +117,7 @@ const CreateCourseFeature = ({ handleClose, paramValue }) => {
                                 className="btn btn-success btn-sm "
                                 onClick={handelAdd}
                             >
-                                Add
+                          <FiPlusCircle size={16} /> Add
                             </button>
 
                         </div>
@@ -145,7 +147,7 @@ const CreateCourseFeature = ({ handleClose, paramValue }) => {
                                                 className="btn btn-danger btn-sm"
                                                 onClick={() => handelDelete(index)}
                                             >
-                                                Remove
+                                               <MdRemoveCircleOutline/> Remove
                                             </button>
                                         </td>
                                     </tr>

@@ -4,6 +4,8 @@ import { toast } from "react-toastify";
 import { memo } from 'react';
 import {  useRoutineSaveOrUpdateMutation } from "../../../services/courseApi";
 import { useState } from 'react';
+import { FiPlusCircle } from "react-icons/fi";
+import { MdRemoveCircleOutline } from "react-icons/md";
 const CreateCourseRoutine = ({ handleClose, paramValue }) => {
     const [allRoutine, setAllRoutine] = useState([]);
 
@@ -129,7 +131,7 @@ const CreateCourseRoutine = ({ handleClose, paramValue }) => {
                                 className="btn btn-success btn-sm"
                                 onClick={handelAdd}
                             >
-                                Add
+                          <FiPlusCircle size={16} /> Add
                             </button>
 
                         </div>
@@ -154,7 +156,12 @@ const CreateCourseRoutine = ({ handleClose, paramValue }) => {
                                         <td>{index+1}</td>
                                         <td>{item.day}</td>
                                         <td>{item.class_title}</td>
-                                        <td>{item.is_note ? 'Active' : 'Inactive'}</td>
+                                        <td>{item.is_note ?
+                                            <span className="badge bg-success">Active</span>
+                                            :
+                                            <span className="badge bg-danger">Inactive</span>
+                                        }
+                                        </td>
                                         <td>
                                             <button
 
@@ -163,7 +170,7 @@ const CreateCourseRoutine = ({ handleClose, paramValue }) => {
                                                 onClick={() => handelDelete(index)}
 
                                             >
-                                                Remove
+                                            <MdRemoveCircleOutline/> Remove
                                             </button>
                                         </td>
                                     </tr>

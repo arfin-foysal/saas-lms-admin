@@ -75,7 +75,10 @@ const CourseRoutineList = () => {
       <PageTopHeader title="Course Routine List " />
       <div className="card border shadow-lg ">
         <div className="card-header d-flex justify-content-between ">
-          <p className="fw-bold text-muted"></p>
+          <p className="fw-bold text-muted">
+            Course Routine List  ( {isSuccess &&
+              data?.data[0]?.course_title} )
+          </p>
           <div>
 
             <button

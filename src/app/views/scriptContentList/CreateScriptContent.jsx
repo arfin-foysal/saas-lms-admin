@@ -4,7 +4,7 @@ import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import PreviewImage from "../../components/PreviewImage";
 import { BsFillCloudArrowUpFill } from "react-icons/bs";
-import { useGetChapterListBySubjectIdQuery, useGetClassListQuery, useGetSubjectListByClassIdQuery, useScriptCreateOrUpdateMutation,  } from "../../../services/contentApi";
+import { useGetChapterListBySubjectIdQuery, useGetClassListQuery, useGetSubjectListByClassIdQuery, useScriptCreateOrUpdateMutation, } from "../../../services/contentApi";
 const CreateScriptContent = ({ handleClose }) => {
     const classRes = useGetClassListQuery()
     const fileRef = useRef(null)
@@ -23,6 +23,7 @@ const CreateScriptContent = ({ handleClose }) => {
             subject_id: "",
             chapter_id: "",
             raw_url: "",
+            s3_url: "",
             thumbnail: "",
             price: "",
             rating: "",
@@ -36,6 +37,7 @@ const CreateScriptContent = ({ handleClose }) => {
             formData.append("title_bn", values.title_bn);
             formData.append("description", values.description);
             formData.append("script_code", values.script_code);
+            formData.append("s3_url", values.s3_url);
             formData.append("class_level_id", values.class_level_id);
             formData.append("subject_id", values.subject_id);
             formData.append("chapter_id", values.chapter_id);
@@ -101,7 +103,20 @@ const CreateScriptContent = ({ handleClose }) => {
                                 name="title_bn"
                                 onChange={formik.handleChange}
                                 value={formik.values.title_bn}
-                                required
+                          
+                            />
+                        </div>
+                    </div>
+                    <div className="form-group col-12 my-1">
+                        <label className="col-12 col-form-label">Description</label>
+                        <div className="col-12">
+                            <textarea
+                                placeholder="Enter Description"
+                                type="text"
+                                className="form-control"
+                                name="description"
+                                onChange={formik.handleChange}
+                                value={formik.values.description}
                             />
                         </div>
                     </div>
@@ -165,24 +180,38 @@ const CreateScriptContent = ({ handleClose }) => {
                             </select>
                         </div>
                     </div>
-                 
+
+
                     <div className="form-group col-6 my-1">
-                        <label className="col-12 col-form-label">Raw Url</label>
+                        <label className="col-12 col-form-label">Raw File</label>
                         <div className="col-12">
                             <input
-                                placeholder="Enter Raw Url"
-                                type="text"
-                                className="form-control"
+                                className="form-control "
                                 name="raw_url"
-                                onChange={formik.handleChange}
-                                value={formik.values.raw_url}
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => {
+                                    formik.setFieldValue("raw_url", e.currentTarget.files[0]);
+                                }}
                             />
                         </div>
                     </div>
-                
-             
-
                     <div className="form-group col-6 my-1">
+                        <label className="col-12 col-form-label">S3 Url</label>
+                        <div className="col-12">
+                            <input
+                                placeholder="Enter S3 Url"
+                                type="text"
+                                className="form-control"
+                                name="s3_url"
+                                onChange={formik.handleChange}
+                                value={formik.values.s3_url}
+                            />
+                        </div>
+                    </div>
+
+
+                    <div className="form-group col-4 my-1">
                         <label className="col-12 col-form-label">Price  <span className=" text-danger">*</span></label>
                         <div className="col-12">
                             <input
@@ -196,7 +225,7 @@ const CreateScriptContent = ({ handleClose }) => {
                             />
                         </div>
                     </div>
-                    <div className="form-group col-6 my-1">
+                    <div className="form-group col-4 my-1">
                         <label className="col-12 col-form-label">Sequence  <span className=" text-danger">*</span></label>
                         <div className="col-12">
                             <input
@@ -210,7 +239,7 @@ const CreateScriptContent = ({ handleClose }) => {
                             />
                         </div>
                     </div>
-                    <div className="form-group col-6 my-1">
+                    <div className="form-group col-4 my-1">
                         <label className="col-12 col-form-label">Rating  <span className=" text-danger">*</span></label>
                         <div className="col-12">
                             <input
@@ -226,19 +255,7 @@ const CreateScriptContent = ({ handleClose }) => {
                     </div>
 
 
-                    <div className="form-group col-12 my-1">
-                        <label className="col-12 col-form-label">Description</label>
-                        <div className="col-12">
-                            <textarea
-                                placeholder="Enter Color Code"
-                                type="text"
-                                className="form-control"
-                                name="description"
-                                onChange={formik.handleChange}
-                                value={formik.values.description}
-                            />
-                        </div>
-                    </div>
+
                     <div className="form-group row col-12 my-2 ">
                         <label className="col-6 col-form-label">Is Free</label>
                         <div className="col-6">

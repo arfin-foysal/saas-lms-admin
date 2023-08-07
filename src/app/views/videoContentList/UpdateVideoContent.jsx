@@ -208,10 +208,10 @@ const UpdateVideoContent = ({ handleClose ,paramValue}) => {
                     </div>
 
                     <div className="form-group col-6 my-1">
-                        <label className="col-12 col-form-label">Raw Url</label>
+                        <label className="col-12 col-form-label">Raw URL</label>
                         <div className="col-12">
                             <input
-                                placeholder="Enter Raw Url"
+                                placeholder="Enter Raw URL"
                                 type="text"
                                 className="form-control"
                                 name="raw_url"
@@ -221,10 +221,10 @@ const UpdateVideoContent = ({ handleClose ,paramValue}) => {
                         </div>
                     </div>
                     <div className="form-group col-6 my-1">
-                        <label className="col-12 col-form-label">S3 Url</label>
+                        <label className="col-12 col-form-label">S3 URL</label>
                         <div className="col-12">
                             <input
-                                placeholder="Enter S3 Url"
+                                placeholder="Enter S3 URL"
                                 type="text"
                                 className="form-control"
                                 name="s3_url"
@@ -234,10 +234,10 @@ const UpdateVideoContent = ({ handleClose ,paramValue}) => {
                         </div>
                     </div>
                     <div className="form-group col-6 my-1">
-                        <label className="col-12 col-form-label">Youtube Url</label>
+                        <label className="col-12 col-form-label">Youtube URL</label>
                         <div className="col-12">
                             <input
-                                placeholder="Enter Youtube Url"
+                                placeholder="Enter Youtube URL"
                                 type="text"
                                 className="form-control"
                                 name="youtube_url"
@@ -247,10 +247,10 @@ const UpdateVideoContent = ({ handleClose ,paramValue}) => {
                         </div>
                     </div>
                     <div className="form-group col-6 my-1">
-                        <label className="col-12 col-form-label">Download Url</label>
+                        <label className="col-12 col-form-label">Download URL</label>
                         <div className="col-12">
                             <input
-                                placeholder="Enter Download Url"
+                                placeholder="Enter Download URL"
                                 type="text"
                                 className="form-control"
                                 name="download_url"
@@ -323,7 +323,7 @@ const UpdateVideoContent = ({ handleClose ,paramValue}) => {
                         <label className="col-12 col-form-label">Description</label>
                         <div className="col-12">
                             <textarea
-                                placeholder="Enter Color Code"
+                                placeholder="Enter Description"
                                 type="text"
                                 className="form-control"
                                 name="description"

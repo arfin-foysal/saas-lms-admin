@@ -10,6 +10,13 @@ export const resourceApi = apiSliceAdmin.injectEndpoints({
       }),
       providesTags: ["ResData"],
     }),
+    getAllStudent: builder.query({
+      query: () => ({
+        url: `admin/all-student-list-admin`,
+        method: "GET",
+      }),
+      providesTags: ["ResData"],
+    }),
 
     mentorSaveOrUpdate: builder.mutation({
       query: (body) => {
@@ -21,8 +28,21 @@ export const resourceApi = apiSliceAdmin.injectEndpoints({
       },
       invalidatesTags: ["ResData"],
     }),
+    studentSaveOrUpdate: builder.mutation({
+      query: (body) => {
+        return {
+          url: `admin/student-save-or-update`,
+          method: "POST",
+          body: body,
+        };
+      },
+      invalidatesTags: ["ResData"],
+    }),
   }),
 });
 
-export const { useGetAllMentorQuery, useMentorSaveOrUpdateMutation } =
+export const { useGetAllMentorQuery, useMentorSaveOrUpdateMutation,
+  useGetAllStudentQuery,
+  useStudentSaveOrUpdateMutation
+} =
   resourceApi;

@@ -6,7 +6,7 @@ import { FaEdit } from "react-icons/fa";
 import { FiPlusCircle } from "react-icons/fi";
 import { tableColor } from "../../../utils/Theme";
 import MenuModal from "./ScriptContentModal";
-import { BsEyeFill } from "react-icons/bs";
+import { BsArrowRightShort, BsEyeFill } from "react-icons/bs";
 import { useGetScriptChapterListQuery } from "../../../services/contentApi";
 
 const ScriptContentList = () => {
@@ -23,20 +23,36 @@ const ScriptContentList = () => {
   }, []);
 
   const columns = useMemo(
-    () => [{
-      accessorKey: "script_code",
-      header: "Script Code",
-    },
+    () => [
+      {
+        accessorFn: (row, index) => <>
+          <span className=" fw-normal">
+            {index + 1}
+          </span>
+
+        </>,
+        id: "index",
+        header: "SL",
+        size: "10"
+      },
     {
       accessorKey: "title",
       header: "Title",
-    },
-
-    {
-      accessorKey: "title_bn",
-      header: "Title Bangla",
-    },
-
+      },
+    
+      {
+        accessorFn: (row) => (
+          <>
+            <span>
+              {row?.class_name} <BsArrowRightShort/> {row?.subject_name} <BsArrowRightShort/> {row?.chapter_name}
+            </span>
+          </>
+        ),
+        id: "class",
+        header: "Class - Subject - Chapter",
+        size:200
+      },
+          
     {
       accessorKey: "price",
       header: "Price",
