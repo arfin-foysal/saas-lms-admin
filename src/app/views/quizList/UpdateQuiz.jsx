@@ -259,14 +259,14 @@ const UpdateQuiz
                             </div>
                         </div>
 
-                        <div className="form-group row col-12 my-2 ">
+                        <div className="form-group row col-6 my-2 ">
                             <label className="col-6 col-form-label">Is Free</label>
                             <div className="col-6">
                                 <div className="form-check form-switch mt-2">
                                     <Form.Check
                                         type="switch"
                                         id="custom-switch"
-                                        label="Active"
+                                   
                                         name="is_free"
                                         onChange={formik.handleChange}
                                         value={formik.values.is_free}
@@ -275,14 +275,14 @@ const UpdateQuiz
                                 </div>
                             </div>
                         </div>
-                        <div className="form-group row col-12 my-2 ">
+                        <div className="form-group row col-6 my-2 ">
                             <label className="col-6 col-form-label">Is Active</label>
                             <div className="col-6">
                                 <div className="form-check form-switch mt-2">
                                     <Form.Check
                                         type="switch"
                                         id="custom-switch"
-                                        label="Active"
+                             
                                         name="is_active"
                                         onChange={formik.handleChange}
                                         value={formik.values.is_active}

@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import Select from 'react-select'
 import { useDeleteContentOutlineMutation, useGetContentListQuery, useGetContentOutlineByContentIdQuery } from "../../../services/contentApi";
 import { useParams } from "react-router-dom";
+import { BsArrowRightShort } from "react-icons/bs";
 
 
 const ContentOutlineList = () => {
@@ -39,28 +40,13 @@ const ContentOutlineList = () => {
   };
   const columns = useMemo(
     () => [
+  
       {
         accessorFn: (row, index) => <>
-          <span className="text-success fw-normal">
-            {index + 1}
-          </span>
-
-        </>,
-        id: "index",
-        header: "SL",
-        size: "5"
-      },
-      {
-        accessorKey: "course_title",
-        header: "Content Name",
-        size: "5"
-      },
-      {
-        accessorFn: (row, index) => <>
-          <span className="text-success fw-normal">
-            EN: {row?.title}
+          <span >
+            En: {row?.title}
             <br />
-            BN: {row?.title_bn}
+            Bn: {row?.title_bn}
           </span>
 
         </>,
@@ -68,6 +54,18 @@ const ContentOutlineList = () => {
         accessorKey: "title",
         header: "Name",
         size: "300"
+      },
+      {
+        accessorFn: (row) => (
+          <>
+            <span>
+              {row?.class_name} <BsArrowRightShort /> {row?.subject_name} <BsArrowRightShort /> {row?.chapter_name}
+            </span>
+          </>
+        ),
+        id: "class",
+        header: "Class - Subject - Chapter",
+        size: 200
       },
 
 
@@ -88,7 +86,9 @@ const ContentOutlineList = () => {
       <PageTopHeader title="Content Outline List " />
       <div className="card border shadow-lg ">
         <div className="card-header d-flex justify-content-between ">
-          <p className="fw-bold text-muted"></p>
+          <p className="fw-bold text-muted">
+            <span className="text-success fw-bold">Content :</span> {data?.data[0]?.content_name}
+          </p>
           <div>
 
             <button

@@ -179,24 +179,8 @@ const UpdateOrganization = ({ handleClose, paramValue }) => {
                             />
                         </div>
                     </div>
-                    <div className="form-group row col-6 my-1">
-                        {/* <label className="col-12 col-form-label">Logo</label> */}
-                        <div className="col-12">
-                            <input
-                                ref={fileRef}
-                                hidden
-                                className="form-control"
-                                name="logo"
-                                type="file"
-                                accept="image/*"
-                                onChange={(e) => {
-                                    formik.setFieldValue("logo", e.currentTarget.files[0]);
-                                    handelImage(e);
-                                }}
-                            />
-                        </div>
-                    </div>
-                    <div className="form-group  col-12 my-1">
+                 
+                    <div className="form-group  col-6 my-1">
                         <label className="col-12 col-form-label">Banner</label>
                         <div className="col-12">
                             <input
@@ -212,20 +196,37 @@ const UpdateOrganization = ({ handleClose, paramValue }) => {
                             />
                         </div>
                     </div>
-                    <div className="form-group row col-12 my-2 ">
+                    <div className="form-group row col-6 mt-5 ">
                         <label className="col-6 col-form-label">Is Active</label>
                         <div className="col-6">
                             <div className="form-check form-switch mt-2">
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                                    label="Active"
+                          
                                     name="is_active"
                                     onChange={formik.handleChange}
                                     value={formik.values.is_active}
                                     checked={formik.values.is_active}
                                 />
                             </div>
+                        </div>
+                    </div>
+                    <div className="form-group  col-6 my-1">
+                        {/* <label className="col-12 col-form-label">Logo</label> */}
+                        <div className="col-12">
+                            <input
+                                ref={fileRef}
+                                hidden
+                                className="form-control"
+                                name="logo"
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => {
+                                    formik.setFieldValue("logo", e.currentTarget.files[0]);
+                                    handelImage(e);
+                                }}
+                            />
                         </div>
                     </div>
                     <div className="text-center my-2">

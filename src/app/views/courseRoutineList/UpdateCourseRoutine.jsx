@@ -79,7 +79,7 @@ const UpdateCourseRoutine = ({ handleClose, paramValue }) => {
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                                    label="Active"
+                 
                                     name="is_note"
                                     onChange={formik.handleChange}
                                     value={formik.values.is_note}

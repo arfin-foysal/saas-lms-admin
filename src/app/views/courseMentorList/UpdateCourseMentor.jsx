@@ -78,7 +78,7 @@ const UpdateCourseMentor = ({ handleClose, paramValue }) => {
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                                    label="Acrtive"
+                         
                                     name="is_active"
                                     onChange={formik.handleChange}
                                     value={formik.values.is_active}

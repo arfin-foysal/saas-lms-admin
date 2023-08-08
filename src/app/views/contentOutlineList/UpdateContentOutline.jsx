@@ -1,22 +1,23 @@
 import { useFormik } from "formik";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { useContentOutlineSaveOrUpdateMutation, useGetChapterListBySubjectIdQuery, useGetClassListQuery, useGetContentListQuery, useGetQuizListByChapterIdQuery, useGetScriptListByChapterIdQuery, useGetSubjectListByClassIdQuery, useGetVideoListByChapterIdQuery,  } from "../../../services/contentApi";
+import { useContentOutlineSaveOrUpdateMutation, useGetChapterListBySubjectIdQuery, useGetClassListQuery, useGetContentListQuery, useGetQuizListByChapterIdQuery, useGetScriptListByChapterIdQuery, useGetSubjectListByClassIdQuery, useGetVideoListByChapterIdQuery, } from "../../../services/contentApi";
 import { memo } from 'react';
 import OptionLoader from "../../components/OptionLoader";
-
+import { useState } from "react";
+import { useEffect } from "react";
 const UpdateContentOutline = ({ handleClose, paramValue }) => {
-
-
+    const [contentType, setContentType] = useState('');
     const [contentOutlineSaveOrUpdate, res] = useContentOutlineSaveOrUpdateMutation();
     const formik = useFormik({
         initialValues: {
+            'id': paramValue?.id,
             'title': paramValue?.title,
             'title_bn': paramValue?.title_bn,
             'content_id': paramValue?.content_id,
             'class_level_id': paramValue?.class_level_id,
             'subject_id': paramValue?.subject_id,
-            'chapter_id':   paramValue?.chapter_id,
+            'chapter_id': paramValue?.chapter_id,
             'chapter_script_id': paramValue?.chapter_script_id,
             'chapter_video_id': paramValue?.chapter_video_id,
             'chapter_quiz_id': paramValue?.chapter_quiz_id,
@@ -27,42 +28,41 @@ const UpdateContentOutline = ({ handleClose, paramValue }) => {
             'is_active': paramValue?.is_active,
         },
         onSubmit: async (values, { resetForm }) => {
-
-
-
             let formData = new FormData();
-        
+            formData.append('id', paramValue?.id)
             formData.append('title', values.title);
             formData.append('title_bn', values.title_bn);
             formData.append('content_id', values.content_id);
             formData.append('class_level_id', values.class_level_id);
             formData.append('subject_id', values.subject_id);
             formData.append('chapter_id', values.chapter_id);
-            formData.append('chapter_script_id', values.chapter_script_id);
-            formData.append('chapter_video_id', values.chapter_video_id);
-            formData.append('chapter_quiz_id', values.chapter_quiz_id);
+            formData.append('chapter_script_id', values.chapter_script_id ? values.chapter_script_id : 0);
+            formData.append('chapter_video_id', values.chapter_video_id ? values.chapter_video_id : 0);
+            formData.append('chapter_quiz_id', values.chapter_quiz_id ? values.chapter_quiz_id : 0);
             formData.append('sequence', values.sequence);
             formData.append('icon', values.icon);
             formData.append('color_code', values.color_code);
-            formData.append('is_free', values.is_free? 1 : 0);
-            formData.append('is_active', values.is_active? 1 : 0);
-            resetForm();
+            formData.append('is_free', values.is_free ? 1 : 0);
+            formData.append('is_active', values.is_active ? 1 : 0);
 
             if (values.content_id == 0) {
                 toast.warn("Please Select Content");
                 return;
             }
-
-
+            resetForm();
             try {
                 const result = await contentOutlineSaveOrUpdate(formData).unwrap();
                 toast.success(result.message);
             } catch (error) {
                 toast.warn(error.data.message);
             }
+
         },
     });
 
+    const contentTypeHandler = (e) => {
+        setContentType(e.target.value);
+    }
 
     const classRes = useGetClassListQuery()
     const subjectRes = useGetSubjectListByClassIdQuery(
@@ -86,6 +86,59 @@ const UpdateContentOutline = ({ handleClose, paramValue }) => {
     if (res.isSuccess) {
         handleClose();
     }
+
+    const handleClassChange = (e) => {
+        formik.setFieldValue('class_level_id', e.target.value);
+        formik.setFieldValue('subject_id', '');
+        formik.setFieldValue('chapter_id', '');
+        formik.setFieldValue('chapter_script_id', '');
+        formik.setFieldValue('chapter_video_id', '');
+        formik.setFieldValue('chapter_quiz_id', '');
+    }
+
+    const handleSubjectChange = (e) => {
+        formik.setFieldValue('subject_id', e.target.value);
+        formik.setFieldValue('chapter_id', '');
+        formik.setFieldValue('chapter_script_id', '');
+        formik.setFieldValue('chapter_video_id', '');
+        formik.setFieldValue('chapter_quiz_id', '');
+    }
+
+    const handleChapterChange = (e) => {
+        formik.setFieldValue('chapter_id', e.target.value);
+        formik.setFieldValue('chapter_script_id', '');
+        formik.setFieldValue('chapter_video_id', '');
+        formik.setFieldValue('chapter_quiz_id', '');
+    }
+
+    const videoHandler = (e) => {
+        formik.setFieldValue('chapter_video_id', e.target.value);
+        formik.setFieldValue('chapter_script_id', 0);
+        formik.setFieldValue('chapter_quiz_id', 0);
+    }
+
+    const scriptHandler = (e) => {
+        formik.setFieldValue('chapter_script_id', e.target.value);
+        formik.setFieldValue('chapter_video_id', 0);
+        formik.setFieldValue('chapter_quiz_id', 0);
+    }
+
+    const quizHandler = (e) => {
+        formik.setFieldValue('chapter_quiz_id', e.target.value);
+        formik.setFieldValue('chapter_script_id', 0);
+        formik.setFieldValue('chapter_video_id', 0);
+    }
+    useEffect(() => {
+        if (paramValue.chapter_script_id) {
+            setContentType('chapter_script_id');
+        } else if (paramValue.chapter_video_id) {
+            setContentType('chapter_video_id');
+        } else if (paramValue.chapter_quiz_id) {
+            setContentType('chapter_quiz_id');
+        } else {
+            setContentType('');
+        }
+    }, [])
 
     return (
         <div>
@@ -132,7 +185,10 @@ const UpdateContentOutline = ({ handleClose, paramValue }) => {
                             <select
                                 className="form-control"
                                 name="class_level_id"
-                                onChange={formik.handleChange}
+                                onChange={(e) => {
+                                    formik.handleChange(e)
+                                    handleClassChange(e)
+                                }}
                                 onBlur={formik.handleBlur}
                                 value={formik.values.class_level_id}
                                 required
@@ -154,7 +210,10 @@ const UpdateContentOutline = ({ handleClose, paramValue }) => {
                             <select
                                 className="form-control"
                                 name="subject_id"
-                                onChange={formik.handleChange}
+                                onChange={(e) => {
+                                    formik.handleChange(e)
+                                    handleSubjectChange(e)
+                                }}
                                 onBlur={formik.handleBlur}
                                 value={formik.values.subject_id}
                                 required
@@ -175,7 +234,10 @@ const UpdateContentOutline = ({ handleClose, paramValue }) => {
                             <select
                                 className="form-control"
                                 name="chapter_id"
-                                onChange={formik.handleChange}
+                                onChange={(e) => {
+                                    formik.handleChange(e)
+                                    handleChapterChange(e)
+                                }}
                                 onBlur={formik.handleBlur}
                                 value={formik.values.chapter_id}
                                 required
@@ -191,19 +253,53 @@ const UpdateContentOutline = ({ handleClose, paramValue }) => {
                             </select>
                         </div>
                     </div>
-                    <div className="form-group col-4 my-1">
-                        <label className="col-12 col-form-label">Chapter Script <span className=" text-danger">*</span></label>
+
+                    <div className="form-group col-4 my-1"
+                    >
+                        <label className="col-12 col-form-label">Content Type</label>
                         <div className="col-12">
                             <select
                                 className="form-control"
+                                name="contentType"
+                                onChange={(e) => {
+                                    contentTypeHandler(e)
+                                }}
+
+                                value={contentType}
+
+                            >
+                                <option value="" disabled selected hidden> --Select-- </option>
+                                <option
+                                    value="chapter_script_id"
+                                >Script</option>
+                                <option
+                                    value="chapter_video_id"
+                                >Video</option>
+                                <option
+                                    value="chapter_quiz_id"
+                                >Quiz</option>
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <div className={contentType === "chapter_script_id" ? "form-group col-8 my-1" : 'd-none'}
+                    >
+                        <label className="col-12 col-form-label">Chapter Script </label>
+                        <div className="col-12">
+                            <select
+
+                                className="form-control form-select"
                                 name="chapter_script_id"
-                                onChange={formik.handleChange}
+                                onChange={(e) => {
+                                    formik.handleChange(e)
+                                    scriptHandler(e)
+                                }}
                                 onBlur={formik.handleBlur}
                                 value={formik.values.chapter_script_id}
-                                required
                             >
                                 {scriptRes?.isLoading && <OptionLoader />}
-                                <option value="" disabled selected hidden> --Select-- </option>
+                                <option value="" disabled selected hidden > --Cancel-- </option>
                                 {scriptRes?.data?.data?.map((item) => (
                                     <option key={item.id} value={item.id}>
                                         {item.title}
@@ -212,19 +308,23 @@ const UpdateContentOutline = ({ handleClose, paramValue }) => {
                             </select>
                         </div>
                     </div>
-                    <div className="form-group col-4 my-1">
-                        <label className="col-12 col-form-label">Chapter Video <span className=" text-danger">*</span></label>
+                    <div className={contentType === "chapter_video_id" ? "form-group col-8 my-1" : 'd-none'}
+                    >
+                        <label className="col-12 col-form-label">Chapter Video</label>
                         <div className="col-12">
                             <select
                                 className="form-control"
                                 name="chapter_video_id"
-                                onChange={formik.handleChange}
+                                onChange={(e) => {
+                                    formik.handleChange(e)
+                                    videoHandler(e)
+                                }}
                                 onBlur={formik.handleBlur}
                                 value={formik.values.chapter_video_id}
-                                required
+
                             >
                                 {videoRes?.isLoading && <OptionLoader />}
-                                <option value="" disabled selected hidden> --Select-- </option>
+                                <option value="" disabled selected hidden > --Select-- </option>
                                 {videoRes?.data?.data?.map((item) => (
                                     <option key={item.id} value={item.id}>
                                         {item.title}
@@ -233,16 +333,21 @@ const UpdateContentOutline = ({ handleClose, paramValue }) => {
                             </select>
                         </div>
                     </div>
-                    <div className="form-group col-4 my-1">
-                        <label className="col-12 col-form-label">Chapter Quiz <span className=" text-danger">*</span></label>
+                    <div className={contentType === "chapter_quiz_id"
+                        ? "form-group col-8 my-1" : 'd-none'}
+                    >
+                        <label className="col-12 col-form-label">Chapter Quiz </label>
                         <div className="col-12">
                             <select
                                 className="form-control"
                                 name="chapter_quiz_id"
-                                onChange={formik.handleChange}
+                                onChange={(e) => {
+                                    formik.handleChange(e)
+                                    quizHandler(e)
+                                }}
                                 onBlur={formik.handleBlur}
                                 value={formik.values.chapter_quiz_id}
-                                required
+
                             >
                                 {quizRes?.isLoading && <OptionLoader />}
                                 <option value="" disabled selected hidden> --Select-- </option>
@@ -252,6 +357,22 @@ const UpdateContentOutline = ({ handleClose, paramValue }) => {
                                     </option>
                                 ))}
                             </select>
+                        </div>
+                    </div>
+
+                    <div className="form-group  col-4 my-1">
+                        <label className="col-12 col-form-label">Icon</label>
+                        <div className="col-12">
+                            <input
+                                className="form-control"
+                                name="icon"
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => {
+                                    formik.setFieldValue("icon", e.currentTarget.files[0]);
+
+                                }}
+                            />
                         </div>
                     </div>
                     <div className="form-group col-4 my-1">
@@ -265,21 +386,6 @@ const UpdateContentOutline = ({ handleClose, paramValue }) => {
                                 onChange={formik.handleChange}
                                 value={formik.values.sequence}
                                 required
-                            />
-                        </div>
-                    </div>
-                    <div className="form-group  col-4 my-1">
-                        <label className="col-12 col-form-label">Icon</label>
-                        <div className="col-12">
-                            <input
-                                className="form-control"
-                                name="icon"
-                                type="file"
-                                accept="image/*"
-                                onChange={(e) => {
-                                    formik.setFieldValue("icon", e.currentTarget.files[0]);
-
-                                }}
                             />
                         </div>
                     </div>
@@ -304,14 +410,14 @@ const UpdateContentOutline = ({ handleClose, paramValue }) => {
 
 
 
-                    <div className="form-group row col-12 my-2 ">
+                    <div className="form-group row col-6 my-2 ">
                         <label className="col-6 col-form-label">Is Free</label>
                         <div className="col-6">
                             <div className="form-check form-switch mt-2">
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                                    label="Active"
+                
                                     name="is_free"
                                     onChange={formik.handleChange}
                                     value={formik.values.is_free}
@@ -322,14 +428,14 @@ const UpdateContentOutline = ({ handleClose, paramValue }) => {
                     </div>
 
 
-                    <div className="form-group row col-12 my-3 ">
+                    <div className="form-group row col-6 my-2 ">
                         <label className="col-6 col-form-label">Is Active</label>
                         <div className="col-6">
                             <div className="form-check form-switch mt-2">
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                                    label="Active"
+                                
                                     name="is_active"
                                     onChange={formik.handleChange}
                                     value={formik.values.is_active}

@@ -13,11 +13,9 @@ import Select from "react-select";
 import { BiReset } from "react-icons/bi";
 
 const ScriptContentList = () => {
-
   const classRes = useGetClassListQuery();
   const subjectRes = useGetSubjectListQuery();
   const chapterRes = useGetChapterListQuery();
- 
   const [clickValue, setClickValue] = useState(null);
   const [param, setParam] = useState(null);
   const [show, setShow] = useState(false);
@@ -26,6 +24,13 @@ const ScriptContentList = () => {
   const [classId, setClassId] = useState(0);
   const [subjectId, setSubjectId] = useState(0);
   const [chapterId, setChapterId] = useState(0);
+
+  const reFetch = () => {
+    res.refetch();
+    setClassId(0);
+    setSubjectId(0);
+    setChapterId(0);
+  };
 
   const handelClickValue = useCallback((value) => {
     setClickValue(value);
@@ -44,54 +49,54 @@ const ScriptContentList = () => {
         header: "SL",
         size: "10"
       },
-    {
-      accessorKey: "title",
-      header: "Title",
+      {
+        accessorKey: "title",
+        header: "Title",
       },
-    
+
       {
         accessorFn: (row) => (
           <>
             <span>
-              {row?.class_name} <BsArrowRightShort/> {row?.subject_name} <BsArrowRightShort/> {row?.chapter_name}
+              {row?.class_name} <BsArrowRightShort /> {row?.subject_name} <BsArrowRightShort /> {row?.chapter_name}
             </span>
           </>
         ),
         id: "class",
         header: "Class - Subject - Chapter",
-        size:200
+        size: 200
       },
-          
-    {
-      accessorKey: "price",
-      header: "Price",
-    },
-    {
-      accessorFn: (row) =>
-        row?.is_free === true ? (
-          <>
-            <span className="badge bg-success">Yes</span>
-          </>
-        ) : (
-          <span className="badge bg-warning">No</span>
-        ),
 
-      id: "is_free",
-      header: "Is Free",
-    },
-    {
-      accessorFn: (row) =>
-        row?.is_active === true ? (
-          <>
-            <span className="badge bg-success">Active</span>
-          </>
-        ) : (
-          <span className="badge bg-warning">Inactive</span>
-        ),
+      {
+        accessorKey: "price",
+        header: "Price",
+      },
+      {
+        accessorFn: (row) =>
+          row?.is_free === true ? (
+            <>
+              <span className="badge bg-success">Yes</span>
+            </>
+          ) : (
+            <span className="badge bg-warning">No</span>
+          ),
 
-      id: "Status",
-      header: "Status",
-    },
+        id: "is_free",
+        header: "Is Free",
+      },
+      {
+        accessorFn: (row) =>
+          row?.is_active === true ? (
+            <>
+              <span className="badge bg-success">Active</span>
+            </>
+          ) : (
+            <span className="badge bg-warning">Inactive</span>
+          ),
+
+        id: "Status",
+        header: "Status",
+      },
 
     ],
     []
@@ -131,57 +136,61 @@ const ScriptContentList = () => {
 
         <div className="card-body p-0">
           <MaterialReactTable
-               renderTopToolbarCustomActions={() => (
-                <div className="col-md-6 gap-1 d-flex justify-content-start ">
-                  <Select
-                    className="w-100"
-                    menuPortalTarget={document.body}
-                    styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
-                    placeholder="Select Class"
-                    isLoading={classRes?.isFetching}
-                  
+            renderTopToolbarCustomActions={() => (
+              <div className="col-md-6 gap-1 d-flex justify-content-start ">
+                <Select
+                  className="w-100"
+                  menuPortalTarget={document.body}
+                  styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+                  placeholder="Select Class"
+                  isLoading={classRes?.isFetching}
                   onChange={(e) => setClassId(e.id)}
-                    getOptionValue={(option) => `${option["id"]}`}
-                    getOptionLabel={(option) => `${option["title"]}`}
-                    options={classRes?.data?.data}
-                    // key={courseRes?.data?.data?.id}
-                  />
-                  <Select
-                    className="w-100"
-                    menuPortalTarget={document.body}
-                    styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
-                    placeholder="Select Subject"
-                    isLoading={subjectRes?.isFetching}
-                    onChange={(e) => setSubjectId(e.id)}
-                    getOptionValue={(option) => `${option["id"]}`}
-                    getOptionLabel={(option) => `${option["title"]}`}
-                    options={subjectRes?.data?.data}
-                    // key={courseRes?.data?.data?.id}
-                  />
-                  <Select
-                    className="w-100"
-                    menuPortalTarget={document.body}
-                    styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
-                    placeholder="Select Chapter"
-                    isLoading={chapterRes?.isFetching}
-                     onChange={(e) => setChapterId(e.id)}
-                    getOptionValue={(option) => `${option["id"]}`}
-                    getOptionLabel={(option) => `${option["title"]}`}
-                    options={chapterRes?.data?.data}
-                    // key={courseRes?.data?.data?.id}
+                  getOptionValue={(option) => `${option["id"]}`}
+                  getOptionLabel={(option) => `${option["name"]}`}
+                  options={classRes?.data?.data}
+                  key={classRes?.data?.data?.id}
+                  // value={classRes?.data?.data?.id}
+                  
+             
+                />
+                <Select
+                  className="w-100"
+                  menuPortalTarget={document.body}
+                  styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+                  placeholder="Select Subject"
+                  isLoading={subjectRes?.isFetching}
+                  onChange={(e) => setSubjectId(e.id)}
+                  getOptionValue={(option) => `${option["id"]}`}
+                  getOptionLabel={(option) => `${option["name"]}`}
+                  options={subjectRes?.data?.data}
+                  key={subjectRes?.data?.data?.id}
+                  name="subject_id"
+                  value={subjectRes?.data?.data?.id}
+                />
+                <Select
+                  className="w-100"
+                  menuPortalTarget={document.body}
+                  styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+                  placeholder="Select Chapter"
+                  isLoading={chapterRes?.isFetching}
+                  onChange={(e) => setChapterId(e.id)}
+                  getOptionValue={(option) => `${option["id"]}`}
+                  getOptionLabel={(option) => `${option["name"]}`}
+                  options={chapterRes?.data?.data}
+                  name="chapter_id"
+                  key={chapterRes?.data?.data?.id}
+                  value={chapterRes?.data?.data?.id}
                 />
                 <div>
-                 <BiReset
-                className="pointer  mt-2"
-                color="white"
-                size={25}
-                onClick={res.refetch}
-              />
-              </div> 
+                  <BiReset
+                    className="pointer  mt-2"
+                    color="white"
+                    size={25}
+                    onClick={reFetch}
+                  />
                 </div>
-             
-              
-              )}
+              </div>
+            )}
             columns={columns}
             data={isSuccess ? data?.data : []}
             enableRowActions

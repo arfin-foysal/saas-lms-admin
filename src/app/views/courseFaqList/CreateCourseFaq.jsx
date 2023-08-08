@@ -107,11 +107,10 @@ const CreateCourseFaq = ({ handleClose, paramValue }) => {
                     <div className="form-group  col-2 mt-1">
                         <label className="col-12 col-form-label">Is Active</label>
                         <div className="col-12">
-                            <div className="form-check form-switch mt-2">
+                            <div className="form-check form-switch mt-2 ">
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                                    label="Active"
                                     name="is_active"
                                     onChange={formik.handleChange}
                                     value={formik.values.is_active}

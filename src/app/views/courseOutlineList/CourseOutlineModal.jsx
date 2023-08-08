@@ -1,12 +1,8 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
 import { modalColor } from "../../../utils/Theme";
-import CreateQuizQuestion from "./CreateCourseOutline";
-import UpdateQuizQuestion from "./UpdateCourseOutline";
-
-
-
-
+import CreateCourseOutline from "./CreateCourseOutline";
+import UpdateCourseOutline from "./UpdateCourseOutline";
 const CourseOutlineModal = ({ handleClose, show, clickValue, paramValue, size }) => {
     
     return (
@@ -21,11 +17,11 @@ const CourseOutlineModal = ({ handleClose, show, clickValue, paramValue, size })
                 </Modal.Header>
                 <Modal.Body>
                     {clickValue === "Add New Course Outline" && (
-                        <CreateQuizQuestion handleClose={handleClose} paramValue={paramValue} />
+                        <CreateCourseOutline handleClose={handleClose} paramValue={paramValue} />
                     )
                     }
                     {clickValue === "Update Course Outline" && (
-                        <UpdateQuizQuestion handleClose={handleClose} paramValue={paramValue} />
+                        <UpdateCourseOutline handleClose={handleClose} paramValue={paramValue} />
                     )
                     }
              

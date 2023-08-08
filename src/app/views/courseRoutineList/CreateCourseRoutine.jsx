@@ -95,7 +95,7 @@ const CreateCourseRoutine = ({ handleClose, paramValue }) => {
                             <input
                                 placeholder="Class Title"
                                 type="text"
-                                className="form-control"
+                                className="form-control "
                                 name="class_title"
                                 value={formik.values.class_title}
                                 onChange={formik.handleChange}
@@ -106,11 +106,11 @@ const CreateCourseRoutine = ({ handleClose, paramValue }) => {
                     <div className="form-group  col-2 mt-1">
                         <label className="col-12 col-form-label">Is Note</label>
                         <div className="col-12">
-                            <div className="form-check form-switch ps-0 mt-2">
+                            <div className="form-check form-switch ps-3 mt-2">
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                                    label="Active"
+                          
                                     name="is_note"
                                     onChange={formik.handleChange}
                                     value={formik.values.is_note}

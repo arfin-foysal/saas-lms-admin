@@ -675,7 +675,7 @@ const UpdateMentor = ({ handleClose, paramValue }) => {
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                                    label="✔"
+                                
                                     name="is_active"
                                     onChange={formik.handleChange}
                                     value={formik.values.is_active}
@@ -691,7 +691,7 @@ const UpdateMentor = ({ handleClose, paramValue }) => {
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                                    label="✔"
+                                  
                                     name="is_foreigner"
                                     onChange={formik.handleChange}
                                     value={formik.values.is_foreigner}
@@ -700,6 +700,7 @@ const UpdateMentor = ({ handleClose, paramValue }) => {
                             </div>
                         </div>
                     </div>
+    
                     <div className="form-group row col-4 my-2 ">
                         <label className="col-6 col-form-label">Is Life Couch</label>
                         <div className="col-6">
@@ -707,23 +708,7 @@ const UpdateMentor = ({ handleClose, paramValue }) => {
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                                    label="✔"
-                                    name="is_life_couch"
-                                    onChange={formik.handleChange}
-                                    value={formik.values.is_life_couch}
-                                    checked={formik.values.is_life_couch}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="form-group row col-4 my-2 ">
-                        <label className="col-6 col-form-label">Is Life Couch</label>
-                        <div className="col-6">
-                            <div className="form-check form-switch mt-2">
-                                <Form.Check
-                                    type="switch"
-                                    id="custom-switch"
-                                    label="✔"
+                                  
                                     name="is_life_couch"
                                     onChange={formik.handleChange}
                                     value={formik.values.is_life_couch}
@@ -739,7 +724,7 @@ const UpdateMentor = ({ handleClose, paramValue }) => {
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                                    label="✔"
+                                    
                                     name="is_host_staff"
                                     onChange={formik.handleChange}
                                     value={formik.values.is_host_staff}
@@ -755,7 +740,7 @@ const UpdateMentor = ({ handleClose, paramValue }) => {
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                                    label="✔"
+                                 
                                     name="is_host_certified"
                                     onChange={formik.handleChange}
                                     value={formik.values.is_host_certified}

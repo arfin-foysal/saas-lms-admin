@@ -123,7 +123,7 @@ const CreateMenu = ({ handleClose }) => {
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                                    label="Yes"
+                                   
                                     name="is_authentication_needed"
                                     onChange={formik.handleChange}
                                     value={formik.values.is_authentication_needed}
@@ -140,7 +140,7 @@ const CreateMenu = ({ handleClose }) => {
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                                    label="Yes"
+                                   
                                     name="has_submenu"
                                     onChange={formik.handleChange}
                                     value={formik.values.has_submenu}
@@ -158,7 +158,7 @@ const CreateMenu = ({ handleClose }) => {
                                     className={formik.values.is_content ? "d-none" : "d-block"}
                                     type="switch"
                                     id="custom-switch"
-                                    label="Active"
+                                    
                                     name="is_course"
                                     onChange={formik.handleChange}
                                     value={formik.values.is_course}
@@ -169,6 +169,7 @@ const CreateMenu = ({ handleClose }) => {
                                 >
                                     <span>N/A</span>
                                 </div>
+                                <br/>
                                 <small className={formik.values.is_content ? "d-none" : "d-block"}>
                                     <span className="text-danger">Note:</span> If you select this option then you can't select Content option.
                                 </small>
@@ -183,7 +184,7 @@ const CreateMenu = ({ handleClose }) => {
                                     className={formik.values.is_course ? "d-none" : "d-block"}
                                     type="switch"
                                     id="custom-switch"
-                                    label="Active"
+                                 
                                     name="is_content"
                                     onChange={formik.handleChange}
                                     value={formik.values.is_content}
@@ -194,6 +195,7 @@ const CreateMenu = ({ handleClose }) => {
                                 >
                                     <span>N/A</span>
                                 </div>
+                                <br/>
                                 <small className={
                                     formik.values.is_course ? "d-none" : "d-block"
                                 }>
@@ -209,7 +211,7 @@ const CreateMenu = ({ handleClose }) => {
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                                    label="Active"
+                                 
                                     name="is_active"
                                     onChange={formik.handleChange}
                                     value={formik.values.is_active}

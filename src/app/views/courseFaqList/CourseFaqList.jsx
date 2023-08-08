@@ -40,7 +40,7 @@ const CourseFaqList = () => {
     () => [
       {
         accessorFn: (row, index) => <>
-          <span className="text-success fw-normal">
+          <span >
             {index + 1}
           </span>
 
@@ -79,8 +79,7 @@ const CourseFaqList = () => {
       <div className="card border shadow-lg ">
         <div className="card-header d-flex justify-content-between ">
           <p className="fw-bold text-muted">
-            Course FAQ List ( {isSuccess &&
-              data?.data[0]?.course_title} )
+          <span className="text-success fw-bold">Course:</span> {data?.data[0]?.course_title}
           </p>
           <div>
 

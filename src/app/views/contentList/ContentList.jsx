@@ -28,10 +28,10 @@ const ContentList = () => {
       {
         accessorFn: (row) =>
           <>
-            <span className="text-success fw-normal">
-              EN: {row?.title}
+            <span >
+              En: {row?.title}
               <br />
-              BN: {row?.title_bn}
+              Bn: {row?.title_bn}
             </span>
 
           </>
@@ -43,7 +43,7 @@ const ContentList = () => {
       ,
       {
         accessorKey: "category_name", 
-        header: "Menu Or Category",
+        header: "Menu / Category",
       },
   
       {

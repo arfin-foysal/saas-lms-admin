@@ -79,7 +79,7 @@ const UpdateCourseFaq = ({ handleClose, paramValue }) => {
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                                    label="Active"
+                    
                                     name="is_active"
                                     onChange={formik.handleChange}
                                     value={formik.values.is_active}
@@ -88,10 +88,6 @@ const UpdateCourseFaq = ({ handleClose, paramValue }) => {
                             </div>
                         </div>
                     </div>
-
-
-
-
 
                 </div>
                 <Modal.Footer>

@@ -9,14 +9,14 @@ import MenuModal from "./CourseOutlineModal";
 import { confirmHandel } from "../../../utils/Alert";
 import { toast } from "react-toastify";
 
-import { useDeleteCourseOutlineMutation, useGetCourseListQuery, useGetCourseOutlineByCourseIdQuery } from "../../../services/courseApi";
+import { useDeleteCourseOutlineMutation, useGetCourseOutlineByCourseIdQuery } from "../../../services/courseApi";
 import { useParams } from "react-router-dom";
+import { BsArrowRightShort } from "react-icons/bs";
 const CourseOutlineList = () => {
   const {id}=useParams()
   const res = useGetCourseOutlineByCourseIdQuery(id);
   const { data, isSuccess, isFetching, isError } = res;
   const [deleteCourseOutline] = useDeleteCourseOutlineMutation()
-  const courseRes = useGetCourseListQuery();
   const [clickValue, setClickValue] = useState(null);
   const [size, setSize] = useState("lg")
   const [param, setParam] = useState(null);
@@ -37,33 +37,33 @@ const CourseOutlineList = () => {
   };
   const columns = useMemo(
     () => [
+  
       {
         accessorFn: (row, index) => <>
-          <span className="text-success fw-normal">
-            {index + 1}
-          </span>
-
-        </>,
-        id: "index",
-        header: "SL",
-        size: "5"
-      },
-      {
-        accessorFn: (row, index) => <>
-          <span className="text-success fw-normal">
-            EN: {row?.title}
+          <span >
+            En: {row?.title}
             <br />
-            BN: {row?.title_bn}
+            Bn: {row?.title_bn}
           </span>
 
         </>,
 
         accessorKey: "title",
         header: "Name",
-        size: "300"
+       
       },
-
-
+      {
+        accessorFn: (row) => (
+          <>
+            <span>
+              {row?.class_name} <BsArrowRightShort /> {row?.subject_name} <BsArrowRightShort /> {row?.chapter_name}
+            </span>
+          </>
+        ),
+        id: "class",
+        header: "Class - Subject - Chapter",
+        size: 200
+      },
     ],
     []
   );
@@ -82,9 +82,7 @@ const CourseOutlineList = () => {
       <div className="card border shadow-lg ">
         <div className="card-header d-flex justify-content-between ">
           <p className="fw-bold text-muted">
-            COURSE OUTLINE LIST ( {isSuccess &&
-              data?.data[0]?.course_title} )
-          
+          <span className="text-success fw-bold">Course:</span> {data?.data[0]?.course_title}
           </p>
           <div>
 
@@ -105,6 +103,11 @@ const CourseOutlineList = () => {
 
         <div className="card-body p-0">
           <MaterialReactTable
+              defaultColumn={{
+                minSize: 1, 
+                maxSize: 9001, 
+                size: 260, 
+              }}
          
             columns={columns}
             data={isSuccess ? data?.data : []}

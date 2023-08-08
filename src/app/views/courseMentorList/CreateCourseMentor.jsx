@@ -107,11 +107,11 @@ const CreateCourseMentor = ({ handleClose, paramValue,assData }) => {
                     <div className="form-group col-3 mt-1 text-center">
                         <label className="col-12 col-form-label">Is Active</label>
                         <div className="col-12 ">
-                            <div className="form-check form-switch ps-3  mt-2">
+                            <div className="form-check form-switch ms-4  mt-2">
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                                    label="Active"
+                            
                                     name="is_active"
                                     onChange={formik.handleChange}
                                     value={formik.values.is_active}

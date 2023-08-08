@@ -637,7 +637,7 @@ const UpdateStudent = ({ handleClose, paramValue }) => {
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                                    label="✔"
+                                
                                     name="is_active"
                                     onChange={formik.handleChange}
                                     value={formik.values.is_active}
@@ -653,7 +653,7 @@ const UpdateStudent = ({ handleClose, paramValue }) => {
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                                    label="✔"
+                                    
                                     name="is_foreigner"
                                     onChange={formik.handleChange}
                                     value={formik.values.is_foreigner}
@@ -662,12 +662,6 @@ const UpdateStudent = ({ handleClose, paramValue }) => {
                             </div>
                         </div>
                     </div>
-
-
-
-
-
-
 
                 </div>
                 <Modal.Footer>

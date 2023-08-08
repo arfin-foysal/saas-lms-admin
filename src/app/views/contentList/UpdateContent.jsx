@@ -122,7 +122,7 @@ const UpdateContent = ({ handleClose,paramValue }) => {
                     </div>
 
                     <div className="form-group col-4 my-1">
-                        <label className="col-12 col-form-label">Youtube Url</label>
+                        <label className="col-12 col-form-label">Youtube URL</label>
                         <div className="col-12">
                             <input
                                 placeholder="Enter Youtube Url"
@@ -135,10 +135,10 @@ const UpdateContent = ({ handleClose,paramValue }) => {
                         </div>
                     </div>
                     <div className="form-group col-4 my-1">
-                        <label className="col-12 col-form-label">Gp Product Td</label>
+                        <label className="col-12 col-form-label">Google Pay Code</label>
                         <div className="col-12">
                             <input
-                                placeholder="Enter Gp Product Td"
+                                placeholder="Enter Code"
                                 type="text"
                                 className="form-control"
                                 name="gp_product_id"
@@ -177,10 +177,10 @@ const UpdateContent = ({ handleClose,paramValue }) => {
                         </div>
                     </div>
                     <div className="form-group col-4 my-1">
-                        <label className="col-12 col-form-label">Discount Percentage <span className=" text-danger">*</span></label>
+                        <label className="col-12 col-form-label">Discount % <span className=" text-danger">*</span></label>
                         <div className="col-12">
                             <input
-                                placeholder="Enter Discount Percentage"
+                                placeholder="Enter Discount %"
                                 type="number"
                                 className="form-control"
                                 name="discount_percentage"
@@ -304,7 +304,7 @@ const UpdateContent = ({ handleClose,paramValue }) => {
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                                    label="✔"
+          
                                     name="is_free"
                                     onChange={formik.handleChange}
                                     value={formik.values.is_free}
@@ -320,7 +320,7 @@ const UpdateContent = ({ handleClose,paramValue }) => {
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                                    label="✔"
+                        
                                     name="is_active"
                                     onChange={formik.handleChange}
                                     value={formik.values.is_active}

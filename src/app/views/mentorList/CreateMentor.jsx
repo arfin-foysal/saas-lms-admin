@@ -714,7 +714,7 @@ const CreateMentor = ({ handleClose }) => {
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                                    label="✔"
+                                   
                                     name="is_active"
                                     onChange={formik.handleChange}
                                     value={formik.values.is_active}
@@ -730,7 +730,7 @@ const CreateMentor = ({ handleClose }) => {
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                                    label="✔"
+                                    
                                     name="is_foreigner"
                                     onChange={formik.handleChange}
                                     value={formik.values.is_foreigner}
@@ -747,7 +747,7 @@ const CreateMentor = ({ handleClose }) => {
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                                    label="✔"
+                               
                                     name="is_life_couch"
                                     onChange={formik.handleChange}
                                     value={formik.values.is_life_couch}
@@ -763,7 +763,7 @@ const CreateMentor = ({ handleClose }) => {
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                                    label="✔"
+                                   
                                     name="is_host_staff"
                                     onChange={formik.handleChange}
                                     value={formik.values.is_host_staff}
@@ -779,7 +779,7 @@ const CreateMentor = ({ handleClose }) => {
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                                    label="✔"
+                              
                                     name="is_host_certified"
                                     onChange={formik.handleChange}
                                     value={formik.values.is_host_certified}

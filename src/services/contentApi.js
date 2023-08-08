@@ -26,8 +26,12 @@ export const contentApi = apiSliceAdmin.injectEndpoints({
       providesTags: ["Content"],
     }),
     getVideoChapterList: builder.query({
-      query: () => ({
-        url: "admin/video-chapter-list",
+      query: ({
+        class_id,
+        subject_id,
+        chapter_id,
+      }) => ({
+        url: `admin/video-chapter-list?class_id=${class_id}&subject_id=${subject_id}&chapter_id=${chapter_id}`,
         method: "GET",
       }),
       providesTags: ["Content"],
@@ -47,8 +51,12 @@ export const contentApi = apiSliceAdmin.injectEndpoints({
       providesTags: ["Content"],
     }),
     getQuizList: builder.query({
-      query: () => ({
-        url: "admin/chapter-quiz-list",
+      query: ({
+        class_id,
+        subject_id,
+        chapter_id,
+      }) => ({
+        url: `admin/chapter-quiz-list?class_id=${class_id}&subject_id=${subject_id}&chapter_id=${chapter_id}`,
         method: "GET",
       }),
       providesTags: ["Content"],
@@ -221,7 +229,7 @@ export const contentApi = apiSliceAdmin.injectEndpoints({
     }),
     getContentOutlineByContentId: builder.query({
       query: (id) => ({
-        url: `admin/course-outline-list/${id}`,
+        url: `admin/content-outline-list/${id}`,
         method: "GET",
       }),
       providesTags: ["Content"],
