@@ -51,7 +51,12 @@ const CreateChapter = ({ handleClose }) => {
             }
         },
     });
-    const subjectRes = useGetSubjectListByClassIdQuery(formik.values.class_level_id)
+    const subjectRes = useGetSubjectListByClassIdQuery(
+        formik.values.class_level_id
+            ? formik.values.class_level_id
+            :0
+
+    )
 
     if (res.isSuccess) {
         handleClose();

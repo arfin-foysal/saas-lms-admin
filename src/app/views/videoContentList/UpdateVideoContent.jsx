@@ -68,8 +68,11 @@ const UpdateVideoContent = ({ handleClose ,paramValue}) => {
             }
         },
     });
-    const subjectRes = useGetSubjectListByClassIdQuery(formik.values.class_level_id)
-    const chapterRes = useGetChapterListBySubjectIdQuery(formik.values.subject_id)
+    const subjectRes = useGetSubjectListByClassIdQuery(formik.values.class_level_id
+        ? formik.values.class_level_id
+        :0)
+    const chapterRes = useGetChapterListBySubjectIdQuery(formik.values.subject_id
+    ? formik.values.subject_id:0)
 
     const handelFocus = (name) => {
         if (name === "class_level_id") {

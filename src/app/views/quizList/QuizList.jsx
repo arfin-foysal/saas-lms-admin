@@ -60,11 +60,11 @@ const QuizList = () => {
       {
         accessorFn: (row) => <>
           <Link className="text-dark" to={`/dashboard/globaladmin/quiz-question-list/${row?.id}`}>
-            <p>EN:
-              <span className="text-success fw-normal"> {row.title}</span>
+            <p>En:
+              <span > {row.title}</span>
             </p>
-            <p>BN:
-              <span className="text-success fw-normal"> {row.title_bn}</span>
+            <p>Bn:
+              <span > {row.title_bn}</span>
             </p></Link>
         </>,
         id: "title",

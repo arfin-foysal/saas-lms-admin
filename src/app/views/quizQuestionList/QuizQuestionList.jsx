@@ -53,10 +53,10 @@ const QuizQuestionList = () => {
       },
       {
         accessorFn: (row, index) => <>
-          <span className="text-success fw-normal">
-            EN: {row?.question_text}
+          <span>
+            En: {row?.question_text}
             <br />
-            BN: {row?.question_text_bn}
+            Bn: {row?.question_text_bn}
           </span>
 
         </>,

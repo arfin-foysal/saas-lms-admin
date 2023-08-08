@@ -374,6 +374,7 @@ const UpdateStudent = ({ handleClose, paramValue }) => {
                                 name="date_of_birth"
                                 onChange={formik.handleChange}
                                 value={formik.values.date_of_birth}
+                                defaultValue={paramValue?.date_of_birth?.slice(0, 10)                                }
 
                             />
                         </div>

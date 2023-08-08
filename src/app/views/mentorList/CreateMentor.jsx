@@ -109,9 +109,13 @@ const CreateMentor = ({ handleClose }) => {
         },
     });
 
-    const districtRes = useGetDistrictListQuery(formik.values.division_id || 0)
-    const upozilaRes = useGetUpazilaListQuery(formik.values.district_id || 0)
-    const areaRes = useGetAreaListQuery(formik.values.city_id || 0)
+    const districtRes = useGetDistrictListQuery(formik.values.division_id ?
+        formik.values.division_id : 0
+    )
+    const upozilaRes = useGetUpazilaListQuery(formik.values.district_id ?
+        formik.values.district_id : 0)
+    const areaRes = useGetAreaListQuery(formik.values.city_id ?
+        formik.values.city_id : 0)
 
     const handleDivisionChange = (e) => {
         formik.setFieldValue('division_id', e.target.value)
@@ -182,7 +186,7 @@ const CreateMentor = ({ handleClose }) => {
                         </div>
                     </div>
                     <div className="form-group col-4 my-1">
-                        <label className="col-12 col-form-label">Email<span className=" text-danger">*</span></label>
+                        <label className="col-12 col-form-label">Email</label>
                         <div className="col-12">
                             <input
                                 placeholder="Enter email"
@@ -191,12 +195,12 @@ const CreateMentor = ({ handleClose }) => {
                                 name="email"
                                 onChange={formik.handleChange}
                                 value={formik.values.email}
-                                required
+                            
                             />
                         </div>
                     </div>
                     <div className="form-group col-4 my-1">
-                        <label className="col-12 col-form-label">Contact No<span className=" text-danger">*</span></label>
+                        <label className="col-12 col-form-label">Contact No</label>
                         <div className="col-12">
                             <input
                                 placeholder="Enter Contact no"
@@ -205,7 +209,7 @@ const CreateMentor = ({ handleClose }) => {
                                 name="contact_no"
                                 onChange={formik.handleChange}
                                 value={formik.values.contact_no}
-                                required
+                               
                             />
                         </div>
                     </div>

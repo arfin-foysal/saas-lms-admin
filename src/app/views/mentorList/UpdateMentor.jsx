@@ -1,12 +1,8 @@
 import { useFormik } from "formik";
-import React, { useRef, useState } from "react";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { useGetMenuListQuery, useMenuCreateOrUpdateMutation } from "../../../services/masterSettingsApi";
-import PreviewImage from "../../components/PreviewImage";
-import { BsFillCloudArrowUpFill } from "react-icons/bs";
-import { useClassCreateOrUpdateMutation } from "../../../services/contentApi";
-import { useCourseCreateOrUpdateMutation } from "../../../services/courseApi";
+
+
 import { useGetAreaListQuery, useGetDistrictListQuery, useGetDivisionListQuery, useGetUpazilaListQuery } from "../../../services/commonApi";
 import { useMentorSaveOrUpdateMutation } from "../../../services/resourceApi";
 const UpdateMentor = ({ handleClose, paramValue }) => {
@@ -15,6 +11,7 @@ const UpdateMentor = ({ handleClose, paramValue }) => {
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {
+            'id': paramValue.id,
             'name': paramValue.name,
             'email': paramValue.email,
             'education': paramValue.education,
@@ -109,9 +106,12 @@ const UpdateMentor = ({ handleClose, paramValue }) => {
         },
     });
 
-    const districtRes = useGetDistrictListQuery(formik.values.division_id || 0)
-    const upozilaRes = useGetUpazilaListQuery(formik.values.district_id || 0)
-    const areaRes = useGetAreaListQuery(formik.values.city_id || 0)
+    const districtRes = useGetDistrictListQuery(formik.values.division_id ?
+        formik.values.division_id : 0)
+    const upozilaRes = useGetUpazilaListQuery(formik.values.district_id ?
+        formik.values.district_id : 0)
+    const areaRes = useGetAreaListQuery(formik.values.city_id ?
+        formik.values.city_id : 0)
 
     const handleDivisionChange = (e) => {
         formik.setFieldValue('division_id', e.target.value)
@@ -156,7 +156,7 @@ const UpdateMentor = ({ handleClose, paramValue }) => {
       
      
                     <div className="form-group col-4 my-1">
-                        <label className="col-12 col-form-label">Email<span className=" text-danger">*</span></label>
+                        <label className="col-12 col-form-label">Email</label>
                         <div className="col-12">
                             <input
                                 placeholder="Enter email"
@@ -165,12 +165,12 @@ const UpdateMentor = ({ handleClose, paramValue }) => {
                                 name="email"
                                 onChange={formik.handleChange}
                                 value={formik.values.email}
-                                required
+                             
                             />
                         </div>
                     </div>
                     <div className="form-group col-4 my-1">
-                        <label className="col-12 col-form-label">Contact No<span className=" text-danger">*</span></label>
+                        <label className="col-12 col-form-label">Contact No</label>
                         <div className="col-12">
                             <input
                                 placeholder="Enter Contact no"
@@ -179,7 +179,7 @@ const UpdateMentor = ({ handleClose, paramValue }) => {
                                 name="contact_no"
                                 onChange={formik.handleChange}
                                 value={formik.values.contact_no}
-                                required
+                           
                             />
                         </div>
                     </div>
@@ -427,6 +427,9 @@ const UpdateMentor = ({ handleClose, paramValue }) => {
                                 name="birth_certificate_no"
                                 onChange={formik.handleChange}
                                 value={formik.values.birth_certificate_no}
+                                defaultValue={paramValue?.birth_certificate_no?.slice(0, 10)}
+
+                                 
 
                             />
                         </div>
@@ -501,6 +504,7 @@ const UpdateMentor = ({ handleClose, paramValue }) => {
                                 name="approval_date"
                                 onChange={formik.handleChange}
                                 value={formik.values.approval_date}
+                                defaultValue={paramValue?.approval_date?.slice(0, 10)}
 
                             />
                         </div>

@@ -60,21 +60,21 @@ const CreateContentOutline = ({ handleClose, paramValue }) => {
 
     const classRes = useGetClassListQuery()
     const subjectRes = useGetSubjectListByClassIdQuery(
-        formik.values.class_level_id ? formik.values.class_level_id : null
+        formik.values.class_level_id ? formik.values.class_level_id : 0
     )
     const ChapterRes = useGetChapterListBySubjectIdQuery(
-        formik.values.subject_id ? formik.values.subject_id : null
+        formik.values.subject_id ? formik.values.subject_id : 0
     )
     const scriptRes = useGetScriptListByChapterIdQuery(
-        formik.values.chapter_id ? formik.values.chapter_id : null
+        formik.values.chapter_id ? formik.values.chapter_id : 0
     )
 
     const videoRes = useGetVideoListByChapterIdQuery(
-        formik.values.chapter_id ? formik.values.chapter_id : null
+        formik.values.chapter_id ? formik.values.chapter_id : 0
     )
 
     const quizRes = useGetQuizListByChapterIdQuery(
-        formik.values.chapter_id ? formik.values.chapter_id : null
+        formik.values.chapter_id ? formik.values.chapter_id : 0
     )
     const handleClassChange = (e) => {
         formik.setFieldValue('class_level_id', e.target.value);
