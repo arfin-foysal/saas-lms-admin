@@ -7,14 +7,15 @@ import { MdRemoveCircleOutline } from "react-icons/md";
 import { useState } from 'react';
 import Select from "react-select";
 import { FiPlusCircle } from "react-icons/fi";
-const CreateCourseMentor = ({ handleClose, paramValue,assData }) => {
+const CreateStudentMapping = ({ handleClose, paramValue,assData }) => {
     const [allRoutine, setAllRoutine] = useState([]);
     const [mentorAssignSaveOrUpdate, res] = useMentorAssignSaveOrUpdateMutation();
     const mentorRes=useGetMentorListQuery();
     const formik = useFormik({
         initialValues: {
-            'course_id': paramValue,
+            'course_id': '',
             'mentor_id': '',
+            'student_id': '',
             'is_active': true
         },
         onSubmit: async (values, { resetForm }) => {
@@ -83,7 +84,47 @@ const CreateCourseMentor = ({ handleClose, paramValue,assData }) => {
                 encType="multipart/form-data"
             >
                 <div className="row">
-                    <div className="form-group col-6 my-1">
+                    <div className="form-group col-3 my-1">
+                        <label className="col-12 col-form-label">Course <span className=" text-danger">*</span></label>
+                        <div className="col-12">
+                            <Select
+                                isSearchable={true}
+                          isLoading={mentorRes.isLoading}
+                                options={mentorRes.data?.data?.map((item) => ({
+                                    value: item,
+                                    label: `${item.name} (${item.email})`,
+                                }))}
+                                onChange={(value) => {
+                                    formik.setFieldValue("mentor_id", value.value);
+                                }}
+                                value={mentorRes.data?.data?.find(
+                                    (option) => option.value === formik.values.mentor_id
+                                )}
+                                name="mentor_id"
+                            />
+                        </div>
+                    </div>
+                    <div className="form-group col-3 my-1">
+                        <label className="col-12 col-form-label">Student <span className=" text-danger">*</span></label>
+                        <div className="col-12">
+                            <Select
+                                isSearchable={true}
+                          isLoading={mentorRes.isLoading}
+                                options={mentorRes.data?.data?.map((item) => ({
+                                    value: item,
+                                    label: `${item.name} (${item.email})`,
+                                }))}
+                                onChange={(value) => {
+                                    formik.setFieldValue("mentor_id", value.value);
+                                }}
+                                value={mentorRes.data?.data?.find(
+                                    (option) => option.value === formik.values.mentor_id
+                                )}
+                                name="mentor_id"
+                            />
+                        </div>
+                    </div>
+                    <div className="form-group col-3 my-1">
                         <label className="col-12 col-form-label">Mentor <span className=" text-danger">*</span></label>
                         <div className="col-12">
                             <Select
@@ -104,10 +145,10 @@ const CreateCourseMentor = ({ handleClose, paramValue,assData }) => {
                         </div>
                     </div>
             
-                    <div className="form-group col-3 mt-1 text-center">
-                        <label className="col-12 col-form-label">Is Active</label>
+                    <div className="form-group col-1 mt-1 text-center">
+                        <label className="col-12 col-form-label ms-3">Is Active</label>
                         <div className="col-12 ">
-                            <div className="form-check form-switch ms-4  mt-2">
+                            <div className="form-check form-switch me-1  mt-2">
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
@@ -121,7 +162,7 @@ const CreateCourseMentor = ({ handleClose, paramValue,assData }) => {
                         </div>
                     </div>
 
-                    <div className="form-group col-3 my-1 text-center">
+                    <div className="form-group col-2 my-1 text-center">
                         <label className="col-12 col-form-label">Action</label>
                         <div className="col-12 mt-1">
                             <button
@@ -140,6 +181,8 @@ const CreateCourseMentor = ({ handleClose, paramValue,assData }) => {
                             <thead>
                                 <tr>
                                     <th>SL</th>
+                                    <th>Course</th>
+                                    <th>Student</th>
                                     <th>Mentor</th>
                                     <th>Is Active</th>
                                     <th>Action</th>
@@ -149,6 +192,8 @@ const CreateCourseMentor = ({ handleClose, paramValue,assData }) => {
                                 {allRoutine?.map((item, index) => (
                                     <tr key={index}>
                                         <td>{index+1}</td>
+                                        <td>{item?.mentor_id?.name}</td>
+                                        <td>{item?.mentor_id?.name}</td>
                                         <td>{item?.mentor_id?.name}</td>
                                         <td>{item.is_active ?
                                             <span className="badge text-bg-success">
@@ -191,5 +236,5 @@ const CreateCourseMentor = ({ handleClose, paramValue,assData }) => {
     );
 };
 
-export default memo(CreateCourseMentor)
+export default memo(CreateStudentMapping)
     ;

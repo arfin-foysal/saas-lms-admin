@@ -11,7 +11,6 @@ import { toast } from "react-toastify";
 import {  useDeleteFaqMutation, useGetRoutineListbyCourseIdQuery } from "../../../services/courseApi";
 import { useParams } from "react-router-dom";
 
-
 const CourseRoutineList = () => {
   const { id } = useParams()
   const res = useGetRoutineListbyCourseIdQuery(id);
@@ -56,8 +55,6 @@ const CourseRoutineList = () => {
         header: "Class Title",
         size: "5"
       },
-
-
     ],
     []
   );

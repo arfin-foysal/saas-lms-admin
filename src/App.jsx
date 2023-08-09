@@ -7,7 +7,16 @@ import colorHandler from './utils/Theme';
 
 const App = () => { 
   //theme color handler FROM utils/Theme.js
-  colorHandler("#0675F8")
+  colorHandler(
+    "#0675F8",
+    "#ffff",
+    "#363636",
+    "black",
+    "white",
+    "white",
+    "#eff6fd",
+  
+  )
 
   const [allRoute, setAllRoute] = useState([...publicRoute])
   useEffect(() => {

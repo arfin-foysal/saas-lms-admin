@@ -2,9 +2,7 @@ import { useFormik } from "formik";
 import React, { useRef, useState } from "react";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { useMenuCreateOrUpdateMutation } from "../../../services/masterSettingsApi";
 import PreviewImage from "../../components/PreviewImage";
-import { BsFillCloudArrowUpFill } from "react-icons/bs";
 import { useClassCreateOrUpdateMutation } from "../../../services/contentApi";
 const UpdateClass = ({ handleClose, paramValue }) => {
     const fileRef = useRef(null)

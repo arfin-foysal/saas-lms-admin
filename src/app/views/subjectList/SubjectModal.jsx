@@ -1,10 +1,8 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
-
 import { modalColor } from "../../../utils/Theme";
 import CreateClass from "./CreateSubject";
 import UpdateClass from "./UpdateSubject";
-
 
 const SubjectModal = ({ handleClose, show, clickValue, paramValue }) => {
     return (

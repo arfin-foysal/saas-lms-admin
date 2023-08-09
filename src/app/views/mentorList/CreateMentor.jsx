@@ -130,7 +130,6 @@ const CreateMentor = ({ handleClose }) => {
         formik.setFieldValue('area_id', '')
     }
 
-
     if (res.isSuccess) {
         handleClose();
     }
@@ -792,9 +791,6 @@ const CreateMentor = ({ handleClose }) => {
                             </div>
                         </div>
                     </div>
-
-
-
                 </div>
                 <Modal.Footer>
 

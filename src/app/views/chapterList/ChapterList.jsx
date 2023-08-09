@@ -1,17 +1,17 @@
-import React, {useCallback, useMemo, useState} from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import PageTopHeader from '../../components/PageTopHeader';
 import MaterialReactTable from "material-react-table";
 import Loader from "../../components/Loader";
-import {FaEdit} from "react-icons/fa";
-import {FiPlusCircle} from "react-icons/fi";
-import {tableColor} from "../../../utils/Theme";
+import { FaEdit } from "react-icons/fa";
+import { FiPlusCircle } from "react-icons/fi";
+import { tableColor } from "../../../utils/Theme";
 import MenuModal from "./ChapterModal";
-import {useGetChapterListQuery} from "../../../services/contentApi";
+import { useGetChapterListQuery } from "../../../services/contentApi";
 import { BsArrowRightShort } from "react-icons/bs";
 
 const ChapterList = () => {
     const res = useGetChapterListQuery();
-    const {data, isSuccess, isFetching, isError} = res;
+    const { data, isSuccess, isFetching, isError } = res;
     const [clickValue, setClickValue] = useState(null);
     const [param, setParam] = useState(null);
     const [show, setShow] = useState(false);
@@ -26,34 +26,31 @@ const ChapterList = () => {
         () => [
             {
                 accessorFn: (row, index) => <>
-                  <span className=" fw-normal">
-                    {index + 1}
-                  </span>
-        
+                    <span className=" fw-normal">
+                        {index + 1}
+                    </span>
+
                 </>,
                 id: "index",
                 header: "SL",
                 size: "10"
-              },
+            },
             {
                 accessorKey: "name",
                 header: "Name",
             },
             {
                 accessorFn: (row) => (
-                  <>
-                    <span>
-                      {row?.class_name} <BsArrowRightShort/> {row?.subject_name} 
-                    </span>
-                  </>
+                    <>
+                        <span>
+                            {row?.class_name} <BsArrowRightShort /> {row?.subject_name}
+                        </span>
+                    </>
                 ),
                 id: "class",
                 header: "Class - Subject",
-                size:200
-              },
-        
-        
-    
+                size: 200
+            },
             {
                 accessorKey: "price",
                 header: "Price",
@@ -62,10 +59,10 @@ const ChapterList = () => {
                 accessorFn: (row) =>
                     row?.is_free === true ? (
                         <>
-                            <span className="badge bg-success">Yes</span>
+                            <span className="badge bg-info">Yes</span>
                         </>
                     ) : (
-                        <span className="badge bg-warning">No</span>
+                        <span className="badge bg-secondary">No</span>
                     ),
 
                 id: "is_free",
@@ -91,14 +88,14 @@ const ChapterList = () => {
 
     return (
         <>
-            {isFetching && <Loader/>}
+            {isFetching && <Loader />}
             <MenuModal
                 show={show}
                 handleClose={handleClose}
                 clickValue={clickValue}
                 paramValue={param}
             />
-            <PageTopHeader title="Chapter List"/>
+            <PageTopHeader title="Chapter List" />
             <div className="card border shadow-lg ">
                 <div className="card-header d-flex justify-content-between ">
                     <div>Chapter List</div>
@@ -110,7 +107,7 @@ const ChapterList = () => {
                                 handelClickValue("Add New Chapter");
                             }}
                         >
-                            <FiPlusCircle size={16}/> Add New Chapter
+                            <FiPlusCircle size={16} /> Add New Chapter
                         </button>
                     </div>
                 </div>
@@ -141,7 +138,7 @@ const ChapterList = () => {
                                                 setParam(row?.row?.original);
                                             }}
                                         >
-                                            <FaEdit size={16}/> Edit
+                                            <FaEdit size={16} /> Edit
                                         </button>
                                     </div>
                                     <div>

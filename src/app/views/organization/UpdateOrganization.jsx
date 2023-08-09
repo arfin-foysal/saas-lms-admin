@@ -3,7 +3,6 @@ import React, { useRef, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useOrganizationCreateOrUpdateMutation } from "../../../services/masterSettingsApi";
-import { BsFillCloudArrowUpFill } from "react-icons/bs";
 import PreviewImage from "../../components/PreviewImage";
 const UpdateOrganization = ({ handleClose, paramValue }) => {
     const [organizationCreateOrUpdate, res] = useOrganizationCreateOrUpdateMutation();
@@ -12,7 +11,6 @@ const UpdateOrganization = ({ handleClose, paramValue }) => {
     function handelImage(e) {
         setPreviewImage(URL.createObjectURL(e.target.files[0]));
     }
-
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {
@@ -29,7 +27,6 @@ const UpdateOrganization = ({ handleClose, paramValue }) => {
             logo: paramValue && paramValue.logo,
             is_active: paramValue && paramValue.is_active,
         },
-
         onSubmit: async (values, { resetForm }) => {
             let formData = new FormData();
             formData.append("id", values.id)
@@ -45,7 +42,6 @@ const UpdateOrganization = ({ handleClose, paramValue }) => {
             formData.append("logo", values.logo);
             formData.append("is_active", values.is_active ? 1 : 0);
             resetForm();
-
             try {
                 const result = await organizationCreateOrUpdate(formData).unwrap();
                 toast.success(result.message);

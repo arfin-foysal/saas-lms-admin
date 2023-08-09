@@ -1,5 +1,4 @@
 import { useFormik } from "formik";
-import React, { useRef, useState } from "react";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useGetMenuListQuery } from "../../../services/masterSettingsApi";
@@ -329,9 +328,6 @@ const UpdateContent = ({ handleClose,paramValue }) => {
                             </div>
                         </div>
                     </div>
-           
-
-
                 </div>
                 <Modal.Footer>
 

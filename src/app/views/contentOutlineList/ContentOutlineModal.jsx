@@ -4,9 +4,6 @@ import { modalColor } from "../../../utils/Theme";
 import CreateQuizQuestion from "./CreateContentOutline";
 import UpdateQuizQuestion from "./UpdateContentOutline";
 
-
-
-
 const ContentOutlineModal = ({ handleClose, show, clickValue, paramValue, size }) => {
     
     return (

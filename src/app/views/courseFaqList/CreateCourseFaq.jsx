@@ -1,11 +1,8 @@
 import { useFormik } from "formik";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
-
-
 import { memo } from 'react';
-import OptionLoader from "../../components/OptionLoader";
-import { useFaqSaveOrUpdateMutation, useGetCourseListQuery } from "../../../services/courseApi";
+import { useFaqSaveOrUpdateMutation } from "../../../services/courseApi";
 import { useState } from 'react';
 const CreateCourseFaq = ({ handleClose, paramValue }) => {
     const [allFaq, setAllFaq] = useState([]);
@@ -27,15 +24,13 @@ const CreateCourseFaq = ({ handleClose, paramValue }) => {
                 return;
             }
             try {
-                const result = await faqSaveOrUpdate({faq:faq_Arr}).unwrap();
+                const result = await faqSaveOrUpdate({ faq: faq_Arr }).unwrap();
                 toast.success(result.message);
             } catch (error) {
                 toast.warn(error.data.message);
             }
         },
     });
-
-
 
     const handelAdd = () => {
 
@@ -52,16 +47,11 @@ const CreateCourseFaq = ({ handleClose, paramValue }) => {
         setAllFaq([...allFaq, formik.values])
         formik.setFieldValue('title', '');
         formik.setFieldValue('answer', '');
-
-
     }
     const handelDelete = (index) => {
         const newFaq = allFaq.filter((item, i) => i !== index);
         setAllFaq(newFaq);
     }
-
-
-
 
     if (res.isSuccess) {
         handleClose();
@@ -75,7 +65,7 @@ const CreateCourseFaq = ({ handleClose, paramValue }) => {
                 encType="multipart/form-data"
             >
                 <div className="row">
-          
+
                     <div className="form-group col-4 my-1">
                         <label className="col-12 col-form-label">Title <span className=" text-danger">*</span></label>
                         <div className="col-12">
@@ -86,7 +76,7 @@ const CreateCourseFaq = ({ handleClose, paramValue }) => {
                                 name="title"
                                 onChange={formik.handleChange}
                                 value={formik.values.title}
-                           
+
                             />
                         </div>
                     </div>
@@ -100,7 +90,7 @@ const CreateCourseFaq = ({ handleClose, paramValue }) => {
                                 name="answer"
                                 value={formik.values.answer}
                                 onChange={formik.handleChange}
-                        
+
                             />
                         </div>
                     </div>
@@ -119,10 +109,6 @@ const CreateCourseFaq = ({ handleClose, paramValue }) => {
                             </div>
                         </div>
                     </div>
-
-
-
-
                     <div className="form-group col-2 my-1">
                         <label className="col-12 col-form-label">Action</label>
                         <div className="col-12 mt-1">
@@ -133,12 +119,8 @@ const CreateCourseFaq = ({ handleClose, paramValue }) => {
                             >
                                 Add
                             </button>
-
                         </div>
                     </div>
-
-               
-
                     <div className="my-4">
                         <table className="table table-bordered">
                             <thead>
@@ -159,11 +141,9 @@ const CreateCourseFaq = ({ handleClose, paramValue }) => {
                                         <td>{item.is_active ? 'Active' : 'Inactive'}</td>
                                         <td>
                                             <button
-
                                                 type="button"
                                                 className="btn btn-danger btn-sm"
                                                 onClick={() => handelDelete(index)}
-
                                             >
                                                 Remove
                                             </button>
@@ -172,11 +152,7 @@ const CreateCourseFaq = ({ handleClose, paramValue }) => {
                                 ))}
                             </tbody>
                         </table>
-
                     </div>
-
-
-
                 </div>
                 <Modal.Footer>
                     <button type="button" className="btn btn-dark me-2 btn-sm" onClick={handleClose}>
@@ -186,12 +162,9 @@ const CreateCourseFaq = ({ handleClose, paramValue }) => {
                     <button type="submit" className="btn btn-success btn-sm">
                         Submit
                     </button>
-
                 </Modal.Footer>
             </form>
         </div>
     );
 };
-
-export default memo(CreateCourseFaq)
-    ;
+export default memo(CreateCourseFaq);

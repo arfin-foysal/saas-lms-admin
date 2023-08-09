@@ -1,12 +1,8 @@
 import { useFormik } from "formik";
-import React, { useRef, useState } from "react";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { useGetMenuListQuery, useMenuCreateOrUpdateMutation } from "../../../services/masterSettingsApi";
-import PreviewImage from "../../components/PreviewImage";
-import { BsFillCloudArrowUpFill } from "react-icons/bs";
-import { useClassCreateOrUpdateMutation, useContentSaveOrUpdateMutation } from "../../../services/contentApi";
-import { useCourseCreateOrUpdateMutation } from "../../../services/courseApi";
+import { useGetMenuListQuery } from "../../../services/masterSettingsApi";
+import {  useContentSaveOrUpdateMutation } from "../../../services/contentApi";
 const CreateContent = ({ handleClose }) => {
     const [contentSaveOrUpdate, res] = useContentSaveOrUpdateMutation();
     const cateRes = useGetMenuListQuery()

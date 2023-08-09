@@ -1,8 +1,7 @@
 import { useFormik } from "formik";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { useGetQuizListQuery, useQuestionSaveOrUpdateMutation, useQuestionSetListQuery, useQuizCreateOrUpdateMutation, } from "../../../services/contentApi";
-import { useSelector } from "react-redux";
+import { useGetQuizListQuery, useQuestionSaveOrUpdateMutation, useQuestionSetListQuery, } from "../../../services/contentApi";
 import { memo } from 'react';
 import { useMemo } from "react";
 import OptionLoader from "../../components/OptionLoader";

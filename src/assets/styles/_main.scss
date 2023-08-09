@@ -1,5 +1,6 @@
 @import "../styles/variables";
 
+
 .css-i4bv87-MuiSvgIcon-root {
     color: #b1abab;
 }
@@ -11,7 +12,7 @@
 
 
 .modal-color {
-    color: $bb_color2;
+    color: $bb_theme_color;
 }
 
 /* Sweet Alert Coustomize Start */
@@ -44,7 +45,7 @@
   }
 
   .btn-bb-lms{
-    background-color: $bb_color2 !important;
+    background-color: $bb_theme_color !important;
   }
   
   .btn-close{

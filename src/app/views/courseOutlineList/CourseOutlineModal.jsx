@@ -4,7 +4,6 @@ import { modalColor } from "../../../utils/Theme";
 import CreateCourseOutline from "./CreateCourseOutline";
 import UpdateCourseOutline from "./UpdateCourseOutline";
 const CourseOutlineModal = ({ handleClose, show, clickValue, paramValue, size }) => {
-    
     return (
         <>
             <Modal show={show} onHide={handleClose} size={size}>

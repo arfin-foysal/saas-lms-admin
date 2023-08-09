@@ -1,11 +1,8 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
-
 import { modalColor } from "../../../utils/Theme";
 import CreateClass from "./CreateMentor";
 import UpdateClass from "./UpdateMentor";
-
-
 
 const MentorModal = ({ handleClose, show, clickValue, paramValue,size }) => {
     return (
@@ -27,7 +24,6 @@ const MentorModal = ({ handleClose, show, clickValue, paramValue,size }) => {
                         <UpdateClass handleClose={handleClose} paramValue={paramValue} />
                     )
                     }
-          
                 </Modal.Body>
             </Modal>
         </>

@@ -24,7 +24,7 @@ const ClassList = () => {
     () => [  
       {
         accessorFn: (row, index) => <>
-          <span className=" fw-normal">
+          <span >
             {index + 1}
           </span>
 
@@ -33,21 +33,18 @@ const ClassList = () => {
         header: "SL",
         size: "10"
       },
-    
       {
         accessorFn: (row) =>
           <>
-            <span className="text-success fw-normal">
+            <span >
             {row?.name}
             </span>
           </>
         ,
         id: "name",
         header: "Name",
-        size: "300"
-      }
-      ,
-    
+     
+      },
       {
         accessorKey: "price", 
         header: "Price",
@@ -57,10 +54,10 @@ const ClassList = () => {
         accessorFn: (row) =>
           row?.is_free === true ? (
             <>
-              <span className="badge bg-success">Yes</span>
+              <span className="badge bg-info">Yes</span>
             </>
           ) : (
-            <span className="badge bg-warning">No</span>
+            <span className="badge bg-secondary">No</span>
           ),
 
         id: "is_free",
@@ -79,11 +76,9 @@ const ClassList = () => {
         id: "Status",
         header: "Status",
       },
-
     ],
     []
   );
-
   return (
     <>
       {isFetching && <Loader />}
@@ -151,8 +146,4 @@ const ClassList = () => {
     </>
   );
 };
-
-
-
-
 export default ClassList

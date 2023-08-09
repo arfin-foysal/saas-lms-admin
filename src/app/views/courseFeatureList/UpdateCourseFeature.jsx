@@ -2,7 +2,6 @@ import { useFormik } from "formik";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { memo } from 'react';
-
 import { useFaqSaveOrUpdateMutation } from "../../../services/courseApi";
 
 const UpdateCourseFeature = ({ handleClose, paramValue }) => {
@@ -13,10 +12,8 @@ const UpdateCourseFeature = ({ handleClose, paramValue }) => {
             'title': paramValue.title,
             'course_id': paramValue.course_id,
             'title_bn': paramValue.title_bn,
-
         },
         onSubmit: async (values, { resetForm }) => {
-
             resetForm();
             if (values.course_id == 0) {
                 toast.warn("Please Select Content");
@@ -43,7 +40,6 @@ const UpdateCourseFeature = ({ handleClose, paramValue }) => {
                 encType="multipart/form-data"
             >
                 <div className="row">
-
                     <div className="form-group col-12 my-1">
                         <label className="col-12 col-form-label">Title <span className=" text-danger">*</span></label>
                         <div className="col-12">
@@ -54,7 +50,6 @@ const UpdateCourseFeature = ({ handleClose, paramValue }) => {
                                 name="title"
                                 onChange={formik.handleChange}
                                 value={formik.values.title}
-
                             />
                         </div>
                     </div>
@@ -68,16 +63,9 @@ const UpdateCourseFeature = ({ handleClose, paramValue }) => {
                                 name="title_bn"
                                 value={formik.values.title_bn}
                                 onChange={formik.handleChange}
-
                             />
                         </div>
                     </div>
-    
-
-
-
-
-
                 </div>
                 <Modal.Footer>
                     <button type="button" className="btn btn-dark me-2 btn-sm" onClick={handleClose}>
@@ -93,6 +81,4 @@ const UpdateCourseFeature = ({ handleClose, paramValue }) => {
         </div>
     );
 };
-
-export default memo(UpdateCourseFeature)
-    ;
+export default memo(UpdateCourseFeature) ;

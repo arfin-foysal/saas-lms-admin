@@ -1,6 +1,5 @@
 import { LazyLoadImage } from "react-lazy-load-image-component";
 const DetailsScriptContent = ({ handleClose, values }) => {
-
     return (
         <>
             <div className="row">

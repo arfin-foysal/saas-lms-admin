@@ -51,10 +51,10 @@ const SubjectList = () => {
                 accessorFn: (row) =>
                     row?.is_free === true ? (
                         <>
-                            <span className="badge bg-success">Yes</span>
+                            <span className="badge bg-info">Yes</span>
                         </>
                     ) : (
-                        <span className="badge bg-warning">No</span>
+                        <span className="badge bg-secondary">No</span>
                     ),
 
                 id: "is_free",
@@ -73,7 +73,6 @@ const SubjectList = () => {
                 id: "Status",
                 header: "Status",
             },
-
         ],
         []
     );
@@ -144,6 +143,5 @@ const SubjectList = () => {
         </>
     );
 };
-
 
 export default SubjectList

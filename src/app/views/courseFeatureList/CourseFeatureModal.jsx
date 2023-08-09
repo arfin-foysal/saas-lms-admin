@@ -4,11 +4,7 @@ import { modalColor } from "../../../utils/Theme";
 import CreateQuizQuestion from "./CreateCourseFeature";
 import UpdateQuizQuestion from "./UpdateCourseFeature";
 
-
-
-
 const CourseFeatureModal = ({ handleClose, show, clickValue, paramValue, size }) => {
-    
     return (
         <>
             <Modal show={show} onHide={handleClose} size={size}>

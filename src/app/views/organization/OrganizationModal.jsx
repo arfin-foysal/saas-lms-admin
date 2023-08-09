@@ -4,7 +4,6 @@ import { modalColor } from "../../../utils/Theme";
 import CreateOrganization from "./CreateOrganization";
 import UpdateOrganization from "./UpdateOrganization";
 import UpdateSettings from "./UpdateSettings";
-
 const OrganizationModal = ({ handleClose, show, clickValue, paramValue }) => {
     return (
         <>

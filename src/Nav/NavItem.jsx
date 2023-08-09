@@ -1,6 +1,5 @@
 import { BiCategory, BiSolidRightArrowAlt, BiUser } from "react-icons/bi";
 import { BsGear, BsMenuButtonWide } from "react-icons/bs";
-import { RiUserSettingsLine, } from "react-icons/ri";
 import { LiaUserEditSolid, LiaUserGraduateSolid } from "react-icons/lia";
 
 
@@ -95,6 +94,12 @@ export const navItem = [
       {
         title: "Course List",
         link: "course-list",
+        role: "GlobalAdmin",
+        icon: <BiSolidRightArrowAlt />,
+      },
+      {
+        title: "Student Mapping List",
+        link: "student-mapping-list",
         role: "GlobalAdmin",
         icon: <BiSolidRightArrowAlt />,
       },

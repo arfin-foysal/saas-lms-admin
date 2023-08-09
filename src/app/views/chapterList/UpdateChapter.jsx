@@ -13,7 +13,6 @@ const UpdateChapter = ({ handleClose, paramValue }) => {
     }
     const [chapterCreateOrUpdate, res] = useChapterCreateOrUpdateMutation();
 
-
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {
@@ -58,7 +57,6 @@ const UpdateChapter = ({ handleClose, paramValue }) => {
     if (res.isSuccess) {
         handleClose();
     }
-
     return (
         <div>
             <form

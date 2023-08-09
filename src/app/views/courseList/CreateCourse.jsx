@@ -1,11 +1,7 @@
 import { useFormik } from "formik";
-import React, { useRef, useState } from "react";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { useGetMenuListQuery, useMenuCreateOrUpdateMutation } from "../../../services/masterSettingsApi";
-import PreviewImage from "../../components/PreviewImage";
-import { BsFillCloudArrowUpFill } from "react-icons/bs";
-import { useClassCreateOrUpdateMutation } from "../../../services/contentApi";
+import { useGetMenuListQuery } from "../../../services/masterSettingsApi";
 import { useCourseCreateOrUpdateMutation } from "../../../services/courseApi";
 const CreateCourse = ({ handleClose }) => {
     const [courseCreateOrUpdate, res] = useCourseCreateOrUpdateMutation();
@@ -348,8 +344,6 @@ const CreateCourse = ({ handleClose }) => {
                             </div>
                         </div>
                     </div>
-
-
                 </div>
                 <Modal.Footer>
 
@@ -360,7 +354,6 @@ const CreateCourse = ({ handleClose }) => {
                     <button type="submit" className="btn btn-success btn-sm">
                         Submit
                     </button>
-
                 </Modal.Footer>
             </form>
         </div>

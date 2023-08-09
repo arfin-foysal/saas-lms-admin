@@ -3,7 +3,6 @@ import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useQuestionSaveOrUpdateMutation, useQuestionSetListQuery, } from "../../../services/contentApi";
 import { memo } from 'react';
-import { useMemo } from "react";
 import OptionLoader from "../../components/OptionLoader";
 const UpdateQuizQuestion = ({ handleClose ,paramValue}) => {
     const [questionSaveOrUpdate, res] = useQuestionSaveOrUpdateMutation();

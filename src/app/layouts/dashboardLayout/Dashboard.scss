@@ -17,6 +17,11 @@
   min-height: 100vh;
   width: 100%;
   overflow: hidden;
+
+}
+.content-main{
+    background-color: $bb_content_wrapper_color;
+    min-height: 100vh;
 }
 
 main {
@@ -42,8 +47,8 @@ main {
 }
 
 .sidebar {
-  background: $bb_color2;
-  color: white;
+  background: $bb_sidebar_color;
+  color: $bb_text_color;
   height: 100vh;
   /* overflow-y: auto; */
 }
@@ -88,23 +93,25 @@ main {
 }
 .link {
   display: flex;
-  color: white;
+  color: $bb_text_color;
   gap: 10px;
   padding: 5px 10px;
   border-right: 4px solid transparent;
   transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
 }
 .link:hover {
-  border-right: 4px solid white;
-  background: $bb_color3;
+  // border-right: 4px solid white;
+  background: $bb_theme_color;
   transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
   border-radius: 5px;
-  color: white;
+  color: $bb_hover_color;
 }
 .active {
-  border-right: 4px solid white;
-  background: $bb_color3;
-   border-radius: 5px;
+  // border-right: 4px solid white;
+  background: $bb_theme_color;
+  border-radius: 5px;
+  color: $bb_active_color;
+
 }
 .link_text {
   white-space: nowrap;
@@ -113,11 +120,12 @@ main {
 
 .menu {
   display: flex;
-  color: white;
+  color: $bb_text_color;
   padding: 5px 10px;
   border-right: 4px solid transparent;
   transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
   justify-content: space-between;
+  
 }
 .menu_item {
   display: flex;
@@ -134,7 +142,7 @@ main {
 
 a {
   text-decoration: none;
-  color: white;
+  color:$bb_link_color;
 }
 
 .pointer {

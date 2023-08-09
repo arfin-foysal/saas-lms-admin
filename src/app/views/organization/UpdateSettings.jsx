@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 import { useSettingUpdateMutation } from "../../../services/masterSettingsApi";
 const UpdateSettings = ({ handleClose, paramValue }) => {
     const [settingUpdate, res] = useSettingUpdateMutation();
-
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {

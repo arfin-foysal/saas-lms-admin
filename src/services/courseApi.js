@@ -19,7 +19,13 @@ export const courseApi = apiSliceAdmin.injectEndpoints({
       }),
       providesTags: ["Course"],
     }),
-
+    getStudentMappingList: builder.query({
+      query: () => ({
+        url: "admin/student-mapping-list",
+        method: "GET",
+      }),
+      providesTags: ["Course"],
+    }),
 
     courseCreateOrUpdate: builder.mutation({
       query: (body) => {
@@ -75,8 +81,6 @@ export const courseApi = apiSliceAdmin.injectEndpoints({
       }),
       providesTags: ["Course"],
     }),
-  
-
 
     deleteCourseOutline: builder.mutation({
       query: (id) => ({
@@ -94,8 +98,7 @@ export const courseApi = apiSliceAdmin.injectEndpoints({
       invalidatesTags: ["Course"],
     }),
 
-
-   featureSaveOrUpdate: builder.mutation({
+    featureSaveOrUpdate: builder.mutation({
       query: (body) => {
         return {
           url: `admin/feature-save-or-update`,
@@ -105,7 +108,7 @@ export const courseApi = apiSliceAdmin.injectEndpoints({
       },
       invalidatesTags: ["Course"],
     }),
-routineSaveOrUpdate: builder.mutation({
+    routineSaveOrUpdate: builder.mutation({
       query: (body) => {
         return {
           url: `admin/routine-save-or-update`,
@@ -115,7 +118,7 @@ routineSaveOrUpdate: builder.mutation({
       },
       invalidatesTags: ["Course"],
     }),
-mentorAssignSaveOrUpdate: builder.mutation({
+    mentorAssignSaveOrUpdate: builder.mutation({
       query: (body) => {
         return {
           url: `admin/mentor-assign-save-or-update`,
@@ -125,14 +128,24 @@ mentorAssignSaveOrUpdate: builder.mutation({
       },
       invalidatesTags: ["Course"],
     }),
-  getFeatureListbyCourseId: builder.query({
+   studentMappingSaveOrUpdate: builder.mutation({
+      query: (body) => {
+        return {
+          url: `admin/student-mapping-save-or-update`,
+          method: "POST",
+          body: body,
+        };
+      },
+      invalidatesTags: ["Course"],
+    }),
+    getFeatureListbyCourseId: builder.query({
       query: (id) => ({
         url: `admin/feature-list/${id}`,
         method: "GET",
       }),
       providesTags: ["Course"],
     }),
-  getRoutineListbyCourseId: builder.query({
+    getRoutineListbyCourseId: builder.query({
       query: (id) => ({
         url: `admin/routine-list/${id}`,
         method: "GET",
@@ -170,11 +183,10 @@ export const {
   useDeleteFeatureMutation,
   useGetRoutineListbyCourseIdQuery,
   useRoutineSaveOrUpdateMutation,
-  useGetMentorListQuery, 
+  useGetMentorListQuery,
   useGetMentorByCourseIdQuery,
   useMentorAssignSaveOrUpdateMutation,
   useDeleteMentorAssignMutation,
-
-
-  
+  useStudentMappingSaveOrUpdateMutation,
+  useGetStudentMappingListQuery,
 } = courseApi;

@@ -16,14 +16,13 @@ const StudentList = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   const handelClickValue = useCallback((value) => {
     setClickValue(value);
   }, []);
 
   const columns = useMemo(
     () => [  
-  
+
         {
           accessorKey: "name", 
           header: "Name",
@@ -32,9 +31,7 @@ const StudentList = () => {
           accessorKey: "username", 
           header: "Username",
         },
-        
-    
-  
+      
       {
         accessorFn: (row) =>
           row && (
@@ -74,7 +71,6 @@ const StudentList = () => {
                 { row?.status === "On-Hold" && (
                 <span className="badge bg-danger">On-Hold</span>
                 )}
-             
             </>
           ),
 
@@ -145,8 +141,6 @@ const StudentList = () => {
                     >
                       <FaEdit size={16} /> Edit
                     </button>
-         
-    
                   <div>
                   </div>
                 </div>
@@ -158,8 +152,5 @@ const StudentList = () => {
     </>
   );
 };
-
-
-
 
 export default StudentList

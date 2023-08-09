@@ -8,7 +8,6 @@ import { tableColor } from "../../../utils/Theme";
 import MenuModal from "./CourseOutlineModal";
 import { confirmHandel } from "../../../utils/Alert";
 import { toast } from "react-toastify";
-
 import { useDeleteCourseOutlineMutation, useGetCourseOutlineByCourseIdQuery } from "../../../services/courseApi";
 import { useParams } from "react-router-dom";
 import { BsArrowRightShort } from "react-icons/bs";
@@ -23,21 +22,17 @@ const CourseOutlineList = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
-
-
   const handelClickValue = useCallback((value) => {
     setClickValue(value);
   }, []);
-
 
   const handelDelete = async (did) => {
     const result = await deleteCourseOutline(did).unwrap();
     toast.success(result.message);
   };
+
   const columns = useMemo(
     () => [
-  
       {
         accessorFn: (row, index) => <>
           <span >
@@ -45,12 +40,9 @@ const CourseOutlineList = () => {
             <br />
             Bn: {row?.title_bn}
           </span>
-
         </>,
-
         accessorKey: "title",
         header: "Name",
-       
       },
       {
         accessorFn: (row) => (
@@ -146,8 +138,6 @@ const CourseOutlineList = () => {
                         row?.row?.original?.id,
                         handelDelete
                       )
-                
-
                     }}>
                     <FaTrash size={14} />
                   </button>

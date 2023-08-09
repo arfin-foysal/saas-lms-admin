@@ -3,9 +3,6 @@ import Modal from "react-bootstrap/Modal";
 import { modalColor } from "../../../utils/Theme";
 import CreateQuiz from "./CreateQuiz";
 import UpdateQuiz from "./UpdateQuiz";
-
-
-
 const QuizModal = ({ handleClose, show, clickValue, paramValue }) => {
     return (
         <>
@@ -26,11 +23,6 @@ const QuizModal = ({ handleClose, show, clickValue, paramValue }) => {
                         <UpdateQuiz handleClose={handleClose} paramValue={paramValue} />
                     )
                     }
-                    {/* {clickValue === "Quiz Details" && (
-                        <DetailsQuiz
-                         handleClose={handleClose} values={paramValue} />
-                    )
-                    } */}
                 </Modal.Body>
             </Modal>
         </>

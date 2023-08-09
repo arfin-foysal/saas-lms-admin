@@ -8,8 +8,6 @@ import { FiPlusCircle } from "react-icons/fi";
 import { MdRemoveCircleOutline } from "react-icons/md";
 const CreateCourseRoutine = ({ handleClose, paramValue }) => {
     const [allRoutine, setAllRoutine] = useState([]);
-
-
     const [routineSaveOrUpdate, res] = useRoutineSaveOrUpdateMutation();
     const formik = useFormik({
         initialValues: {
@@ -35,9 +33,7 @@ const CreateCourseRoutine = ({ handleClose, paramValue }) => {
     });
 
 
-
     const handelAdd = () => {
-
         if (formik.values.day == '') {
             toast.warn("Please Enter Title");
             return;
@@ -47,20 +43,14 @@ const CreateCourseRoutine = ({ handleClose, paramValue }) => {
             toast.warn("Please Enter Answer");
             return;
         }
-
         setAllRoutine([...allRoutine, formik.values])
         formik.setFieldValue('day', '');
         formik.setFieldValue('class_title', '');
-
-
     }
     const handelDelete = (index) => {
         const newFaq = allRoutine.filter((item, i) => i !== index);
         setAllRoutine(newFaq);
     }
-
-
-
 
     if (res.isSuccess) {
         handleClose();
@@ -85,7 +75,6 @@ const CreateCourseRoutine = ({ handleClose, paramValue }) => {
                                 name="day"
                                 onChange={formik.handleChange}
                                 value={formik.values.day}
-                           
                             />
                         </div>
                     </div>
@@ -120,9 +109,6 @@ const CreateCourseRoutine = ({ handleClose, paramValue }) => {
                         </div>
                     </div>
 
-
-
-
                     <div className="form-group col-2 my-1">
                         <label className="col-12 col-form-label">Action</label>
                         <div className="col-12 mt-1">
@@ -136,8 +122,6 @@ const CreateCourseRoutine = ({ handleClose, paramValue }) => {
 
                         </div>
                     </div>
-
-               
 
                     <div className="my-4">
                         <table className="table table-bordered">
@@ -164,11 +148,9 @@ const CreateCourseRoutine = ({ handleClose, paramValue }) => {
                                         </td>
                                         <td>
                                             <button
-
                                                 type="button"
                                                 className="btn btn-danger btn-sm"
                                                 onClick={() => handelDelete(index)}
-
                                             >
                                             <MdRemoveCircleOutline/> Remove
                                             </button>
@@ -177,11 +159,7 @@ const CreateCourseRoutine = ({ handleClose, paramValue }) => {
                                 ))}
                             </tbody>
                         </table>
-
                     </div>
-
-
-
                 </div>
                 <Modal.Footer>
                     <button type="button" className="btn btn-dark me-2 btn-sm" onClick={handleClose}>

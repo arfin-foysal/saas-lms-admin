@@ -3,10 +3,6 @@ import Modal from "react-bootstrap/Modal";
 import { modalColor } from "../../../utils/Theme";
 import CreateQuizQuestion from "./CreateCourseMentor";
 import UpdateQuizQuestion from "./UpdateCourseMentor";
-
-
-
-
 const CourseMentorModal = ({ handleClose, show, clickValue, paramValue, size,data }) => {
     
     return (
@@ -28,7 +24,6 @@ const CourseMentorModal = ({ handleClose, show, clickValue, paramValue, size,dat
                         <UpdateQuizQuestion handleClose={handleClose} paramValue={paramValue} />
                     )
                     }
-             
                 </Modal.Body>
             </Modal>
         </>

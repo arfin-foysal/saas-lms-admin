@@ -5,21 +5,16 @@ import Loader from "../../components/Loader";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { FiPlusCircle } from "react-icons/fi";
 import { tableColor } from "../../../utils/Theme";
-import MenuModal from "./QuizQuestionModal";
-import { useDeleteQuestionMutation, useGetQuestionListByQuizQuery } from "../../../services/contentApi";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { BiUpload } from "react-icons/bi";
+import MenuModal from "./StudentMappingModal";
 import { confirmHandel } from "../../../utils/Alert";
 import { toast } from "react-toastify";
-import { BsArrowRightShort } from "react-icons/bs";
+import {  useDeleteMentorAssignMutation, useGetStudentMappingListQuery } from "../../../services/courseApi";
 
-const QuizQuestionList = () => {
-  const { id } = useParams()
-  const qn = useSelector((state) => state.common.quiz);
-  const res = useGetQuestionListByQuizQuery(id);
+const StudentMappingList = () => {
+
+  const res = useGetStudentMappingListQuery();
   const { data, isSuccess, isFetching, isError } = res;
-  const [deleteQuestion] = useDeleteQuestionMutation()
+  const [deleteMentorAssign] = useDeleteMentorAssignMutation()
   const [clickValue, setClickValue] = useState(null);
   const [size, setSize] = useState("lg")
   const [param, setParam] = useState(null);
@@ -30,67 +25,30 @@ const QuizQuestionList = () => {
     setClickValue(value);
   }, []);
 
-
   const handelDelete = async (id) => {
-    const result = await deleteQuestion(id).unwrap();
+    const result = await deleteMentorAssign(id).unwrap();
     toast.success(result.message);
   };
   const columns = useMemo(
     () => [
       {
         accessorFn: (row, index) => <>
-          <span className="text-success fw-normal">
+          <span >
             {index + 1}
           </span>
 
         </>,
         id: "index",
         header: "SL",
-        size: "10"
+        size: "5"
       },
+      
       {
-        accessorFn: (row, index) => <>
-          <span>
-            En: {row?.question_text}
-            <br />
-            Bn: {row?.question_text_bn}
-          </span>
+        accessorKey: "mentor_name",
+        header: "Mentor",
+        size: "5"
+      },
 
-        </>,
-
-
-        accessorKey: "question_text",
-        header: "Question",
-        size: "300"
-      },
-      {
-        accessorFn: (row) => (
-          <>
-            <span>
-              {row?.class_name} <BsArrowRightShort/> {row?.subject_name} <BsArrowRightShort/> {row?.chapter_name}
-            </span>
-          </>
-        ),
-        id: "class",
-        header: "Class - Subject - Chapter",
-        size:200
-      },
-      {
-        accessorKey: "option1",
-        header: "Option 01",
-      },
-      {
-        accessorKey: "option2",
-        header: "Option 02",
-      },
-      {
-        accessorKey: "option3",
-        header: "Option 03",
-      },
-      {
-        accessorKey: "option4",
-        header: "Option 04",
-      },
 
     ],
     []
@@ -105,39 +63,32 @@ const QuizQuestionList = () => {
         clickValue={clickValue}
         paramValue={param}
         size={size}
+        data={data?.data}
       />
-      <PageTopHeader title="Quiz Questions" />
+      <PageTopHeader title="Student Mapping List " />
       <div className="card border shadow-lg ">
         <div className="card-header d-flex justify-content-between ">
-          <p className="fw-bold text-muted">QUESTION LIST ( {qn?.name} )</p>
+          <p className="fw-bold text-muted">Student Mapping List
+       
+          </p>
           <div>
             <button
-              className="btn btn-primary btn-sm mx-1"
+              className="btn btn-primary btn-sm mx-1 my-0"
               onClick={() => {
                 handleShow();
-                handelClickValue("Add New Question");
-                setParam(id)
-                setSize("lg")
+                handelClickValue("Add New Student Mapping");
+                // setParam(id)
+                setSize("xl")
               }}
             >
-              <FiPlusCircle size={16} /> Add New Questions
-            </button>
-            <button
-              className="btn btn-primary btn-sm mx-1"
-              onClick={() => {
-                handleShow();
-                handelClickValue("Upload Questions using XLSX");
-                setSize("md")
-                setParam(id)
-              }}
-            >
-              <BiUpload size={16} /> Upload Question
+              <FiPlusCircle size={16} /> New Student Mapping
             </button>
           </div>
         </div>
 
         <div className="card-body p-0">
           <MaterialReactTable
+
             columns={columns}
             data={isSuccess ? data?.data : []}
             enableRowActions
@@ -156,9 +107,9 @@ const QuizQuestionList = () => {
                     title=""
                     className="px-2 mx-1 d-flex align-items-center btn btn-success btn-sm"
                     onClick={() => {
-                      setSize("lg")
+                      setSize("md")
                       handleShow();
-                      handelClickValue("Update Question");
+                      handelClickValue("Update Student Mapping");
                       setParam(row?.row?.original);
                     }}
                   >
@@ -191,7 +142,4 @@ const QuizQuestionList = () => {
   );
 };
 
-
-
-
-export default QuizQuestionList
+export default StudentMappingList

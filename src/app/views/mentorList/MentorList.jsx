@@ -32,9 +32,6 @@ const MentorList = () => {
           accessorKey: "username", 
           header: "Username",
         },
-        
-    
-  
       {
         accessorFn: (row) =>
           row && (
@@ -82,7 +79,6 @@ const MentorList = () => {
         header: "Status",
         size: "10"
       },
-
     ],
     []
   );
@@ -145,8 +141,6 @@ const MentorList = () => {
                     >
                       <FaEdit size={16} /> Edit
                     </button>
-         
-    
                   <div>
                   </div>
                 </div>
@@ -158,8 +152,5 @@ const MentorList = () => {
     </>
   );
 };
-
-
-
 
 export default MentorList

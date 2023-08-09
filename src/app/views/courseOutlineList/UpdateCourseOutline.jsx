@@ -46,7 +46,6 @@ const UpdateCourseOutline = ({ handleClose, paramValue }) => {
     const contentTypeHandler = (e) => {
         setContentType(e.target.value);
     }
-
     const classRes = useGetClassListQuery()
     const subjectRes = useGetSubjectListByClassIdQuery(
         formik.values.class_level_id ? formik.values.class_level_id : 0
@@ -65,10 +64,6 @@ const UpdateCourseOutline = ({ handleClose, paramValue }) => {
     const quizRes = useGetQuizListByChapterIdQuery(
         formik.values.chapter_id ? formik.values.chapter_id : 0
     )
-
-    if (res.isSuccess) {
-        handleClose();
-    }
 
     const handleClassChange = (e) => {
         formik.setFieldValue('class_level_id', e.target.value);
@@ -125,6 +120,10 @@ const UpdateCourseOutline = ({ handleClose, paramValue }) => {
             setContentType('');
         }
     }, [])
+
+    if (res.isSuccess) {
+        handleClose();
+    }
 
     return (
         <div>

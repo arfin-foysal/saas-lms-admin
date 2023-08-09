@@ -2,7 +2,6 @@ import { useFormik } from "formik";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useGetChapterListBySubjectIdQuery, useGetClassListQuery, useGetQuizListByChapterIdQuery, useGetScriptListByChapterIdQuery, useGetSubjectListByClassIdQuery, useGetVideoListByChapterIdQuery, } from "../../../services/contentApi";
-
 import { memo } from 'react';
 import OptionLoader from "../../components/OptionLoader";
 import { useCourseOutlineCreateOrUpdateMutation } from "../../../services/courseApi";
@@ -69,9 +68,6 @@ const CreateCourseOutline = ({ handleClose, paramValue }) => {
         formik.values.chapter_id ? formik.values.chapter_id : 0
     )
 
-    if (res.isSuccess) {
-        handleClose();
-    }
     const handleClassChange = (e) => {
         formik.setFieldValue('class_level_id', e.target.value);
         formik.setFieldValue('subject_id', '');
@@ -100,7 +96,9 @@ const CreateCourseOutline = ({ handleClose, paramValue }) => {
         formik.setFieldValue('chapter_quiz_id', '');
     }
 
-
+   if (res.isSuccess) {
+        handleClose();
+    }
     return (
         <div>
             <form

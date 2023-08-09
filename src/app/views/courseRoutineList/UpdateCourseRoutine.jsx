@@ -2,7 +2,6 @@ import { useFormik } from "formik";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { memo } from 'react';
-
 import { useRoutineSaveOrUpdateMutation } from "../../../services/courseApi";
 
 const UpdateCourseRoutine = ({ handleClose, paramValue }) => {
@@ -34,7 +33,6 @@ const UpdateCourseRoutine = ({ handleClose, paramValue }) => {
     if (res.isSuccess) {
         handleClose();
     }
-
     return (
         <div>
             <form
@@ -54,7 +52,6 @@ const UpdateCourseRoutine = ({ handleClose, paramValue }) => {
                                 name="day"
                                 onChange={formik.handleChange}
                                 value={formik.values.day}
-
                             />
                         </div>
                     </div>
@@ -68,7 +65,6 @@ const UpdateCourseRoutine = ({ handleClose, paramValue }) => {
                                 name="class_title"
                                 value={formik.values.class_title}
                                 onChange={formik.handleChange}
-
                             />
                         </div>
                     </div>

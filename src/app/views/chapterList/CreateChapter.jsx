@@ -13,7 +13,6 @@ const CreateChapter = ({ handleClose }) => {
         setPreviewImage(URL.createObjectURL(e.target.files[0]));
     }
     const [chapterCreateOrUpdate, res] = useChapterCreateOrUpdateMutation();
-   
 
     const formik = useFormik({
         initialValues: {
@@ -106,8 +105,6 @@ const CreateChapter = ({ handleClose }) => {
                                 name="class_level_id"
                                 onChange={(e) => {
                                     formik.handleChange(e);
-                          
-
                                 }}
                                 value={formik.values.class_level_id}
                                 required
@@ -237,7 +234,6 @@ const CreateChapter = ({ handleClose }) => {
                                 <PreviewImage previewImage={previewImage} /> : <BsFillCloudArrowUpFill size={40} />
                             }
                         </div>
-
                         <button
                             type="button"
                             className="btn btn-dark  btn-sm"
@@ -247,7 +243,6 @@ const CreateChapter = ({ handleClose }) => {
                         >
                             Choose a Icon ...
                         </button>
-
                     </div>
                 </div>
                 <Modal.Footer>
@@ -264,5 +259,4 @@ const CreateChapter = ({ handleClose }) => {
         </div>
     );
 };
-
 export default CreateChapter;

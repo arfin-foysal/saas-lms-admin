@@ -36,10 +36,10 @@ const MenuList = () => {
         accessorFn: (row) =>
           row?.is_authentication_needed === true ? (
             <>
-              <span className="badge bg-success">Yes</span>
+              <span className="badge bg-info">Yes</span>
             </>
           ) : (
-            <span className="badge bg-warning">No</span>
+            <span className="badge bg-secondary">No</span>
           ),
 
         id: "is_authentication_needed",
@@ -49,10 +49,10 @@ const MenuList = () => {
         accessorFn: (row) =>
           row?.has_submenu === true ? (
             <>
-              <span className="badge bg-success">Yes</span>
+              <span className="badge bg-info">Yes</span>
             </>
           ) : (
-            <span className="badge bg-warning">No</span>
+            <span className="badge bg-secondary">No</span>
           ),
 
         id: "has_submenu",
@@ -63,13 +63,13 @@ const MenuList = () => {
           row && (
             <div className="ms-4">
               {row.is_content === true ?
-                <span className="badge bg-success mr-1">Yes</span> :
-                <span className="badge bg-warning mr-1">No</span>
+                <span className="badge bg-info mr-1">Yes</span> :
+                <span className="badge bg-secondary mr-1">No</span>
               }
               
               {row.is_course === true ?
-                <span className="badge bg-success ms-1">Yes</span> :
-                <span className="badge bg-warning ms-1">No</span>
+                <span className="badge bg-info ms-1">Yes</span> :
+                <span className="badge bg-secondary ms-1">No</span>
               }
 
             </div>
@@ -91,7 +91,6 @@ const MenuList = () => {
         id: "Status",
         header: "Status",
       },
-
     ],
     []
   );
@@ -162,8 +161,5 @@ const MenuList = () => {
     </>
   );
 };
-
-
-
 
 export default MenuList

@@ -1,26 +1,19 @@
 import { useFormik } from "formik";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
-
-
 import { memo } from 'react';
-import OptionLoader from "../../components/OptionLoader";
 import { useFeatureSaveOrUpdateMutation } from "../../../services/courseApi";
 import { useState } from 'react';
 import { FiPlusCircle } from "react-icons/fi";
 import { MdRemoveCircleOutline } from "react-icons/md";
 const CreateCourseFeature = ({ handleClose, paramValue }) => {
     const [allFeature, setAllFeature] = useState([]);
-
-
     const [featureSaveOrUpdate, res] = useFeatureSaveOrUpdateMutation();
     const formik = useFormik({
         initialValues: {
             'title': "",
             'title_bn': '',
             'course_id': paramValue,
-
-
         },
         onSubmit: async (values, { resetForm }) => {
             const feature_Arr = JSON.stringify(allFeature);
@@ -37,11 +30,7 @@ const CreateCourseFeature = ({ handleClose, paramValue }) => {
             }
         },
     });
-
-
-
     const handelAdd = () => {
-
         if (formik.values.title == '') {
             toast.warn("Please Enter Title");
             return;
@@ -51,25 +40,17 @@ const CreateCourseFeature = ({ handleClose, paramValue }) => {
             toast.warn("Please Enter Bangla Title");
             return;
         }
-
         setAllFeature([...allFeature, formik.values])
         formik.setFieldValue('title', '');
         formik.setFieldValue('title_bn', '');
-
-
     }
     const handelDelete = (index) => {
         const newFaq = allFeature.filter((item, i) => i !== index);
         setAllFeature(newFaq);
     }
-
-
-
-
     if (res.isSuccess) {
         handleClose();
     }
-
     return (
         <div>
             <form
@@ -78,7 +59,6 @@ const CreateCourseFeature = ({ handleClose, paramValue }) => {
                 encType="multipart/form-data"
             >
                 <div className="row">
-
                     <div className="form-group col-5 my-1">
                         <label className="col-12 col-form-label">Title <span className=" text-danger">*</span></label>
                         <div className="col-12">
@@ -89,7 +69,6 @@ const CreateCourseFeature = ({ handleClose, paramValue }) => {
                                 name="title"
                                 onChange={formik.handleChange}
                                 value={formik.values.title}
-
                             />
                         </div>
                     </div>
@@ -103,12 +82,10 @@ const CreateCourseFeature = ({ handleClose, paramValue }) => {
                                 name="title_bn"
                                 value={formik.values.title_bn}
                                 onChange={formik.handleChange}
-
                             />
                         </div>
                     </div>
-        
-
+    
                     <div className="form-group col-2 my-1">
                         <label className="col-12 col-form-label">Action</label>
                         <div className="col-12 mt-1">
@@ -122,9 +99,6 @@ const CreateCourseFeature = ({ handleClose, paramValue }) => {
 
                         </div>
                     </div>
-
-
-
                     <div className="my-4">
                         <table className="table table-bordered">
                             <thead>
@@ -154,11 +128,7 @@ const CreateCourseFeature = ({ handleClose, paramValue }) => {
                                 ))}
                             </tbody>
                         </table>
-
                     </div>
-
-
-
                 </div>
                 <Modal.Footer>
                     <button type="button" className="btn btn-dark me-2 btn-sm" onClick={handleClose}>
@@ -168,7 +138,6 @@ const CreateCourseFeature = ({ handleClose, paramValue }) => {
                     <button type="submit" className="btn btn-success btn-sm">
                         Submit
                     </button>
-
                 </Modal.Footer>
             </form>
         </div>

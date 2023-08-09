@@ -4,9 +4,6 @@ import { modalColor } from "../../../utils/Theme";
 import CreateQuizQuestion from "./CreateCourseRoutine";
 import UpdateQuizQuestion from "./UpdateCourseRoutine";
 
-
-
-
 const CourseRoutineModal = ({ handleClose, show, clickValue, paramValue, size }) => {
     
     return (

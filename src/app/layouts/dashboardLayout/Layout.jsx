@@ -10,7 +10,7 @@ import SidebarMenu from "./SidebarMenu";
 import { navItem } from "../../../Nav/NavItem";
 import { user } from "../../../Route/utils";
 import avatar from "../../../../src/assets/images/avatar.png";
-import logo from "../../../../src/assets/logo/logo-w.png";
+import logo from "../../../../src/assets/logo/logo.png";
 import Header from "./Header";
 import Footer from "./Footer";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,7 +29,7 @@ const Layout = () => {
     toast.success("Logout Successfully");
     window.location.reload(false);
   };
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const toggle = () => setIsOpen(!isOpen);
   const showAnimation = {
     hidden: {
@@ -56,7 +56,7 @@ const Layout = () => {
             animate={
               {
                 width: isOpen ? "230px" : "55px",
-                padding: isOpen ? "17px 17px" : "17px 7px",
+                padding: isOpen ? "17px 17px" : "17px 10px",
                 height: "100vh",
                 overflow: "hidden",
                 transition: {
@@ -129,7 +129,7 @@ const Layout = () => {
                     exit="hidden"
                     className="link_text mt-1 ms-2 fw-lighter"
                   >
-                    <Link to="/dashboard">Dashboard</Link>
+                    <Link  to="/dashboard">Dashboard</Link>
                   </motion.h6>
                 )}
               </AnimatePresence>
@@ -213,10 +213,13 @@ const Layout = () => {
         </div>
         <div className="contain-wrapper">
           <Header />
+          <div className="content-main">
           <main>
             <Outlet />
-          </main>
+            </main>
+              
           <Footer />
+          </div>
         </div>
       </div>
     </>

@@ -13,7 +13,6 @@ const CreateSubject = ({ handleClose }) => {
         setPreviewImage(URL.createObjectURL(e.target.files[0]));
     }
     const [subjectCreateOrUpdate, res] = useSubjectCreateOrUpdateMutation();
-
     const formik = useFormik({
         initialValues: {
             name: "",
@@ -106,11 +105,7 @@ const CreateSubject = ({ handleClose }) => {
                                         {item.name}
                                     </option>
                                 ))}
-
                             </select>
-
-
-
                         </div>
                     </div>
 

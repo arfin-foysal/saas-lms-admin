@@ -34,11 +34,8 @@ const CreateMenu = ({ handleClose }) => {
             formData.append("is_content", values.is_content ? 1 : 0);
             formData.append("icon", values.icon);
             formData.append("is_active", values.is_active ? 1 : 0);
-
-
             resetForm();
             try {
-                
                 const result = await menuCreateOrUpdate(formData).unwrap();
                 toast.success(result.message);
             } catch (error) {

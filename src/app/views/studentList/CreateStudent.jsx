@@ -5,7 +5,6 @@ import { useGetAreaListQuery, useGetDistrictListQuery, useGetDivisionListQuery, 
 import { useStudentSaveOrUpdateMutation } from "../../../services/resourceApi";
 const CreateStudent = ({ handleClose }) => {
     const [studentSaveOrUpdate, res] = useStudentSaveOrUpdateMutation();
-
     const formik = useFormik({
         initialValues: {
             'name': '',
@@ -43,13 +42,9 @@ const CreateStudent = ({ handleClose }) => {
             'intro_video': '',
             'status': 'Pending',
             'is_foreigner': true,
-            // 'is_life_couch': true,
-            // 'is_host_staff': true,
-            // 'is_host_certified': true,
             'is_active': true,
             'rating': '',
-            // 'approval_date': '',
-            // 'host_rank_number': '',
+
         },
 
         onSubmit: async (values, { resetForm }) => {
@@ -498,40 +493,7 @@ const CreateStudent = ({ handleClose }) => {
                             />
                         </div>
                     </div>
-                    <div className="form-group col-3 my-1">
-                        <label className="col-12 col-form-label">Status</label>
-                        <div className="col-12">
-                            <select
-                                className="form-control"
-                                name="status"
-                                onChange={formik.handleChange}
-                                value={formik.values.status}
-
-                            >
-                                <option value="Pending" disabled selected hidden> --Select-- </option>
-                                <option value="Active">Active</option>
-                                <option value="Pending">Pending</option>
-                                <option value="Suspended">Suspended</option>
-                                <option value="On-Hold">On-Hold</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div className="form-group col-3 my-1">
-                        <label className="col-12 col-form-label">Rating <span className=" text-danger">*</span></label>
-                        <div className="col-12">
-                            <input
-                                placeholder="Enter Rating"
-                                type="number"
-                                max="5"
-                                className="form-control"
-                                name="rating"
-                                onChange={formik.handleChange}
-                                value={formik.values.rating}
-                                required
-                            />
-                        </div>
-                    </div>
-             
+                  
       
 
                     <div className="form-group col-3 my-1">
@@ -649,9 +611,7 @@ const CreateStudent = ({ handleClose }) => {
                             />
                         </div>
                     </div>
-
-
-                    <div className="form-group  col-12 my-1">
+                    <div className="form-group  col-4 my-1">
                         <label className="col-12 col-form-label">Image</label>
                         <div className="col-12">
                             <input
@@ -666,7 +626,39 @@ const CreateStudent = ({ handleClose }) => {
                             />
                         </div>
                     </div>
+                    <div className="form-group col-4 my-1">
+                        <label className="col-12 col-form-label">Status</label>
+                        <div className="col-12">
+                            <select
+                                className="form-control"
+                                name="status"
+                                onChange={formik.handleChange}
+                                value={formik.values.status}
 
+                            >
+                                <option value="Pending" disabled selected hidden> --Select-- </option>
+                                <option value="Active">Active</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Suspended">Suspended</option>
+                                <option value="On-Hold">On-Hold</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className="form-group col-4 my-1">
+                        <label className="col-12 col-form-label">Rating <span className=" text-danger">*</span></label>
+                        <div className="col-12">
+                            <input
+                                placeholder="Enter Rating"
+                                type="number"
+                                max="5"
+                                className="form-control"
+                                name="rating"
+                                onChange={formik.handleChange}
+                                value={formik.values.rating}
+                                required
+                            />
+                        </div>
+                    </div>
                     <div className="form-group col-12 my-1">
                         <label className="col-12 col-form-label">Bio </label>
                         <div className="col-12">

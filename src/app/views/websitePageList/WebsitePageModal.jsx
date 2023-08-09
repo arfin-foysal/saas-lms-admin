@@ -4,7 +4,6 @@ import { modalColor } from "../../../utils/Theme";
 import CreateWebsitePage from "./CreateWebsitePage";
 import UpdateWebsitePage from "./UpdateWebsitePage";
 
-
 const WebsitePageModal = ({ handleClose, show, clickValue, paramValue }) => {
     return (
         <>

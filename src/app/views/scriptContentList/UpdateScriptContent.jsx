@@ -3,7 +3,6 @@ import React, { useRef, useState } from "react";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import PreviewImage from "../../components/PreviewImage";
-import { BsFillCloudArrowUpFill } from "react-icons/bs";
 import { useGetChapterListBySubjectIdQuery, useGetClassListQuery, useGetSubjectListByClassIdQuery, useScriptCreateOrUpdateMutation, } from "../../../services/contentApi";
 import OptionLoader from "../../components/OptionLoader";
 const CreateScriptContent = ({ handleClose, paramValue }) => {
@@ -267,9 +266,6 @@ const CreateScriptContent = ({ handleClose, paramValue }) => {
                             />
                         </div>
                     </div>
-
-
-                 
                     <div className="form-group row col-6 my-2 ">
                         <label className="col-6 col-form-label">Is Free</label>
                         <div className="col-6">

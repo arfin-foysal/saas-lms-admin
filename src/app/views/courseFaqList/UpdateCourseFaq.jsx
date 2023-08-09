@@ -2,9 +2,7 @@ import { useFormik } from "formik";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { memo } from 'react';
-
 import { useFaqSaveOrUpdateMutation } from "../../../services/courseApi";
-
 const UpdateCourseFaq = ({ handleClose, paramValue }) => {
     const [faqSaveOrUpdate, res] = useFaqSaveOrUpdateMutation();
     const formik = useFormik({
@@ -43,7 +41,6 @@ const UpdateCourseFaq = ({ handleClose, paramValue }) => {
                 encType="multipart/form-data"
             >
                 <div className="row">
-
                     <div className="form-group col-12 my-1">
                         <label className="col-12 col-form-label">Title <span className=" text-danger">*</span></label>
                         <div className="col-12">
@@ -54,7 +51,6 @@ const UpdateCourseFaq = ({ handleClose, paramValue }) => {
                                 name="title"
                                 onChange={formik.handleChange}
                                 value={formik.values.title}
-
                             />
                         </div>
                     </div>
@@ -68,7 +64,6 @@ const UpdateCourseFaq = ({ handleClose, paramValue }) => {
                                 name="answer"
                                 value={formik.values.answer}
                                 onChange={formik.handleChange}
-
                             />
                         </div>
                     </div>
@@ -79,7 +74,6 @@ const UpdateCourseFaq = ({ handleClose, paramValue }) => {
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                    
                                     name="is_active"
                                     onChange={formik.handleChange}
                                     value={formik.values.is_active}
@@ -88,22 +82,17 @@ const UpdateCourseFaq = ({ handleClose, paramValue }) => {
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <Modal.Footer>
                     <button type="button" className="btn btn-dark me-2 btn-sm" onClick={handleClose}>
                         Close
                     </button>
-
                     <button type="submit" className="btn btn-success btn-sm">
                         Submit
                     </button>
-
                 </Modal.Footer>
             </form>
         </div>
     );
 };
-
-export default memo(UpdateCourseFaq)
-    ;
+export default memo(UpdateCourseFaq);

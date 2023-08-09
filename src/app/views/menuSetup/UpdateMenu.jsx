@@ -20,9 +20,7 @@ const UpdateMenu = ({ handleClose, paramValue }) => {
             icon: paramValue && paramValue?.icon,
             is_active: paramValue && paramValue?.is_active,
         },
-
         onSubmit: async (values, { resetForm }) => {
-
             if (values.is_content === false && values.is_course === false) {
                 toast.warn("Please select at least one option from Course and Content");
                 return;

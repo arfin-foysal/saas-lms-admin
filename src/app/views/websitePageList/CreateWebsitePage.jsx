@@ -5,7 +5,6 @@ import { useWebsitePageSaveOrUpdateMutation } from "../../../services/masterSett
 import JoditEditor from "jodit-react";
 import { useRef, useState } from "react";
 const CreateWebsitePage = ({ handleClose, id }) => {
-    
     const editor = useRef(null);
     const [websitePageSaveOrUpdate, res] = useWebsitePageSaveOrUpdateMutation();
     const formik = useFormik({
@@ -29,7 +28,6 @@ const CreateWebsitePage = ({ handleClose, id }) => {
                 toast.warn(error.data.message);
             }
         },
-
     });
 
     if (res.isSuccess) {
@@ -84,11 +82,8 @@ const CreateWebsitePage = ({ handleClose, id }) => {
                             onChange={(newContent) => {
                                 formik.setFieldValue("page_details", newContent);
                             }}
-
-
                         />
                     </div>
-
                 </div>
                 <Modal.Footer>
 

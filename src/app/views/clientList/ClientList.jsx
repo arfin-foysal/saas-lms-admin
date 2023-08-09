@@ -8,8 +8,6 @@ import { useGetClientListQuery } from "../../../services/commonApi";
 const ClientList = () => {
   const res = useGetClientListQuery();
   const { data, isSuccess, isFetching, isError } = res;
-
-
   const columns = useMemo(
     () => [
       {
@@ -66,8 +64,6 @@ const ClientList = () => {
         header: "Post Code",
       },
  
-     
-
     ],
     []
   );
@@ -75,7 +71,6 @@ const ClientList = () => {
   return (
     <>
       {isFetching && <Loader />}
-
       <PageTopHeader title="Client List" />
       <div className="card border shadow-lg ">
         <div className="card-header d-flex justify-content-between ">
@@ -94,29 +89,6 @@ const ClientList = () => {
                 backgroundColor: tableColor ? tableColor : "#0675F8",
               },
             }}
-            // enablePagination="true"
-            renderRowActions={(row, index) => (
-              <>
-                <div className="d-flex">
-                  <div className="mx-2">
-                    <button
-                      title=""
-                      className="px-2 d-flex align-items-center btn btn-success btn-sm"
-                      onClick={() => {
-                        handleShow();
-                        handelClickValue("Update Subject");
-                        setParam(row?.row?.original);
-                      }}
-                    >
-                      <FaEdit size={16} /> Edit
-                    </button>
-                  </div>
-                  <div>
-
-                  </div>
-                </div>
-              </>
-            )}
           />
         </div>
       </div>

@@ -31,28 +31,28 @@ const DashboardHomePage = () => {
       <div className="row">
         <TopBox
           name="LMS"
-          color="blue"
+          // color="blue"
           icon={<BsBook color="blue" size={25} />}
           item={""}
-          des=""
+          des="In this month"
         />
         <TopBox
           name="LMS"
-          color="red"
+          // color="red"
           icon={<BsReverseListColumnsReverse color="red" size={25} />}
           item={""}
           des="In this month"
         />
         <TopBox
           name="LMS"
-          color="#FFCC00"
+          // color="#FFCC00"
           icon={<GiSandsOfTime color="#FFCC00" size={25} />}
           item={""}
           des="In this month"
         />
         <TopBox
           name="LMS"
-          color="green"
+          // color="green"
           icon={<BiMoney color="green" size={25} />}
           item={""}
           des="&#2547; In this month"

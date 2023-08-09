@@ -39,9 +39,7 @@ const CreateOrganization = ({ handleClose }) => {
             formData.append("banner", values.banner);
             formData.append("logo", values.logo);
             formData.append("is_active", values.is_active ? 1 : 0);
-
             resetForm();
-
             try {
                 const result = await organizationCreateOrUpdate(formData).unwrap();
                 toast.success(result.message);

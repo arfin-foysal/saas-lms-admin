@@ -3,7 +3,6 @@ import React, { useRef, useState } from "react";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import PreviewImage from "../../components/PreviewImage";
-import { BsFillCloudArrowUpFill } from "react-icons/bs";
 import { useGetChapterListBySubjectIdQuery, useGetClassListQuery, useGetSubjectListByClassIdQuery, useVideoCreateOrUpdateMutation } from "../../../services/contentApi";
 const UpdateVideoContent = ({ handleClose ,paramValue}) => {
     const classRes = useGetClassListQuery()

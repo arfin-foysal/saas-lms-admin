@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { memo } from 'react';
 import { useMentorAssignSaveOrUpdateMutation } from "../../../services/courseApi";
 
-const UpdateCourseMentor = ({ handleClose, paramValue }) => {
+const UpdateStudentMapping = ({ handleClose, paramValue }) => {
     const [mentorAssignSaveOrUpdate, res] = useMentorAssignSaveOrUpdateMutation();
     const formik = useFormik({
         enableReinitialize: true,
@@ -98,5 +98,5 @@ const UpdateCourseMentor = ({ handleClose, paramValue }) => {
     );
 };
 
-export default memo(UpdateCourseMentor)
+export default memo(UpdateStudentMapping)
     ;

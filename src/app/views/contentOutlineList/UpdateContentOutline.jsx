@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { useContentOutlineSaveOrUpdateMutation, useGetChapterListBySubjectIdQuery, useGetClassListQuery, useGetContentListQuery, useGetQuizListByChapterIdQuery, useGetScriptListByChapterIdQuery, useGetSubjectListByClassIdQuery, useGetVideoListByChapterIdQuery, } from "../../../services/contentApi";
+import { useContentOutlineSaveOrUpdateMutation, useGetChapterListBySubjectIdQuery, useGetClassListQuery, useGetQuizListByChapterIdQuery, useGetScriptListByChapterIdQuery, useGetSubjectListByClassIdQuery, useGetVideoListByChapterIdQuery, } from "../../../services/contentApi";
 import { memo } from 'react';
 import OptionLoader from "../../components/OptionLoader";
 import { useState } from "react";
@@ -176,9 +176,6 @@ const UpdateContentOutline = ({ handleClose, paramValue }) => {
                             />
                         </div>
                     </div>
-
-
-
                     <div className="form-group col-4 my-1">
                         <label className="col-12 col-form-label">Class <span className=" text-danger">*</span></label>
                         <div className="col-12">
@@ -264,9 +261,7 @@ const UpdateContentOutline = ({ handleClose, paramValue }) => {
                                 onChange={(e) => {
                                     contentTypeHandler(e)
                                 }}
-
                                 value={contentType}
-
                             >
                                 <option value="" disabled selected hidden> --Select-- </option>
                                 <option
@@ -405,11 +400,6 @@ const UpdateContentOutline = ({ handleClose, paramValue }) => {
                             />
                         </div>
                     </div>
-
-
-
-
-
                     <div className="form-group row col-6 my-2 ">
                         <label className="col-6 col-form-label">Is Free</label>
                         <div className="col-6">
@@ -426,8 +416,6 @@ const UpdateContentOutline = ({ handleClose, paramValue }) => {
                             </div>
                         </div>
                     </div>
-
-
                     <div className="form-group row col-6 my-2 ">
                         <label className="col-6 col-form-label">Is Active</label>
                         <div className="col-6">
@@ -444,7 +432,6 @@ const UpdateContentOutline = ({ handleClose, paramValue }) => {
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <Modal.Footer>
                     <button type="button" className="btn btn-dark me-2 btn-sm" onClick={handleClose}>

@@ -87,6 +87,7 @@ const QuizList = () => {
       {
         accessorKey: "duration",
         header: "Duration",
+        size:"10"
       },
       {
         accessorFn: (row) =>
@@ -98,15 +99,46 @@ const QuizList = () => {
 
         id: "marking",
         header: "Marking",
+        size:"10"
       },
 
       {
         accessorKey: "total_mark",
         header: "Total Mark",
+        size:"10"
       },
       {
         accessorKey: "number_of_question",
         header: "Question",
+        size:"10"
+      },
+      {
+        accessorFn: (row) =>
+          row?.is_free === true ? (
+            <>
+              <span className="badge bg-info">Yes</span>
+            </>
+          ) : (
+            <span className="badge bg-secondary">No</span>
+          ),
+
+        id: "is_free",
+        header: "Is Free",
+        size:"10"
+      },
+      {
+        accessorFn: (row) =>
+          row?.is_active === true ? (
+            <>
+              <span className="badge bg-success">Active</span>
+            </>
+          ) : (
+            <span className="badge bg-warning">Inactive</span>
+          ),
+
+        id: "Status",
+        header: "Status",
+        size:"10"
       },
     ],
     []

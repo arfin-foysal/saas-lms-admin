@@ -1,10 +1,11 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
 import { modalColor } from "../../../utils/Theme";
-import CreateClass from "./CreateCourse";
-import UpdateClass from "./UpdateCourse";
-
-const CourseModal = ({ handleClose, show, clickValue, paramValue,size }) => {
+import CreateStudentMapping from "./CreateStudentMapping";
+import UpdateStudentMapping from "./UpdateStudentMapping";
+const StudentMappingModal = ({ handleClose, show, clickValue, paramValue, size, data }) => {
+    console.log(size);
+    
     return (
         <>
             <Modal show={show} onHide={handleClose} size={size}>
@@ -16,18 +17,18 @@ const CourseModal = ({ handleClose, show, clickValue, paramValue,size }) => {
                     <Modal.Title>{clickValue}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {clickValue === "Add New Course" && (
-                        <CreateClass handleClose={handleClose} />
+                    {clickValue === "Add New Student Mapping" && (
+                        <CreateStudentMapping handleClose={handleClose} paramValue={paramValue} assData={data} />
                     )
                     }
-                    {clickValue === "Update Course" && (
-                        <UpdateClass handleClose={handleClose} paramValue={paramValue} />
+                    {clickValue === "Update Student Mapping" && (
+                        <UpdateStudentMapping handleClose={handleClose} paramValue={paramValue} />
                     )
                     }
-          
                 </Modal.Body>
             </Modal>
         </>
     );
 };
-export default React.memo(CourseModal);
+
+export default React.memo(StudentMappingModal);

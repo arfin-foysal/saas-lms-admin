@@ -6,11 +6,8 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import { FiPlusCircle } from "react-icons/fi";
 import { tableColor } from "../../../utils/Theme";
 import MenuModal from "./CourseFaqModal";
-
-
 import { confirmHandel } from "../../../utils/Alert";
 import { toast } from "react-toastify";
-import Select from 'react-select'
 import {  useDeleteFaqMutation, useGetFaqListbyCourseIdQuery } from "../../../services/courseApi";
 import { useParams } from "react-router-dom";
 
@@ -20,14 +17,12 @@ const CourseFaqList = () => {
   const res = useGetFaqListbyCourseIdQuery(id);
   const { data, isSuccess, isFetching, isError } = res;
   const [deleteFaq] = useDeleteFaqMutation()
-
   const [clickValue, setClickValue] = useState(null);
   const [size, setSize] = useState("lg")
   const [param, setParam] = useState(null);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   const handelClickValue = useCallback((value) => {
     setClickValue(value);
   }, []);
@@ -138,7 +133,6 @@ const CourseFaqList = () => {
                         row?.row?.original?.id,
                         handelDelete
                       )
-
                     }}>
                     <FaTrash size={14} />
                   </button>

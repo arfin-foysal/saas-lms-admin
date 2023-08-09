@@ -8,7 +8,7 @@ import { tableColor } from "../../../utils/Theme";
 import MenuModal from "./CourseMentorModal";
 import { confirmHandel } from "../../../utils/Alert";
 import { toast } from "react-toastify";
-import {  useDeleteFaqMutation, useDeleteMentorAssignMutation, useGetMentorByCourseIdQuery, useGetRoutineListbyCourseIdQuery } from "../../../services/courseApi";
+import {  useDeleteMentorAssignMutation, useGetMentorByCourseIdQuery } from "../../../services/courseApi";
 import { useParams } from "react-router-dom";
 
 
@@ -17,14 +17,12 @@ const CourseMentorList = () => {
   const res = useGetMentorByCourseIdQuery(id);
   const { data, isSuccess, isFetching, isError } = res;
   const [deleteMentorAssign] = useDeleteMentorAssignMutation()
-
   const [clickValue, setClickValue] = useState(null);
   const [size, setSize] = useState("lg")
   const [param, setParam] = useState(null);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   const handelClickValue = useCallback((value) => {
     setClickValue(value);
   }, []);
@@ -37,7 +35,7 @@ const CourseMentorList = () => {
     () => [
       {
         accessorFn: (row, index) => <>
-          <span className="text-success fw-normal">
+          <span >
             {index + 1}
           </span>
 
@@ -76,7 +74,6 @@ const CourseMentorList = () => {
           <span className="text-success fw-bold">Course:</span> {data?.data[0]?.course_title}
           </p>
           <div>
-
             <button
               className="btn btn-primary btn-sm mx-1 my-0"
               onClick={() => {
@@ -88,7 +85,6 @@ const CourseMentorList = () => {
             >
               <FiPlusCircle size={16} /> New Mentor Assign
             </button>
-
           </div>
         </div>
 

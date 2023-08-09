@@ -5,7 +5,6 @@ import CreateScriptContent from "./CreateScriptContent";
 import UpdateScriptContent from "./UpdateScriptContent";
 import DetailsScriptContent from "./DetailsScriptContent";
 
-
 const ScriptContentModal = ({ handleClose, show, clickValue, paramValue }) => {
     return (
         <>

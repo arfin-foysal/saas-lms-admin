@@ -70,10 +70,8 @@ const SidebarMenu = ({ route, showAnimation, isOpen, setIsOpen }) => {
           <motion.div
             animate={
               isMenuOpen
-                ? {
-                    rotate: -90,
-                  }
-                : { rotate: 0 }
+                ? { rotate: 0 }
+                : {rotate: -90,}
             }
           >
             <FaAngleDown />
@@ -96,7 +94,6 @@ const SidebarMenu = ({ route, showAnimation, isOpen, setIsOpen }) => {
                   <motion.div className="link_text">
                     {subRoute.title}
                   </motion.div>
-                  
                 </NavLink>
               </motion.div>
             ))}

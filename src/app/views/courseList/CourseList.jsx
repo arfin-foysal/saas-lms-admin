@@ -10,7 +10,6 @@ import { useGetCourseListQuery } from "../../../services/courseApi";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import { BsEyeFill } from "react-icons/bs";
-import { Dropdown } from "react-bootstrap";
 const CourseList = () => {
   const res = useGetCourseListQuery();
   const { data, isSuccess, isFetching, isError } = res;
@@ -52,16 +51,11 @@ const CourseList = () => {
         id: "course_name",
         header: "Course Name",
         size: "300"
-      }
-      ,
-
-
+      },
       {
         accessorKey: "category_name",
         header: "Menu / Category",
       },
-
-
       {
         accessorFn: (row) =>
           row?.appeared_from && (
@@ -90,7 +84,6 @@ const CourseList = () => {
         header: "To",
         size: "10"
       },
-
       {
         accessorFn: (row) =>
           row?.is_free === true ? (
@@ -119,7 +112,6 @@ const CourseList = () => {
         header: "Status",
         size: "10"
       },
-
     ],
     []
   );
@@ -182,8 +174,6 @@ const CourseList = () => {
                   >
                     <FaEdit size={16} className="me-1" /> Edit
                   </button>
-      
-
                   <Link
                     className="px-2 d-flex mx-1 align-items-center btn btn-success btn-sm"
                     to={`/dashboard/globaladmin/course-outline-list/${row?.row?.original?.id}`}><BsEyeFill className="me-1"  size={17} /> Outline </Link>

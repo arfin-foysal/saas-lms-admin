@@ -3,7 +3,6 @@ import React, { useRef, useState } from "react";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useGetMenuListQuery } from "../../../services/masterSettingsApi";
-
 import { useCourseCreateOrUpdateMutation } from "../../../services/courseApi";
 const UpdateCourse = ({ handleClose,paramValue }) => {
     const [courseCreateOrUpdate, res] = useCourseCreateOrUpdateMutation();

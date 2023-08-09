@@ -4,9 +4,6 @@ import { modalColor } from "../../../utils/Theme";
 import CreateQuizQuestion from "./CreateQuizQuestion";
 import UpdateQuizQuestion from "./UpdateQuizQuestion";
 import ExcelImport from "./ExcelImport";
-
-
-
 const QuizQuestionModal = ({ handleClose, show, clickValue, paramValue, size }) => {
     
     return (
@@ -33,11 +30,6 @@ const QuizQuestionModal = ({ handleClose, show, clickValue, paramValue, size }) 
                          handleClose={handleClose} paramValue={paramValue} />
                     )
                     }
-                    {/* {clickValue === "Quiz Details" && (
-                        <DetailsQuiz
-                         handleClose={handleClose} values={paramValue} />
-                    )
-                    } */}
                 </Modal.Body>
             </Modal>
         </>

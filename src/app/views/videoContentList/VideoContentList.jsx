@@ -36,7 +36,6 @@ const VideoContentList = () => {
     setChapterId(0);
   };
 
-
   const handelClickValue = useCallback((value) => {
     setClickValue(value);
   }, []);
@@ -80,10 +79,10 @@ const VideoContentList = () => {
         accessorFn: (row) =>
           row?.is_free === true ? (
             <>
-              <span className="badge bg-success">Yes</span>
+              <span className="badge bg-info">Yes</span>
             </>
           ) : (
-            <span className="badge bg-warning">No</span>
+            <span className="badge bg-secondary">No</span>
           ),
 
         id: "is_free",
@@ -228,9 +227,7 @@ const VideoContentList = () => {
                   </button>
                 </div>
                 <div>
-
                 </div>
-
               </>
             )}
           />

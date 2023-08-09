@@ -4,7 +4,6 @@ import { modalColor } from "../../../utils/Theme";
 import CreateVideoContent from "./CreateVideoContent";
 import UpdateVideoContent from "./UpdateVideoContent";
 import DetailsVideoContent from "./DetailsVideoContent";
-
 const VideoContentModal = ({ handleClose, show, clickValue, paramValue }) => {
     return (
         <>

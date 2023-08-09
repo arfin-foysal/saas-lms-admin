@@ -1,11 +1,8 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
-
 import { modalColor } from "../../../utils/Theme";
 import CreateChapter from "./CreateChapter";
 import UpdateChapter from "./UpdateChapter";
-
-
 
 const ChapterModal = ({ handleClose, show, clickValue, paramValue }) => {
     return (

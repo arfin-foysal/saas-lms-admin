@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { useContentOutlineSaveOrUpdateMutation, useGetChapterListBySubjectIdQuery, useGetClassListQuery, useGetContentListQuery, useGetQuizListByChapterIdQuery, useGetScriptListByChapterIdQuery, useGetSubjectListByClassIdQuery, useGetVideoListByChapterIdQuery, } from "../../../services/contentApi";
+import { useContentOutlineSaveOrUpdateMutation, useGetChapterListBySubjectIdQuery, useGetClassListQuery, useGetQuizListByChapterIdQuery, useGetScriptListByChapterIdQuery, useGetSubjectListByClassIdQuery, useGetVideoListByChapterIdQuery, } from "../../../services/contentApi";
 import { memo } from 'react';
 import OptionLoader from "../../components/OptionLoader";
 import { useState } from "react";
@@ -145,9 +145,6 @@ const CreateContentOutline = ({ handleClose, paramValue }) => {
                             />
                         </div>
                     </div>
-
-
-
                     <div className="form-group col-4 my-1">
                         <label className="col-12 col-form-label">Class <span className=" text-danger">*</span></label>
                         <div className="col-12">
@@ -414,5 +411,4 @@ const CreateContentOutline = ({ handleClose, paramValue }) => {
     );
 };
 
-export default memo(CreateContentOutline)
-    ;
+export default memo(CreateContentOutline);

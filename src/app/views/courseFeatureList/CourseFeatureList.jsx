@@ -8,16 +8,14 @@ import { tableColor } from "../../../utils/Theme";
 import MenuModal from "./CourseFeatureModal";
 import { confirmHandel } from "../../../utils/Alert";
 import { toast } from "react-toastify";
-import {  useDeleteFaqMutation, useDeleteFeatureMutation, useGetFeatureListbyCourseIdQuery } from "../../../services/courseApi";
+import { useDeleteFeatureMutation, useGetFeatureListbyCourseIdQuery } from "../../../services/courseApi";
 import { useParams } from "react-router-dom";
-
 
 const CourseFeatureList = () => {
   const { id } = useParams()
   const res = useGetFeatureListbyCourseIdQuery(id);
   const { data, isSuccess, isFetching, isError } = res;
   const [deleteFeature] = useDeleteFeatureMutation()
-
   const [clickValue, setClickValue] = useState(null);
   const [size, setSize] = useState("lg")
   const [param, setParam] = useState(null);
@@ -28,7 +26,6 @@ const CourseFeatureList = () => {
   const handelClickValue = useCallback((value) => {
     setClickValue(value);
   }, []);
-
   const handelDelete = async (id) => {
     const result = await deleteFeature(id).unwrap();
     toast.success(result.message);
@@ -78,7 +75,6 @@ const CourseFeatureList = () => {
           <span className="text-success fw-bold">Course:</span> {data?.data[0]?.course_title}
           </p>
           <div>
-
             <button
               className="btn btn-primary btn-sm mx-1 my-0"
               onClick={() => {
@@ -93,7 +89,6 @@ const CourseFeatureList = () => {
 
           </div>
         </div>
-
         <div className="card-body p-0">
           <MaterialReactTable
 

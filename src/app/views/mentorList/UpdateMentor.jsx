@@ -1,8 +1,6 @@
 import { useFormik } from "formik";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
-
-
 import { useGetAreaListQuery, useGetDistrictListQuery, useGetDivisionListQuery, useGetUpazilaListQuery } from "../../../services/commonApi";
 import { useMentorSaveOrUpdateMutation } from "../../../services/resourceApi";
 const UpdateMentor = ({ handleClose, paramValue }) => {
