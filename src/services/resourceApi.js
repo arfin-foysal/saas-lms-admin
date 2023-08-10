@@ -1,21 +1,21 @@
 import { apiSliceAdmin } from "../store/api/apiSliceAdmin";
 export const resourceApi = apiSliceAdmin.injectEndpoints({
   reducerPath: "resourceApi",
-  tagTypes: ["ResData"],
+  tagTypes: ["Resource"],
   endpoints: (builder) => ({
     getAllMentor: builder.query({
       query: () => ({
         url: `admin/all-mentor-list-admin`,
         method: "GET",
       }),
-      providesTags: ["ResData"],
+      providesTags: ["Resource"],
     }),
     getAllStudent: builder.query({
       query: () => ({
         url: `admin/all-student-list-admin`,
         method: "GET",
       }),
-      providesTags: ["ResData"],
+      providesTags: ["Resource"],
     }),
 
     mentorSaveOrUpdate: builder.mutation({
@@ -26,7 +26,7 @@ export const resourceApi = apiSliceAdmin.injectEndpoints({
           body: body,
         };
       },
-      invalidatesTags: ["ResData"],
+      invalidatesTags: ["Resource"],
     }),
     studentSaveOrUpdate: builder.mutation({
       query: (body) => {
@@ -36,7 +36,7 @@ export const resourceApi = apiSliceAdmin.injectEndpoints({
           body: body,
         };
       },
-      invalidatesTags: ["ResData"],
+      invalidatesTags: ["Resource"],
     }),
   }),
 });

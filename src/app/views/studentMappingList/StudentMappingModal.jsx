@@ -4,7 +4,7 @@ import { modalColor } from "../../../utils/Theme";
 import CreateStudentMapping from "./CreateStudentMapping";
 import UpdateStudentMapping from "./UpdateStudentMapping";
 const StudentMappingModal = ({ handleClose, show, clickValue, paramValue, size, data }) => {
-    console.log(size);
+
     
     return (
         <>

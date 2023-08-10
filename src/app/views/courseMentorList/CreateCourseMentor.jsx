@@ -7,10 +7,10 @@ import { MdRemoveCircleOutline } from "react-icons/md";
 import { useState } from 'react';
 import Select from "react-select";
 import { FiPlusCircle } from "react-icons/fi";
-const CreateCourseMentor = ({ handleClose, paramValue,assData }) => {
-    const [allRoutine, setAllRoutine] = useState([]);
+const CreateCourseMentor = ({ handleClose, paramValue, assData }) => {
+    const [all, setAllRoutine] = useState([]);
     const [mentorAssignSaveOrUpdate, res] = useMentorAssignSaveOrUpdateMutation();
-    const mentorRes=useGetMentorListQuery();
+    const mentorRes = useGetMentorListQuery();
     const formik = useFormik({
         initialValues: {
             'course_id': paramValue,
@@ -18,8 +18,8 @@ const CreateCourseMentor = ({ handleClose, paramValue,assData }) => {
             'is_active': true
         },
         onSubmit: async (values, { resetForm }) => {
-            let arr=[];
-            allRoutine.map((item, index) => {
+            let arr = [];
+            all.map((item, index) => {
                 arr.push({
                     "mentor_id": item.mentor_id?.id,
                     "course_id": item.course_id,
@@ -33,7 +33,7 @@ const CreateCourseMentor = ({ handleClose, paramValue,assData }) => {
                 return;
             }
             try {
-                const result = await mentorAssignSaveOrUpdate({mentorArr:mentor}).unwrap();
+                const result = await mentorAssignSaveOrUpdate({ mentorArr: mentor }).unwrap();
                 toast.success(result.message);
             } catch (error) {
                 toast.warn(error.data.message);
@@ -47,7 +47,7 @@ const CreateCourseMentor = ({ handleClose, paramValue,assData }) => {
             return;
         }
 
-        if (allRoutine.find((item) => item.mentor_id?.id === formik.values.mentor_id?.id)) {
+        if (all.find((item) => item.mentor_id?.id === formik.values.mentor_id?.id)) {
             toast.warn("Already Added");
             return;
         }
@@ -58,7 +58,7 @@ const CreateCourseMentor = ({ handleClose, paramValue,assData }) => {
 
         }
 
-        setAllRoutine([...allRoutine, formik.values])
+        setAllRoutine([...all, formik.values])
         formik.setFieldValue("mentor_id", "");
         formik.setFieldValue("is_active", true);
         formik.setFieldValue("course_id", paramValue);
@@ -67,7 +67,7 @@ const CreateCourseMentor = ({ handleClose, paramValue,assData }) => {
 
     }
     const handelDelete = (index) => {
-        const newFaq = allRoutine.filter((item, i) => i !== index);
+        const newFaq = all.filter((item, i) => i !== index);
         setAllRoutine(newFaq);
     }
 
@@ -87,23 +87,21 @@ const CreateCourseMentor = ({ handleClose, paramValue,assData }) => {
                         <label className="col-12 col-form-label">Mentor <span className=" text-danger">*</span></label>
                         <div className="col-12">
                             <Select
+                                isClearable
                                 isSearchable={true}
-                          isLoading={mentorRes.isLoading}
-                                options={mentorRes.data?.data?.map((item) => ({
-                                    value: item,
-                                    label: `${item.name} (${item.email})`,
-                                }))}
+                                isLoading={mentorRes.isLoading}
+                                options={mentorRes.data?.data}
+                                getOptionLabel={option => `${option.name}(${option.email})`}
+                                getOptionValue={option => option.id}
                                 onChange={(value) => {
-                                    formik.setFieldValue("mentor_id", value.value);
+                                    formik.setFieldValue("mentor_id", value);
                                 }}
-                                value={mentorRes.data?.data?.find(
-                                    (option) => option.value === formik.values.mentor_id
-                                )}
+                                value={formik.values.mentor_id}
                                 name="mentor_id"
                             />
                         </div>
                     </div>
-            
+
                     <div className="form-group col-3 mt-1 text-center">
                         <label className="col-12 col-form-label">Is Active</label>
                         <div className="col-12 ">
@@ -111,7 +109,7 @@ const CreateCourseMentor = ({ handleClose, paramValue,assData }) => {
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                            
+
                                     name="is_active"
                                     onChange={formik.handleChange}
                                     value={formik.values.is_active}
@@ -129,7 +127,7 @@ const CreateCourseMentor = ({ handleClose, paramValue,assData }) => {
                                 className="btn btn-success btn-sm"
                                 onClick={handelAdd}
                             >
-                               <FiPlusCircle size={16} /> Add
+                                <FiPlusCircle size={16} /> Add
                             </button>
 
                         </div>
@@ -146,9 +144,9 @@ const CreateCourseMentor = ({ handleClose, paramValue,assData }) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {allRoutine?.map((item, index) => (
+                                {all?.map((item, index) => (
                                     <tr key={index}>
-                                        <td>{index+1}</td>
+                                        <td>{index + 1}</td>
                                         <td>{item?.mentor_id?.name}</td>
                                         <td>{item.is_active ?
                                             <span className="badge text-bg-success">
@@ -165,7 +163,7 @@ const CreateCourseMentor = ({ handleClose, paramValue,assData }) => {
                                                 className="btn btn-danger btn-sm"
                                                 onClick={() => handelDelete(index)}
                                             >
-                                               <MdRemoveCircleOutline/> Remove
+                                                <MdRemoveCircleOutline /> Remove
                                             </button>
                                         </td>
                                     </tr>

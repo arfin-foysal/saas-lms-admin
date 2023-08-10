@@ -8,13 +8,11 @@ import { tableColor } from "../../../utils/Theme";
 import MenuModal from "./StudentMappingModal";
 import { confirmHandel } from "../../../utils/Alert";
 import { toast } from "react-toastify";
-import {  useDeleteMentorAssignMutation, useGetStudentMappingListQuery } from "../../../services/courseApi";
+import {useGetStudentMappingListQuery } from "../../../services/courseApi";
 
 const StudentMappingList = () => {
-
   const res = useGetStudentMappingListQuery();
   const { data, isSuccess, isFetching, isError } = res;
-  const [deleteMentorAssign] = useDeleteMentorAssignMutation()
   const [clickValue, setClickValue] = useState(null);
   const [size, setSize] = useState("lg")
   const [param, setParam] = useState(null);
@@ -24,11 +22,6 @@ const StudentMappingList = () => {
   const handelClickValue = useCallback((value) => {
     setClickValue(value);
   }, []);
-
-  const handelDelete = async (id) => {
-    const result = await deleteMentorAssign(id).unwrap();
-    toast.success(result.message);
-  };
   const columns = useMemo(
     () => [
       {
@@ -42,13 +35,23 @@ const StudentMappingList = () => {
         header: "SL",
         size: "5"
       },
-      
+
+      {
+        accessorKey: "course_title",
+        header: "Course",
+        size: "5"
+      },
+
       {
         accessorKey: "mentor_name",
         header: "Mentor",
         size: "5"
       },
-
+        {
+          accessorKey: "student_name",
+          header: "Student",
+          size: "5"
+        },
 
     ],
     []
@@ -68,8 +71,8 @@ const StudentMappingList = () => {
       <PageTopHeader title="Student Mapping List " />
       <div className="card border shadow-lg ">
         <div className="card-header d-flex justify-content-between ">
-          <p className="fw-bold text-muted">Student Mapping List
-       
+          <p >Student Mapping List
+
           </p>
           <div>
             <button
@@ -107,28 +110,13 @@ const StudentMappingList = () => {
                     title=""
                     className="px-2 mx-1 d-flex align-items-center btn btn-success btn-sm"
                     onClick={() => {
-                      setSize("md")
+                      setSize("lg")
                       handleShow();
                       handelClickValue("Update Student Mapping");
                       setParam(row?.row?.original);
                     }}
                   >
                     <FaEdit size={18} />
-                  </button>
-                  <button
-                    title=""
-                    className="px-2 mx-1 d-flex align-items-center btn btn-danger btn-sm"
-                    onClick={() => {
-                      confirmHandel(
-                        "error",
-                        "Delete",
-                        "#FF0000",
-                        row?.row?.original?.id,
-                        handelDelete
-                      )
-
-                    }}>
-                    <FaTrash size={14} />
                   </button>
                 </div>
                 <div>

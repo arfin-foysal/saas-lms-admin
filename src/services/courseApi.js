@@ -12,20 +12,22 @@ export const courseApi = apiSliceAdmin.injectEndpoints({
       providesTags: ["Course"],
     }),
 
-    getMentorList: builder.query({
+    getStudentList: builder.query({
       query: () => ({
-        url: "admin/mentor-list",
+        url: "admin/student-list",
         method: "GET",
       }),
-      providesTags: ["Course"],
+      providesTags: ["Course", "Resource"],
     }),
-    getStudentMappingList: builder.query({
+  
+    getCourseListForMapping: builder.query({
       query: () => ({
-        url: "admin/student-mapping-list",
+        url: "admin/course-list-for-mapping",
         method: "GET",
       }),
-      providesTags: ["Course"],
+      providesTags: ["Course", "Resource"],
     }),
+
 
     courseCreateOrUpdate: builder.mutation({
       query: (body) => {
@@ -152,6 +154,13 @@ export const courseApi = apiSliceAdmin.injectEndpoints({
       }),
       providesTags: ["Course"],
     }),
+    getStudentParticipantListByCourseId: builder.query({
+      query: (id) => ({
+        url: `student-Participant-list-by-course-id/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["Course"],
+    }),
     deleteFeature: builder.mutation({
       query: (id) => ({
         url: `admin/delete-feature/${id}`,
@@ -165,6 +174,20 @@ export const courseApi = apiSliceAdmin.injectEndpoints({
         method: "DELETE",
       }),
       invalidatesTags: ["Course"],
+    }),
+    getStudentMappingList: builder.query({
+      query: () => ({
+        url: "admin/student-mapping-list",
+        method: "GET",
+      }),
+      providesTags: ["Course"],
+    }),
+    getMentorList: builder.query({
+      query: () => ({
+        url: "admin/mentor-list",
+        method: "GET",
+      }),
+      providesTags: ["Course"],
     }),
   }),
 });
@@ -183,10 +206,15 @@ export const {
   useDeleteFeatureMutation,
   useGetRoutineListbyCourseIdQuery,
   useRoutineSaveOrUpdateMutation,
-  useGetMentorListQuery,
   useGetMentorByCourseIdQuery,
   useMentorAssignSaveOrUpdateMutation,
   useDeleteMentorAssignMutation,
   useStudentMappingSaveOrUpdateMutation,
   useGetStudentMappingListQuery,
+  useGetStudentListQuery,
+  useGetCourseListForMappingQuery,
+  useGetStudentParticipantListByCourseIdQuery,
+  useGetMentorListQuery,
+
+
 } = courseApi;

@@ -2,10 +2,10 @@ import { useFormik } from "formik";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { memo } from 'react';
-import { useMentorAssignSaveOrUpdateMutation } from "../../../services/courseApi";
+import {  useStudentMappingSaveOrUpdateMutation } from "../../../services/courseApi";
 
 const UpdateStudentMapping = ({ handleClose, paramValue }) => {
-    const [mentorAssignSaveOrUpdate, res] = useMentorAssignSaveOrUpdateMutation();
+    const [studentMappingSaveOrUpdate, res] = useStudentMappingSaveOrUpdateMutation();
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {
@@ -14,15 +14,16 @@ const UpdateStudentMapping = ({ handleClose, paramValue }) => {
             'mentor_id': paramValue.mentor_id,
             'is_active': paramValue.is_active,
             'mentor_name': paramValue.mentor_name,
+            'course_title': paramValue.course_title,
+            'student_id': paramValue.student_id,
+            'student_name': paramValue.student_name,
 
         },
         onSubmit: async (values, { resetForm }) => {
             resetForm();
             try {
-                const result = await mentorAssignSaveOrUpdate({
+                const result = await studentMappingSaveOrUpdate({
                     id: values.id,
-                    course_id: values.course_id,
-                    mentor_id: values.mentor_id,
                     is_active: values.is_active?1:0,
                 }).unwrap();
                 toast.success(result.message);
@@ -44,7 +45,26 @@ const UpdateStudentMapping = ({ handleClose, paramValue }) => {
                 encType="multipart/form-data"
             >
                 <div className="row">
-                    <div className="form-group col-12 my-1">
+                    <div className="form-group col-4 my-1">
+                        <label className="col-12 col-form-label">Course</label>
+                        <div className="col-12">
+                            <input
+                                disabled
+                                placeholder="Enter Course"
+                                type="text"
+                                className="form-control"
+                                name="course_title"
+                                onChange={formik.handleChange}
+                                value={formik.values.course_title}
+                            />
+                        </div>
+                        <small>
+                            <span className="text-danger">
+                                Note </span>
+                            : Course is not editable !
+                        </small>
+                    </div>
+                    <div className="form-group col-4 my-1">
                         <label className="col-12 col-form-label">Mentor</label>
                         <div className="col-12">
                             <input
@@ -62,6 +82,25 @@ const UpdateStudentMapping = ({ handleClose, paramValue }) => {
                                 Note </span>
                             : Mentor is not editable !
 
+                        </small>
+                    </div>
+                    <div className="form-group col-4 my-1">
+                        <label className="col-12 col-form-label">Student</label>
+                        <div className="col-12">
+                            <input
+                                disabled
+                                placeholder="Enter Student"
+                                type="text"
+                                className="form-control"
+                                name="student_name"
+                                onChange={formik.handleChange}
+                                value={formik.values.student_name}
+                            />
+                        </div>
+                        <small>
+                            <span className="text-danger">
+                                Note </span>
+                            : Student is not editable !
 
                         </small>
                     </div>
@@ -98,5 +137,4 @@ const UpdateStudentMapping = ({ handleClose, paramValue }) => {
     );
 };
 
-export default memo(UpdateStudentMapping)
-    ;
+export default memo(UpdateStudentMapping);

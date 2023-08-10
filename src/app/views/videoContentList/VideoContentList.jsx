@@ -23,11 +23,12 @@ const VideoContentList = () => {
   const [subjectId, setSubjectId] = useState(0);
   const [chapterId, setChapterId] = useState(0);
   const res = useGetVideoChapterListQuery({
-    class_id: classId,
+    class_id: classId?.id?classId?.id:0,
     subject_id: subjectId,
     chapter_id: chapterId,
   });
-  
+
+
   const { data, isSuccess, isFetching, isError } = res;
   const reFetch = () => {
     res.refetch();
@@ -137,12 +138,13 @@ const VideoContentList = () => {
             renderTopToolbarCustomActions={() => (
               <div className="col-md-6 gap-1 d-flex justify-content-start ">
                 <Select
+                  isClearable
                   className="w-100"
                   menuPortalTarget={document.body}
                   styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
                   placeholder="Select Class"
                   isLoading={classRes?.isFetching}
-                  onChange={(e) => setClassId(e.id)}
+                  onChange={(e) => setClassId(e)}
                   getOptionValue={(option) => `${option["id"]}`}
                   getOptionLabel={(option) => `${option["name"]}`}
                   options={classRes?.data?.data}
@@ -150,6 +152,24 @@ const VideoContentList = () => {
                   name="class_id"
                   value={classRes?.data?.data?.id}
                 />
+
+
+                {/* <Select
+                  menuPortalTarget={document.body}
+                  styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+                  className="w-100"
+                  isClearable
+                  isSearchable={true}
+                  isLoading={classRes.isLoading}
+                  options={classRes.data?.data}
+                  getOptionLabel={option => `${option.name}`}
+                  getOptionValue={option => option.id}
+                  onChange={setClassId}
+                  value={classRes?.data?.data?.id}
+                  name="class_id"
+                /> */}
+
+
                 <Select
                   className="w-100"
                   menuPortalTarget={document.body}
