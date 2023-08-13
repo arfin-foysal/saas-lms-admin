@@ -23,6 +23,7 @@ import CourseMentorList from "../app/views/courseMentorList/courseMentorList";
 import MentorList from "../app/views/mentorList/MentorList";
 import StudentList from "../app/views/studentList/StudentList";
 import StudentMappingList from "../app/views/studentMappingList/studentMappingList";
+import Tags from "../app/views/tags/Tags";
 
 export const privateRoute = [
   {
@@ -48,6 +49,11 @@ export const privateRoute = [
   {
     path: "organization-list",
     element: <OrganizationList />,
+    role: "GlobalAdmin",
+  },
+  {
+    path: "tag-list",
+    element: <Tags />,
     role: "GlobalAdmin",
   },
   {

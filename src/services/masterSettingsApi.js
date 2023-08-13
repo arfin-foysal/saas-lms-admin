@@ -11,6 +11,13 @@ export const masterSettingsApi = apiSliceAdmin.injectEndpoints({
       }),
       providesTags: ["Master"],
     }),
+    getTagsList: builder.query({
+      query: () => ({
+        url: "admin/tag-list-admin",
+        method: "GET",
+      }),
+      providesTags: ["Master"],
+    }),
 
     getOrganizationList: builder.query({
       query: () => ({
@@ -31,6 +38,16 @@ export const masterSettingsApi = apiSliceAdmin.injectEndpoints({
       query: (body) => {
         return {
           url: `admin/menu-save-or-update`,
+          method: "POST",
+          body: body,
+        };
+      },
+      invalidatesTags: ["Master"],
+    }),
+    tagsCreateOrUpdate: builder.mutation({
+      query: (body) => {
+        return {
+          url: `admin/tag-save-or-update-admin`,
           method: "POST",
           body: body,
         };
@@ -68,8 +85,15 @@ export const masterSettingsApi = apiSliceAdmin.injectEndpoints({
       invalidatesTags: ["Master"],
     }),
 
-
-
+    tagsDelete: builder.mutation({
+      query: (id) => {
+        return {
+          url: `admin/delete-tag/${id}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: ["Master"],
+    }),
   }),
 });
 
@@ -81,5 +105,8 @@ export const {
   useSettingUpdateMutation,
   useWebsitePageSaveOrUpdateMutation,
   useGetWebsitePageListQuery,
+  useGetTagsListQuery,
+  useTagsCreateOrUpdateMutation,
+  useTagsDeleteMutation
  
 } = masterSettingsApi;
