@@ -6,7 +6,7 @@ import { useGetTagsListQuery, useTagsCreateOrUpdateMutation, useTagsDeleteMutati
 import Loader from '../../components/Loader';
 import { toast } from 'react-toastify';
 import { confirmHandel } from '../../../utils/Alert';
-import { BiEditAlt, BiUpload } from 'react-icons/bi';
+import { BiEdit, BiMinusCircle, BiTrash, BiUpload } from 'react-icons/bi';
 
 
 function Tags() {
@@ -34,18 +34,26 @@ function Tags() {
             return
         }
         const tag_Arr = JSON.stringify(tags);
-        const res = await quizCreateOrUpdate({ tags: tag_Arr })
-        if (res.data) {
-            setTags([])
-        }
-    }
 
-    function handelEdit(id) {
-        setUpdateState(id)
+        try {
+            const result = await quizCreateOrUpdate({ tags: tag_Arr }).unwrap()
+            toast.success(result.message);
+            setTags([])
+
+        } catch (error) {
+            toast.warn(error.data.message);
+
+        }
     }
 
     function TagsEdit({ current }) {
         const [edit, setEdit] = useState(current.tags)
+
+        const submitKeyDown = (e) => {
+            if (e.key !== 'Enter') return
+            if (!edit.trim()) return
+            handelSubmit(current.id)
+        }
 
         const handelSubmit = async (id) => {
             try {
@@ -60,13 +68,15 @@ function Tags() {
 
         return (
             <span className="tag-item">
-                <input type="text" className="tags-input" placeholder="Type something and enter !"
+                <input type="text" className="tags-input" placeholder="Type something"
                     name='edit'
                     value={edit}
                     onChange={(e) => setEdit(e.target.value)}
-
+                    onKeyDown={submitKeyDown}
                 />
-                <span className="close" onClick={() => handelSubmit(current.id)}> <BiUpload /></span>
+
+                <span className="pointer" onClick={() => setUpdateState(false)}> <BiMinusCircle color='red' size={17} /></span>
+                <span className="pointer" onClick={() => handelSubmit(current.id)}> <BiUpload color='green' size={17} /></span>
             </span>
         )
     }
@@ -80,15 +90,15 @@ function Tags() {
                     {data?.data?.map((tag, index) => (
                         updateState === tag.id ? <TagsEdit current={tag} key={index} /> :
                             <div className="tag-item" key={index}>
-                                <span className="text">{tag.tags}</span>
-                                <span className='ms-1 rounded bg-dark' onClick={() => handelEdit(tag.id)}><BiEditAlt color='white' /></span>
-                                <span className="close" onClick={() => confirmHandel(
+                                <span className="text me-1">{tag.tags?.slice(0, 20)}</span>
+                                <span className="pointer" onClick={() => setUpdateState(tag.id)}><BiEdit color='blue' size={18} /></span>
+                                <span className=" pointer" onClick={() => confirmHandel(
                                     "error",
                                     "Delete",
                                     "#FF0000",
                                     tag.id,
                                     tagsDelete
-                                )}>&times;</span>
+                                )}><BiTrash color='red' size={17} />  </span>
                             </div>
                     ))}
                 </div>
@@ -97,7 +107,8 @@ function Tags() {
                     <div className="tags-input-container">
                         {tags.map((tag, index) => (
                             <div className="tag-item" key={index}>
-                                <span className="text">{tag}</span>
+                                <span className="text">{tag?.slice(0, 20)
+                                }</span>
                                 <span className="close" onClick={() => removeTag(index)}>&times;</span>
                             </div>
                         ))}
@@ -108,7 +119,7 @@ function Tags() {
                 <div className=' text-center mt-2'>
                     <button
                         onClick={handelSubmit}
-                        className='btn btn-success'>Submit</button>
+                        className='btn btn-success btn-sm'>Submit</button>
                 </div>
             </div>
         </>

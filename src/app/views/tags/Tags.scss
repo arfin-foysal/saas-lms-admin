@@ -1,5 +1,4 @@
 
-
 .area{
     display: flex;
     justify-content: center;
@@ -42,7 +41,9 @@
 
 .tags-input{
     flex-grow: 1;
-    padding: .5em 0;
+    padding: .3em ;
     border: none;
     outline: none;
+    border-radius: 10px;
+  
 }
