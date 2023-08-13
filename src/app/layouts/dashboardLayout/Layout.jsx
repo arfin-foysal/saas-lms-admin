@@ -92,7 +92,7 @@ const Layout = () => {
               </div>
             </div>
 
-            <div className="d-flex shadow-lg  rounded  mt-2">
+            <div className="d-flex shadow-lg  rounded  mt-1">
               <div>
                 <img
                   className="rounded-circle"
@@ -116,7 +116,7 @@ const Layout = () => {
               </div>
             </div>
 
-            <div className=" search mt-4 m-0">
+            <div className=" search mt-3 m-0">
               <div className="search_icon mb-2 ml-2">
                 <BiHomeAlt />
               </div>

@@ -60,26 +60,7 @@ const DashboardHomePage = () => {
       </div>
 
       <div className="row">
-        <div className="col-md-6 my-2">
-          <div className="card shadow border-0">
-            <div className="card-header fw-bolder text-center ">Total Vendor Payment</div>
-            <div className="card-body  p-0">
-              {/* <VendorPaymentGraph
-                vendorPaymentGraph={""}
-              /> */}
-            </div>
-          </div>
-        </div>
-        <div className="col-md-6 my-2">
-          <div className="card shadow border-0">
-            <div className="card-header fw-bolder text-center ">Total Borrow Book</div>
-            <div className="card-body  p-0">
-              {/* <BorrowGraph
-                itemRentGraph={""}
-              /> */}
-            </div>
-          </div>
-        </div>
+
         <div className="col-md-12 my-2">
           <div className="card shadow border-0">
             <div className="card-header fw-bolder">Table</div>

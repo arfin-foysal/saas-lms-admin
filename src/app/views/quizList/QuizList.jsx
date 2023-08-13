@@ -35,9 +35,9 @@ const QuizList = () => {
     setChapterId(0);
   };
   const res = useGetQuizListQuery({
-    class_id: classId,
-    subject_id: subjectId,
-    chapter_id: chapterId,
+    class_id: classId?.id?classId?.id:0,
+    subject_id: subjectId?.id?subjectId?.id:0,
+    chapter_id: chapterId?.id?chapterId?.id:0,
   });
   const { data, isSuccess, isFetching, isError } = res;
   const handelClickValue = useCallback((value) => {
@@ -176,11 +176,12 @@ const QuizList = () => {
               <div className="col-md-6 gap-1 d-flex justify-content-start ">
                 <Select
                   className="w-100"
+                  isClearable
                   menuPortalTarget={document.body}
                   styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
                   placeholder="Select Class"
                   isLoading={classRes?.isFetching}
-                  onChange={(e) => setClassId(e.id)}
+                  onChange={(e) => setClassId(e)}
                   getOptionValue={(option) => `${option["id"]}`}
                   getOptionLabel={(option) => `${option["name"]}`}
                   options={classRes?.data?.data}
@@ -190,11 +191,12 @@ const QuizList = () => {
                 />
                 <Select
                   className="w-100"
+                  isClearable
                   menuPortalTarget={document.body}
                   styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
                   placeholder="Select Subject"
                   isLoading={subjectRes?.isFetching}
-                  onChange={(e) => setSubjectId(e.id)}
+                  onChange={(e) => setSubjectId(e)}
                   getOptionValue={(option) => `${option["id"]}`}
                   getOptionLabel={(option) => `${option["name"]}`}
                   options={subjectRes?.data?.data}
@@ -204,11 +206,12 @@ const QuizList = () => {
                 />
                 <Select
                   className="w-100"
+                  isClearable
                   menuPortalTarget={document.body}
                   styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
                   placeholder="Select Chapter"
                   isLoading={chapterRes?.isFetching}
-                  onChange={(e) => setChapterId(e.id)}
+                  onChange={(e) => setChapterId(e)}
                   getOptionValue={(option) => `${option["id"]}`}
                   getOptionLabel={(option) => `${option["name"]}`}
                   options={chapterRes?.data?.data}
