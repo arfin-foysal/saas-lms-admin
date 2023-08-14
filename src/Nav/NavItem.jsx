@@ -34,19 +34,18 @@ export const navItem = [
         role: "GlobalAdmin",
         icon: <BiSolidRightArrowAlt />,
       },
-
+      {
+        title: "Tag List",
+        link: "tag-list",
+        role: "GlobalAdmin",
+        icon: <BiSolidRightArrowAlt />,
+      },
       {
         title: "User List",
         link: "user-list",
         role: "GlobalAdmin",
         icon: <BiSolidRightArrowAlt />,
       },
-      {
-        title: "Tag List",
-        link: "tag-list",
-        role: "GlobalAdmin",
-        icon: <BiSolidRightArrowAlt />,
-      }
     ],
   },
   {

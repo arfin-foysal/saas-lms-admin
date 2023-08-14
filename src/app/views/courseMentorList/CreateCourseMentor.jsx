@@ -7,6 +7,8 @@ import { MdRemoveCircleOutline } from "react-icons/md";
 import { useState } from 'react';
 import Select from "react-select";
 import { FiPlusCircle } from "react-icons/fi";
+import { BsFillPlusCircleFill } from "react-icons/bs";
+import { BiSolidMinusCircle } from "react-icons/bi";
 const CreateCourseMentor = ({ handleClose, paramValue, assData }) => {
     const [all, setAllRoutine] = useState([]);
     const [mentorAssignSaveOrUpdate, res] = useMentorAssignSaveOrUpdateMutation();
@@ -122,13 +124,14 @@ const CreateCourseMentor = ({ handleClose, paramValue, assData }) => {
                     <div className="form-group col-3 my-1 text-center">
                         <label className="col-12 col-form-label">Action</label>
                         <div className="col-12 mt-1">
-                            <button
+                            <span
                                 type="button"
-                                className="btn btn-success btn-sm"
                                 onClick={handelAdd}
                             >
-                                <FiPlusCircle size={16} /> Add
-                            </button>
+                                 <BsFillPlusCircleFill size={20}
+                                    color="green"
+                                />
+                            </span>
 
                         </div>
                     </div>
@@ -158,13 +161,12 @@ const CreateCourseMentor = ({ handleClose, paramValue, assData }) => {
 
                                         }</td>
                                         <td>
-                                            <button
+                                            <span
                                                 type="button"
-                                                className="btn btn-danger btn-sm"
                                                 onClick={() => handelDelete(index)}
                                             >
-                                                <MdRemoveCircleOutline /> Remove
-                                            </button>
+                                                <BiSolidMinusCircle color="red" size={24} /> 
+                                            </span>
                                         </td>
                                     </tr>
                                 ))}

@@ -8,6 +8,8 @@ import { useState } from 'react';
 import Select from "react-select";
 import { FiPlusCircle } from "react-icons/fi";
 import { all } from "axios";
+import { BsFillPlusCircleFill } from "react-icons/bs";
+import { BiSolidMinusCircle } from "react-icons/bi";
 const CreateStudentMapping = ({ handleClose, paramValue, assData }) => {
     const [allMapping, setAllMapping] = useState([]);
     const [studentMappingSaveOrUpdate, res] = useStudentMappingSaveOrUpdateMutation();
@@ -82,7 +84,7 @@ const CreateStudentMapping = ({ handleClose, paramValue, assData }) => {
 
         //same course and same student and not same mentor
         if (allMapping.length > 0) {
-            const isExist = allMapping.find((item) =>   
+            const isExist = allMapping.find((item) =>
                 item.student_id?.id === formik.values.student_id?.id &&
                 item.course_id?.id === formik.values.course_id?.id &&
                 item.mentor_id?.id !== formik.values.mentor_id?.id)
@@ -102,8 +104,13 @@ const CreateStudentMapping = ({ handleClose, paramValue, assData }) => {
                 return;
             }
         }
-        
+
         setAllMapping([...allMapping, formik.values])
+        formik.setFieldValue("mentor_id", "");
+        formik.setFieldValue("student_id", "");
+        formik.setFieldValue("is_active", true);
+        formik.setFieldValue("course_id", "");
+
     }
     const handelDelete = (index) => {
         const newFaq = allMapping.filter((item, i) => i !== index);
@@ -205,13 +212,14 @@ const CreateStudentMapping = ({ handleClose, paramValue, assData }) => {
                     <div className="form-group col-2 my-1 text-center">
                         <label className="col-12 col-form-label">Action</label>
                         <div className="col-12 mt-1">
-                            <button
+                            <span
                                 type="button"
-                                className="btn btn-success btn-sm"
                                 onClick={handelAdd}
                             >
-                                <FiPlusCircle size={16} /> Add
-                            </button>
+                                <BsFillPlusCircleFill size={20}
+                                    color="green"
+                                />
+                            </span>
 
                         </div>
                     </div>
@@ -245,13 +253,12 @@ const CreateStudentMapping = ({ handleClose, paramValue, assData }) => {
 
                                         }</td>
                                         <td>
-                                            <button
+                                            <span
                                                 type="button"
-                                                className="btn btn-danger btn-sm"
                                                 onClick={() => handelDelete(index)}
                                             >
-                                                <MdRemoveCircleOutline /> Remove
-                                            </button>
+                                                <BiSolidMinusCircle color="red" size={24} />
+                                            </span>
                                         </td>
                                     </tr>
                                 ))}

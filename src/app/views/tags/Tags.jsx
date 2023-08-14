@@ -8,7 +8,6 @@ import { toast } from 'react-toastify';
 import { confirmHandel } from '../../../utils/Alert';
 import { BiEdit, BiMinusCircle, BiTrash, BiUpload } from 'react-icons/bi';
 
-
 function Tags() {
     const res = useGetTagsListQuery()
     const { data, isSuccess, isFetching, isError } = res;
@@ -91,7 +90,7 @@ function Tags() {
                         updateState === tag.id ? <TagsEdit current={tag} key={index} /> :
                             <div className="tag-item" key={index}>
                                 <span className="text me-1">{tag.tags?.slice(0, 20)}</span>
-                                <span className="pointer" onClick={() => setUpdateState(tag.id)}><BiEdit color='blue' size={18} /></span>
+                                <span className="pointer" onClick={() => setUpdateState(tag.id)}><BiEdit  size={17} /></span>
                                 <span className=" pointer" onClick={() => confirmHandel(
                                     "error",
                                     "Delete",

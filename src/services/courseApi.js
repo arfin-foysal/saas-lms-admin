@@ -156,7 +156,7 @@ export const courseApi = apiSliceAdmin.injectEndpoints({
     }),
     getStudentParticipantListByCourseId: builder.query({
       query: (id) => ({
-        url: `student-Participant-list-by-course-id/${id}`,
+        url: `admin/student-Participant-list-by-course-id/${id}`,
         method: "GET",
       }),
       providesTags: ["Course"],

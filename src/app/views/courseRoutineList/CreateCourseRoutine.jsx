@@ -2,10 +2,12 @@ import { useFormik } from "formik";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { memo } from 'react';
-import {  useRoutineSaveOrUpdateMutation } from "../../../services/courseApi";
+import { useRoutineSaveOrUpdateMutation } from "../../../services/courseApi";
 import { useState } from 'react';
 import { FiPlusCircle } from "react-icons/fi";
 import { MdRemoveCircleOutline } from "react-icons/md";
+import { BsFillPlusCircleFill } from "react-icons/bs";
+import { BiSolidMinusCircle } from "react-icons/bi";
 const CreateCourseRoutine = ({ handleClose, paramValue }) => {
     const [allRoutine, setAllRoutine] = useState([]);
     const [routineSaveOrUpdate, res] = useRoutineSaveOrUpdateMutation();
@@ -24,7 +26,7 @@ const CreateCourseRoutine = ({ handleClose, paramValue }) => {
                 return;
             }
             try {
-                const result = await routineSaveOrUpdate({routine:routine_Arr}).unwrap();
+                const result = await routineSaveOrUpdate({ routine: routine_Arr }).unwrap();
                 toast.success(result.message);
             } catch (error) {
                 toast.warn(error.data.message);
@@ -64,7 +66,7 @@ const CreateCourseRoutine = ({ handleClose, paramValue }) => {
                 encType="multipart/form-data"
             >
                 <div className="row">
-          
+
                     <div className="form-group col-4 my-1">
                         <label className="col-12 col-form-label">Day <span className=" text-danger">*</span></label>
                         <div className="col-12">
@@ -88,7 +90,7 @@ const CreateCourseRoutine = ({ handleClose, paramValue }) => {
                                 name="class_title"
                                 value={formik.values.class_title}
                                 onChange={formik.handleChange}
-                        
+
                             />
                         </div>
                     </div>
@@ -99,7 +101,7 @@ const CreateCourseRoutine = ({ handleClose, paramValue }) => {
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                          
+
                                     name="is_note"
                                     onChange={formik.handleChange}
                                     value={formik.values.is_note}
@@ -112,13 +114,14 @@ const CreateCourseRoutine = ({ handleClose, paramValue }) => {
                     <div className="form-group col-2 my-1">
                         <label className="col-12 col-form-label">Action</label>
                         <div className="col-12 mt-1">
-                            <button
+                            <span
                                 type="button"
-                                className="btn btn-success btn-sm"
                                 onClick={handelAdd}
                             >
-                          <FiPlusCircle size={16} /> Add
-                            </button>
+                                <BsFillPlusCircleFill size={20}
+                                    color="green"
+                                />
+                            </span>
 
                         </div>
                     </div>
@@ -137,7 +140,7 @@ const CreateCourseRoutine = ({ handleClose, paramValue }) => {
                             <tbody>
                                 {allRoutine?.map((item, index) => (
                                     <tr key={index}>
-                                        <td>{index+1}</td>
+                                        <td>{index + 1}</td>
                                         <td>{item.day}</td>
                                         <td>{item.class_title}</td>
                                         <td>{item.is_note ?
@@ -147,13 +150,12 @@ const CreateCourseRoutine = ({ handleClose, paramValue }) => {
                                         }
                                         </td>
                                         <td>
-                                            <button
+                                            <span
                                                 type="button"
-                                                className="btn btn-danger btn-sm"
                                                 onClick={() => handelDelete(index)}
                                             >
-                                            <MdRemoveCircleOutline/> Remove
-                                            </button>
+                                            <BiSolidMinusCircle color="red" size={24} /> 
+                                            </span>
                                         </td>
                                     </tr>
                                 ))}

@@ -6,6 +6,8 @@ import { useFeatureSaveOrUpdateMutation } from "../../../services/courseApi";
 import { useState } from 'react';
 import { FiPlusCircle } from "react-icons/fi";
 import { MdRemoveCircleOutline } from "react-icons/md";
+import { BsFillPlusCircleFill } from "react-icons/bs";
+import { BiSolidMinusCircle } from "react-icons/bi";
 const CreateCourseFeature = ({ handleClose, paramValue }) => {
     const [allFeature, setAllFeature] = useState([]);
     const [featureSaveOrUpdate, res] = useFeatureSaveOrUpdateMutation();
@@ -85,17 +87,18 @@ const CreateCourseFeature = ({ handleClose, paramValue }) => {
                             />
                         </div>
                     </div>
-    
+
                     <div className="form-group col-2 my-1">
                         <label className="col-12 col-form-label">Action</label>
                         <div className="col-12 mt-1">
-                            <button
+                            <span
                                 type="button"
-                                className="btn btn-success btn-sm "
                                 onClick={handelAdd}
                             >
-                          <FiPlusCircle size={16} /> Add
-                            </button>
+                                <BsFillPlusCircleFill size={20}
+                                    color="green"
+                                />
+                            </span>
 
                         </div>
                     </div>
@@ -116,13 +119,12 @@ const CreateCourseFeature = ({ handleClose, paramValue }) => {
                                         <td>{item.title}</td>
                                         <td>{item.title_bn}</td>
                                         <td>
-                                            <button
+                                            <span
                                                 type="button"
-                                                className="btn btn-danger btn-sm"
                                                 onClick={() => handelDelete(index)}
                                             >
-                                               <MdRemoveCircleOutline/> Remove
-                                            </button>
+                                                <BiSolidMinusCircle color="red" size={24} />
+                                            </span>
                                         </td>
                                     </tr>
                                 ))}

@@ -4,6 +4,8 @@ import { toast } from "react-toastify";
 import { memo } from 'react';
 import { useFaqSaveOrUpdateMutation } from "../../../services/courseApi";
 import { useState } from 'react';
+import { BsFillPlusCircleFill } from "react-icons/bs";
+import { BiSolidMinusCircle } from "react-icons/bi";
 const CreateCourseFaq = ({ handleClose, paramValue }) => {
     const [allFaq, setAllFaq] = useState([]);
 
@@ -112,13 +114,14 @@ const CreateCourseFaq = ({ handleClose, paramValue }) => {
                     <div className="form-group col-2 my-1">
                         <label className="col-12 col-form-label">Action</label>
                         <div className="col-12 mt-1">
-                            <button
+                            <span
                                 type="button"
-                                className="btn btn-success btn-sm"
                                 onClick={handelAdd}
                             >
-                                Add
-                            </button>
+                                 <BsFillPlusCircleFill size={20}
+                                    color="green"
+                                />
+                            </span>
                         </div>
                     </div>
                     <div className="my-4">
@@ -140,13 +143,12 @@ const CreateCourseFaq = ({ handleClose, paramValue }) => {
                                         <td>{item.answer}</td>
                                         <td>{item.is_active ? 'Active' : 'Inactive'}</td>
                                         <td>
-                                            <button
+                                            <span
                                                 type="button"
-                                                className="btn btn-danger btn-sm"
                                                 onClick={() => handelDelete(index)}
                                             >
-                                                Remove
-                                            </button>
+                                          <BiSolidMinusCircle color="red" size={24} /> 
+                                            </span>
                                         </td>
                                     </tr>
                                 ))}
