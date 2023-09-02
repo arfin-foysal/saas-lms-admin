@@ -189,7 +189,11 @@ const CourseList = () => {
                   <Link
                     className="px-2 d-flex mx-1 align-items-center btn btn-success btn-sm"
                     to={`/dashboard/globaladmin/course-mentor-assign-list/${row?.row?.original?.id}`}><BsEyeFill  className="me-1"  size={17} /> Mentor </Link>
+                  <Link
+                    className="px-2 d-flex mx-1 align-items-center btn btn-success btn-sm"
+                    to={`/dashboard/globaladmin/student-list-by-course-id/${row?.row?.original?.id}`}><BsEyeFill  className="me-1"  size={17} />Participants</Link>
                   <div>
+                    
                   </div>
                 </div>
               </>
