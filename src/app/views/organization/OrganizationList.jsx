@@ -107,7 +107,7 @@ const OrganizationList = () => {
       <div className="card border shadow-lg ">
         <div className="card-header d-flex justify-content-between ">
           <div>Organization List</div>
-          <div>
+          {/* <div>
             <button
               className="btn btn-primary btn-sm"
               onClick={() => {
@@ -117,7 +117,7 @@ const OrganizationList = () => {
             >
               <FiPlusCircle size={16} /> Add New Org
             </button>
-          </div>
+          </div> */}
         </div>
 
         <div className="card-body p-0">

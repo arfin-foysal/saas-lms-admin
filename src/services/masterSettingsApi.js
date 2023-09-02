@@ -21,7 +21,7 @@ export const masterSettingsApi = apiSliceAdmin.injectEndpoints({
 
     getOrganizationList: builder.query({
       query: () => ({
-        url: "organization-list",
+        url: "admin/organization-list",
         method: "GET",
       }),
       providesTags: ["Master"],

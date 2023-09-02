@@ -119,10 +119,10 @@ const CreateOrganization = ({ handleClose }) => {
                     </div>
                     <div className="form-group col-6 my-1">
                         <div className="col-12">
-                            <label className="col-12 col-form-label">Contact No</label>
+                            <label className="col-12 col-form-label">Contact No:</label>
                             <input
                                 placeholder="Enter Contact No"
-                                type="number"
+                                type="text"
                                 className="form-control"
                                 name="contact_no"
                                 onChange={formik.handleChange}
@@ -133,10 +133,10 @@ const CreateOrganization = ({ handleClose }) => {
                     </div>
                     <div className="form-group col-6 my-1">
                         <div className="col-12">
-                            <label className="col-12 col-form-label">Hotline No</label>
+                            <label className="col-12 col-form-label">Hotline No:</label>
                             <input
                                 placeholder="Enter hotline No"
-                                type="number"
+                                type="text"
                                 className="form-control"
                                 name="hotline_number"
                                 onChange={formik.handleChange}
@@ -173,14 +173,12 @@ const CreateOrganization = ({ handleClose }) => {
                             />
                         </div>
                     </div>
-            
 
-                    <div className="form-group row col-12 my-1">
-                        {/* <label className="col-12 col-form-label">Logo</label> */}
+
+                    <div className="form-group  col-6 my-1">
+                        <label className="col-12 col-form-label">Logo</label>
                         <div className="col-12">
                             <input
-                                ref={fileRef}
-                                hidden
                                 className="form-control"
                                 name="logo"
                                 type="file"
@@ -196,7 +194,7 @@ const CreateOrganization = ({ handleClose }) => {
                         <label className="col-12 col-form-label">Banner</label>
                         <div className="col-12">
                             <input
-                             
+
                                 className="form-control"
                                 name="banner"
                                 type="file"
@@ -208,14 +206,14 @@ const CreateOrganization = ({ handleClose }) => {
                             />
                         </div>
                     </div>
-        <div className="form-group row col-6  mt-5  ">
+                    <div className="form-group row col-6  my-3  ">
                         <label className="col-6 col-form-label">Is Active</label>
                         <div className="col-6">
                             <div className="form-check form-switch mt-2">
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                                 
+
                                     name="is_active"
                                     onChange={formik.handleChange}
                                     value={formik.values.is_active}
@@ -223,24 +221,6 @@ const CreateOrganization = ({ handleClose }) => {
                                 />
                             </div>
                         </div>
-                    </div>
-                    <div className=" my-2 text-center">
-                        <div >
-                            {formik.values.logo ?
-                                <PreviewImage previewImage={previewImage} /> : <BsFillCloudArrowUpFill size={40} />
-                            }
-                        </div>
-
-                        <button
-                            type="button"
-                            className="btn btn-dark  btn-sm"
-                            onClick={() => {
-                                fileRef.current.click();
-                            }}
-                        >
-                            Choose a logo ...
-                        </button>
-
                     </div>
                 </div>
                 <Modal.Footer>

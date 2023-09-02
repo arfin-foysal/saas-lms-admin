@@ -1,16 +1,11 @@
 import { useFormik } from "formik";
-import React, { useRef, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useOrganizationCreateOrUpdateMutation } from "../../../services/masterSettingsApi";
-import PreviewImage from "../../components/PreviewImage";
 const UpdateOrganization = ({ handleClose, paramValue }) => {
+    console.log(paramValue);
     const [organizationCreateOrUpdate, res] = useOrganizationCreateOrUpdateMutation();
-    const fileRef = useRef(null)
-    const [previewImage, setPreviewImage] = useState();
-    function handelImage(e) {
-        setPreviewImage(URL.createObjectURL(e.target.files[0]));
-    }
+
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {
@@ -22,7 +17,7 @@ const UpdateOrganization = ({ handleClose, paramValue }) => {
             email: paramValue && paramValue.email,
             contact_no: paramValue && paramValue.contact_no,
             contact_person: paramValue && paramValue.contact_person,
-            hotline_number: paramValue && paramValue.hotline_number,
+            hotline_number: paramValue && paramValue?.website_settings?.hotline_number,
             banner: paramValue && paramValue.banner,
             logo: paramValue && paramValue.logo,
             is_active: paramValue && paramValue.is_active,
@@ -120,10 +115,10 @@ const UpdateOrganization = ({ handleClose, paramValue }) => {
                     </div>
                     <div className="form-group col-6 my-1">
                         <div className="col-12">
-                            <label className="col-12 col-form-label">Contact No</label>
+                            <label className="col-12 col-form-label">Contact No:</label>
                             <input
                                 placeholder="Enter Contact No"
-                                type="number"
+                                type="text"
                                 className="form-control"
                                 name="contact_no"
                                 onChange={formik.handleChange}
@@ -132,13 +127,13 @@ const UpdateOrganization = ({ handleClose, paramValue }) => {
                             />
                         </div>
                     </div>
-         
+
                     <div className="form-group col-6 my-1">
                         <div className="col-12">
-                            <label className="col-12 col-form-label">Hotline No</label>
+                            <label className="col-12 col-form-label">Hotline No:</label>
                             <input
                                 placeholder="Enter hotline No"
-                                type="number"
+                                type="text"
                                 className="form-control"
                                 name="hotline_number"
                                 onChange={formik.handleChange}
@@ -150,7 +145,6 @@ const UpdateOrganization = ({ handleClose, paramValue }) => {
                     <div className="form-group col-12 my-1">
                         <label className="col-12 col-form-label">Details</label>
                         <div className="col-12">
-
                             <textarea
                                 placeholder="Enter Details"
                                 type="text"
@@ -175,31 +169,45 @@ const UpdateOrganization = ({ handleClose, paramValue }) => {
                             />
                         </div>
                     </div>
-                 
+                    <div className="form-group  col-6 my-1">
+                        <label className="col-12 col-form-label">Logo</label>
+                        <div className="col-12">
+                            <input
+                                className="form-control"
+                                name="logo"
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => {
+                                    formik.setFieldValue("logo", e.currentTarget.files[0]);
+                                }}
+                            />
+                        </div>
+                    </div>
                     <div className="form-group  col-6 my-1">
                         <label className="col-12 col-form-label">Banner</label>
                         <div className="col-12">
                             <input
-                             
+
                                 className="form-control"
                                 name="banner"
                                 type="file"
                                 accept="image/*"
                                 onChange={(e) => {
                                     formik.setFieldValue("banner", e.currentTarget.files[0]);
-                                    handelImage(e);
                                 }}
                             />
                         </div>
                     </div>
-                    <div className="form-group row col-6 mt-5 ">
+
+
+                    <div className="form-group row col-6 my-3 ">
                         <label className="col-6 col-form-label">Is Active</label>
                         <div className="col-6">
                             <div className="form-check form-switch mt-2">
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                          
+
                                     name="is_active"
                                     onChange={formik.handleChange}
                                     value={formik.values.is_active}
@@ -208,37 +216,6 @@ const UpdateOrganization = ({ handleClose, paramValue }) => {
                             </div>
                         </div>
                     </div>
-                    <div className="form-group  col-6 my-1">
-                        {/* <label className="col-12 col-form-label">Logo</label> */}
-                        <div className="col-12">
-                            <input
-                                ref={fileRef}
-                                hidden
-                                className="form-control"
-                                name="logo"
-                                type="file"
-                                accept="image/*"
-                                onChange={(e) => {
-                                    formik.setFieldValue("logo", e.currentTarget.files[0]);
-                                    handelImage(e);
-                                }}
-                            />
-                        </div>
-                    </div>
-                    <div className="text-center my-2">
-                    <div className="mx-4">
-                        <PreviewImage previewImage={previewImage} formValue={formik.values.logo} />
-                    </div>
-                        <Button
-                            type="button"
-                            className="btn btn-dark  btn-sm"
-                            onClick={() => {
-                                fileRef.current.click();
-                            }}
-                        >
-                            Choose a logo ...
-                        </Button>
-                     </div>
                 </div>
                 <Modal.Footer>
                     <Button type="button" className="btn btn-dark me-2 btn-sm" onClick={handleClose}>
