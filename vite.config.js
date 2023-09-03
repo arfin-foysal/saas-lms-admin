@@ -18,8 +18,6 @@ export default defineConfig({
         "robots.txt",
         "apple-touch-icon.png",
       ],
-
-     
       manifest: {
         name: "BB SAAS LMS",
         short_name: "LMS",
@@ -100,7 +98,6 @@ export default defineConfig({
                 maxEntries: 30,
                 maxAgeSeconds: 60 * 60 * 24 * 365, // 365 days
               },
-
               cacheableResponse: {
                 statuses: [0, 200],
               },

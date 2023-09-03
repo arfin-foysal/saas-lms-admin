@@ -77,7 +77,7 @@ const Layout = () => {
                     exit="hidden"
                     className="logo pt-2"
                   >
-                    <Link to="/dashboard">
+                    <Link to="/dashboard/">
                       <LazyLoadImage
                         src={logo}
                         width={130} alt="BacBon"

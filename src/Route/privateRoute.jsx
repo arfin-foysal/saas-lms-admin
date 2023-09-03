@@ -25,6 +25,10 @@ import StudentList from "../app/views/studentList/StudentList";
 import StudentMappingList from "../app/views/studentMappingList/studentMappingList";
 import Tags from "../app/views/tags/Tags";
 import StudentParticipantsList from "../app/views/studentParticipantsList/StudentParticipantsList";
+import ExamResultList from "../app/views/ExamResultList/ExamResultList";
+import PaymentList from "../app/views/paymentList/PaymentList";
+import PurchaseList from "../app/views/purchaseList/PurchaseList";
+import AssignmentList from "../app/views/assignmentList/AssignmentList";
 
 export const privateRoute = [
   {
@@ -38,57 +42,204 @@ export const privateRoute = [
     role: "all",
   },
   {
+    path: "schooladmin",
+    element: <DashboardHomePage/>,
+    role: "SchoolAdmin",
+  },
+  {
+    path: "menu-list",
+    element: <MenuList />,
+    role: "SchoolAdmin",
+  },
+  {
+    path: "organization-list",
+    element: <OrganizationList />,
+    role: "SchoolAdmin",
+  },
+  {
+    path: "tag-list",
+    element: <Tags />,
+    role: "SchoolAdmin",
+  },
+  {
+    path: "class-list",
+    element: <ClassList />,
+    role: "SchoolAdmin",
+  },
+  {
+    path: "subject-list",
+    element: <SubjectList />,
+    role: "SchoolAdmin",
+  },
+  {
+    path: "chapter-list",
+    element: <ChapterList />,
+    role: "SchoolAdmin",
+  },
+  {
+    path: "video-content-list",
+    element: <VideoContentList />,
+    role: "SchoolAdmin",
+  },
+  {
+    path: "script-content-list",
+    element: <ScriptContentList />,
+    role: "SchoolAdmin",
+  },
+  {
+    path: "quiz-list",
+    element: <QuizList />,
+    role: "SchoolAdmin",
+  },
+  // {
+  //   path: "client-list",
+  //   element: <ClientList />,
+  //   role: "SchoolAdmin",
+  // },
+  {
+    path: "schooladmin/website-page-list/:id",
+    element: <WebsitePageList />,
+    role: "SchoolAdmin",
+  },
+  {
+    path: "schooladmin/quiz-question-list/:id",
+    element: <QuizQuestionList/>,
+    role: "SchoolAdmin",
+  },
+  {
+    path: "course-list",
+    element: <CourseList/>,
+    role: "SchoolAdmin",
+  },
+  {
+    path: "content-list",
+    element: <ContentList/>,
+    role: "SchoolAdmin",
+  },
+  {
+    path: "schooladmin/course-outline-list/:id",
+    element: <CourseOutlineList/>,
+    role: "SchoolAdmin",
+  },
+  {
+    path: "schooladmin/content-outline-list/:id",
+    element: <ContentOutlineList/>,
+    role: "SchoolAdmin",
+  },
+  {
+    path: "schooladmin/course-faq-list/:id",
+    element: <CourseFaqList/>,
+    role: "SchoolAdmin",
+  },
+  {
+    path: "schooladmin/course-feature-list/:id",
+    element: <CourseFeatureList/>,
+    role: "SchoolAdmin",
+  },
+  {
+    path: "schooladmin/course-routine-list/:id",
+    element: <CourseRoutineList/>,
+    role: "SchoolAdmin",
+  },
+  {
+    path: "schooladmin/course-mentor-assign-list/:id",
+    element: <CourseMentorList/>,
+    role: "SchoolAdmin",
+  },
+  {
+    path: "schooladmin/student-list-by-course-id/:id",
+    element: <StudentParticipantsList/>,
+    role: "SchoolAdmin",
+  },
+  {
+    path: "mentor-list",
+    element: <MentorList/>,
+    role: "SchoolAdmin",
+  },
+  {
+    path: "student-list",
+    element: <StudentList/>,
+    role: "SchoolAdmin",
+  },
+  {
+    path: "student-mapping-list",
+    element: <StudentMappingList/>,
+    role: "SchoolAdmin",
+  },
+  {
+    path: "schooladmin/assignment-list",
+    element: <AssignmentList/>,
+    role: "SchoolAdmin",
+  },
+  {
+    path: "schooladmin/exam-result-list",
+    element: <ExamResultList/>,
+    role: "SchoolAdmin",
+  },
+  {
+    path: "schooladmin/payment-list",
+    element: <PaymentList />,
+    role: "SchoolAdmin",
+  },
+  {
+    path: "schooladmin/purchase-list",
+    element: <PurchaseList />,
+    role: "SchoolAdmin",
+  },
+
+  // Global Admin
+  {
     path: "globaladmin",
     element: <DashboardHomePage />,
     role: "GlobalAdmin",
   },
   {
-    path: "menu-list",
+    path: "globaladmin/menu-list",
     element: <MenuList />,
     role: "GlobalAdmin",
   },
   {
-    path: "organization-list",
+    path: "globaladmin/organization-list",
     element: <OrganizationList />,
     role: "GlobalAdmin",
   },
   {
-    path: "tag-list",
+    path: "globaladmin/tag-list",
     element: <Tags />,
     role: "GlobalAdmin",
   },
   {
-    path: "class-list",
+    path: "globaladmin/class-list",
     element: <ClassList />,
     role: "GlobalAdmin",
   },
   {
-    path: "subject-list",
+    path: "globaladmin/subject-list",
     element: <SubjectList />,
     role: "GlobalAdmin",
   },
   {
-    path: "chapter-list",
+    path: "globaladmin/chapter-list",
     element: <ChapterList />,
     role: "GlobalAdmin",
   },
   {
-    path: "video-content-list",
+    path: "globaladmin/video-content-list",
     element: <VideoContentList />,
     role: "GlobalAdmin",
   },
   {
-    path: "script-content-list",
+    path: "globaladmin/script-content-list",
     element: <ScriptContentList />,
     role: "GlobalAdmin",
   },
   {
-    path: "quiz-list",
+    path: "globaladmin/quiz-list",
     element: <QuizList />,
     role: "GlobalAdmin",
   },
   {
-    path: "client-list",
+    path: "globaladmin/client-list",
     element: <ClientList />,
     role: "GlobalAdmin",
   },
@@ -103,12 +254,12 @@ export const privateRoute = [
     role: "GlobalAdmin",
   },
   {
-    path: "course-list",
+    path: "globaladmin/course-list",
     element: <CourseList/>,
     role: "GlobalAdmin",
   },
   {
-    path: "content-list",
+    path: "globaladmin/content-list",
     element: <ContentList/>,
     role: "GlobalAdmin",
   },
@@ -148,17 +299,17 @@ export const privateRoute = [
     role: "GlobalAdmin",
   },
   {
-    path: "mentor-list",
+    path: "globaladmin/mentor-list",
     element: <MentorList/>,
     role: "GlobalAdmin",
   },
   {
-    path: "student-list",
+    path: "globaladmin/student-list",
     element: <StudentList/>,
     role: "GlobalAdmin",
   },
   {
-    path: "student-mapping-list",
+    path: "globaladmin/student-mapping-list",
     element: <StudentMappingList/>,
     role: "GlobalAdmin",
   },

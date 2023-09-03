@@ -267,7 +267,7 @@ const QuizList = () => {
                         chapter_quiz_id: row?.row?.original?.id,
                       }))
                     }}
-                    to={`/dashboard/globaladmin/quiz-question-list/${row?.row?.original?.id}`}><BsEyeFill size={17} /> QN </Link>
+                    to={`/dashboard/schooladmin/quiz-question-list/${row?.row?.original?.id}`}><BsEyeFill size={17} /> QN </Link>
                 </div>
                 <div>
                 </div>

@@ -53,7 +53,7 @@ const StudentParticipantsList = () => {
         paramValue={param}
         size={size}
       />
-      <PageTopHeader title="Mentor List" />
+      <PageTopHeader title="Student List" />
       <div className="card border shadow-lg ">
         <div className="card-header d-flex justify-content-between ">
           <div>Students List of {data?.data?.course_name } Course</div>

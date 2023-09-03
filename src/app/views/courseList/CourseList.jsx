@@ -176,22 +176,22 @@ const CourseList = () => {
                   </button>
                   <Link
                     className="px-2 d-flex mx-1 align-items-center btn btn-success btn-sm"
-                    to={`/dashboard/globaladmin/course-outline-list/${row?.row?.original?.id}`}><BsEyeFill className="me-1"  size={17} /> Outline </Link>
+                    to={`/dashboard/schooladmin/course-outline-list/${row?.row?.original?.id}`}><BsEyeFill className="me-1"  size={17} /> Outline </Link>
                   <Link
                     className="px-2 d-flex mx-1 align-items-center btn btn-success btn-sm"
-                    to={`/dashboard/globaladmin/course-faq-list/${row?.row?.original?.id}`}><BsEyeFill  className="me-1"  size={17} /> FAQ </Link>
+                    to={`/dashboard/schooladmin/course-faq-list/${row?.row?.original?.id}`}><BsEyeFill  className="me-1"  size={17} /> FAQ </Link>
                   <Link
                     className="px-2 d-flex mx-1 align-items-center btn btn-success btn-sm"
-                    to={`/dashboard/globaladmin/course-feature-list/${row?.row?.original?.id}`}><BsEyeFill  className="me-1"  size={17} /> Feature </Link>
+                    to={`/dashboard/schooladmin/course-feature-list/${row?.row?.original?.id}`}><BsEyeFill  className="me-1"  size={17} /> Feature </Link>
                   <Link
                     className="px-2 d-flex mx-1 align-items-center btn btn-success btn-sm"
-                    to={`/dashboard/globaladmin/course-routine-list/${row?.row?.original?.id}`}><BsEyeFill  className="me-1"  size={17} /> Routine </Link>
+                    to={`/dashboard/schooladmin/course-routine-list/${row?.row?.original?.id}`}><BsEyeFill  className="me-1"  size={17} /> Routine </Link>
                   <Link
                     className="px-2 d-flex mx-1 align-items-center btn btn-success btn-sm"
-                    to={`/dashboard/globaladmin/course-mentor-assign-list/${row?.row?.original?.id}`}><BsEyeFill  className="me-1"  size={17} /> Mentor </Link>
+                    to={`/dashboard/schooladmin/course-mentor-assign-list/${row?.row?.original?.id}`}><BsEyeFill  className="me-1"  size={17} /> Mentor </Link>
                   <Link
                     className="px-2 d-flex mx-1 align-items-center btn btn-success btn-sm"
-                    to={`/dashboard/globaladmin/student-list-by-course-id/${row?.row?.original?.id}`}><BsEyeFill  className="me-1"  size={17} />Participants</Link>
+                    to={`/dashboard/schooladmin/student-list-by-course-id/${row?.row?.original?.id}`}><BsEyeFill  className="me-1"  size={17} />Participants</Link>
                   <div>
                     
                   </div>

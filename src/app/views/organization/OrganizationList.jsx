@@ -11,7 +11,10 @@ import demo from "../../../../src/assets/images/no_image.png";
 import { useGetOrganizationListQuery } from "../../../services/masterSettingsApi";
 import { BsGearFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 const OrganizationList = () => {
+  const authUser = useSelector((state) => state.auth.user);
+  // console.log("authUser", authUser?.user_type);
   const res = useGetOrganizationListQuery();
   const { data, isSuccess, isFetching, isError } = res;
   const [clickValue, setClickValue] = useState(null);
@@ -160,12 +163,15 @@ const OrganizationList = () => {
                   >
                     <FaEdit size={16} /> Edit
                   </button>
-                  <Link
-                    to={`/dashboard/globaladmin/website-page-list/${row?.row?.original?.id}`}
+                  {authUser?.user_type === "SchoolAdmin" && (
+                     <Link
+                    to={`/dashboard/schooladmin/website-page-list/${row?.row?.original?.id}`}
                     className="mx-2 btn btn-info btn-sm"
                   >
                     <LiaPagerSolid size={18} /> Page
                   </Link>
+                  )}
+                 
                 </div>
               </>
             )}

@@ -5,7 +5,7 @@ import forbidden from '../../../assets/images/forbidden.png'
 const NotAccess = () => {
   const navigate = useNavigate();
 	const goBack = () => {
-		navigate(-1);
+		navigate("/");
 	}
   return (
     <>

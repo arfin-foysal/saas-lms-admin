@@ -165,7 +165,7 @@ const ContentList = () => {
                   </button>
                   <Link
                    className="px-2 d-flex mx-1 align-items-center btn btn-success btn-sm"
-                    to={`/dashboard/globaladmin/content-outline-list/${row?.row?.original?.id}`}><BsEyeFill size={17} /> Outline </Link>
+                    to={`/dashboard/schooladmin/content-outline-list/${row?.row?.original?.id}`}><BsEyeFill size={17} /> Outline </Link>
             
                 </div>
               </>

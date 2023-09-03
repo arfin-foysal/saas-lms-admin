@@ -16,7 +16,7 @@ const routes = [
         role: 'LocalAdmin'
     },
     {
-        path: '/dashboard/schoolsdmin',
+        path: '/dashboard/schooladmin',
         role: 'SchoolAdmin'
     },
     {

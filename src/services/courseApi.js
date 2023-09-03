@@ -161,6 +161,7 @@ export const courseApi = apiSliceAdmin.injectEndpoints({
       }),
       providesTags: ["Course"],
     }),
+   
     deleteFeature: builder.mutation({
       query: (id) => ({
         url: `admin/delete-feature/${id}`,
@@ -185,6 +186,13 @@ export const courseApi = apiSliceAdmin.injectEndpoints({
     getMentorList: builder.query({
       query: () => ({
         url: "admin/mentor-list",
+        method: "GET",
+      }),
+      providesTags: ["Course"],
+    }),
+    getCoursePaymentListByCourseId: builder.query({
+      query: (id) => ({
+        url: `admin/course-payment-list-by-course-id/${id}`,
         method: "GET",
       }),
       providesTags: ["Course"],
@@ -215,6 +223,7 @@ export const {
   useGetCourseListForMappingQuery,
   useGetStudentParticipantListByCourseIdQuery,
   useGetMentorListQuery,
+  useGetCoursePaymentListByCourseIdQuery,
 
 
 } = courseApi;
