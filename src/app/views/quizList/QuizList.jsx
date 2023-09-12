@@ -116,28 +116,14 @@ const QuizList = () => {
         accessorFn: (row) =>
           row?.sufficient_question === true ? (
             <>
-              <span ><BsDot color="green" size={35}/></span>
+              <span ><BsDot color="green" size={40}/></span>
             </>
           ) : (
-            <span ><BsDot color="red" size={35}/></span>
+            <span ><BsDot color="red" size={40}/></span>
           ),
 
         id: "sufficient_question",
         header: "QTN Status",
-        size:"10"
-      },
-      {
-        accessorFn: (row) =>
-          row?.is_free === true ? (
-            <>
-              <span className="badge bg-info">Yes</span>
-            </>
-          ) : (
-            <span className="badge bg-secondary">No</span>
-          ),
-
-        id: "is_free",
-        header: "Is Free",
         size:"10"
       },
       {
@@ -281,7 +267,7 @@ const QuizList = () => {
                         chapter_quiz_id: row?.row?.original?.id,
                       }))
                     }}
-                    to={`/dashboard/schooladmin/quiz-question-list/${row?.row?.original?.id}`}><BsEyeFill size={17} /> QN </Link>
+                    to={`/dashboard/schooladmin/quiz-question-list/${row?.row?.original?.id}`}><BsEyeFill className="me-1" size={17} /> QTN </Link>
                 </div>
                 <div>
                 </div>

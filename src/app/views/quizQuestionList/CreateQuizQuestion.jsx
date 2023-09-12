@@ -268,7 +268,6 @@ const CreateQuizQuestion = ({ handleClose, paramValue }) => {
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                                    label="✔"
                                     name="answer1"
                                     onChange={formik.handleChange}
                                     value={formik.values.answer1}
@@ -284,7 +283,6 @@ const CreateQuizQuestion = ({ handleClose, paramValue }) => {
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                                    label="✔"
                                     name="answer2"
                                     onChange={formik.handleChange}
                                     value={formik.values.answer2}
@@ -300,7 +298,6 @@ const CreateQuizQuestion = ({ handleClose, paramValue }) => {
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                                    label="✔"
                                     name="answer3"
                                     onChange={formik.handleChange}
                                     value={formik.values.answer3}
@@ -316,7 +313,6 @@ const CreateQuizQuestion = ({ handleClose, paramValue }) => {
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"
-                                    label="✔"
                                     name="answer4"
                                     onChange={formik.handleChange}
                                     value={formik.values.answer4}
