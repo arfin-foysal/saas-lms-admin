@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import * as xlsx from 'xlsx';
-import { useExcelQuestionUploadMutation, useGetQuizListQuery, useQuestionSetListQuery, } from "../../../services/contentApi";
+import { useExcelQuestionUploadMutation, useQuestionSetListQuery, } from "../../../services/contentApi";
 import { memo, useState } from 'react';
 import { useMemo } from "react";
 import OptionLoader from "../../components/OptionLoader";
@@ -12,9 +12,6 @@ const ExcelImport = ({ handleClose, paramValue }) => {
     const setsList = useQuestionSetListQuery();
     const [excelQuestionUpload, res] = useExcelQuestionUploadMutation();
     const quiz = useSelector((state) => state.common.quiz);
-    // const quizResData = useMemo(() =>
-
-    //     quizRes?.data?.data?.filter((item) => item.id == paramValue), [quizRes, paramValue]);
         const readUploadFile = useMemo(() => (e) => {
             if (e.target.files[0]?.name?.split('.').pop() !== "xlsx") {
                 toast.warn("Please upload a valid file (xlsx)");
