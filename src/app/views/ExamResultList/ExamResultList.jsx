@@ -55,15 +55,15 @@ const ExamResultList = () => {
         header: "Exam Name",
       },
       {
-        accessorKey: "title",
+        accessorKey: "student",
         header: "Participate Student",
       },
       {
-        accessorKey: "title",
+        accessorKey: "date",
         header: "Date Of Participate",
       },
       {
-        accessorKey: "title",
+        accessorKey: "score",
         header: "Score",
       },
 
@@ -123,13 +123,13 @@ const ExamResultList = () => {
             data={[
               {
                 title: "Bangla Quiz 01",
-                student: "12",
+                student: "Farin Khan",
                 date: "01 August 2023, 01:23 PM",
                 score: "12.00",
               },
               {
                 title: "Bangla Quiz 02",
-                student: "12",
+                student: "Rahim Khan",
                 date: "01 August 2023, 01:23 PM",
                 score: "11.00",
               },

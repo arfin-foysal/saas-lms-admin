@@ -129,7 +129,7 @@ const AssignmentList = () => {
               {
                 name: "Bangla 1st Paper: 1st Chapter",
                 student: "Fahim Ahmed",
-                Deadline: "01 August 2023 , 5.00 PM",
+                Deadline: "07 August 2023 , 5.00 PM",
               },
 
              

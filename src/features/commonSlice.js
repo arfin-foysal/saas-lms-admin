@@ -9,13 +9,11 @@ export const commonSlice = createSlice({
   name: "common",
   initialState,
   reducers: {
-
-
-    quizName: (state, action) => {
+    quizSet: (state, action) => {
       state.quiz = action.payload;
     },
   },
 });
 
-export const { quizName } = commonSlice.actions;
+export const { quizSet } = commonSlice.actions;
 export default commonSlice.reducer;

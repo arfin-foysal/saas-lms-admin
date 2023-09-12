@@ -6,11 +6,11 @@ import { FaEdit } from "react-icons/fa";
 import { FiPlusCircle } from "react-icons/fi";
 import { tableColor } from "../../../utils/Theme";
 import MenuModal from "./QuizModal";
-import { BsArrowRightShort, BsEyeFill } from "react-icons/bs";
+import { BsArrowRightShort, BsDot, BsEyeFill } from "react-icons/bs";
 import { useGetChapterListQuery, useGetClassListQuery, useGetQuizListQuery, useGetSubjectListQuery } from "../../../services/contentApi";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { quizName } from "../../../features/commonSlice";
+import { quizSet } from "../../../features/commonSlice";
 import { BiReset } from "react-icons/bi";
 import Select from "react-select";
 
@@ -110,6 +110,20 @@ const QuizList = () => {
       {
         accessorKey: "number_of_question",
         header: "Question",
+        size:"10"
+      },
+      {
+        accessorFn: (row) =>
+          row?.sufficient_question === true ? (
+            <>
+              <span ><BsDot color="green" size={35}/></span>
+            </>
+          ) : (
+            <span ><BsDot color="red" size={35}/></span>
+          ),
+
+        id: "sufficient_question",
+        header: "QTN Status",
         size:"10"
       },
       {
@@ -259,7 +273,7 @@ const QuizList = () => {
                     title=""
                     className="px-2 d-flex mx-1 align-items-center btn btn-success btn-sm"
                     onClick={() => {
-                      dispatch(quizName({
+                      dispatch(quizSet({
                         name: row?.row?.original?.title, id: row?.row?.original?.id,
                         subject_id: row?.row?.original?.subject_id,
                         class_level_id: row?.row?.original?.class_level_id,

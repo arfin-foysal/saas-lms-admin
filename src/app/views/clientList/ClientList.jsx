@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from "react";
 import PageTopHeader from '../../components/PageTopHeader';
 import MaterialReactTable from "material-react-table";
 import Loader from "../../components/Loader";
-import { FaEdit} from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
 import { tableColor } from "../../../utils/Theme";
 import { useGetClientListQuery } from "../../../services/commonApi";
 const ClientList = () => {
@@ -11,7 +11,7 @@ const ClientList = () => {
   const columns = useMemo(
     () => [
       {
-        accessorKey: "name", 
+        accessorKey: "name",
         header: "Name",
       },
       {
@@ -20,50 +20,22 @@ const ClientList = () => {
             <>
               {row?.email} ( {row?.phone})
             </>
-          ) ,
+          ),
 
         id: "email",
         header: "Email & Phone",
       },
-    
       {
-        accessorKey: "address", 
+        accessorKey: "address",
         header: "Address",
+      }, {
+        accessorKey: "organization_name",
+        header: "Organization",
       },
-      {
-        accessorFn: (row) =>
-          row && (
-            <>
-              {row?.occupation} ( {row?.organization_name})
-            </>
-          ) ,
 
-        id: "occupation",
-        header: "Occupation & Organization",
-      },
- 
-      {
-        accessorKey: "organization_address", 
-        header: "Org Address",
-      },
-      {
-        accessorKey: "nid_passport", 
-        header: "Nid/Passport",
-      },
-      {
-        accessorKey: "trade_license", 
-        header: "Trade License",
-      },
-      {
-        accessorKey: "web_address", 
-        header: "Web Address",
-      },
- 
-      {
-        accessorKey: "post_code", 
-        header: "Post Code",
-      },
- 
+
+
+
     ],
     []
   );

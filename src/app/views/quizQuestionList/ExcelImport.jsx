@@ -6,14 +6,15 @@ import { useExcelQuestionUploadMutation, useGetQuizListQuery, useQuestionSetList
 import { memo, useState } from 'react';
 import { useMemo } from "react";
 import OptionLoader from "../../components/OptionLoader";
+import { useSelector } from "react-redux";
 const ExcelImport = ({ handleClose, paramValue }) => {
     const [excelData, setExcelData] = useState([]);
-    const quizRes = useGetQuizListQuery();
     const setsList = useQuestionSetListQuery();
     const [excelQuestionUpload, res] = useExcelQuestionUploadMutation();
+    const quiz = useSelector((state) => state.common.quiz);
+    // const quizResData = useMemo(() =>
 
-    const quizResData = useMemo(() =>
-        quizRes?.data?.data?.filter((item) => item.id == paramValue), [quizRes, paramValue]);
+    //     quizRes?.data?.data?.filter((item) => item.id == paramValue), [quizRes, paramValue]);
         const readUploadFile = useMemo(() => (e) => {
             if (e.target.files[0]?.name?.split('.').pop() !== "xlsx") {
                 toast.warn("Please upload a valid file (xlsx)");
@@ -39,6 +40,10 @@ const ExcelImport = ({ handleClose, paramValue }) => {
     const formik = useFormik({
 
         initialValues: {
+            chapter_quiz_id: "",
+            class_level_id: "",
+            subject_id: "",
+            chapter_id: "",
             question_text: "",
             question_text_bn: "",
             question_set_id: "",
@@ -57,10 +62,10 @@ const ExcelImport = ({ handleClose, paramValue }) => {
             let excel_data_arr = [];
             excelData.map((item) => {
                 excel_data_arr.push({
-                    chapter_quiz_id: quizResData[0]?.id,
-                    class_level_id: quizResData[0]?.class_level_id,
-                    subject_id: quizResData[0]?.subject_id,
-                    chapter_id: quizResData[0]?.chapter_id,
+                    chapter_quiz_id: quiz?.id,
+                    class_level_id: quiz?.class_level_id,
+                    subject_id:quiz?.subject_id,
+                    chapter_id: quiz?.chapter_id,
                     question_text: item.question_text,
                     question_text_bn: item.question_text_bn,
                     question_set_id: values.chapter_quiz_id,
@@ -81,6 +86,11 @@ const ExcelImport = ({ handleClose, paramValue }) => {
             try {
                 const result = await excelQuestionUpload({
                     excel_data: excel_data,
+                    class_level_id: quiz?.class_level_id,
+                    subject_id: quiz?.subject_id,
+                    chapter_id: quiz?.chapter_id,
+                    chapter_quiz_id: quiz?.id,
+                    
                 }).unwrap();
                 toast.success(result.message);
             } catch (error) {

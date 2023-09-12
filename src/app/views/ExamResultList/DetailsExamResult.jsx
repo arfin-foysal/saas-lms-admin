@@ -1,8 +1,8 @@
 import { IoDocument } from "react-icons/io5";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 import { LuFileEdit } from "react-icons/lu";
 import script from "../../../assets/images/script.png";
-const DetailsExamResult = ({ handleClose, values }) => {
+
+export const DetailsExamResult = ({ handleClose, values }) => {
     return (
         <>
             <div className="row">
@@ -15,9 +15,9 @@ const DetailsExamResult = ({ handleClose, values }) => {
                 <table className="table table-bordered">
                     <tbody>
                         <tr>
-                            <th >Exam Name:</th>
+                            <th>Exam Name:</th>
                             <td>Bangla Quiz 01</td>
-                            <th >Date:</th>
+                            <th>Date:</th>
                             <td>01 August 2023, 01:23 PM</td>
                         </tr>
                         <tr>
@@ -40,7 +40,6 @@ const DetailsExamResult = ({ handleClose, values }) => {
                     <h3 className=" fw-bolder py-3">
                         <LuFileEdit />  Answer Script
                     </h3>
-
                     <div className="row">
                         <div className="col-md-4 text-center">
                             <img src={script}
@@ -63,54 +62,48 @@ const DetailsExamResult = ({ handleClose, values }) => {
                                 alt="" />
                             <p>Script 3</p>
                         </div>
-
-                        </div>
+                    </div>
 
                     <from>
-                        <div className="row">
-                            <div className="col-md-4">
+                        <div className="row my-2">
+                            <div className="col-md-4 my-1">
                                 <div className="form-group">
                                     <label htmlFor="exampleInputEmail1">Question 1</label>
                                     <input type="text" className="form-control" />
-
                                 </div>
                             </div>
-
-                            <div className="col-md-2">
+                            <div className="col-md-2 my-1">
                                 <button type="submit" className="btn btn-primary btn-sm mt-4">Update</button>
                             </div>
-                            <div className="col-md-4">
+                            <div className="col-md-4 my-1">
                                 <div className="form-group">
                                     <label htmlFor="exampleInputEmail1">Question 3 </label>
                                     <input type="text" className="form-control" />
                                 </div>
                             </div>
-                            <div className="col-md-2">
+                            <div className="col-md-2 my-1">
                                 <button type="submit" className="btn btn-primary btn-sm mt-4">Update</button>
                             </div>
-                            <div className="col-md-4">
+                            <div className="col-md-4 my-1">
                                 <div className="form-group">
                                     <label htmlFor="exampleInputEmail1">Question 4</label>
                                     <input type="text" className="form-control" />
-
                                 </div>
                             </div>
 
-                            <div className="col-md-2">
+                            <div className="col-md-2 my-1">
                                 <button type="submit" className="btn btn-primary btn-sm mt-4">Update</button>
                             </div>
-                            <div className="col-md-4">
+                            <div className="col-md-4 my-1">
                                 <div className="form-group">
                                     <label htmlFor="exampleInputEmail1">Question 2 </label>
                                     <input type="text" className="form-control" />
                                 </div>
                             </div>
-                            <div className="col-md-2">
+                            <div className="col-md-2 my-1">
                                 <button type="submit" className="btn btn-primary btn-sm mt-4">Update</button>
                             </div>
-
                         </div>
-
                     </from>
                 </div>
 

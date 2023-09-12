@@ -1,9 +1,12 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
 import { modalColor } from "../../../utils/Theme";
-import CreateQuizQuestion from "./CreateQuizQuestion";
-import UpdateQuizQuestion from "./UpdateQuizQuestion";
+
 import ExcelImport from "./ExcelImport";
+
+
+import UpdateQuizQuestion from "./UpdateQuizQuestion";
+import CreateQuizQuestion from "./CreateQuizQuestion";
 const QuizQuestionModal = ({ handleClose, show, clickValue, paramValue, size }) => {
     
     return (

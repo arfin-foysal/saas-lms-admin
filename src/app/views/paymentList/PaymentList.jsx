@@ -4,7 +4,6 @@ import MaterialReactTable from "material-react-table";
 import Loader from "../../components/Loader";
 import { tableColor } from "../../../utils/Theme";
 import MenuModal from "./PaymentModal";
-import {  useGetClassListQuery, useGetVideoChapterListQuery } from "../../../services/contentApi";
 import { BsEyeFill } from "react-icons/bs";
 import { BiReset } from "react-icons/bi";
 import Select from "react-select";

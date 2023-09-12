@@ -1,18 +1,21 @@
 import { useFormik } from "formik";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { useGetQuizListQuery, useQuestionSaveOrUpdateMutation, useQuestionSetListQuery, } from "../../../services/contentApi";
-import { memo } from 'react';
+import { useGetQuizDetailsQuery, useGetQuizListQuery, useQuestionSaveOrUpdateMutation, useQuestionSetListQuery, } from "../../../services/contentApi";
 import { useMemo } from "react";
 import OptionLoader from "../../components/OptionLoader";
-const CreateQuizQuestion = ({ handleClose ,paramValue}) => {
-    const quizRes = useGetQuizListQuery();
+import { useSelector } from "react-redux";
+const CreateQuizQuestion = ({ handleClose, paramValue }) => {
+    const quiz = useSelector((state) => state.common.quiz);
     const setsList = useQuestionSetListQuery();
-    const quizResData = useMemo(() =>
-        quizRes?.data?.data?.filter((item) => item.id == paramValue), [quizRes, paramValue]);
     const [questionSaveOrUpdate, res] = useQuestionSaveOrUpdateMutation();
     const formik = useFormik({
         initialValues: {
+            chapter_quiz_id: quiz?.id,
+            class_level_id: quiz?.class_level_id,
+            subject_id: quiz?.subject_id,
+            chapter_id: quiz?.chapter_id,
+
             question_text: "",
             question_text_bn: "",
             question_image: "",
@@ -35,10 +38,10 @@ const CreateQuizQuestion = ({ handleClose ,paramValue}) => {
         },
         onSubmit: async (values, { resetForm }) => {
             let formData = new FormData();
-            formData.append("chapter_quiz_id", quizResData[0]?.id);
-            formData.append("class_level_id", quizResData[0]?.class_level_id);
-            formData.append("subject_id", quizResData[0]?.subject_id);
-            formData.append("chapter_id", quizResData[0]?.chapter_id);
+            formData.append("chapter_quiz_id", quiz?.id);
+            formData.append("class_level_id", quiz?.class_level_id);
+            formData.append("subject_id", quiz?.subject_id);
+            formData.append("chapter_id", quiz?.chapter_id);
             formData.append("question_text", values.question_text);
             formData.append("question_text_bn", values.question_text_bn);
             formData.append("question_image", values.question_image);
@@ -103,7 +106,6 @@ const CreateQuizQuestion = ({ handleClose ,paramValue}) => {
                                 name="question_text_bn"
                                 onChange={formik.handleChange}
                                 value={formik.values.question_text_bn}
-                                required
                             />
                         </div>
                     </div>
@@ -259,8 +261,6 @@ const CreateQuizQuestion = ({ handleClose ,paramValue}) => {
                         </div>
                     </div>
 
-
-
                     <div className="form-group row col-6 my-3 ">
                         <label className="col-6 col-form-label">Correct Answer 01</label>
                         <div className="col-6">
@@ -389,5 +389,4 @@ const CreateQuizQuestion = ({ handleClose ,paramValue}) => {
     );
 };
 
-export default memo(CreateQuizQuestion)
-    ;
+export default CreateQuizQuestion ;
