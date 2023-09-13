@@ -7,7 +7,9 @@ import { memo, useState } from 'react';
 import { useMemo } from "react";
 import OptionLoader from "../../components/OptionLoader";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const ExcelImport = ({ handleClose, paramValue }) => {
+    const navigate=useNavigate();
     const [excelData, setExcelData] = useState([]);
     const setsList = useQuestionSetListQuery();
     const [excelQuestionUpload, res] = useExcelQuestionUploadMutation();
@@ -56,6 +58,11 @@ const ExcelImport = ({ handleClose, paramValue }) => {
 
         },
         onSubmit: async (values, { resetForm }) => {
+            if (quiz?.id === undefined || quiz?.id === null || quiz?.id === "" || quiz?.id === 0 || quiz?.id === "0") {
+                toast.warn("Something went wrong! Quiz Question not upload. Please try again later.");
+                navigate('/dashboard/quiz-list');
+                return;
+            }
             let excel_data_arr = [];
             excelData.map((item) => {
                 excel_data_arr.push({

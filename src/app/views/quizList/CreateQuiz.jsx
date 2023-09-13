@@ -183,9 +183,6 @@ const CreateQuiz
                                 />
                             </div>
                         </div>
-
-
-
                         <div className="form-group col-6 my-1">
                             <label className="col-12 col-form-label">Positive Mark  <span className=" text-danger">*</span></label>
                             <div className="col-12">

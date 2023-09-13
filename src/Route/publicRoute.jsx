@@ -14,7 +14,6 @@ import Error from './../app/publicPages/common/Error';
 
 
 
-
 export const publicRoute = [
 
   //dashboard login

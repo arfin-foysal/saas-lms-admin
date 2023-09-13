@@ -5,7 +5,9 @@ import { useGetQuizDetailsQuery, useGetQuizListQuery, useQuestionSaveOrUpdateMut
 import { useMemo } from "react";
 import OptionLoader from "../../components/OptionLoader";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const CreateQuizQuestion = ({ handleClose, paramValue }) => {
+    const navigate=useNavigate();
     const quiz = useSelector((state) => state.common.quiz);
     const setsList = useQuestionSetListQuery();
     const [questionSaveOrUpdate, res] = useQuestionSaveOrUpdateMutation();
@@ -15,7 +17,6 @@ const CreateQuizQuestion = ({ handleClose, paramValue }) => {
             class_level_id: quiz?.class_level_id,
             subject_id: quiz?.subject_id,
             chapter_id: quiz?.chapter_id,
-
             question_text: "",
             question_text_bn: "",
             question_image: "",
@@ -37,6 +38,14 @@ const CreateQuizQuestion = ({ handleClose, paramValue }) => {
             is_active: true
         },
         onSubmit: async (values, { resetForm }) => {
+
+            if (quiz?.id === undefined || quiz?.id === null || quiz?.id === "" || quiz?.id === 0 || quiz?.id === "0") {
+                toast.warn("Something went wrong! Quiz Question not added. Please try again later.");
+                navigate('/dashboard/quiz-list');
+                return;
+            }
+
+
             let formData = new FormData();
             formData.append("chapter_quiz_id", quiz?.id);
             formData.append("class_level_id", quiz?.class_level_id);
@@ -321,7 +330,7 @@ const CreateQuizQuestion = ({ handleClose, paramValue }) => {
                             </div>
                         </div>
                     </div>
-           
+
                     <div className="form-group col-12 my-1">
                         <label className="col-12 col-form-label">Explanation Text <span className=" text-danger">*</span></label>
                         <div className="col-12">
@@ -351,7 +360,7 @@ const CreateQuizQuestion = ({ handleClose, paramValue }) => {
                             />
                         </div>
                     </div>
-                    
+
                     <div className="form-group row col-12 my-3 ">
                         <label className="col-6 col-form-label">Is Active</label>
                         <div className="col-6">
@@ -385,4 +394,4 @@ const CreateQuizQuestion = ({ handleClose, paramValue }) => {
     );
 };
 
-export default CreateQuizQuestion ;
+export default CreateQuizQuestion;
