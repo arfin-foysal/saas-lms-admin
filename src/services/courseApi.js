@@ -99,6 +99,13 @@ export const courseApi = apiSliceAdmin.injectEndpoints({
       }),
       invalidatesTags: ["Course"],
     }),
+   deleteCourseStudentMapping: builder.mutation({
+      query: (id) => ({
+        url: `admin/course-student-mapping-delete/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Course"],
+    }),
 
     featureSaveOrUpdate: builder.mutation({
       query: (body) => {
@@ -224,6 +231,6 @@ export const {
   useGetStudentParticipantListByCourseIdQuery,
   useGetMentorListQuery,
   useGetCoursePaymentListByCourseIdQuery,
-
+  useDeleteCourseStudentMappingMutation,
 
 } = courseApi;

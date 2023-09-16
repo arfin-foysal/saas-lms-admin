@@ -8,10 +8,12 @@ import { tableColor } from "../../../utils/Theme";
 import MenuModal from "./StudentMappingModal";
 import { confirmHandel } from "../../../utils/Alert";
 import { toast } from "react-toastify";
-import {useGetStudentMappingListQuery } from "../../../services/courseApi";
+import {useDeleteCourseStudentMappingMutation, useGetStudentMappingListQuery } from "../../../services/courseApi";
+
 
 const StudentMappingList = () => {
   const res = useGetStudentMappingListQuery();
+  const [ deleteCourseStudentMapping] = useDeleteCourseStudentMappingMutation()
   const { data, isSuccess, isFetching, isError } = res;
   const [clickValue, setClickValue] = useState(null);
   const [size, setSize] = useState("lg")
@@ -22,6 +24,10 @@ const StudentMappingList = () => {
   const handelClickValue = useCallback((value) => {
     setClickValue(value);
   }, []);
+  const handelDelete = async (id) => {
+    const result = await deleteCourseStudentMapping(id).unwrap();
+    toast.success(result.message);
+  };
   const columns = useMemo(
     () => [
       {
@@ -117,6 +123,20 @@ const StudentMappingList = () => {
                     }}
                   >
                     <FaEdit size={18} />
+                  </button>
+                  <button
+                    title=""
+                    className="px-2 mx-1 d-flex align-items-center btn btn-danger btn-sm"
+                    onClick={() => {
+                      confirmHandel(
+                        "error",
+                        "Delete",
+                        "#FF0000",
+                        row?.row?.original?.id,
+                        handelDelete
+                      )
+                    }}>
+                    <FaTrash size={14} />
                   </button>
                 </div>
                 <div>

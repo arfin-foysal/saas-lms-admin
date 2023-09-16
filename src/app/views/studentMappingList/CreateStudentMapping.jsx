@@ -33,10 +33,12 @@ const CreateStudentMapping = ({ handleClose, paramValue, assData }) => {
             })
             const mappingArr = JSON.stringify(arr);
             resetForm();
-            if (values.course_id == 0) {
-                toast.warn("Please Select course");
+
+            if (allMapping.length === 0) {
+                toast.warn("Please add mentor and student");
                 return;
             }
+          
             try {
                 const result = await studentMappingSaveOrUpdate({ mapping: mappingArr }).unwrap();
                 toast.success(result.message);
@@ -51,7 +53,6 @@ const CreateStudentMapping = ({ handleClose, paramValue, assData }) => {
     const studentRes = useGetStudentParticipantListByCourseIdQuery(
         formik.values.course_id?.id ? formik.values.course_id?.id : 0
     );
-
     const handelAdd = () => {
         if (!formik.values.course_id ||
             !formik.values.mentor_id ||
@@ -180,7 +181,7 @@ const CreateStudentMapping = ({ handleClose, paramValue, assData }) => {
                                 isSearchable={true}
                                 isClearable
                                 isLoading={studentRes.isLoading}
-                                options={studentRes.data?.data}
+                                options={studentRes?.data?.data?.student_list}
                                 getOptionLabel={option => `${option.name}( ${option.email}))`}
                                 getOptionValue={option => option.id}
                                 onChange={(value) => {

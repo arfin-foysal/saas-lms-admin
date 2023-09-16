@@ -23,4 +23,5 @@ export  const confirmHandel = async (icon, buttonTxt, ButtonClr, Did, func) => {
   // "Delete",
   // "#FF0000",
   // row?.row?.original?.id,
-  // handelDelete
+// handelDelete
+  
