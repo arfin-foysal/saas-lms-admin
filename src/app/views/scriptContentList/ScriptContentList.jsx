@@ -39,13 +39,6 @@ const ScriptContentList = () => {
     chapter_id: chapterId?.id ? chapterId?.id : 0,
   });
 
-  // const handelSelectChange = (e) => {
-  //   setClassId(e);
-  //   setSubjectId(0);
-  //   setChapterId(0);
-  // };
-
-
 
   const handelClickValue = useCallback((value) => {
     setClickValue(value);
@@ -116,8 +109,8 @@ const ScriptContentList = () => {
     ],
     []
   );
-
   const { data, isSuccess, isFetching, isError } = res;
+
   return (
     <>
       {isFetching && <Loader />}
@@ -155,7 +148,11 @@ const ScriptContentList = () => {
                   styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
                   placeholder="Select Class"
                   isLoading={classRes?.isFetching}
-                  onChange={(e) => setClassId(e)}
+                  onChange={(e) => {
+                    setClassId(e)
+                    setSubjectId(0);
+                    setChapterId(0);
+                  }}
                   getOptionValue={(option) => `${option["id"]}`}
                   getOptionLabel={(option) => `${option["name"]}`}
                   options={classRes?.data?.data}
@@ -163,7 +160,6 @@ const ScriptContentList = () => {
                   name="class_id"
                   value={classRes?.data?.data?.id}
                   
-
 
                 />
                 <Select
@@ -173,7 +169,10 @@ const ScriptContentList = () => {
                   styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
                   placeholder="Select Subject"
                   isLoading={subjectRes?.isFetching}
-                  onChange={(e) => setSubjectId(e)}
+                  onChange={(e) => {
+                    setSubjectId(e);
+                    setChapterId(0);
+                  }}
                   getOptionValue={(option) => `${option["id"]}`}
                   getOptionLabel={(option) => `${option["name"]}`}
                   options={subjectRes?.data?.data}
@@ -195,6 +194,7 @@ const ScriptContentList = () => {
                   name="chapter_id"
                   key={chapterRes?.data?.data?.id}
                   value={chapterRes?.data?.data?.id}
+                  
                 />
                 <div>
                   <BiReset

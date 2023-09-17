@@ -184,7 +184,7 @@ export const navItem = [
     ],
   },
   {
-    title: "Row Content",
+    title: "Raw Content",
     role: "SchoolAdmin",
     icon: <BiCategory />,
     children: [
