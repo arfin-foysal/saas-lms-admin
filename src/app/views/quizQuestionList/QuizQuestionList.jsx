@@ -76,6 +76,11 @@ const QuizQuestionList = () => {
         size:200
       },
       {
+        accessorKey: "question_set_name",
+        header: "Set",
+        size: "5"
+      },
+      {
         accessorKey: "option1",
         header: "Option 01",
       },

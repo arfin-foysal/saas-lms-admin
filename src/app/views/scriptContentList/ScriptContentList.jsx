@@ -4,26 +4,27 @@ import MaterialReactTable from "material-react-table";
 import Loader from "../../components/Loader";
 import { FaEdit } from "react-icons/fa";
 import { FiPlusCircle } from "react-icons/fi";
-import { IoSyncCircle } from "react-icons/io5";
 import { tableColor } from "../../../utils/Theme";
 import MenuModal from "./ScriptContentModal";
 import { BsArrowRightShort, BsEyeFill } from "react-icons/bs";
-import { useGetChapterListQuery, useGetClassListQuery, useGetScriptChapterListQuery, useGetSubjectListQuery } from "../../../services/contentApi";
+import { useGetChapterListBySubjectIdQuery, useGetClassListQuery, useGetScriptChapterListQuery, useGetSubjectListByClassIdQuery } from "../../../services/contentApi";
 import Select from "react-select";
 import { BiReset } from "react-icons/bi";
 
 const ScriptContentList = () => {
-  const classRes = useGetClassListQuery();
-  const subjectRes = useGetSubjectListQuery();
-  const chapterRes = useGetChapterListQuery();
   const [clickValue, setClickValue] = useState(null);
   const [param, setParam] = useState(null);
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   const [classId, setClassId] = useState(0);
   const [subjectId, setSubjectId] = useState(0);
   const [chapterId, setChapterId] = useState(0);
+
+  const classRes = useGetClassListQuery();
+  const subjectRes = useGetSubjectListByClassIdQuery(classId?.id ? classId?.id : 0);
+  const chapterRes = useGetChapterListBySubjectIdQuery(subjectId?.id ? subjectId?.id : 0);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const reFetch = () => {
     res.refetch();
@@ -31,6 +32,20 @@ const ScriptContentList = () => {
     setSubjectId(0);
     setChapterId(0);
   };
+
+  const res = useGetScriptChapterListQuery({
+    class_id: classId?.id ? classId?.id : 0,
+    subject_id: subjectId?.id ? subjectId?.id : 0,
+    chapter_id: chapterId?.id ? chapterId?.id : 0,
+  });
+
+  // const handelSelectChange = (e) => {
+  //   setClassId(e);
+  //   setSubjectId(0);
+  //   setChapterId(0);
+  // };
+
+
 
   const handelClickValue = useCallback((value) => {
     setClickValue(value);
@@ -101,12 +116,7 @@ const ScriptContentList = () => {
     ],
     []
   );
-  const res = useGetScriptChapterListQuery({
-    class_id: classId?.id?classId?.id:0,
-    subject_id: subjectId?.id?subjectId?.id:0,
-    chapter_id: chapterId?.id?chapterId?.id:0,
 
-  });
   const { data, isSuccess, isFetching, isError } = res;
   return (
     <>
@@ -150,9 +160,11 @@ const ScriptContentList = () => {
                   getOptionLabel={(option) => `${option["name"]}`}
                   options={classRes?.data?.data}
                   key={classRes?.data?.data?.id}
-                  // value={classRes?.data?.data?.id}
+                  name="class_id"
+                  value={classRes?.data?.data?.id}
                   
-             
+
+
                 />
                 <Select
                   className="w-100"

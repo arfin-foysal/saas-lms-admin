@@ -6,26 +6,29 @@ import { FaEdit } from "react-icons/fa";
 import { FiPlusCircle } from "react-icons/fi";
 import { tableColor } from "../../../utils/Theme";
 import MenuModal from "./VideoContentModal";
-import { useGetChapterListQuery, useGetClassListQuery, useGetSubjectListQuery, useGetVideoChapterListQuery } from "../../../services/contentApi";
+import { useGetChapterListBySubjectIdQuery, useGetChapterListQuery, useGetClassListQuery, useGetSubjectListByClassIdQuery, useGetSubjectListQuery, useGetVideoChapterListQuery } from "../../../services/contentApi";
 import { BsArrowRightShort, BsEyeFill } from "react-icons/bs";
 import { BiReset } from "react-icons/bi";
 import Select from "react-select";
 const VideoContentList = () => {
-  const classRes = useGetClassListQuery();
-  const subjectRes = useGetSubjectListQuery();
-  const chapterRes = useGetChapterListQuery();
   const [clickValue, setClickValue] = useState(null);
   const [param, setParam] = useState(null);
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   const [classId, setClassId] = useState(0);
   const [subjectId, setSubjectId] = useState(0);
   const [chapterId, setChapterId] = useState(0);
+
+  const classRes = useGetClassListQuery();
+  const subjectRes = useGetSubjectListByClassIdQuery(classId?.id ? classId?.id : 0);
+  const chapterRes = useGetChapterListBySubjectIdQuery( subjectId?.id ? subjectId?.id : 0);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   const res = useGetVideoChapterListQuery({
-    class_id: classId?.id?classId?.id:0,
-    subject_id: subjectId?.id?subjectId?.id:0,
-    chapter_id: chapterId?.id?chapterId?.id:0,
+    class_id: classId?.id ? classId?.id : 0,
+    subject_id: subjectId?.id ? subjectId?.id : 0,
+    chapter_id: chapterId?.id ? chapterId?.id : 0,
   });
 
 
@@ -36,6 +39,16 @@ const VideoContentList = () => {
     setSubjectId(0);
     setChapterId(0);
   };
+
+
+
+
+
+
+
+
+
+
 
   const handelClickValue = useCallback((value) => {
     setClickValue(value);
@@ -138,22 +151,20 @@ const VideoContentList = () => {
             renderTopToolbarCustomActions={() => (
               <div className="col-md-6 gap-1 d-flex justify-content-start ">
                 <Select
-                  isClearable
                   className="w-100"
+                  isClearable
                   menuPortalTarget={document.body}
                   styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
                   placeholder="Select Class"
                   isLoading={classRes?.isFetching}
-                  onChange={(e) => {
-                    setClassId(e)
-                    handelChange(e)
-                  }}
+                  onChange={(e) => setClassId(e)}
                   getOptionValue={(option) => `${option["id"]}`}
                   getOptionLabel={(option) => `${option["name"]}`}
                   options={classRes?.data?.data}
                   key={classRes?.data?.data?.id}
                   name="class_id"
                   value={classRes?.data?.data?.id}
+
                 />
                 <Select
                   className="w-100"
