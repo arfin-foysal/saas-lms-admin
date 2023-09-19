@@ -49,7 +49,7 @@ const UpdateQuizSubject = ({ handleClose, paramValue }) => {
                                 }}
                                 onBlur={formik.handleBlur}
                                 value={formik.values.quiz_core_subject_id}
-                                required
+                                disabled
 
                             >
                                 {subjectRes?.isLoading && <OptionLoader />}

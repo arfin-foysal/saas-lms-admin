@@ -2,18 +2,23 @@ import { useFormik } from "formik";
 import { Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import * as xlsx from 'xlsx';
-import { useExcelQuestionUploadMutation, useQuestionSetListQuery, } from "../../../services/contentApi";
+import { useExcelQuestionUploadMutation, useGetQuizAssignSubjectQuery, useQuestionSetListQuery, } from "../../../services/contentApi";
 import { memo, useState } from 'react';
 import { useMemo } from "react";
 import OptionLoader from "../../components/OptionLoader";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 const ExcelImport = ({ handleClose, paramValue }) => {
+
     const navigate=useNavigate();
     const [excelData, setExcelData] = useState([]);
     const setsList = useQuestionSetListQuery();
     const [excelQuestionUpload, res] = useExcelQuestionUploadMutation();
+    
     const quiz = useSelector((state) => state.common.quiz);
+    const assignSubjectRes = useGetQuizAssignSubjectQuery(paramValue);
+  console.log(assignSubjectRes);
+
         const readUploadFile = useMemo(() => (e) => {
             if (e.target.files[0]?.name?.split('.').pop() !== "xlsx") {
                 toast.warn("Please upload a valid file (xlsx)");
@@ -41,6 +46,7 @@ const ExcelImport = ({ handleClose, paramValue }) => {
         initialValues: {
             chapter_quiz_id: "",
             class_level_id: "",
+            chapter_quiz_subject_id: "",
             subject_id: "",
             chapter_id: "",
             question_text: "",
@@ -73,6 +79,7 @@ const ExcelImport = ({ handleClose, paramValue }) => {
                     question_text: item.question_text,
                     question_text_bn: item.question_text_bn,
                     question_set_id: values.chapter_quiz_id,
+                    chapter_quiz_subject_id: values.chapter_quiz_subject_id,
                     option1: item.option1,
                     option2: item.option2,
                     option3: item.option3,
@@ -94,6 +101,7 @@ const ExcelImport = ({ handleClose, paramValue }) => {
                     subject_id: quiz?.subject_id,
                     chapter_id: quiz?.chapter_id,
                     chapter_quiz_id: quiz?.id,
+                    chapter_quiz_subject_id: values.chapter_quiz_subject_id,
                     
                 }).unwrap();
                 toast.success(result.message);
@@ -114,6 +122,30 @@ const ExcelImport = ({ handleClose, paramValue }) => {
                 encType="multipart/form-data"
             >
                 <div className="row">
+                <div className="form-group col-12 my-1">
+                        <label className="col-12 col-form-label">Subject <span className=" text-danger">*</span></label>
+                        <div className="col-12">
+                            <select
+                                className="form-control"
+                                name="chapter_quiz_subject_id"
+                                onChange={(e) => {
+                                    formik.handleChange(e)
+                                }}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.chapter_quiz_subject_id}
+                                required
+
+                            >
+                                {assignSubjectRes?.isLoading && <OptionLoader />}
+                                <option value="" disabled selected hidden> --Select-- </option>
+                                {assignSubjectRes?.data?.data?.map((item) => (
+                                    <option key={item.id} value={item.id}>
+                                        {item.subject_name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
                     <div className="form-group col-12 my-1">
                         <label className="col-12 col-form-label">Sets <span className=" text-danger">*</span></label>
                         <div className="col-12">
