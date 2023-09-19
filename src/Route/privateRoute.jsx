@@ -29,6 +29,7 @@ import ExamResultList from "../app/views/ExamResultList/ExamResultList";
 import PaymentList from "../app/views/paymentList/PaymentList";
 import PurchaseList from "../app/views/purchaseList/PurchaseList";
 import AssignmentList from "../app/views/assignmentList/AssignmentList";
+import QuizSubjectList from "../app/views/quizSubjectList/QuizSubjectList";
 
 export const privateRoute = [
   {
@@ -99,6 +100,11 @@ export const privateRoute = [
   {
     path: "schooladmin/website-page-list/:id",
     element: <WebsitePageList />,
+    role: "SchoolAdmin",
+  },
+  {
+    path: "schooladmin/quiz-subject-list/:id",
+    element: <QuizSubjectList/>,
     role: "SchoolAdmin",
   },
   {

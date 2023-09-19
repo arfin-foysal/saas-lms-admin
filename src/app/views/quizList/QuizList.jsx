@@ -7,48 +7,75 @@ import { FiPlusCircle } from "react-icons/fi";
 import { tableColor } from "../../../utils/Theme";
 import MenuModal from "./QuizModal";
 import { BsArrowRightShort, BsDot, BsEyeFill } from "react-icons/bs";
-import { useGetChapterListQuery, useGetClassListQuery, useGetQuizListQuery, useGetSubjectListQuery } from "../../../services/contentApi";
+import { useGetChapterListBySubjectIdQuery, useGetClassListQuery, useGetQuizListQuery, useGetSubjectListByClassIdQuery,  } from "../../../services/contentApi";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { quizSet } from "../../../features/commonSlice";
 import { BiReset } from "react-icons/bi";
 import Select from "react-select";
+import { useFormik } from "formik";
 
 const QuizList = () => {
-  const classRes = useGetClassListQuery();
-  const subjectRes = useGetSubjectListQuery();
-  const chapterRes = useGetChapterListQuery();
   const dispatch = useDispatch()
   const [clickValue, setClickValue] = useState(null);
   const [param, setParam] = useState(null);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [classId, setClassId] = useState(0);
-  const [subjectId, setSubjectId] = useState(0);
-  const [chapterId, setChapterId] = useState(0);
-
-  const reFetch = () => {
-    res.refetch();
-    setClassId(0);
-    setSubjectId(0);
-    setChapterId(0);
-  };
-  const res = useGetQuizListQuery({
-    class_id: classId?.id?classId?.id:0,
-    subject_id: subjectId?.id?subjectId?.id:0,
-    chapter_id: chapterId?.id?chapterId?.id:0,
-  });
-  const { data, isSuccess, isFetching, isError } = res;
   const handelClickValue = useCallback((value) => {
     setClickValue(value);
   }, []);
+
+  const formik = useFormik({
+    initialValues: {
+      classId: "",
+      subjectId: "",
+      chapterId: "",
+    },
+    onSubmit: async (values, { resetForm }) => {
+      res.refetch({
+        class_id: values.classId?.id ? values.classId?.id : 0,
+        subject_id: values.subjectId?.id ? values.subjectId?.id : 0,
+        chapter_id: values.chapterId?.id ? values.chapterId?.id : 0,
+      });
+    },
+  });
+
+  const classRes = useGetClassListQuery();
+  const subjectRes = useGetSubjectListByClassIdQuery(
+    formik.values.classId?.id ? formik.values.classId?.id : 0
+  );
+  const chapterRes = useGetChapterListBySubjectIdQuery(
+    formik.values.subjectId?.id ? formik.values.subjectId?.id : 0
+  );
+
+  const res = useGetQuizListQuery({
+    class_id: formik.values.classId?.id ? formik.values.classId?.id : 0,
+    subject_id: formik.values.subjectId?.id ? formik.values.subjectId?.id : 0,
+    chapter_id: formik.values.chapterId?.id ? formik.values.chapterId?.id : 0,
+  });
+  const { data, isSuccess, isFetching, isError } = res;
+
+  const reFetch = () => {
+    res.refetch();
+    formik.setFieldValue('subjectId', '');
+    formik.setFieldValue('chapterId', '');
+  };
+
+  const handleChangeValue = (e) => {
+    formik.setFieldValue('subjectId', '');
+    formik.setFieldValue('chapterId', '');
+  }
+  const handleChangeValue1 = (e) => {
+    formik.setFieldValue('chapterId', '');
+  }
+
 
   const columns = useMemo(
     () => [
       {
         accessorFn: (row, index) => <>
-          <span className="text-success fw-normal">
+          <span >
             {index + 1}
           </span>
 
@@ -154,6 +181,10 @@ const QuizList = () => {
         paramValue={param}
       />
       <PageTopHeader title="Quiz List" />
+      <from
+        className="form-sample"
+        onSubmit={formik.handleSubmit}
+        encType="multipart/form-data">
       <div className="card border shadow-lg ">
         <div className="card-header d-flex justify-content-between ">
           <div>Quiz List</div>
@@ -174,51 +205,59 @@ const QuizList = () => {
           <MaterialReactTable
             renderTopToolbarCustomActions={() => (
               <div className="col-md-6 gap-1 d-flex justify-content-start ">
-                <Select
-                  className="w-100"
-                  isClearable
-                  menuPortalTarget={document.body}
-                  styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
-                  placeholder="Select Class"
-                  isLoading={classRes?.isFetching}
-                  onChange={(e) => setClassId(e)}
-                  getOptionValue={(option) => `${option["id"]}`}
-                  getOptionLabel={(option) => `${option["name"]}`}
-                  options={classRes?.data?.data}
-                  key={classRes?.data?.data?.id}
-                  name="class_id"
-                  value={classRes?.data?.data?.id}
-                />
-                <Select
-                  className="w-100"
-                  isClearable
-                  menuPortalTarget={document.body}
-                  styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
-                  placeholder="Select Subject"
-                  isLoading={subjectRes?.isFetching}
-                  onChange={(e) => setSubjectId(e)}
-                  getOptionValue={(option) => `${option["id"]}`}
-                  getOptionLabel={(option) => `${option["name"]}`}
-                  options={subjectRes?.data?.data}
-                  key={subjectRes?.data?.data?.id}
-                  name="subject_id"
-                  value={subjectRes?.data?.data?.id}
-                />
-                <Select
-                  className="w-100"
-                  isClearable
-                  menuPortalTarget={document.body}
-                  styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
-                  placeholder="Select Chapter"
-                  isLoading={chapterRes?.isFetching}
-                  onChange={(e) => setChapterId(e)}
-                  getOptionValue={(option) => `${option["id"]}`}
-                  getOptionLabel={(option) => `${option["name"]}`}
-                  options={chapterRes?.data?.data}
-                  name="chapter_id"
-                  key={chapterRes?.data?.data?.id}
-                  value={chapterRes?.data?.data?.id}
-                />
+                 <Select
+                    className="w-100"
+                    isClearable
+                    menuPortalTarget={document.body}
+                    styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+                    placeholder="Select Class"
+                    isLoading={classRes?.isFetching}
+                    onChange={(e) => {
+                      formik.setFieldValue("classId", e)
+                      handleChangeValue(e)
+                    }}
+                    getOptionLabel={option => option.name}
+                    getOptionValue={option => option.id}
+                    options={classRes?.data?.data}
+                    name="classId"
+                    value={formik.values.classId}
+                  />
+
+                  <Select
+                    className="w-100"
+                    isClearable
+                    menuPortalTarget={document.body}
+                    styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+                    placeholder="Select Subject"
+                    isLoading={subjectRes?.isFetching}
+                    onChange={(e) => {
+                      formik.setFieldValue("subjectId", e)
+                      handleChangeValue1(e)
+                    }
+                    }
+                    getOptionLabel={option => option.name}
+                    getOptionValue={option => option.id}
+                    options={subjectRes?.data?.data}
+                    name="subjectId"
+                    value={formik.values.subjectId}
+
+                  />
+                  <Select
+                    className="w-100"
+                    isClearable
+                    menuPortalTarget={document.body}
+                    styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+                    placeholder="Select Chapter"
+                    isLoading={chapterRes?.isFetching}
+                    onChange={(e) => {
+                      formik.setFieldValue("chapterId", e)
+                    }}
+                    getOptionLabel={option => option.name}
+                    getOptionValue={option => option.id}
+                    options={chapterRes?.data?.data}
+                    name="chapterId"
+                    value={formik.values.chapterId}
+                  />
                 <div>
                   <BiReset
                     className="pointer  mt-2"
@@ -258,6 +297,10 @@ const QuizList = () => {
                   <Link
                     title=""
                     className="px-2 d-flex mx-1 align-items-center btn btn-success btn-sm"
+                    to={`/dashboard/schooladmin/quiz-subject-list/${row?.row?.original?.id}`}><BsEyeFill className="me-1" size={17} /> Subject </Link>
+                  <Link
+                    title=""
+                    className="px-2 d-flex mx-1 align-items-center btn btn-success btn-sm"
                     onClick={() => {
                       dispatch(quizSet({
                         name: row?.row?.original?.title, id: row?.row?.original?.id,
@@ -267,7 +310,7 @@ const QuizList = () => {
                         chapter_quiz_id: row?.row?.original?.id,
                       }))
                     }}
-                    to={`/dashboard/schooladmin/quiz-question-list/${row?.row?.original?.id}`}><BsEyeFill className="me-1" size={17} /> QTN </Link>
+                    to={`/dashboard/schooladmin/quiz-question-list/${row?.row?.original?.id}`}><BsEyeFill className="me-1" size={17} /> Question </Link>
                 </div>
                 <div>
                 </div>
@@ -275,7 +318,8 @@ const QuizList = () => {
             )}
           />
         </div>
-      </div>
+        </div>
+      </from>
     </>
   );
 };

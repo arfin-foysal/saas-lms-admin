@@ -2,8 +2,9 @@ import { useFormik } from "formik";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useGetMenuListQuery } from "../../../services/masterSettingsApi";
-import { useCourseCreateOrUpdateMutation } from "../../../services/courseApi";
+import { useCourseCreateOrUpdateMutation, useGetCourseTypeListQuery } from "../../../services/courseApi";
 const CreateCourse = ({ handleClose }) => {
+    const courseType = useGetCourseTypeListQuery();
     const [courseCreateOrUpdate, res] = useCourseCreateOrUpdateMutation();
     const cateRes = useGetMenuListQuery()
     const formik = useFormik({
@@ -11,6 +12,7 @@ const CreateCourse = ({ handleClose }) => {
             'title': '',
             'title_bn': '',
             'category_id': '',
+            'course_type_id': '',
             'gp_product_id': '',
             'youtube_url': '',
             'description': '',
@@ -34,6 +36,7 @@ const CreateCourse = ({ handleClose }) => {
             formData.append("title", values.title);
             formData.append("title_bn", values.title_bn);
             formData.append("category_id", values.category_id);
+            formData.append("course_type_id", values.course_type_id);
             formData.append("gp_product_id", values.gp_product_id);
             formData.append("youtube_url", values.youtube_url);
             formData.append("description", values.description);
@@ -100,7 +103,7 @@ const CreateCourse = ({ handleClose }) => {
                         </div>
                     </div>
                     <div className="form-group col-4 my-1">
-                        <label className="col-12 col-form-label">Menu Or Category <span className=" text-danger">*</span></label>
+                        <label className="col-12 col-form-label">Menu <span className=" text-danger">*</span></label>
                         <div className="col-12">
 
                             <select
@@ -112,6 +115,25 @@ const CreateCourse = ({ handleClose }) => {
                             >
                                 <option value="" disabled selected hidden> --Select-- </option>
                                 {cateRes.data && cateRes?.data?.data?.map((item, index) => (
+                                    <option key={index} value={item.id}>{item.name}</option>
+                                )
+                                )}
+                            </select>
+
+                        </div>
+                    </div>
+                    <div className="form-group col-4 my-1">
+                        <label className="col-12 col-form-label">Course Type <span className=" text-danger">*</span></label>
+                        <div className="col-12">
+                            <select
+                                className="form-control"
+                                name="course_type_id"
+                                onChange={formik.handleChange}
+                                value={formik.values.course_type_id}
+                                required
+                            >
+                                <option value="" disabled selected hidden> --Select-- </option>
+                                {courseType.data && courseType?.data?.data?.map((item, index) => (
                                     <option key={index} value={item.id}>{item.name}</option>
                                 )
                                 )}

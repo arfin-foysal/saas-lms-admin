@@ -135,6 +135,17 @@ export const contentApi = apiSliceAdmin.injectEndpoints({
       invalidatesTags: ["Content"],
     }),
 
+    quizSubjectSaveOrUpdate: builder.mutation({
+      query: (body) => {
+        return {
+          url: `admin/quiz-subject-save-or-update`,
+          method: "POST",
+          body: body,
+        };
+      },
+      invalidatesTags: ["Content"],
+    }),
+
     excelQuestionUpload: builder.mutation({
       query: (body) => {
         return {
@@ -198,6 +209,13 @@ export const contentApi = apiSliceAdmin.injectEndpoints({
       }),
       providesTags: ["Content"],
     }),
+    getQuizSubject: builder.query({
+      query: (id) => ({
+        url: `admin/chapter-quiz-subject-list/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["Content"],
+    }),
 
     deleteQuestion: builder.mutation({
       query: (id) => ({
@@ -230,6 +248,13 @@ export const contentApi = apiSliceAdmin.injectEndpoints({
     getContentList: builder.query({
       query: () => ({
         url: "admin/content-list",
+        method: "GET",
+      }),
+      providesTags: ["Content"],
+    }),
+    getCoreSubjectList: builder.query({
+      query: () => ({
+        url: "admin/core-subject-list",
         method: "GET",
       }),
       providesTags: ["Content"],
@@ -282,4 +307,7 @@ export const {
   useContentOutlineSaveOrUpdateMutation,
   useDeleteContentOutlineMutation,
   useGetQuizDetailsQuery,
+  useGetQuizSubjectQuery,
+  useGetCoreSubjectListQuery,
+  useQuizSubjectSaveOrUpdateMutation,
 } = contentApi;

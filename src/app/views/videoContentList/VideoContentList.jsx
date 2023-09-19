@@ -17,6 +17,9 @@ const VideoContentList = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handelClickValue = useCallback((value) => {
+    setClickValue(value);
+  }, []);
 
   const formik = useFormik({
     initialValues: {
@@ -54,9 +57,13 @@ const VideoContentList = () => {
     formik.setFieldValue('chapterId', '');
   };
 
-  const handelClickValue = useCallback((value) => {
-    setClickValue(value);
-  }, []);
+  const handleChangeValue = (e) => {
+    formik.setFieldValue('subjectId', '');
+    formik.setFieldValue('chapterId', '');
+  }
+  const handleChangeValue1 = (e) => {
+    formik.setFieldValue('chapterId', '');
+  }
 
   const columns = useMemo(
     () => [
@@ -123,15 +130,6 @@ const VideoContentList = () => {
     ],
     []
   );
-
-
-  const handleChangeValue = (e) => {
-    formik.setFieldValue('subjectId', '');
-    formik.setFieldValue('chapterId', '');
-  }
-  const handleChangeValue1 = (e) => {
-    formik.setFieldValue('chapterId', '');
-  }
 
   return (
     <>

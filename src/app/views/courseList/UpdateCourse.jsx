@@ -3,9 +3,10 @@ import React, { useRef, useState } from "react";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useGetMenuListQuery } from "../../../services/masterSettingsApi";
-import { useCourseCreateOrUpdateMutation } from "../../../services/courseApi";
+import { useCourseCreateOrUpdateMutation, useGetCourseTypeListQuery } from "../../../services/courseApi";
 const UpdateCourse = ({ handleClose,paramValue }) => {
     const [courseCreateOrUpdate, res] = useCourseCreateOrUpdateMutation();
+    const courseType = useGetCourseTypeListQuery();
     const cateRes = useGetMenuListQuery()
     const formik = useFormik({
         enableReinitialize: true,
@@ -13,6 +14,7 @@ const UpdateCourse = ({ handleClose,paramValue }) => {
             'title': paramValue?.title,
             'title_bn': paramValue?.title_bn,
             'category_id': paramValue?.category_id,
+            'course_type_id': paramValue?.course_type_id,
             'gp_product_id': paramValue?.gp_product_id,
             'youtube_url': paramValue?.youtube_url,
             'description': paramValue?.description,
@@ -37,6 +39,7 @@ const UpdateCourse = ({ handleClose,paramValue }) => {
             formData.append("title", values.title);
             formData.append("title_bn", values.title_bn);
             formData.append("category_id", values.category_id);
+            formData.append("course_type_id", values.course_type_id);
             formData.append("gp_product_id", values.gp_product_id);
             formData.append("youtube_url", values.youtube_url);
             formData.append("description", values.description);
@@ -103,7 +106,7 @@ const UpdateCourse = ({ handleClose,paramValue }) => {
                         </div>
                     </div>
                     <div className="form-group col-4 my-1">
-                        <label className="col-12 col-form-label">Menu Or Category <span className=" text-danger">*</span></label>
+                        <label className="col-12 col-form-label">Menu <span className=" text-danger">*</span></label>
                         <div className="col-12">
 
                             <select
@@ -115,6 +118,25 @@ const UpdateCourse = ({ handleClose,paramValue }) => {
                             >
                                 <option value="" disabled selected hidden> --Select-- </option>
                                 {cateRes.data && cateRes?.data?.data?.map((item, index) => (
+                                    <option key={index} value={item.id}>{item.name}</option>
+                                )
+                                )}
+                            </select>
+
+                        </div>
+                    </div>
+                    <div className="form-group col-4 my-1">
+                        <label className="col-12 col-form-label">Course Type <span className=" text-danger">*</span></label>
+                        <div className="col-12">
+                            <select
+                                className="form-control"
+                                name="course_type_id"
+                                onChange={formik.handleChange}
+                                value={formik.values.course_type_id}
+                                required
+                            >
+                                <option value="" disabled selected hidden> --Select-- </option>
+                                {courseType.data && courseType?.data?.data?.map((item, index) => (
                                     <option key={index} value={item.id}>{item.name}</option>
                                 )
                                 )}

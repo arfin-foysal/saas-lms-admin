@@ -197,6 +197,13 @@ export const courseApi = apiSliceAdmin.injectEndpoints({
       }),
       providesTags: ["Course"],
     }),
+    getCourseTypeList: builder.query({
+      query: () => ({
+        url: "admin/course-type",
+        method: "GET",
+      }),
+      providesTags: ["Course"],
+    }),
     getCoursePaymentListByCourseId: builder.query({
       query: (id) => ({
         url: `admin/course-payment-list-by-course-id/${id}`,
@@ -232,5 +239,6 @@ export const {
   useGetMentorListQuery,
   useGetCoursePaymentListByCourseIdQuery,
   useDeleteCourseStudentMappingMutation,
+  useGetCourseTypeListQuery,
 
 } = courseApi;
