@@ -310,7 +310,22 @@ const QuizList = () => {
                         chapter_quiz_id: row?.row?.original?.id,
                       }))
                     }}
-                    to={`/dashboard/schooladmin/quiz-question-list/${row?.row?.original?.id}`}><BsEyeFill className="me-1" size={17} /> Question </Link>
+                    to={`/dashboard/schooladmin/quiz-question-list/${row?.row?.original?.id}`}><BsEyeFill className="me-1" size={17} /> Question
+                  </Link>
+                  <Link
+                    title=""
+                    className="px-2 d-flex mx-1 align-items-center btn btn-success btn-sm"
+                    onClick={() => {
+                      dispatch(quizSet({
+                        name: row?.row?.original?.title, id: row?.row?.original?.id,
+                        subject_id: row?.row?.original?.subject_id,
+                        class_level_id: row?.row?.original?.class_level_id,
+                        chapter_id: row?.row?.original?.chapter_id,
+                        chapter_quiz_id: row?.row?.original?.id,
+                      }))
+                    }}
+                    to={`/dashboard/schooladmin/written-question-list/${row?.row?.original?.id}`}><BsEyeFill className="me-1" size={17} /> W.Question
+                  </Link>
                 </div>
                 <div>
                 </div>

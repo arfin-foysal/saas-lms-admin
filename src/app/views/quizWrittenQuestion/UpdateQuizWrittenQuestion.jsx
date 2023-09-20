@@ -1,25 +1,30 @@
 import { useFormik } from "formik";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { useGetCoreSubjectListQuery, useQuizSubjectSaveOrUpdateMutation,  } from "../../../services/contentApi";
+import { useWrittenQuestionSaveOrUpdateMutation, } from "../../../services/contentApi";
 import { memo } from 'react';
-import OptionLoader from "../../components/OptionLoader";
-const UpdateQuizSubject = ({ handleClose, paramValue }) => {
-    const [quizSubjectSaveOrUpdate, res] = useQuizSubjectSaveOrUpdateMutation();
-    const subjectRes = useGetCoreSubjectListQuery();
+const UpdateQuizWrittenQuestion = ({ handleClose, paramValue }) => {
+    const [writtenQuestionSaveOrUpdate, res] = useWrittenQuestionSaveOrUpdateMutation();
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {
+            'id': paramValue?.id,
             'chapter_quiz_id': paramValue?.chapter_quiz_id,
-            'quiz_core_subject_id': paramValue?.quiz_core_subject_id,
+            'question_attachment':paramValue?.question_attachment,
             'no_of_question': paramValue?.no_of_question,
-            'is_active': paramValue?.is_active ? 1 : 0,
-            'id':paramValue?.id
-     
+            'marks': paramValue?.marks,
+            'is_active': paramValue?.is_active?1:0,
         },
         onSubmit: async (values, { resetForm }) => {
             try {
-                const result = await quizSubjectSaveOrUpdate(values).unwrap();
+                let formData = new FormData();
+                formData.append('id', values.id);
+                formData.append('chapter_quiz_id', values.chapter_quiz_id);
+                formData.append('question_attachment', values.question_attachment);
+                formData.append('no_of_question', values.no_of_question);
+                formData.append('marks', values.marks);
+                formData.append('is_active', values.is_active ? 1 : 0);
+                const result = await writtenQuestionSaveOrUpdate(formData).unwrap();
                 toast.success(result.message);
             } catch (error) {
                 toast.warn(error.data.message);
@@ -27,7 +32,7 @@ const UpdateQuizSubject = ({ handleClose, paramValue }) => {
         },
     });
 
-   if (res.isSuccess) {
+    if (res.isSuccess) {
         handleClose();
     }
     return (
@@ -38,32 +43,40 @@ const UpdateQuizSubject = ({ handleClose, paramValue }) => {
                 encType="multipart/form-data"
             >
                 <div className="row">
-                    
-                <div className="form-group col-12 my-1">
-                        <label className="col-12 col-form-label">Subject <span className=" text-danger">*</span></label>
-                        <div className="col-12">
-                            <select
-                                className="form-control"
-                                name="quiz_core_subject_id"
-                                onChange={(e) => {
-                                    formik.handleChange(e)
-                                }}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.quiz_core_subject_id}
-                                disabled
 
-                            >
-                                {subjectRes?.isLoading && <OptionLoader />}
-                                <option value="" disabled selected hidden> --Select-- </option>
-                                {subjectRes?.data?.data?.map((item) => (
-                                    <option key={item.id} value={item.id}>
-                                        {item.name}
-                                    </option>
-                                ))}
-                            </select>
+                    <div className="form-group  col-12 my-1">
+                        <label className="col-12 col-form-label">Attachment</label>
+                        <div className="col-12">
+                            <input
+                                className="form-control"
+                                name="question_attachment"
+                                type="file"
+                                accept="image/*,
+                                .doc, .docx, .xml,
+                                .ppt, .pptx, .txt, .pdf,
+                                "
+                                onChange={(e) => {
+                                    formik.setFieldValue("question_attachment", e.currentTarget.files[0]);
+
+                                }}
+                            />
                         </div>
                     </div>
 
+                    <div className="form-group col-12 my-1">
+                        <label className="col-12 col-form-label">Marks <span className=" text-danger">*</span></label>
+                        <div className="col-12">
+                            <input
+                                placeholder="Enter marks"
+                                type="number"
+                                className="form-control"
+                                name="marks"
+                                onChange={formik.handleChange}
+                                value={formik.values.marks}
+                                required
+                            />
+                        </div>
+                    </div>
                     <div className="form-group col-12 my-1">
                         <label className="col-12 col-form-label">No of Question <span className=" text-danger">*</span></label>
                         <div className="col-12">
@@ -78,7 +91,7 @@ const UpdateQuizSubject = ({ handleClose, paramValue }) => {
                             />
                         </div>
                     </div>
-                
+
                     <div className="form-group row col-12  my-3 ">
                         <label className="col-6 col-form-label">Is Active</label>
                         <div className="col-6">
@@ -112,5 +125,4 @@ const UpdateQuizSubject = ({ handleClose, paramValue }) => {
     );
 };
 
-export default memo(UpdateQuizSubject)
-    ;
+export default memo(UpdateQuizWrittenQuestion);

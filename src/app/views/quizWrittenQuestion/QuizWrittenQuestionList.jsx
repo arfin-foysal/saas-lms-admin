@@ -5,15 +5,15 @@ import Loader from "../../components/Loader";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { FiPlusCircle } from "react-icons/fi";
 import { tableColor } from "../../../utils/Theme";
-import MenuModal from "./QuizSubjectModal";
+import MenuModal from "./QuizWrittenQuestionModal";
 import { confirmHandel } from "../../../utils/Alert";
 import { toast } from "react-toastify";
 import { useDeleteCourseOutlineMutation } from "../../../services/courseApi";
 import { useParams } from "react-router-dom";
-import { useGetQuizSubjectQuery } from "../../../services/contentApi";
-const QuizSubjectList = () => {
+import {  useGetWrittenQuestionQuery } from "../../../services/contentApi";
+const QuizWrittenQuestionList = () => {
   const {id}=useParams()
-  const res = useGetQuizSubjectQuery(id);
+  const res = useGetWrittenQuestionQuery(id);
   const { data, isSuccess, isFetching, isError } = res;
   const [deleteCourseOutline] = useDeleteCourseOutlineMutation()
   const [clickValue, setClickValue] = useState(null);
@@ -34,13 +34,38 @@ const QuizSubjectList = () => {
   const columns = useMemo(
     () => [
       {
-        accessorKey: "subject_name",
-        header: "Subject",
+        accessorFn: (row, index) => <>
+          <span >
+            {index + 1}
+          </span>
+
+        </>,
+        id: "index",
+        header: "SL",
+        size: "10"
+      },
+    
+      {
+        accessorKey: "marks",
+        header: "Marks",
       },
       {
         accessorKey: "no_of_question",
         header: "No Of Question",
       },
+      {
+        accessorFn: (row) =>
+            row?.is_active === true ? (
+                <>
+                    <span className="badge bg-success">Active</span>
+                </>
+            ) : (
+                <span className="badge bg-warning">Inactive</span>
+            ),
+
+        id: "is_active",
+        header: "Is Active",
+    },
 
     ],
     []
@@ -56,7 +81,7 @@ const QuizSubjectList = () => {
         paramValue={param}
         size={size}
       />
-      <PageTopHeader title="Quiz Subject List " />
+      <PageTopHeader title="Quiz Question List " />
       <div className="card border shadow-lg ">
         <div className="card-header d-flex justify-content-between ">
           <p className="fw-bold text-muted">
@@ -68,12 +93,12 @@ const QuizSubjectList = () => {
               className="btn btn-primary btn-sm mx-1 my-0"
               onClick={() => {
                 handleShow();
-                handelClickValue("Add New Quiz Subject");
+                handelClickValue("Add New Quiz Question");
                 setParam(id)
                 setSize("md")
               }}
             >
-              <FiPlusCircle size={16} /> Add New Subject
+              <FiPlusCircle size={16} /> Add New Question
             </button>
 
           </div>
@@ -107,7 +132,7 @@ const QuizSubjectList = () => {
                     onClick={() => {
                       setSize("md")
                       handleShow();
-                      handelClickValue("Update Quiz Subject");
+                      handelClickValue("Update Quiz Question");
                       setParam(row?.row?.original);
                     }}
                   >
@@ -142,4 +167,4 @@ const QuizSubjectList = () => {
 
 
 
-export default QuizSubjectList
+export default QuizWrittenQuestionList

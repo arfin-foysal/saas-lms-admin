@@ -245,6 +245,23 @@ export const contentApi = apiSliceAdmin.injectEndpoints({
       },
       invalidatesTags: ["Content"],
     }),
+    writtenQuestionSaveOrUpdate: builder.mutation({
+      query: (body) => {
+        return {
+          url: `admin/written-question-save-or-update`,
+          method: "POST",
+          body: body,
+        };
+      },
+      invalidatesTags: ["Content"],
+    }),
+    getWrittenQuestion: builder.query({
+      query: (id) => ({
+        url: `admin/written-question-list/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["Content"],
+    }),
     getContentList: builder.query({
       query: () => ({
         url: "admin/content-list",
@@ -303,11 +320,9 @@ export const {
   useDeleteQuestionMutation,
   useQuestionSetListQuery,
   useExcelQuestionUploadMutation,
-
   useGetScriptListByChapterIdQuery,
   useGetVideoListByChapterIdQuery,
   useGetQuizListByChapterIdQuery,
-
   useContentSaveOrUpdateMutation,
   useGetContentListQuery,
   useGetContentOutlineByContentIdQuery,
@@ -318,4 +333,6 @@ export const {
   useGetCoreSubjectListQuery,
   useQuizSubjectSaveOrUpdateMutation,
   useGetQuizAssignSubjectQuery,
+  useWrittenQuestionSaveOrUpdateMutation,
+  useGetWrittenQuestionQuery,
 } = contentApi;
