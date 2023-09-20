@@ -6,7 +6,7 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import { FiPlusCircle } from "react-icons/fi";
 import { tableColor } from "../../../utils/Theme";
 import MenuModal from "./QuizQuestionModal";
-import { useDeleteQuestionMutation, useGetQuestionListByQuizQuery } from "../../../services/contentApi";
+import {useDeleteQuestionMutation, useGetQuestionListByQuizQuery } from "../../../services/contentApi";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { BiUpload } from "react-icons/bi";
@@ -19,7 +19,7 @@ const QuizQuestionList = () => {
   const qn = useSelector((state) => state.common.quiz);
   const res = useGetQuestionListByQuizQuery(id);
   const { data, isSuccess, isFetching, isError } = res;
-  const [deleteQuestion] = useDeleteQuestionMutation()
+  const [deleteQuestion] =useDeleteQuestionMutation ()
   const [clickValue, setClickValue] = useState(null);
   const [size, setSize] = useState("lg")
   const [param, setParam] = useState(null);
@@ -30,9 +30,16 @@ const QuizQuestionList = () => {
     setClickValue(value);
   }, []);
 
-
-  const handelDelete = async (id) => {
-    const result = await deleteQuestion(id).unwrap();
+  const handelDelete = async (value) => {
+    const result = await deleteQuestion(
+      {
+        id: value?.id,
+        chapter_quiz_id: value?.chapter_quiz_id,
+        class_level_id: value?.class_level_id,
+        subject_id: value?.subject_id,
+        chapter_id: value?.chapter_id,
+      }
+    ).unwrap();
     toast.success(result.message);
   };
   const columns = useMemo(
@@ -177,7 +184,7 @@ const QuizQuestionList = () => {
                         "error",
                         "Delete",
                         "#FF0000",
-                        row?.row?.original?.id,
+                        row?.row?.original,
                         handelDelete
                       )
 
