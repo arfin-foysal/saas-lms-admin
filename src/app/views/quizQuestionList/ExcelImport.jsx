@@ -14,10 +14,8 @@ const ExcelImport = ({ handleClose, paramValue }) => {
     const [excelData, setExcelData] = useState([]);
     const setsList = useQuestionSetListQuery();
     const [excelQuestionUpload, res] = useExcelQuestionUploadMutation();
-    
     const quiz = useSelector((state) => state.common.quiz);
     const assignSubjectRes = useGetQuizAssignSubjectQuery(paramValue);
-  console.log(assignSubjectRes);
 
         const readUploadFile = useMemo(() => (e) => {
             if (e.target.files[0]?.name?.split('.').pop() !== "xlsx") {
