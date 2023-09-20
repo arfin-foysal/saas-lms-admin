@@ -1,12 +1,13 @@
 import { useFormik } from "formik";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { useGetQuizDetailsQuery, useGetQuizListQuery, useQuestionSaveOrUpdateMutation, useQuestionSetListQuery, } from "../../../services/contentApi";
+import { useGetQuizAssignSubjectQuery, useGetQuizDetailsQuery, useGetQuizListQuery, useQuestionSaveOrUpdateMutation, useQuestionSetListQuery, } from "../../../services/contentApi";
 import { useMemo } from "react";
 import OptionLoader from "../../components/OptionLoader";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 const CreateQuizQuestion = ({ handleClose, paramValue }) => {
+    const assignSubjectRes = useGetQuizAssignSubjectQuery(paramValue);
     const navigate=useNavigate();
     const quiz = useSelector((state) => state.common.quiz);
     const setsList = useQuestionSetListQuery();
@@ -17,6 +18,7 @@ const CreateQuizQuestion = ({ handleClose, paramValue }) => {
             class_level_id: quiz?.class_level_id,
             subject_id: quiz?.subject_id,
             chapter_id: quiz?.chapter_id,
+            chapter_quiz_subject_id: "",
             question_text: "",
             question_text_bn: "",
             question_image: "",
@@ -45,7 +47,6 @@ const CreateQuizQuestion = ({ handleClose, paramValue }) => {
                 return;
             }
 
-
             let formData = new FormData();
             formData.append("chapter_quiz_id", quiz?.id);
             formData.append("class_level_id", quiz?.class_level_id);
@@ -55,6 +56,7 @@ const CreateQuizQuestion = ({ handleClose, paramValue }) => {
             formData.append("question_text_bn", values.question_text_bn);
             formData.append("question_image", values.question_image);
             formData.append("question_set_id", values.question_set_id);
+            formData.append("chapter_quiz_subject_id", values.chapter_quiz_subject_id);
             formData.append("option1", values.option1);
             formData.append("option2", values.option2);
             formData.append("option3", values.option3);
@@ -91,7 +93,52 @@ const CreateQuizQuestion = ({ handleClose, paramValue }) => {
                 encType="multipart/form-data"
             >
                 <div className="row">
+                <div className="form-group col-6 my-1">
+                        <label className="col-12 col-form-label">Subject <span className=" text-danger">*</span></label>
+                        <div className="col-12">
+                            <select
+                                className="form-control"
+                                name="chapter_quiz_subject_id"
+                                onChange={(e) => {
+                                    formik.handleChange(e)
+                                }}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.chapter_quiz_subject_id}
+                                required
+                            >
+                                {assignSubjectRes?.isLoading && <OptionLoader />}
+                                <option value="" disabled selected hidden> --Select-- </option>
+                                {assignSubjectRes?.data?.data?.map((item) => (
+                                    <option key={item.id} value={item.id}>
+                                        {item.subject_name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
                     <div className="form-group col-6 my-1">
+                        <label className="col-12 col-form-label">Sets <span className=" text-danger">*</span></label>
+                        <div className="col-12">
+                            <select
+                                className="form-control"
+                                name="question_set_id"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.question_set_id}
+                                required
+                            >
+                                {setsList?.isLoading && <OptionLoader />}
+                                <option value="" disabled selected hidden> --Select-- </option>
+                                {setsList?.data?.data?.map((item) => (
+                                    <option key={item.id} value={item.id}>
+                                        {item.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div className="form-group col-12 my-1">
                         <label className="col-12 col-form-label">Question <span className=" text-danger">*</span></label>
                         <div className="col-12">
                             <input
@@ -134,27 +181,7 @@ const CreateQuizQuestion = ({ handleClose, paramValue }) => {
                         </div>
                     </div>
 
-                    <div className="form-group col-6 my-1">
-                        <label className="col-12 col-form-label">Sets <span className=" text-danger">*</span></label>
-                        <div className="col-12">
-                            <select
-                                className="form-control"
-                                name="question_set_id"
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.question_set_id}
-                                required
-                            >
-                                {setsList?.isLoading && <OptionLoader />}
-                                <option value="" disabled selected hidden> --Select-- </option>
-                                {setsList?.data?.data?.map((item) => (
-                                    <option key={item.id} value={item.id}>
-                                        {item.name}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                    </div>
+                  
 
                     <div className="form-group col-6 my-1">
                         <label className="col-12 col-form-label">Option 01 <span className=" text-danger">*</span></label>

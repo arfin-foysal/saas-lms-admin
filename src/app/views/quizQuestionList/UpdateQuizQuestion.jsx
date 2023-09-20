@@ -1,10 +1,11 @@
 import { useFormik } from "formik";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { useQuestionSaveOrUpdateMutation, useQuestionSetListQuery, } from "../../../services/contentApi";
+import { useGetQuizAssignSubjectQuery, useQuestionSaveOrUpdateMutation, useQuestionSetListQuery, } from "../../../services/contentApi";
 import { memo } from 'react';
 import OptionLoader from "../../components/OptionLoader";
-const UpdateQuizQuestion = ({ handleClose ,paramValue}) => {
+const UpdateQuizQuestion = ({ handleClose, paramValue }) => {
+    const assignSubjectRes = useGetQuizAssignSubjectQuery(paramValue?.chapter_quiz_id);
     const [questionSaveOrUpdate, res] = useQuestionSaveOrUpdateMutation();
     const setsList = useQuestionSetListQuery();
     const formik = useFormik({
@@ -77,7 +78,52 @@ const UpdateQuizQuestion = ({ handleClose ,paramValue}) => {
                 encType="multipart/form-data"
             >
                 <div className="row">
+                <div className="form-group col-6 my-1">
+                        <label className="col-12 col-form-label">Subject <span className=" text-danger">*</span></label>
+                        <div className="col-12">
+                            <select
+                                className="form-control"
+                                name="chapter_quiz_subject_id"
+                                onChange={(e) => {
+                                    formik.handleChange(e)
+                                }}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.chapter_quiz_subject_id}
+                                disabled
+                            >
+                                {assignSubjectRes?.isLoading && <OptionLoader />}
+                                <option value="" disabled selected hidden> --Select-- </option>
+                                {assignSubjectRes?.data?.data?.map((item) => (
+                                    <option key={item.id} value={item.id}>
+                                        {item.subject_name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
                     <div className="form-group col-6 my-1">
+                        <label className="col-12 col-form-label">Sets <span className=" text-danger">*</span></label>
+                        <div className="col-12">
+                            <select
+                                className="form-control"
+                                name="question_set_id"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.question_set_id}
+                                disabled
+                            >
+                               {setsList?.isLoading && <OptionLoader />}
+                                <option value="" disabled selected hidden> --Select-- </option>
+                                
+                                {setsList?.data?.data?.map((item) => (
+                                    <option key={item.id} value={item.id}>
+                                        {item.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+                    <div className="form-group col-12 my-1">
                         <label className="col-12 col-form-label">Question <span className=" text-danger">*</span></label>
                         <div className="col-12">
                             <input
@@ -122,28 +168,7 @@ const UpdateQuizQuestion = ({ handleClose ,paramValue}) => {
                             />
                         </div>
                     </div>
-                    <div className="form-group col-6 my-1">
-                        <label className="col-12 col-form-label">Sets <span className=" text-danger">*</span></label>
-                        <div className="col-12">
-                            <select
-                                className="form-control"
-                                name="question_set_id"
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.question_set_id}
-                                required
-                            >
-                               {setsList?.isLoading && <OptionLoader />}
-                                <option value="" disabled selected hidden> --Select-- </option>
-                                
-                                {setsList?.data?.data?.map((item) => (
-                                    <option key={item.id} value={item.id}>
-                                        {item.name}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                    </div>
+             
 
                     <div className="form-group col-6 my-1">
                         <label className="col-12 col-form-label">Option 01 <span className=" text-danger">*</span></label>
