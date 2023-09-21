@@ -147,6 +147,7 @@ export const courseApi = apiSliceAdmin.injectEndpoints({
       },
       invalidatesTags: ["Course"],
     }),
+ 
     getFeatureListbyCourseId: builder.query({
       query: (id) => ({
         url: `admin/feature-list/${id}`,
@@ -204,12 +205,31 @@ export const courseApi = apiSliceAdmin.injectEndpoints({
       }),
       providesTags: ["Course"],
     }),
+
     getCoursePaymentListByCourseId: builder.query({
       query: (id) => ({
         url: `admin/course-payment-list-by-course-id/${id}`,
         method: "GET",
       }),
       providesTags: ["Course"],
+    }),
+
+    getEnrollmentList: builder.query({
+      query: (id) => ({
+        url: `admin/enrollment-list/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["Course"],
+    }),
+    courseFreeEnrollment: builder.mutation({
+      query: (body) => {
+        return {
+          url: `admin/course-free-enrollment`,
+          method: "POST",
+          body: body,
+        };
+      },
+      invalidatesTags: ["Course"],
     }),
   }),
 });
@@ -240,5 +260,7 @@ export const {
   useGetCoursePaymentListByCourseIdQuery,
   useDeleteCourseStudentMappingMutation,
   useGetCourseTypeListQuery,
+  useGetEnrollmentListQuery,
+  useCourseFreeEnrollmentMutation,
 
 } = courseApi;

@@ -1,6 +1,6 @@
 import { BiBook, BiCategory, BiPurchaseTag, BiSolidRightArrowAlt, BiUser } from "react-icons/bi";
 import { BsGear, BsMenuButtonWide } from "react-icons/bs";
-import { LiaUserEditSolid, LiaUserGraduateSolid } from "react-icons/lia";
+import { LiaExpandArrowsAltSolid, LiaUserEditSolid, LiaUserGraduateSolid } from "react-icons/lia";
 import { MdAssignment, MdOutlineAssignment, MdOutlinePayment } from "react-icons/md";
 
 
@@ -258,7 +258,15 @@ export const navItem = [
         icon: <BiSolidRightArrowAlt />,
       },
     ],
-  }, {
+  },
+  {
+    title: "Enrollment List",
+    link: "schooladmin/enrollment-list",
+    role: "SchoolAdmin",
+    icon: <LiaExpandArrowsAltSolid/>,
+  },
+  
+  {
     title: "Assignment List",
     link: "schooladmin/assignment-list",
     role: "SchoolAdmin",

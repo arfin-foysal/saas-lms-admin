@@ -31,6 +31,7 @@ import PurchaseList from "../app/views/purchaseList/PurchaseList";
 import AssignmentList from "../app/views/assignmentList/AssignmentList";
 import QuizSubjectList from "../app/views/quizSubjectList/QuizSubjectList";
 import QuizWrittenQuestionList from "../app/views/quizWrittenQuestion/QuizWrittenQuestionList";
+import EnrollMentList from "../app/views/enrollMentList/EnrollMentList";
 
 export const privateRoute = [
   {
@@ -198,6 +199,13 @@ export const privateRoute = [
     element: <PurchaseList />,
     role: "SchoolAdmin",
   },
+  {
+    path: "schooladmin/enrollment-list",
+    element: <EnrollMentList />,
+    role: "SchoolAdmin",
+  },
+
+
 
   // Global Admin
   {
