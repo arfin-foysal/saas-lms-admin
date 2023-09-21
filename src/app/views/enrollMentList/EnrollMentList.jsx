@@ -31,7 +31,6 @@ const EnrollMentList = () => {
   });
 
   const courseList = useGetCourseListQuery();
-
   const res = useGetEnrollmentListQuery(
     formik.values.courseId?.id ? formik.values.courseId?.id : 0
   );
@@ -43,8 +42,6 @@ const EnrollMentList = () => {
     formik.setFieldValue('courseId', '');
 
   };
-
-
 
   const columns = useMemo(
     () => [
@@ -66,6 +63,18 @@ const EnrollMentList = () => {
       {
         accessorKey: "student_name",
         header: "Student",
+      },
+      {
+        accessorKey: "student_email",
+        header: "Email",
+      },
+      {
+        accessorKey: "item_price",
+        header: "Price",
+      },
+      {
+        accessorKey: "discount",
+        header: "Discount",
       },
 
       {

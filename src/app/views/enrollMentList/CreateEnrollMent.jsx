@@ -19,7 +19,7 @@ const CreateEnrollMent = ({ handleClose }) => {
             try {
                 const data = {
                     item_id: values.item_id?.id ? values.item_id?.id : 0,
-                    user_id: values.user_id?.user_id ? values.user_id?.user_id : 0,
+                    user_id: values.user_id,
                     promo_id: values.promo_id,
                     is_active: values.is_active,
                 }
@@ -75,14 +75,15 @@ const CreateEnrollMent = ({ handleClose }) => {
                         <label className="col-12 col-form-label">Student <span className=" text-danger">*</span></label>
                         <div className="col-12">
                         <Select
-                    className="w-100"
+                                className="w-100"
+                                isMulti
                     isClearable
                     placeholder="Select Student"
                     isLoading={studentRes?.isFetching}
                     onChange={(e) => {
                       formik.setFieldValue("user_id", e)
                     }}
-                    getOptionLabel={option => option.name}
+                    getOptionLabel={option => `${option.name}  (${option.email})`}
                     getOptionValue={option => option.user_id}
                     options={studentRes?.data?.data}
                     name="user_id"
