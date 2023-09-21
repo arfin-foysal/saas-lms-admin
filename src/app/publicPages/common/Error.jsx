@@ -9,7 +9,7 @@ const Error = () => {
     <>
       <div className="container-fluid">
         {/* <!-- 404 Error Text --> */}
-        <div className="text-center mt-5 row">
+        {/* <div className="text-center mt-5 row">
           <div className="error mx-auto mt-5" data-text="404"><h2>
             404
           </h2>
@@ -18,7 +18,7 @@ const Error = () => {
           <p className="text-gray-500 mb-0">
             It looks like you found a glitch in the matrix...
           </p>
-        </div>
+        </div> */}
         <div className="text-center mt-5">
           <Link to="#" className="btn btn-primary btn-sm" onClick={goBack}>&larr; Go Back</Link>
         </div>

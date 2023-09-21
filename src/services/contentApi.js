@@ -217,14 +217,25 @@ export const contentApi = apiSliceAdmin.injectEndpoints({
       providesTags: ["Content"],
     }),
 
+    // deleteQuestion: builder.mutation({
+    //   query: (body) => ({
+    //     url: `admin/delete-question`,
+    //     method: "POST",
+    //     body: body,
+    //   }),
+    //   invalidatesTags: ["Content"],
+    // }),
+
     deleteQuestion: builder.mutation({
-      query: (id) => ({
-        url: `admin/delete-question/${id}`,
-        method: "DELETE",
-      }),
+      query: (body) => {
+        return {
+          url: `admin/delete-question`,
+          method: "POST",
+          body: body,
+        };
+      },
       invalidatesTags: ["Content"],
     }),
-
     contentSaveOrUpdate: builder.mutation({
       query: (body) => {
         return {
@@ -317,7 +328,7 @@ export const {
   useQuizCreateOrUpdateMutation,
   useGetQuestionListByQuizQuery,
   useQuestionSaveOrUpdateMutation,
-  useDeleteQuestionMutation,
+
   useQuestionSetListQuery,
   useExcelQuestionUploadMutation,
   useGetScriptListByChapterIdQuery,
@@ -335,4 +346,5 @@ export const {
   useGetQuizAssignSubjectQuery,
   useWrittenQuestionSaveOrUpdateMutation,
   useGetWrittenQuestionQuery,
+  useDeleteQuestionMutation,
 } = contentApi;
