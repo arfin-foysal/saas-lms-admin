@@ -15,6 +15,7 @@ const UpdateQuizQuestion = ({ handleClose, paramValue }) => {
             question_text_bn: paramValue?.question_text_bn,
             question_image: paramValue?.question_image,
             question_set_id: paramValue?.question_set_id,
+            chapter_quiz_subject_id: paramValue?.chapter_quiz_subject_id,
             option1: paramValue?.option1,
             option2: paramValue?.option2,
             option3: paramValue?.option3,
@@ -39,6 +40,7 @@ const UpdateQuizQuestion = ({ handleClose, paramValue }) => {
             formData.append("subject_id", paramValue?.subject_id);
             formData.append("chapter_id", paramValue?.chapter_id);
             formData.append("question_set_id", values.question_set_id);
+            formData.append("chapter_quiz_subject_id", values.chapter_quiz_subject_id);
             formData.append("question_text", values.question_text);
             formData.append("question_text_bn", values.question_text_bn);
             formData.append("question_image", values.question_image);
@@ -94,7 +96,7 @@ const UpdateQuizQuestion = ({ handleClose, paramValue }) => {
                                 {assignSubjectRes?.isLoading && <OptionLoader />}
                                 <option value="" disabled selected hidden> --Select-- </option>
                                 {assignSubjectRes?.data?.data?.map((item) => (
-                                    <option key={item.id} value={item.id}>
+                                    <option key={item.id} value={item.quiz_core_subject_id}>
                                         {item.subject_name}
                                     </option>
                                 ))}

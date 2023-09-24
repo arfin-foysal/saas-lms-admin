@@ -12,7 +12,6 @@ import { useParams } from "react-router-dom";
 import { BiUpload } from "react-icons/bi";
 import { confirmHandel } from "../../../utils/Alert";
 import { toast } from "react-toastify";
-import { BsArrowRightShort } from "react-icons/bs";
 
 const QuizQuestionList = () => {
   const { id } = useParams()
@@ -74,12 +73,12 @@ const QuizQuestionList = () => {
         accessorFn: (row) => (
           <>
             <span>
-              {row?.class_name} <BsArrowRightShort/> {row?.subject_name} <BsArrowRightShort/> {row?.chapter_name}
+              {row?.core_subject_name} 
             </span>
           </>
         ),
-        id: "class",
-        header: "Class - Subject - Chapter",
+        id: "core_subject_name",
+        header: "Quiz Subject",
         size:200
       },
       {

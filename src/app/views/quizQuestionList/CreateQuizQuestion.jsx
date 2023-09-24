@@ -109,7 +109,7 @@ const CreateQuizQuestion = ({ handleClose, paramValue }) => {
                                 {assignSubjectRes?.isLoading && <OptionLoader />}
                                 <option value="" disabled selected hidden> --Select-- </option>
                                 {assignSubjectRes?.data?.data?.map((item) => (
-                                    <option key={item.id} value={item.id}>
+                                    <option key={item.id} value={item.quiz_core_subject_id}>
                                         {item.subject_name}
                                     </option>
                                 ))}
