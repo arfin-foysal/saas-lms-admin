@@ -17,6 +17,8 @@ const ExcelImport = ({ handleClose, paramValue }) => {
     const quiz = useSelector((state) => state.common.quiz);
     const assignSubjectRes = useGetQuizAssignSubjectQuery(paramValue);
 
+    console.log(assignSubjectRes)
+
         const readUploadFile = useMemo(() => (e) => {
             if (e.target.files[0]?.name?.split('.').pop() !== "xlsx") {
                 toast.warn("Please upload a valid file (xlsx)");
@@ -70,14 +72,8 @@ const ExcelImport = ({ handleClose, paramValue }) => {
             let excel_data_arr = [];
             excelData.map((item) => {
                 excel_data_arr.push({
-                    chapter_quiz_id: quiz?.id,
-                    class_level_id: quiz?.class_level_id,
-                    subject_id:quiz?.subject_id,
-                    chapter_id: quiz?.chapter_id,
                     question_text: item.question_text,
                     question_text_bn: item.question_text_bn,
-                    question_set_id: values.chapter_quiz_id,
-                    chapter_quiz_subject_id: values.chapter_quiz_subject_id,
                     option1: item.option1,
                     option2: item.option2,
                     option3: item.option3,
@@ -90,16 +86,19 @@ const ExcelImport = ({ handleClose, paramValue }) => {
 
                 })
             })
+
+        
             const excel_data = JSON.stringify(excel_data_arr);
             resetForm();
             try {
                 const result = await excelQuestionUpload({
                     excel_data: excel_data,
+                    chapter_quiz_id: quiz?.id,
                     class_level_id: quiz?.class_level_id,
                     subject_id: quiz?.subject_id,
                     chapter_id: quiz?.chapter_id,
-                    chapter_quiz_id: quiz?.id,
-                    chapter_quiz_subject_id: values.chapter_quiz_subject_id,
+                    chapter_quiz_subject_id: values.chapter_quiz_subject_id, //core subject id
+                    question_set_id: values.question_set_id,
                     
                 }).unwrap();
                 toast.success(result.message);
@@ -137,7 +136,7 @@ const ExcelImport = ({ handleClose, paramValue }) => {
                                 {assignSubjectRes?.isLoading && <OptionLoader />}
                                 <option value="" disabled selected hidden> --Select-- </option>
                                 {assignSubjectRes?.data?.data?.map((item) => (
-                                    <option key={item.id} value={item.id}>
+                                    <option key={item.id} value={item.quiz_core_subject_id}>
                                         {item.subject_name}
                                     </option>
                                 ))}
@@ -149,10 +148,10 @@ const ExcelImport = ({ handleClose, paramValue }) => {
                         <div className="col-12">
                             <select
                                 className="form-control"
-                                name="chapter_quiz_id"
+                                name="question_set_id"
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                value={formik.values.chapter_quiz_id}
+                                value={formik.values.question_set_id}
                                 required
                             >
                                 {setsList?.isLoading && <OptionLoader />}
