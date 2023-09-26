@@ -13,7 +13,8 @@ const CreateContentOutline = ({ handleClose, paramValue }) => {
         initialValues: {
             'title': "",
             'title_bn': "",
-            'content_id': paramValue,
+            'content_id': paramValue?.content_id,
+            'content_subject_id': paramValue?.content_subject_id,
             'class_level_id': '',
             'subject_id': '',
             'chapter_id': '',
@@ -30,7 +31,8 @@ const CreateContentOutline = ({ handleClose, paramValue }) => {
             let formData = new FormData()
             formData.append('title', values.title);
             formData.append('title_bn', values.title_bn);
-            formData.append('content_id', values.content_id);
+            formData.append('content_id', paramValue?.content_id);
+            formData.append('content_subject_id', paramValue?.content_subject_id);
             formData.append('class_level_id', values.class_level_id);
             formData.append('subject_id', values.subject_id);
             formData.append('chapter_id', values.chapter_id);

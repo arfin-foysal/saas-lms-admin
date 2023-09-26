@@ -163,10 +163,11 @@ const ContentList = () => {
                     >
                       <FaEdit size={16} /> Edit
                   </button>
+
                   <Link
                    className="px-2 d-flex mx-1 align-items-center btn btn-success btn-sm"
-                    to={`/dashboard/schooladmin/content-outline-list/${row?.row?.original?.id}`}><BsEyeFill size={17} /> Outline </Link>
-            
+                    to={`/dashboard/schooladmin/content-subject-assign-list/${row?.row?.original?.id}`}><BsEyeFill size={17} /> Subject </Link>
+                  
                 </div>
               </>
             )}

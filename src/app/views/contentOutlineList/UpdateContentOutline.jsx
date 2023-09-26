@@ -9,6 +9,7 @@ import { useEffect } from "react";
 const UpdateContentOutline = ({ handleClose, paramValue }) => {
     const [contentType, setContentType] = useState('');
     const [contentOutlineSaveOrUpdate, res] = useContentOutlineSaveOrUpdateMutation();
+    
     const formik = useFormik({
         initialValues: {
             'id': paramValue?.id,
@@ -18,6 +19,7 @@ const UpdateContentOutline = ({ handleClose, paramValue }) => {
             'class_level_id': paramValue?.class_level_id,
             'subject_id': paramValue?.subject_id,
             'chapter_id': paramValue?.chapter_id,
+            'content_subject_id': paramValue?.content_subject_id,
             'chapter_script_id': paramValue?.chapter_script_id,
             'chapter_video_id': paramValue?.chapter_video_id,
             'chapter_quiz_id': paramValue?.chapter_quiz_id,
@@ -33,6 +35,7 @@ const UpdateContentOutline = ({ handleClose, paramValue }) => {
             formData.append('title', values.title);
             formData.append('title_bn', values.title_bn);
             formData.append('content_id', values.content_id);
+            formData.append('content_subject_id', values.content_subject_id);
             formData.append('class_level_id', values.class_level_id);
             formData.append('subject_id', values.subject_id);
             formData.append('chapter_id', values.chapter_id);

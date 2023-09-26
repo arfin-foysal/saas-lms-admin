@@ -32,6 +32,7 @@ import AssignmentList from "../app/views/assignmentList/AssignmentList";
 import QuizSubjectList from "../app/views/quizSubjectList/QuizSubjectList";
 import QuizWrittenQuestionList from "../app/views/quizWrittenQuestion/QuizWrittenQuestionList";
 import EnrollMentList from "../app/views/enrollMentList/EnrollMentList";
+import ContentSubjectAssignList from "../app/views/contentSubjectAssign/contentSubjectAssignList";
 
 export const privateRoute = [
   {
@@ -135,7 +136,7 @@ export const privateRoute = [
     role: "SchoolAdmin",
   },
   {
-    path: "schooladmin/content-outline-list/:id",
+    path: "schooladmin/content-outline-list/:id/:cid",
     element: <ContentOutlineList/>,
     role: "SchoolAdmin",
   },
@@ -157,6 +158,11 @@ export const privateRoute = [
   {
     path: "schooladmin/course-mentor-assign-list/:id",
     element: <CourseMentorList/>,
+    role: "SchoolAdmin",
+  },
+  {
+    path: "schooladmin/content-subject-assign-list/:id",
+    element: <ContentSubjectAssignList/>,
     role: "SchoolAdmin",
   },
   {
