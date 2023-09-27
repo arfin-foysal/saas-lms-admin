@@ -116,10 +116,10 @@ const ContentSubjectAssignList = () => {
                   >
                  <FaEdit size={18} />  Edit 
                   </button>
-                  <Link
+                  {/* <Link
                    className="px-2 d-flex mx-1 align-items-center btn btn-success btn-sm"
                     to={`/dashboard/schooladmin/content-outline-list/${row?.row?.original?.id}/${id}`}><BsEyeFill size={17} />  Outline
-                  </Link>
+                  </Link> */}
 
                 </div>
                 <div>

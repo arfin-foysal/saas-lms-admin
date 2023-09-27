@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { useGetChapterListBySubjectIdQuery, useGetClassListQuery, useGetSubjectListByClassIdQuery, useQuizCreateOrUpdateMutation, } from "../../../services/contentApi";
+import { useGetChapterListBySubjectIdQuery, useGetClassListQuery, useGetQuizTypeListQuery, useGetSubjectListByClassIdQuery, useQuizCreateOrUpdateMutation, } from "../../../services/contentApi";
 import OptionLoader from "../../components/OptionLoader";
 const UpdateQuiz
     = ({ handleClose,paramValue }) => {
@@ -15,6 +15,7 @@ const UpdateQuiz
                 title_bn: paramValue?.title_bn,
                 description: paramValue?.description,
                 class_level_id: paramValue?.class_level_id,
+                quiz_type_id: paramValue?.quiz_type_id,
                 subject_id: paramValue?.subject_id,
                 chapter_id: paramValue?.chapter_id,
                 duration: paramValue?.duration,
@@ -33,6 +34,7 @@ const UpdateQuiz
                 formData.append("title_bn", values.title_bn);
                 formData.append("description", values.description);
                 formData.append("class_level_id", values.class_level_id);
+                formData.append("quiz_type_id", values.quiz_type_id);
                 formData.append("subject_id", values.subject_id);
                 formData.append("chapter_id", values.chapter_id);
                 formData.append("duration", values.duration);
@@ -56,6 +58,7 @@ const UpdateQuiz
             formik.values.class_level_id : 0)
         const chapterRes = useGetChapterListBySubjectIdQuery(formik.values.subject_id ?
             formik.values.subject_id : 0)
+           const quizTypeRes = useGetQuizTypeListQuery()
 
         const handelFocus = (name) => {
             if (name === "class_level_id") {
@@ -104,7 +107,32 @@ const UpdateQuiz
                                 />
                             </div>
                         </div>
-                        <div className="form-group col-4 my-1">
+                        <div className="form-group col-3 my-1">
+                            <label className="col-12 col-form-label">Quiz Type <span className=" text-danger">*</span></label>
+                            <div className="col-12">
+                                <select
+                                    className="form-control form-select"
+                                    name="quiz_type_id"
+                                    onChange={(e) => {
+                                        formik.handleChange(e);
+                                        // handelFocus(e.target.name, e.target.value);
+                                    }}
+                                    value={formik.values.quiz_type_id}
+                                    required
+                                >
+                                    <option value="" disabled selected hidden> --Select-- </option>
+                                    {quizTypeRes?.isLoading && (
+                                        <OptionLoader />
+                                    )}
+                                    {quizTypeRes?.data?.data?.map((item) => (
+                                        <option key={item.id} value={item.id}>
+                                            {item.name}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
+                        <div className="form-group col-3 my-1">
                             <label className="col-12 col-form-label">Class <span className=" text-danger">*</span></label>
                             <div className="col-12">
                                 <select
@@ -129,7 +157,7 @@ const UpdateQuiz
                                 </select>
                             </div>
                         </div>
-                        <div className="form-group col-4 my-1">
+                        <div className="form-group col-3 my-1">
                             <label className="col-12 col-form-label">Subject  <span className=" text-danger">*</span></label>
                             <div className="col-12">
                                 <select
@@ -151,7 +179,7 @@ const UpdateQuiz
                                 </select>
                             </div>
                         </div>
-                        <div className="form-group col-4 my-1">
+                        <div className="form-group col-3 my-1">
                             <label className="col-12 col-form-label">Chapter  <span className=" text-danger">*</span></label>
                             <div className="col-12">
                                 <select

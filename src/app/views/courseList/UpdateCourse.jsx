@@ -125,7 +125,7 @@ const UpdateCourse = ({ handleClose,paramValue }) => {
 
                         </div>
                     </div>
-                    <div className="form-group col-4 my-1">
+                    {/* <div className="form-group col-4 my-1">
                         <label className="col-12 col-form-label">Course Type <span className=" text-danger">*</span></label>
                         <div className="col-12">
                             <select
@@ -143,7 +143,7 @@ const UpdateCourse = ({ handleClose,paramValue }) => {
                             </select>
 
                         </div>
-                    </div>
+                    </div> */}
 
                     <div className="form-group col-4 my-1">
                         <label className="col-12 col-form-label">Youtube URL</label>

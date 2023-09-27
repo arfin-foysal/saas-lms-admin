@@ -304,6 +304,13 @@ export const contentApi = apiSliceAdmin.injectEndpoints({
       }),
       providesTags: ["Content"],
     }),
+    getQuizTypeList: builder.query({
+      query: () => ({
+        url: "admin/quiz-type-list",
+        method: "GET",
+      }),
+      providesTags: ["Content"],
+    }),
     getContentOutlineByContentId: builder.query({
       query: (id) => ({
         url: `admin/content-outline-list/${id}`,
@@ -365,4 +372,5 @@ export const {
   useDeleteQuestionMutation,
   useGetContentSubjectListQuery,
   useContentSubjectAssignSaveOrUpdateMutation,
+  useGetQuizTypeListQuery,
 } = contentApi;
