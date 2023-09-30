@@ -19,7 +19,7 @@ export const courseApi = apiSliceAdmin.injectEndpoints({
       }),
       providesTags: ["Course", "Resource"],
     }),
-  
+
     getCourseListForMapping: builder.query({
       query: () => ({
         url: "admin/course-list-for-mapping",
@@ -27,7 +27,6 @@ export const courseApi = apiSliceAdmin.injectEndpoints({
       }),
       providesTags: ["Course", "Resource"],
     }),
-
 
     courseCreateOrUpdate: builder.mutation({
       query: (body) => {
@@ -99,7 +98,7 @@ export const courseApi = apiSliceAdmin.injectEndpoints({
       }),
       invalidatesTags: ["Course"],
     }),
-   deleteCourseStudentMapping: builder.mutation({
+    deleteCourseStudentMapping: builder.mutation({
       query: (id) => ({
         url: `admin/course-student-mapping-delete/${id}`,
         method: "DELETE",
@@ -137,7 +136,7 @@ export const courseApi = apiSliceAdmin.injectEndpoints({
       },
       invalidatesTags: ["Course"],
     }),
-   studentMappingSaveOrUpdate: builder.mutation({
+    studentMappingSaveOrUpdate: builder.mutation({
       query: (body) => {
         return {
           url: `admin/student-mapping-save-or-update`,
@@ -147,7 +146,7 @@ export const courseApi = apiSliceAdmin.injectEndpoints({
       },
       invalidatesTags: ["Course"],
     }),
- 
+
     getFeatureListbyCourseId: builder.query({
       query: (id) => ({
         url: `admin/feature-list/${id}`,
@@ -169,7 +168,7 @@ export const courseApi = apiSliceAdmin.injectEndpoints({
       }),
       providesTags: ["Course"],
     }),
-   
+
     deleteFeature: builder.mutation({
       query: (id) => ({
         url: `admin/delete-feature/${id}`,
@@ -202,6 +201,20 @@ export const courseApi = apiSliceAdmin.injectEndpoints({
       query: () => ({
         url: "admin/course-type",
         method: "GET",
+      }),
+      providesTags: ["Course"],
+    }),
+
+    getCompletedClassList: builder.query({
+      query: ({ mentor_id, student_id, from, to }) => ({
+        url: "admin/completed-class-list",
+        method: "GET",
+        params: {
+          mentor_id,
+          student_id,
+          from,
+          to,
+        },
       }),
       providesTags: ["Course"],
     }),
@@ -262,5 +275,5 @@ export const {
   useGetCourseTypeListQuery,
   useGetEnrollmentListQuery,
   useCourseFreeEnrollmentMutation,
-
+  useGetCompletedClassListQuery,
 } = courseApi;

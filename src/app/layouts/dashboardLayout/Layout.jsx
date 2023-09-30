@@ -188,7 +188,7 @@ const Layout = () => {
                 <div className={
                   isOpen ? "d-none" : "logout_icon mt-1 ms-2"
                 } >
-                  <MdLogout size={20} onClick={toggle} />
+                  <MdLogout size={20} onClick={toggle}  className="text-primary" />
                 </div>
                 <div className="mt-1 ms-2  ">
                   {isOpen && (
@@ -200,7 +200,7 @@ const Layout = () => {
                         exit="hidden"
                         className="link_text mt-1 ms-2 fw-lighter"
                       >
-                        <p> <MdLogout size={20} className="mb-1" /> Logout  </p>
+                        <p> <MdLogout size={20}  className="mb-1 text-primary" /> Logout  </p>
                       </motion.h6>
 
                     </span>

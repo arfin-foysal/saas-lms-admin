@@ -1,7 +1,7 @@
 import { BiBook, BiCategory, BiPurchaseTag, BiSolidRightArrowAlt, BiUser } from "react-icons/bi";
 import { BsGear, BsMenuButtonWide } from "react-icons/bs";
 import { LiaExpandArrowsAltSolid, LiaUserEditSolid, LiaUserGraduateSolid } from "react-icons/lia";
-import { MdAssignment, MdOutlineAssignment, MdOutlinePayment } from "react-icons/md";
+import { MdAssignment, MdClass, MdOutlineAssignment, MdOutlinePayment } from "react-icons/md";
 
 
 export const navItem = [
@@ -264,6 +264,13 @@ export const navItem = [
     link: "schooladmin/enrollment-list",
     role: "SchoolAdmin",
     icon: <LiaExpandArrowsAltSolid/>,
+  },
+  
+  {
+    title: "Completed Class List",
+    link: "schooladmin/completed-class-list",
+    role: "SchoolAdmin",
+    icon: <MdClass size="18"/>,
   },
   
   {

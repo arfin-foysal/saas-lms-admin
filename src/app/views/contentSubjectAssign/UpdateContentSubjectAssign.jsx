@@ -2,7 +2,6 @@ import { useFormik } from "formik";
 import { Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { memo } from 'react';
-import { useMentorAssignSaveOrUpdateMutation } from "../../../services/courseApi";
 import { useContentSubjectAssignSaveOrUpdateMutation } from "../../../services/contentApi";
 
 const UpdateContentSubjectAssign = ({ handleClose, paramValue }) => {
@@ -18,8 +17,6 @@ const UpdateContentSubjectAssign = ({ handleClose, paramValue }) => {
             'content_name': paramValue.content_name,
             'class_name': paramValue.class_name,
             'subject_name': paramValue.subject_name,
-           
-
         },
         onSubmit: async (values, { resetForm }) => {
             resetForm();
@@ -69,8 +66,6 @@ const UpdateContentSubjectAssign = ({ handleClose, paramValue }) => {
                             <span className="text-danger">
                                 Note </span>
                             : Class is not editable !
-
-
                         </small>
                     </div>
                     <div className="form-group col-6 my-1">
