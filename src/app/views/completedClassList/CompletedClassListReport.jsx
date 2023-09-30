@@ -176,7 +176,7 @@ const CompletedClassListReport = () => {
                       isClearable
                       menuPortalTarget={document.body}
                       styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
-                      placeholder="Select Class"
+                      placeholder="Select Mentor"
                       isLoading={mentorRes?.isFetching}
                       onChange={(e) => {
                         formik.setFieldValue("mentorId", e)
@@ -194,7 +194,7 @@ const CompletedClassListReport = () => {
                       isClearable
                       menuPortalTarget={document.body}
                       styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
-                      placeholder="Select Subject"
+                      placeholder="Select Student"
                       isLoading={studentRes?.isFetching}
                       onChange={(e) => {
                         formik.setFieldValue("studentId", e)
