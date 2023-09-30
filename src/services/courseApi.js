@@ -206,10 +206,11 @@ export const courseApi = apiSliceAdmin.injectEndpoints({
     }),
 
     getCompletedClassList: builder.query({
-      query: ({ mentor_id, student_id, from, to }) => ({
+      query: ({ course_id, mentor_id, student_id, from, to }) => ({
         url: "admin/completed-class-list",
         method: "GET",
         params: {
+          course_id,
           mentor_id,
           student_id,
           from,

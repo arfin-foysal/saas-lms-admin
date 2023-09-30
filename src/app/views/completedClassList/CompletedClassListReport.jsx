@@ -6,14 +6,15 @@ import { tableColor } from "../../../utils/Theme";
 import { BsArrowRightShort } from "react-icons/bs";
 import Select from "react-select";
 import { useFormik } from "formik";
-import { useGetCompletedClassListQuery } from "../../../services/courseApi";
-import { useGetMentorListForFilterQuery, useGetStudentListForFilterByMentorQuery } from "../../../services/commonApi";
+import { useGetCompletedClassListQuery, useGetCourseListQuery } from "../../../services/courseApi";
+import { useGetCourseListForFilterQuery, useGetMentorListForFilterQuery, useGetStudentListForFilterByMentorQuery } from "../../../services/commonApi";
 import moment from "moment";
 import { BiTime } from "react-icons/bi";
 
 const CompletedClassListReport = () => {
   const formik = useFormik({
     initialValues: {
+      courseId: 0,
       mentorId:0,
       studentId:0,
       from: "",
@@ -28,7 +29,10 @@ const CompletedClassListReport = () => {
     },
   });
 
-  const mentorRes = useGetMentorListForFilterQuery();
+  const courseRes = useGetCourseListForFilterQuery();  
+  const mentorRes = useGetMentorListForFilterQuery(
+    { course_id: formik.values.courseId?.id ? formik.values.courseId?.id : 0 }
+  );
   const studentRes = useGetStudentListForFilterByMentorQuery({
     mentor_id: formik.values.mentorId?.id ? formik.values.mentorId?.id : 0,
   }
@@ -36,6 +40,7 @@ const CompletedClassListReport = () => {
   );
 
   const res = useGetCompletedClassListQuery({
+    course_id: formik.values.courseId?.id ? formik.values.courseId?.id : 0,
     mentor_id: formik.values.mentorId?.id ? formik.values.mentorId?.id : 0,
     student_id: formik.values.studentId?.id ? formik.values.studentId?.id : 0,
     from: formik.values.from,
@@ -44,14 +49,19 @@ const CompletedClassListReport = () => {
   const { data, isSuccess, isFetching, isError } = res;
 
 
-  const handleChangeValue = (e) => {
+  const handleChangeValue0 = (e) => {
+    formik.setFieldValue('mentorId', '');
     formik.setFieldValue('studentId', '');
-    formik.setFieldValue('subjectId', '');
     formik.setFieldValue('from', '');
     formik.setFieldValue('to', '');
   }
+  const handleChangeValue = (e) => {
+    formik.setFieldValue('studentId', '');
+    formik.setFieldValue('from', '');
+    formik.setFieldValue('to', '');
+ 
+  }
   const handleChangeValue1 = (e) => {
-    formik.setFieldValue('chapterId', '');
     formik.setFieldValue('from', '');
     formik.setFieldValue('to', '');
   }
@@ -171,6 +181,23 @@ const CompletedClassListReport = () => {
               renderTopToolbarCustomActions={() => (
              
                   <div className="col-8 gap-1 d-flex justify-content-start ">
+                    <Select
+                      className="w-100"
+                      isClearable
+                      menuPortalTarget={document.body}
+                      styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+                      placeholder="Select Course"
+                      isLoading={courseRes?.isFetching}
+                      onChange={(e) => {
+                        formik.setFieldValue("courseId", e)
+                        handleChangeValue0(e)
+                      }}
+                      getOptionLabel={option => option.title}
+                      getOptionValue={option => option.id}
+                      options={courseRes?.data?.data}
+                      name="courseId"
+                      value={formik.values.courseId}
+                    />
                     <Select
                       className="w-100"
                       isClearable

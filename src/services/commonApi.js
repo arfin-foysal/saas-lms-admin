@@ -29,10 +29,23 @@ export const commonApi = apiSliceAdmin.injectEndpoints({
       }),
       providesTags: ["Common"],
     }),
-    getMentorListForFilter: builder.query({
+    getCourseListForFilter: builder.query({
       query: () => ({
+        url: "admin/course-list-for-filter",
+        method: "GET",
+        headers,
+      }),
+      providesTags: ["Common","Course"],
+    }),
+    getMentorListForFilter: builder.query({
+      query: ({
+        course_id,
+      }) => ({
         url: "admin/mentor-list-for-filter",
         method: "GET",
+        params: {
+          course_id,
+        },
         headers,
       }),
       providesTags: ["Common"],
@@ -74,6 +87,8 @@ export const {
   useGetAreaListQuery,
   useGetMentorListForFilterQuery,
   useGetStudentListForFilterByMentorQuery,
+  useGetCourseListForFilterQuery,
+ 
   
 
 } = commonApi;
