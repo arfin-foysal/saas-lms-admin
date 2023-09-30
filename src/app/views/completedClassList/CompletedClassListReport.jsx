@@ -1,21 +1,21 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import PageTopHeader from '../../components/PageTopHeader';
 import MaterialReactTable from "material-react-table";
 import Loader from "../../components/Loader";
 import { tableColor } from "../../../utils/Theme";
 import { BsArrowRightShort } from "react-icons/bs";
 import Select from "react-select";
-import { BiReset, BiTime } from "react-icons/bi";
 import { useFormik } from "formik";
 import { useGetCompletedClassListQuery } from "../../../services/courseApi";
 import { useGetMentorListForFilterQuery, useGetStudentListForFilterByMentorQuery } from "../../../services/commonApi";
 import moment from "moment";
+import { BiTime } from "react-icons/bi";
 
 const CompletedClassListReport = () => {
   const formik = useFormik({
     initialValues: {
-      mentorId: "",
-      studentId: "",
+      mentorId:0,
+      studentId:0,
       from: "",
       to: "",
     },
@@ -86,7 +86,7 @@ const CompletedClassListReport = () => {
         accessorFn: (row) => (
           <>
             <span>
-              {moment(row?.schedule_datetime).format("MMMM Do YYYY")}
+              {moment(row?.schedule_datetime).format("MMMM Do YYYY, h:mm a")}
 
             </span>
           </>
@@ -99,7 +99,7 @@ const CompletedClassListReport = () => {
         accessorFn: (row) => (
           <>
             <span>
-              {moment(row?.start_time).format("MMMM Do YYYY")}
+              {moment(row?.start_time).format("MMMM Do YYYY, h:mm a")}
 
             </span>
           </>
@@ -112,7 +112,7 @@ const CompletedClassListReport = () => {
         accessorFn: (row) => (
           <>
             <span>
-              {moment(row?.end_time).format("MMMM Do YYYY")}
+              {moment(row?.end_time).format("MMMM Do YYYY, h:mm a")}
 
             </span>
           </>
