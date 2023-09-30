@@ -130,8 +130,8 @@ const CompletedClassListReport = () => {
             </span>
           </>
         ),
-        id: "duration",
-        header: "Duration",
+        id: "total_minutes",
+        header: "Total ( Min )",
         size: 200
       }
 
@@ -153,29 +153,24 @@ const CompletedClassListReport = () => {
         <div className="card border shadow-lg ">
           <div className="card-header d-flex justify-content-between ">
             <div>Completed Class List</div>
-
-            <div className="col-2 text-white  fs-6 bg-danger badge ">
-            {
-                    data?.data?.total_time &&  (
-                        <div > 
+            <div className="text-white  fs-6 bg-danger badge ">
+              {
+                data?.data?.total_time && (
+                  <div >
                     <BiTime size="18" /> <span className="mt-2">
                       Total Time :  {data?.data?.total_time}
                     </span>
-             
                   </div>
-                    )
-                  }
-                
-              </div>
-
-
+                )
+              }
+            </div>
           </div>
 
           <div className="card-body p-0">
             <MaterialReactTable
               renderTopToolbarCustomActions={() => (
-                <div className="row">
-                  <div className="gap-1 d-flex justify-content-start ">
+             
+                  <div className="col-8 gap-1 d-flex justify-content-start ">
                     <Select
                       className="w-100"
                       isClearable
@@ -220,9 +215,8 @@ const CompletedClassListReport = () => {
 
 
                   </div>
-              
 
-                </div>
+
               )}
               columns={columns}
               data={isSuccess ? data?.data?.list : []}
