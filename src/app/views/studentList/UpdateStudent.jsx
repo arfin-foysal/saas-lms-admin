@@ -88,10 +88,11 @@ const UpdateStudent = ({ handleClose, paramValue }) => {
             formData.append('is_active', values.is_active ? 1 : 0);
             formData.append('rating', values.rating);
 
-            resetForm();
+           
             try {
                 const result = await studentSaveOrUpdate(formData).unwrap();
                 toast.success(result.message);
+                resetForm();
             } catch (error) {
                 toast.warn(error.data.message);
             }
@@ -161,7 +162,7 @@ const UpdateStudent = ({ handleClose, paramValue }) => {
                         <div className="col-12">
                             <input
                                 placeholder="Enter Contact no"
-                                type="number"
+                                type="text"
                                 className="form-control"
                                 name="contact_no"
                                 onChange={formik.handleChange}
@@ -175,7 +176,7 @@ const UpdateStudent = ({ handleClose, paramValue }) => {
                         <div className="col-12">
                             <input
                                 placeholder="Enter Alternative Contact No"
-                                type="alternative_contact_no"
+                                type="text"
                                 className="form-control"
                                 name="alternative_contact_no"
                                 onChange={formik.handleChange}

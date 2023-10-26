@@ -25,7 +25,7 @@ const CreateStudentMapping = ({ handleClose, paramValue, assData }) => {
             let arr = [];
             allMapping.map((item, index) => {
                 arr.push({
-                    "mentor_id": item.mentor_id?.id,
+                    "mentor_id": item.mentor_id?.mentor_id,
                     "course_id": item.course_id?.id,
                     "student_id": item.student_id?.id,
                     "is_active": item.is_active
@@ -62,10 +62,13 @@ const CreateStudentMapping = ({ handleClose, paramValue, assData }) => {
         }
 
         if (allMapping.length > 0) {
+
             const isExist = allMapping.find((item) =>
                 item.student_id?.id === formik.values.student_id?.id &&
-                item.mentor_id?.id === formik.values.mentor_id?.id &&
-                item.course_id?.id === formik.values.course_id?.id)
+                item.course_id?.id === formik.values.course_id?.id&&
+                item.mentor_id?.mentor_id === formik.values.mentor_id?.mentor_id
+            )
+                
             if (isExist) {
                 toast.warn("This mapping already selected");
                 return;
@@ -75,31 +78,8 @@ const CreateStudentMapping = ({ handleClose, paramValue, assData }) => {
         if (assData.length > 0) {
             const isExist = assData.find((item) =>
                 item.student_id === formik.values.student_id?.id &&
-                item.mentor_id === formik.values.mentor_id?.id &&
+                item.mentor_id === formik.values.mentor_id?.mentor_id&&
                 item.course_id === formik.values.course_id?.id)
-            if (isExist) {
-                toast.warn("This mapping already exist in this course");
-                return;
-            }
-        }
-
-        //same course and same student and not same mentor
-        if (allMapping.length > 0) {
-            const isExist = allMapping.find((item) =>
-                item.student_id?.id === formik.values.student_id?.id &&
-                item.course_id?.id === formik.values.course_id?.id &&
-                item.mentor_id?.id !== formik.values.mentor_id?.id)
-            if (isExist) {
-                toast.warn("This mapping already selected");
-                return;
-            }
-        }
-
-        if (assData.length > 0) {
-            const isExist = assData.find((item) =>
-                item.student_id === formik.values.student_id?.id &&
-                item.course_id === formik.values.course_id?.id &&
-                item.mentor_id !== formik.values.mentor_id?.id)
             if (isExist) {
                 toast.warn("This mapping already exist in this course");
                 return;

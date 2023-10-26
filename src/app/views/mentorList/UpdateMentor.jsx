@@ -94,10 +94,11 @@ const UpdateMentor = ({ handleClose, paramValue }) => {
             formData.append('rating', values.rating);
             formData.append('approval_date', values.approval_date);
             formData.append('host_rank_number', values.host_rank_number);
-            resetForm();
+            
             try {
                 const result = await mentorSaveOrUpdate(formData).unwrap();
                 toast.success(result.message);
+                resetForm();
             } catch (error) {
                 toast.warn(error.data.message);
             }
@@ -172,7 +173,7 @@ const UpdateMentor = ({ handleClose, paramValue }) => {
                         <div className="col-12">
                             <input
                                 placeholder="Enter Contact no"
-                                type="number"
+                                type="text"
                                 className="form-control"
                                 name="contact_no"
                                 onChange={formik.handleChange}
@@ -186,7 +187,7 @@ const UpdateMentor = ({ handleClose, paramValue }) => {
                         <div className="col-12">
                             <input
                                 placeholder="Enter Alternative Contact No"
-                                type="alternative_contact_no"
+                                type="text"
                                 className="form-control"
                                 name="alternative_contact_no"
                                 onChange={formik.handleChange}

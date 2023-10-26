@@ -39,24 +39,24 @@ const StudentMappingList = () => {
         </>,
         id: "index",
         header: "SL",
-        size: "5"
+        size: "10"
       },
 
       {
         accessorKey: "course_title",
         header: "Course",
-        size: "5"
+     
       },
 
       {
         accessorKey: "mentor_name",
         header: "Mentor",
-        size: "5"
+       
       },
         {
           accessorKey: "student_name",
           header: "Student",
-          size: "5"
+     
         },
 
     ],

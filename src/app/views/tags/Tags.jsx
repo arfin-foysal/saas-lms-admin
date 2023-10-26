@@ -1,6 +1,6 @@
 // src/components/TagsInput.js
 import { useState } from 'react'
-import './tags.scss'
+import './Tags.scss'
 import PageTopHeader from '../../components/PageTopHeader'
 import { useGetTagsListQuery, useTagsCreateOrUpdateMutation, useTagsDeleteMutation } from '../../../services/masterSettingsApi';
 import Loader from '../../components/Loader';
