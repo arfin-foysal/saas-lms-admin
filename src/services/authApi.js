@@ -51,9 +51,17 @@ export const authApi = apiSliceAdmin.injectEndpoints({
       invalidatesTags: ["Auth"],
     }),
 
-
-
-
+    passwordReset: builder.mutation({
+      query: (body) => {
+        return {
+          url: `admin/password-reset`,
+          method: "POST",
+          body: body,
+          headers,
+        };
+      },
+      invalidatesTags: ["Auth"],
+    }),
   }),
 });
 
@@ -63,7 +71,9 @@ export const {
   useLogoutMutation,
   useChangePasswordMutation,
   useUpdatePasswordMutation,
-  useClientLoginMutation
+  usePasswordResetMutation,
 
+
+  
 
 } = authApi;

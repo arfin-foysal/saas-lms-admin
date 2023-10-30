@@ -7,6 +7,7 @@ import { FiPlusCircle } from "react-icons/fi";
 import { tableColor } from "../../../utils/Theme";
 import MenuModal from "./MentorModal";
 import { useGetAllMentorQuery } from "../../../services/resourceApi";
+import { FcUnlock } from "react-icons/fc";
 const MentorList = () => {
   const res = useGetAllMentorQuery();
   const { data, isSuccess, isFetching, isError } = res;
@@ -140,6 +141,17 @@ const MentorList = () => {
                       }}
                     >
                       <FaEdit size={16} /> Edit
+                  </button>
+                  <button
+                      onClick={() => {
+                        handleShow();
+                        handelClickValue("Password Reset");
+                        setParam(row?.row?.original);
+                        setSize("sm")
+                      }}
+                      className="px-2 d-flex align-items-center btn btn-warning btn-sm"
+                    >
+                  <FcUnlock />  Reset
                     </button>
                   <div>
                   </div>

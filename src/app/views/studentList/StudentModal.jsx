@@ -4,11 +4,10 @@ import Modal from "react-bootstrap/Modal";
 import { modalColor } from "../../../utils/Theme";
 import CreateStudent from "./CreateStudent";
 import UpdateStudent from "./UpdateStudent";
+import PasswordUpdate from "../passwordReset/PasswordUpdate";
 
+const StudentModal = ({ handleClose, show, clickValue, paramValue, size }) => {
 
-
-
-const StudentModal = ({ handleClose, show, clickValue, paramValue,size }) => {
     return (
         <>
             <Modal show={show} onHide={handleClose} size={size}>
@@ -28,7 +27,10 @@ const StudentModal = ({ handleClose, show, clickValue, paramValue,size }) => {
                         <UpdateStudent handleClose={handleClose} paramValue={paramValue} />
                     )
                     }
-          
+                       {clickValue === "Password Reset" && (
+                        <PasswordUpdate handleClose={handleClose} paramValue={paramValue} />
+                    )
+                    }
                 </Modal.Body>
             </Modal>
         </>

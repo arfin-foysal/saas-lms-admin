@@ -3,6 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import { modalColor } from "../../../utils/Theme";
 import CreateClass from "./CreateMentor";
 import UpdateClass from "./UpdateMentor";
+import PasswordUpdate from "../passwordReset/PasswordUpdate";
 
 const MentorModal = ({ handleClose, show, clickValue, paramValue,size }) => {
     return (
@@ -22,6 +23,10 @@ const MentorModal = ({ handleClose, show, clickValue, paramValue,size }) => {
                     }
                     {clickValue === "Update Mentor" && (
                         <UpdateClass handleClose={handleClose} paramValue={paramValue} />
+                    )
+                    }
+                           {clickValue === "Password Reset" && (
+                        <PasswordUpdate handleClose={handleClose} paramValue={paramValue} />
                     )
                     }
                 </Modal.Body>
