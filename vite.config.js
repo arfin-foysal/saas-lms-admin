@@ -5,7 +5,11 @@ import { VitePWA } from "vite-plugin-pwa";
 export default defineConfig({
   server: {
     proxy: {
-      "/api": "http://api-cms.bacbonx.com.com/api/",
+      '/api': {
+        target: 'http://api-cms.bacbonx.com/api/',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
     }  
   } ,
   plugins: [
