@@ -7,6 +7,7 @@ const CreateStudent = ({ handleClose }) => {
     const [studentSaveOrUpdate, res] = useStudentSaveOrUpdateMutation();
     const formik = useFormik({
         initialValues: {
+            'student_id': '',
             'name': '',
             'email': '',
             'password': '',
@@ -44,11 +45,13 @@ const CreateStudent = ({ handleClose }) => {
             'is_foreigner': true,
             'is_active': true,
             'rating': '',
+            
 
         },
 
         onSubmit: async (values, { resetForm }) => {
             let formData = new FormData();
+            formData.append('student_id', values.student_id);
             formData.append('name', values.name);
             formData.append('email', values.email);
             formData.append('username', values.username);
@@ -157,6 +160,20 @@ const CreateStudent = ({ handleClose }) => {
                                 name="username"
                                 onChange={formik.handleChange}
                                 value={formik.values.username}
+                                required
+                            />
+                        </div>
+                    </div>
+                    <div className="form-group col-4 my-1">
+                        <label className="col-12 col-form-label">Student ID<span className=" text-danger">*</span></label>
+                        <div className="col-12">
+                            <input
+                                placeholder="Enter Student ID"
+                                type="text"
+                                className="form-control"
+                                name="student_id"
+                                onChange={formik.handleChange}
+                                value={formik.values.student_id}
                                 required
                             />
                         </div>
@@ -493,7 +510,39 @@ const CreateStudent = ({ handleClose }) => {
                         </div>
                     </div>
                   
-      
+                    <div className="form-group col-4 my-1">
+                        <label className="col-12 col-form-label">Status</label>
+                        <div className="col-12">
+                            <select
+                                className="form-control"
+                                name="status"
+                                onChange={formik.handleChange}
+                                value={formik.values.status}
+
+                            >
+                                <option value="Pending" disabled selected hidden> --Select-- </option>
+                                <option value="Active">Active</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Suspended">Suspended</option>
+                                <option value="On-Hold">On-Hold</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className="form-group col-4 my-1">
+                        <label className="col-12 col-form-label">Rating <span className=" text-danger">*</span></label>
+                        <div className="col-12">
+                            <input
+                                placeholder="Enter Rating"
+                                type="number"
+                                max="5"
+                                className="form-control"
+                                name="rating"
+                                onChange={formik.handleChange}
+                                value={formik.values.rating}
+                                required
+                            />
+                        </div>
+                    </div>
 
                     <div className="form-group col-3 my-1">
                         <label className="col-12 col-form-label">Division </label>
@@ -610,7 +659,7 @@ const CreateStudent = ({ handleClose }) => {
                             />
                         </div>
                     </div>
-                    <div className="form-group  col-4 my-1">
+                    <div className="form-group  col-12 my-1">
                         <label className="col-12 col-form-label">Image</label>
                         <div className="col-12">
                             <input
@@ -625,39 +674,7 @@ const CreateStudent = ({ handleClose }) => {
                             />
                         </div>
                     </div>
-                    <div className="form-group col-4 my-1">
-                        <label className="col-12 col-form-label">Status</label>
-                        <div className="col-12">
-                            <select
-                                className="form-control"
-                                name="status"
-                                onChange={formik.handleChange}
-                                value={formik.values.status}
-
-                            >
-                                <option value="Pending" disabled selected hidden> --Select-- </option>
-                                <option value="Active">Active</option>
-                                <option value="Pending">Pending</option>
-                                <option value="Suspended">Suspended</option>
-                                <option value="On-Hold">On-Hold</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div className="form-group col-4 my-1">
-                        <label className="col-12 col-form-label">Rating <span className=" text-danger">*</span></label>
-                        <div className="col-12">
-                            <input
-                                placeholder="Enter Rating"
-                                type="number"
-                                max="5"
-                                className="form-control"
-                                name="rating"
-                                onChange={formik.handleChange}
-                                value={formik.values.rating}
-                                required
-                            />
-                        </div>
-                    </div>
+                    
                     <div className="form-group col-12 my-1">
                         <label className="col-12 col-form-label">Bio </label>
                         <div className="col-12">

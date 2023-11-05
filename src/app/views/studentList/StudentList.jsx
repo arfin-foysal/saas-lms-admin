@@ -13,15 +13,10 @@ const StudentList = () => {
   const { data, isSuccess, isFetching, isError } = res;
   const [clickValue, setClickValue] = useState(null);
   const [param, setParam] = useState(null);
-
   const [size, setSize] = useState("lg")
-
-  
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
-
 
   const handelClickValue = useCallback((value) => {
     setClickValue(value);
@@ -29,39 +24,25 @@ const StudentList = () => {
 
   const columns = useMemo(
     () => [  
+      { 
+        accessorKey: "student_id", 
+        header: "Student ID",
+    },
 
         {
           accessorKey: "name", 
           header: "Name",
-        },
+      },
+  
+        
         {
           accessorKey: "username", 
           header: "Username",
-        },
-      
+      },
       {
-        accessorFn: (row) =>
-          row && (
-            <>
-              <span className=" fw-bolder">
-              {row?.email}
-              </span>
-              <br/>
-              <span className=" fw-bolder">
-              {row?.contact_no}
-              </span>
-            </>
-          ) ,
-
-        id: "email",
-        header: "Email",
-        size: "10"
-      },{
-          accessorKey: "organization_slug", 
-          header: "Organization",
-        },
-
-
+        accessorKey: "contact_no", 
+        header: "Contact no",
+      },
       {
         accessorFn: (row) =>
           row?.status && (

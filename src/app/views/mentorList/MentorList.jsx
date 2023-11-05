@@ -50,10 +50,7 @@ const MentorList = () => {
         id: "email",
         header: "Email",
         size: "10"
-      },{
-          accessorKey: "organization_slug", 
-          header: "Organization",
-        },
+      },
 
 
       {
