@@ -57,7 +57,22 @@ const StudentMappingList = () => {
           accessorKey: "student_name",
           header: "Student",
      
-        },
+      },
+        
+      {
+        accessorFn: (row) =>
+          row?.is_active === true ? (
+            <>
+              <span className="badge bg-success">Active</span>
+            </>
+          ) : (
+            <span className="badge bg-warning">Inactive</span>
+          ),
+
+        id: "Status",
+        header: "Status",
+        size: "10"
+      },
 
     ],
     []

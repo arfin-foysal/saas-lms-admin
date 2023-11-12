@@ -51,12 +51,12 @@ const CompletedClassListReport = () => {
 
   const handleChangeValue0 = (e) => {
     formik.setFieldValue('mentorId', '');
-    formik.setFieldValue('studentId', '');
+    // formik.setFieldValue('studentId', '');
     formik.setFieldValue('from', '');
     formik.setFieldValue('to', '');
   }
   const handleChangeValue = (e) => {
-    formik.setFieldValue('studentId', '');
+    // formik.setFieldValue('studentId', '');
     formik.setFieldValue('from', '');
     formik.setFieldValue('to', '');
  
@@ -225,7 +225,7 @@ const CompletedClassListReport = () => {
                       isLoading={studentRes?.isFetching}
                       onChange={(e) => {
                         formik.setFieldValue("studentId", e)
-                        handleChangeValue1(e)
+                        // handleChangeValue1(e)
                       }
                       }
                       getOptionLabel={option => option.name}
