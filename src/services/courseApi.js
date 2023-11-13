@@ -11,7 +11,6 @@ export const courseApi = apiSliceAdmin.injectEndpoints({
       }),
       providesTags: ["Course"],
     }),
-
     getStudentList: builder.query({
       query: () => ({
         url: "admin/student-list",
@@ -277,4 +276,5 @@ export const {
   useGetEnrollmentListQuery,
   useCourseFreeEnrollmentMutation,
   useGetCompletedClassListQuery,
+  useGetHistoryDownloadQuery,
 } = courseApi;

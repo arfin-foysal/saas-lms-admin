@@ -6,10 +6,11 @@ import { tableColor } from "../../../utils/Theme";
 import { BsArrowRightShort } from "react-icons/bs";
 import Select from "react-select";
 import { useFormik } from "formik";
+import { CSVLink} from 'react-csv';
 import { useGetCompletedClassListQuery, useGetCourseListQuery } from "../../../services/courseApi";
 import { useGetCourseListForFilterQuery, useGetMentorListForFilterQuery, useGetStudentListForFilterByMentorQuery } from "../../../services/commonApi";
 import moment from "moment";
-import { BiTime } from "react-icons/bi";
+import { BiDownload, BiTime } from "react-icons/bi";
 
 const CompletedClassListReport = () => {
   const formik = useFormik({
@@ -60,10 +61,6 @@ const CompletedClassListReport = () => {
     formik.setFieldValue('from', '');
     formik.setFieldValue('to', '');
  
-  }
-  const handleChangeValue1 = (e) => {
-    formik.setFieldValue('from', '');
-    formik.setFieldValue('to', '');
   }
 
   const columns = useMemo(
@@ -150,6 +147,18 @@ const CompletedClassListReport = () => {
     ],
     []
   );
+  
+  const headers = [
+    { label: "Course", key: "course_title" },
+    { label: "Mentor", key: "mentor_name" },
+    { label: "Student", key: "student_name" },
+    { label: "Student Mobile", key: "student_contact_no" },
+    { label: "Start Time", key: "start_time" },
+    { label: "End Time", key: "end_time" },
+    { label: "Total Minutes", key: "total_minutes" }
+  ];
+
+
 
   return (
     <>
@@ -163,9 +172,14 @@ const CompletedClassListReport = () => {
         <div className="card border shadow-lg ">
           <div className="card-header d-flex justify-content-between ">
             <div>Completed Class List</div>
+            <div>
+
+           
+          
             <div className="text-white  fs-6 bg-danger badge ">
               {
-                data?.data?.total_time && (
+                data?.data?.total_time !==
+                "0:0:0" && (
                   <div >
                     <BiTime size="18" /> <span className="mt-2">
                       Total Time :  {data?.data?.total_time}
@@ -173,8 +187,17 @@ const CompletedClassListReport = () => {
                   </div>
                 )
               }
-            </div>
-          </div>
+            </div>  
+
+              {
+                data?.data?.list?.length > 0 && (
+                  <CSVLink className="btn btn-info mx-1"  data={isSuccess ? data?.data?.list : []} headers={headers}
+              filename={"CompletedClassList.csv"}
+            ><BiDownload/> Exports</CSVLink>)
+              }
+
+              
+          </div> </div>
 
           <div className="card-body p-0">
             <MaterialReactTable
