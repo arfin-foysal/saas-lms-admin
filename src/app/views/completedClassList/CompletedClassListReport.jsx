@@ -106,7 +106,7 @@ const CompletedClassListReport = () => {
         accessorFn: (row) => (
           <>
             <span>
-              {moment(row?.start_time).format("MMMM Do YYYY, h:mm a")}
+              {moment(row?.start_time_gmt).format("MMMM Do YYYY, h:mm a")}
 
             </span>
           </>
@@ -119,7 +119,7 @@ const CompletedClassListReport = () => {
         accessorFn: (row) => (
           <>
             <span>
-              {moment(row?.end_time).format("MMMM Do YYYY, h:mm a")}
+              {moment(row?.end_time_gmt).format("MMMM Do YYYY, h:mm a")}
 
             </span>
           </>
@@ -153,8 +153,8 @@ const CompletedClassListReport = () => {
     { label: "Mentor", key: "mentor_name" },
     { label: "Student", key: "student_name" },
     { label: "Student Mobile", key: "student_contact_no" },
-    { label: "Start Time", key: "start_time" },
-    { label: "End Time", key: "end_time" },
+    { label: "Start Time", key: "start_time_gmt" },
+    { label: "End Time", key: "end_time_gmt" },
     { label: "Total Minutes", key: "total_minutes" }
   ];
 
