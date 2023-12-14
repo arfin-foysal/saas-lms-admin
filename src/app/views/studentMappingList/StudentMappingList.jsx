@@ -8,6 +8,7 @@ import { tableColor } from "../../../utils/Theme";
 import MenuModal from "./StudentMappingModal";
 import { confirmHandel } from "../../../utils/Alert";
 import { toast } from "react-toastify";
+import moment from "moment";
 import {useDeleteCourseStudentMappingMutation, useGetStudentMappingListQuery } from "../../../services/courseApi";
 
 
@@ -58,6 +59,20 @@ const StudentMappingList = () => {
           header: "Student",
      
       },
+      {
+        accessorFn: (row) => <>
+          <span >
+            {/* {row?.created_at?.split("T")[0]} <br /> */}
+            {moment(row?.created_at).format("MMMM Do YYYY, h:mm a")}
+          </span>
+        
+
+        </>,
+        id: "created_at",
+        header: "Created At",
+        size: "10"
+      },
+
         
       {
         accessorFn: (row) =>
