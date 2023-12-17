@@ -725,7 +725,7 @@ const CreateStudent = ({ handleClose }) => {
                 </div>
                 <Modal.Footer>
 
-                    <button className="btn btn-dark me-2 btn-sm" onClick={handleClose}>
+                    <button className="btn btn-dark me-2 btn-sm" type="button" onClick={handleClose}>
                         Close
                     </button>
 

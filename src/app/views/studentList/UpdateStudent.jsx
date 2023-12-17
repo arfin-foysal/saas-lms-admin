@@ -117,9 +117,9 @@ const UpdateStudent = ({ handleClose, paramValue }) => {
         formik.setFieldValue('area_id', '')
     }
 
-    // if (res.isSuccess) {
-    //     handleClose();
-    // }
+    if (res.isSuccess) {
+        handleClose();
+    }
 
 
     return (
@@ -669,7 +669,7 @@ const UpdateStudent = ({ handleClose, paramValue }) => {
                 </div>
                 <Modal.Footer>
 
-                    <button className="btn btn-dark me-2 btn-sm" onClick={handleClose}>
+                    <button className="btn btn-dark me-2 btn-sm" type="button"  onClick={handleClose}>
                         Close
                     </button>
 
